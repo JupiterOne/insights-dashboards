@@ -1,9 +1,24 @@
 # insights-dashboards
 
-This repo contains a set of sample dashboards in JSON format can be easily imported into JupiterOne Insights app.
+This repo contains a set of sample dashboards in JSON format can be easily
+imported into JupiterOne Insights app.
+
+## AWS Accounts
+
+description... 
+
+> Prerequisite: This requires AWS integrations and works best with multiple AWS
+> accounts configured using AWS Organizations.
+
 
 ## Data Breach Cost
 
-> Prerequisite: This requires a DLP service to be enabled and integrated, such as Amazon Macie.
+description... 
+
+> Prerequisite: This requires a DLP service to be enabled and integrated, such
+> as Amazon Macie.
 
 ![screenshot-data-breach-costs](screenshots/data-breach-cost.png)
+
+## Vendor Management
+
