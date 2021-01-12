@@ -1,0 +1,248 @@
+{
+	"widgets": [
+		{
+			"id": "cc370174-6798-432a-add1-4504fa087b8d",
+			"title": "S3 Buckets without SecureTransport Enabled",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_s3_bucket with secureTransport != true as bucket\nreturn bucket.tag.AccountName as name, count(bucket) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "ee2c5789-c910-4457-8fbe-39309708e2ee",
+			"title": "Non-public buckets exposed publicly",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_s3_bucket \n  with classification != 'public' and\n    ignorePublicAcls != true and \n    restrictPublicBuckets != true\n  as bucket\nthat ALLOWS as grant everyone \nreturn \n  bucket.displayName, bucket.tag.AccountName, bucket.classification,\n  grant.permission, grant.granteeType, grant.granteeURI"
+					}
+				]
+			}
+		},
+		{
+			"id": "54c80212-3453-452e-a111-7f0b75f06f92",
+			"title": "S3 buckets granted full access to someone other than the owner account",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_s3_bucket as bucket \n  that ALLOWS as grant * as grantee\nwhere \n  grant.permission='FULL_CONTROL' and bucket.ownerId != grantee.canonicalUserId \nreturn tree\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "297f0dda-bc65-40b4-8238-f353f3c67e9d",
+			"title": "S3 buckets containing CloudTrail Logs",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find aws_s3_bucket that (logs|allows) aws_cloudtrail \n"
+					}
+				]
+			}
+		},
+		{
+			"id": "515018d4-a567-41a4-916d-785ed655bf84",
+			"title": "Unencrypted S3 buckets containing CloudTrail logs",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find aws_s3_bucket with encrypted!=true that (logs|allows) aws_cloudtrail \n"
+					}
+				]
+			}
+		},
+		{
+			"id": "1f64c628-e4e2-4c89-8079-a663e7f5c46c",
+			"title": "S3 buckets containing CloudTrail Logs",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find aws_s3_bucket that (logs|allows) aws_cloudtrail \nreturn count(aws_s3_bucket) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"default": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "b1fcc976-5346-419c-a58b-a85524fd0ea9",
+			"title": "Unencrypted S3 buckets containing CloudTrail Logs",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find aws_s3_bucket with encrypted!=true that (logs|allows) aws_cloudtrail \nreturn count(aws_s3_bucket) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "35aa7da2-6e18-4497-a674-ff4e23922e9c",
+			"title": "Non-public S3 buckets exposed via public facing EC2 instances",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find Internet \n  that allows aws_security_group \n  that protects aws_instance with active=true \n  that uses aws_iam_role that assigned AccessPolicy \n  that allows (aws_s3|aws_s3_bucket) with classification!='public' \nreturn tree\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "3860e31a-d240-45dc-ac54-62078c6252de",
+			"title": "Top 10 largest (most expensive) S3 buckets",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find aws_s3_bucket as bucket \nreturn \n  bucket.name, bucket.tag.AccountName, \n  bucket.numberOfObjects, bucket.bucketSizeBytes, \n  bucket.bucketSizeBytes / 1000000000 * 0.023 as monthlyCost,\n  bucket.lifecycleEnabled, bucket.retentionPeriod, bucket.webLink\norder by bucket.bucketSizeBytes DESC limit 10\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "cc6dc323-b098-4e15-878c-17c87cfe39a6",
+			"title": "S3 buckets hosting static content for CloudFront distribution (CDN)",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_cloudfront_distribution that connects aws_s3_bucket\nreturn tree\n"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"w": 4,
+				"h": 3,
+				"x": 0,
+				"y": 0,
+				"i": "cc370174-6798-432a-add1-4504fa087b8d",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 8,
+				"h": 3,
+				"x": 4,
+				"y": 0,
+				"i": "ee2c5789-c910-4457-8fbe-39309708e2ee",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 4,
+				"x": 0,
+				"y": 3,
+				"i": "54c80212-3453-452e-a111-7f0b75f06f92",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 3,
+				"x": 3,
+				"y": 10,
+				"i": "297f0dda-bc65-40b4-8238-f353f3c67e9d",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 2,
+				"x": 3,
+				"y": 13,
+				"i": "515018d4-a567-41a4-916d-785ed655bf84",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 3,
+				"x": 0,
+				"y": 10,
+				"i": "1f64c628-e4e2-4c89-8079-a663e7f5c46c",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 0,
+				"y": 13,
+				"i": "b1fcc976-5346-419c-a58b-a85524fd0ea9",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 4,
+				"x": 6,
+				"y": 3,
+				"i": "35aa7da2-6e18-4497-a674-ff4e23922e9c",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 15,
+				"i": "3860e31a-d240-45dc-ac54-62078c6252de",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 3,
+				"x": 0,
+				"y": 7,
+				"i": "cc6dc323-b098-4e15-878c-17c87cfe39a6",
+				"moved": false,
+				"static": false
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
