@@ -1,0 +1,232 @@
+{
+	"widgets": [
+		{
+			"id": "5b9f79e7-e7ab-4c3f-8e94-516e0b78fe3b",
+			"title": "Classification by Resource Type",
+			"type": "matrix",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND (DataStore|Host) as ds\nRETURN\n  ds.classification AS x,\n  ds._type AS y,\n  count(ds) as resources"
+					}
+				]
+			}
+		},
+		{
+			"id": "93c2be60-a2ef-4681-8ec6-592b6615b5d7",
+			"title": "Resource Classification",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND (DataStore|Host) as ds\nRETURN\n  ds.classification AS name,\n  count(ds) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "d25a7181-473b-4b24-a930-6b32b927bb68",
+			"title": "Classification by Account",
+			"type": "matrix",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND (DataStore|Host) as ds\nRETURN\n  ds.classification AS x,\n  ds.tag.AccountName AS y,\n  count(ds) as resources"
+					}
+				]
+			}
+		},
+		{
+			"id": "875c07ac-d035-4b98-a5d1-98ee4acd24f7",
+			"title": "Unclassified Hosts in Production",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find Host with classification = undefined and tag.Production=true\nreturn count(Host) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"warning": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "2f64e013-03e0-41b5-8281-d22a12683952",
+			"title": "Unclassified Data Stores in Production",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find DataStore with classification = undefined and tag.Production=true\nreturn count(DataStore) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"warning": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "841686ed-d0d4-46e1-85b6-1bbbc528e884",
+			"title": "Unclassified Hosts in Production",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find Host with classification = undefined and tag.Production=true"
+					}
+				]
+			}
+		},
+		{
+			"id": "4ba80551-fb57-4047-83f2-c36653f696d2",
+			"title": "Unclassified Data Stores in Production",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find DataStore with classification = undefined and tag.Production=true\n"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [
+			{
+				"x": 0,
+				"h": 2,
+				"i": "5b9f79e7-e7ab-4c3f-8e94-516e0b78fe3b",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "93c2be60-a2ef-4681-8ec6-592b6615b5d7",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "d25a7181-473b-4b24-a930-6b32b927bb68",
+				"y": 1000000000000,
+				"w": 2
+			}
+		],
+		"xs": [],
+		"lg": [
+			{
+				"static": false,
+				"w": 5,
+				"moved": false,
+				"h": 3,
+				"x": 3,
+				"y": 0,
+				"i": "5b9f79e7-e7ab-4c3f-8e94-516e0b78fe3b"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 0,
+				"i": "93c2be60-a2ef-4681-8ec6-592b6615b5d7"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 3,
+				"x": 8,
+				"y": 0,
+				"i": "d25a7181-473b-4b24-a930-6b32b927bb68"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 3,
+				"i": "875c07ac-d035-4b98-a5d1-98ee4acd24f7"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 6,
+				"i": "2f64e013-03e0-41b5-8281-d22a12683952"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 3,
+				"x": 3,
+				"y": 3,
+				"i": "841686ed-d0d4-46e1-85b6-1bbbc528e884"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 3,
+				"x": 3,
+				"y": 6,
+				"i": "4ba80551-fb57-4047-83f2-c36653f696d2"
+			}
+		],
+		"xl": [],
+		"md": [
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "5b9f79e7-e7ab-4c3f-8e94-516e0b78fe3b"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "93c2be60-a2ef-4681-8ec6-592b6615b5d7"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "d25a7181-473b-4b24-a930-6b32b927bb68"
+			}
+		]
+	}
+}

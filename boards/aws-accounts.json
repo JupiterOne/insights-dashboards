@@ -1,0 +1,261 @@
+{
+	"widgets": [
+		{
+			"id": "39e8c4ac-66ac-442f-890b-8d613daf9d57",
+			"title": "Internal AWS Organization sub-accounts",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_account with _source!='system-mapper' and master!=true as a\nreturn a.accountId, a.displayName, a.description, a.email, a.mfaEnabled, a.mfaTokenSerial\norder by a.displayName"
+					}
+				]
+			}
+		},
+		{
+			"id": "c4b6fc77-f8b2-4bef-8092-f5aafa1a2b52",
+			"title": "Sandbox AWS Accounts",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_account with _source='system-mapper' as a\nthat has aws_account\nreturn a.accountId, a.displayName, a.orgAccountName, a.email\norder by a.displayName"
+					}
+				]
+			}
+		},
+		{
+			"id": "6d442eea-2404-4053-b8b1-ee7ab3e94d8b",
+			"title": "External Vendor AWS accounts",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_account with _source='system-mapper' as a\nthat !has aws_account\nreturn a.accountId, a.displayName, a.validated"
+					}
+				]
+			}
+		},
+		{
+			"id": "85247439-d5cc-4bf8-ac8d-71bb12c64f0e",
+			"title": "AWS Master Account",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_account with master=true as a\nreturn a.accountId, a.displayName, a.description, a.email, a.mfaEnabled\norder by a.displayName"
+					}
+				]
+			}
+		},
+		{
+			"id": "397f5108-a367-4c86-ab14-4d1d1cd01d54",
+			"title": "AWS Organization Sub-Accounts",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_account with _source!='system-mapper' and master!=true as a\nreturn count(a) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "3db4b0a1-bc42-4302-9b84-ea3eece9ce87",
+			"title": "AWS Sandbox Accounts",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_account with master=true\nthat has aws_account with _source='system-mapper' as a\nreturn count(a) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "d80ca0be-1524-42a2-94de-800d7444ac1a",
+			"title": "Validated External Vendor Accounts",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_account with _source='system-mapper' and validated=true as a\nthat !has aws_account\nreturn count(a) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"warning": {
+							"limitCondition": "greaterThan",
+							"val1": "0"
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "076193c7-1bea-43f7-a699-0669fe151abf",
+			"title": "Unvalidated External Vendor Accounts",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_account with _source='system-mapper' and validated!=true as a\nthat !has aws_account\nreturn count(a) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": "0"
+						}
+					}
+				}
+			}
+		}
+	],
+	"layouts": {
+		"sm": [
+			{
+				"x": 0,
+				"h": 2,
+				"i": "39e8c4ac-66ac-442f-890b-8d613daf9d57",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "c4b6fc77-f8b2-4bef-8092-f5aafa1a2b52",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "6d442eea-2404-4053-b8b1-ee7ab3e94d8b",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "85247439-d5cc-4bf8-ac8d-71bb12c64f0e",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "397f5108-a367-4c86-ab14-4d1d1cd01d54",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "3db4b0a1-bc42-4302-9b84-ea3eece9ce87",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "d80ca0be-1524-42a2-94de-800d7444ac1a",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "076193c7-1bea-43f7-a699-0669fe151abf",
+				"y": 1000000000000,
+				"w": 2
+			}
+		],
+		"xs": [],
+		"lg": [
+			{
+				"static": false,
+				"w": 10,
+				"moved": false,
+				"h": 2,
+				"x": 2,
+				"y": 1,
+				"i": "39e8c4ac-66ac-442f-890b-8d613daf9d57"
+			},
+			{
+				"static": false,
+				"w": 10,
+				"moved": false,
+				"h": 2,
+				"x": 2,
+				"y": 3,
+				"i": "c4b6fc77-f8b2-4bef-8092-f5aafa1a2b52"
+			},
+			{
+				"static": false,
+				"w": 8,
+				"moved": false,
+				"h": 2,
+				"x": 4,
+				"y": 5,
+				"i": "6d442eea-2404-4053-b8b1-ee7ab3e94d8b"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 1,
+				"x": 0,
+				"y": 0,
+				"i": "85247439-d5cc-4bf8-ac8d-71bb12c64f0e"
+			},
+			{
+				"static": false,
+				"w": 2,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 1,
+				"i": "397f5108-a367-4c86-ab14-4d1d1cd01d54"
+			},
+			{
+				"static": false,
+				"w": 2,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 3,
+				"i": "3db4b0a1-bc42-4302-9b84-ea3eece9ce87"
+			},
+			{
+				"static": false,
+				"w": 2,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 5,
+				"i": "d80ca0be-1524-42a2-94de-800d7444ac1a"
+			},
+			{
+				"static": false,
+				"w": 2,
+				"moved": false,
+				"h": 2,
+				"x": 2,
+				"y": 5,
+				"i": "076193c7-1bea-43f7-a699-0669fe151abf"
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}

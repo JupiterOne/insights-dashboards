@@ -1,0 +1,166 @@
+{
+	"widgets": [
+		{
+			"id": "c5619a89-456c-41b5-b0aa-543867cc8d08",
+			"title": "Top OAuth Users",
+			"type": "bar",
+			"config": {
+				"queries": [
+					{
+						"name": "Vendors",
+						"query": "find Vendor as v that allows AccessKey that assigned User as u return u.name as x, count(v) as y order by y desc limit 8"
+					}
+				]
+			}
+		},
+		{
+			"id": "b1fdd971-5744-4f8a-baed-cc3b2c7fd573",
+			"title": "Total Vendors",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "Vendors",
+						"query": "Find Vendor as v return count(v) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"default": {
+							"limitCondition": "lessThan",
+							"val1": 10
+						},
+						"success": {
+							"limitCondition": "between",
+							"val1": 10,
+							"val2": 35
+						},
+						"warning": {
+							"limitCondition": "between",
+							"val1": 36,
+							"val2": 75
+						},
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 75
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "dbb9e611-2a11-4bbd-8e2f-d49eea6ef4ee",
+			"title": "Unvalidated Vendors",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "Vendors",
+						"query": "Find Vendor with validated=false as v return count(v) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"default": {
+							"limitCondition": "lessThanOrEqualTo",
+							"val1": 3
+						},
+						"success": {
+							"limitCondition": "between",
+							"val1": 4,
+							"val2": 8
+						},
+						"warning": {
+							"limitCondition": "between",
+							"val1": 9,
+							"val2": 15
+						},
+						"error": {
+							"limitCondition": "greaterThanOrEqualTo",
+							"val1": 16
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "a70dfab7-ecd7-454a-a220-f5ee1f29c0ca",
+			"title": "Top 20 OAuth Apps by Usage",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find Vendor as v that allows AccessKey that assigned User as u return v.name as name, count(u) as value ORDER by value DESC LIMIT 20"
+					}
+				]
+			}
+		},
+		{
+			"id": "a51c1a02-d687-4ddc-b142-de002ad187a4",
+			"title": "Unvalidated Vendors",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "Vendors",
+						"query": "Find Vendor with validated=false ORDER by Vendor._createdOn DESC"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "c5619a89-456c-41b5-b0aa-543867cc8d08",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 2,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "b1fdd971-5744-4f8a-baed-cc3b2c7fd573",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 2,
+				"h": 2,
+				"x": 2,
+				"y": 0,
+				"i": "dbb9e611-2a11-4bbd-8e2f-d49eea6ef4ee",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 8,
+				"h": 2,
+				"x": 4,
+				"y": 0,
+				"i": "a70dfab7-ecd7-454a-a220-f5ee1f29c0ca",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 3,
+				"x": 0,
+				"y": 4,
+				"i": "a51c1a02-d687-4ddc-b142-de002ad187a4",
+				"moved": false,
+				"static": false
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
