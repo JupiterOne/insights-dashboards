@@ -47,7 +47,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find aws_account with master=true as a\nreturn a.accountId, a.displayName, a.description, a.email, a.mfaEnabled, a.mfaTokenSerial\norder by a.displayName"
+						"query": "Find aws_account with master=true as a\nreturn a.accountId, a.displayName, a.description, a.email, a.mfaEnabled\norder by a.displayName"
 					}
 				]
 			}

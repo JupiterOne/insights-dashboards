@@ -1,0 +1,149 @@
+{
+	"widgets": [
+		{
+			"id": "b0eb0585-aa7b-4a3d-9eac-34189d7f1e0d",
+			"title": "Open Risks",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query0",
+						"query": "Find Risk with open=true as r\nreturn count(r) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"val1": "3"
+						},
+						"warning": {
+							"limitCondition": "greaterThan",
+							"val1": "0"
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "fad00736-46b4-4401-9b7d-dc37cab1a359",
+			"title": "Accepted Risk",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find Risk with \n    status=('accepted' or 'Accepted' or 'transfered' or 'Transfered') as r\nreturn count(r) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "281975be-11c9-40c5-8f65-c2c9b2d37c0f",
+			"title": "Mitigated Risk",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find Risk with status=('mitigated' or 'Mitigated') as r\nreturn count(r) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"success": {
+							"limitCondition": "greaterThan",
+							"val1": "0"
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "95c6cd8b-2519-4c74-9cc2-674b0075d894",
+			"title": "Risks Open >1yr",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find Risk with \n  open=true and (updatedOn < date.now-1yr or \n  (updatedOn = undefined and createdOn < date.now-1yr)) as r\nreturn count(r) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": "0"
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "0e8a01c4-cf06-4b3f-beeb-1966a43d4e2d",
+			"title": "Open Risks",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND Risk WITH open = true RETURN Risk.name, Risk.description, Risk.probability, Risk.impact, Risk.level, Risk.assignee, Risk.webLink"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "b0eb0585-aa7b-4a3d-9eac-34189d7f1e0d"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 9,
+				"y": 0,
+				"i": "fad00736-46b4-4401-9b7d-dc37cab1a359"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 6,
+				"y": 0,
+				"i": "281975be-11c9-40c5-8f65-c2c9b2d37c0f"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 0,
+				"i": "95c6cd8b-2519-4c74-9cc2-674b0075d894"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 2,
+				"i": "0e8a01c4-cf06-4b3f-beeb-1966a43d4e2d"
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
