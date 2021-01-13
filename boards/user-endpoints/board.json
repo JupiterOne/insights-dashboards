@@ -1,0 +1,174 @@
+{
+	"widgets": [
+		{
+			"id": "27a9f964-ec4a-4dd9-911d-9e99ee5cdfd5",
+			"title": "Endpoint agent protection status",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query0",
+						"query": "Find HostAgent with active=true as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.active as name,\n  count(agent) as value"
+					},
+					{
+						"name": "query1",
+						"query": "Find HostAgent with active=false as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.active as name,\n  count(agent) as value"
+					},
+					{
+						"name": "query2",
+						"query": "Find HostAgent with active=undefined as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.active as name,\n  count(agent) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "29263916-6b14-42b2-82d6-d7468920c685",
+			"title": "Number of users without an assigned device",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query0",
+						"query": "Find Person as p that !owns Device return count(p) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "311eb5b3-f2b5-4227-b2d2-18549dfc0b82",
+			"title": "User Devices by Location",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find HostAgent as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.lastLocation as name,\n  count(agent) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "8e97ea26-0669-49f7-8937-19febc8ebf9a",
+			"title": "User Devices by OS",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find user_endpoint as d\nreturn\n  d.osName as name,\n  count(d) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "99dd8dff-4134-46c4-8f0e-3b7dcbfd07b5",
+			"title": "Devices not seen for >7 days",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find HostAgent with lastReportedTime < date.now - 7days as d\n  that (monitors|manages|protects) (Host|Device)\nReturn \n  d.displayName as device, \n  d.lastReportedTime as lastSeenOn, \n  d.email as owner"
+					}
+				]
+			}
+		},
+		{
+			"id": "31a80290-8d25-4705-8220-10861191c527",
+			"title": "User Devices by OS and Version",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find user_endpoint as d\nreturn\n  d.osName as osName,\n  d.osVersion as osVersion,\n  count(d) as deviceCount"
+					}
+				]
+			}
+		},
+		{
+			"id": "ba81c0e4-e425-4666-a78e-09fa7aaf5ef0",
+			"title": "Endpoint Encryption Status",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find user_endpoint as d\nreturn d.encrypted as name, count(d) as value"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 4,
+				"y": 4,
+				"i": "27a9f964-ec4a-4dd9-911d-9e99ee5cdfd5"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "29263916-6b14-42b2-82d6-d7468920c685"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "311eb5b3-f2b5-4227-b2d2-18549dfc0b82"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "8e97ea26-0669-49f7-8937-19febc8ebf9a"
+			},
+			{
+				"static": false,
+				"w": 8,
+				"moved": false,
+				"h": 2,
+				"x": 4,
+				"y": 0,
+				"i": "99dd8dff-4134-46c4-8f0e-3b7dcbfd07b5"
+			},
+			{
+				"static": false,
+				"w": 8,
+				"moved": false,
+				"h": 2,
+				"x": 4,
+				"y": 2,
+				"i": "31a80290-8d25-4705-8220-10861191c527"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 8,
+				"y": 4,
+				"i": "ba81c0e4-e425-4666-a78e-09fa7aaf5ef0"
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}

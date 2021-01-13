@@ -1,0 +1,270 @@
+{
+	"widgets": [
+		{
+			"id": "0f10330f-7587-4216-8743-48b3a2156c0e",
+			"title": "Users assigned \"Support\" role to AWS",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query0",
+						"query": "Find okta_user as u that assigned aws_iam_role with name='Support'\nreturn\n  u.name as Name,\n  u.email as Email"
+					}
+				]
+			}
+		},
+		{
+			"id": "2f32d784-62e1-4e61-a4d4-411800e7e35f",
+			"title": "Users assigned AWS Admin Access",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "'admin' with _type='aws_iam_role' as r that assigned okta_user as u \nreturn r._type, r.name, u._type, u.name"
+					}
+				]
+			}
+		},
+		{
+			"id": "e52f89d1-9b8a-4e2e-8bd8-4ea6be3d8852",
+			"title": "Number of IAM Roles by Account",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_iam_role as role\n  return role.tag.AccountName as name, count(role) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "3fb7564f-b120-4d59-ac44-6e4fcb238481",
+			"title": "Number of IAM Users by Account",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_iam_user as user\n  return user.tag.AccountName as name, count(user) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "0c4c846f-6d3d-468d-81be-d408f82dbdc1",
+			"title": "AWS User or Role with inline policies",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find (User|AccessRole) as u\n  that (has|assigned) (aws_iam_user_policy|aws_iam_role_policy) as p\n  return u.tag.AccountName, u._type, u.name, p.name\n  order by u.tag.AccountName"
+					}
+				]
+			}
+		},
+		{
+			"id": "40982e7a-f5ce-4d31-ac02-d90e1da7f543",
+			"title": "Number of IAM groups by Account",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_iam_group as group\n  return group.tag.AccountName as name, count(group) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "672f82ce-3a15-4f50-a0ed-a438cc45cbf7",
+			"title": "AWS policy assignment to Okta Users",
+			"type": "bar",
+			"config": {
+				"queries": [
+					{
+						"name": "query0",
+						"query": "Find okta_user as user that assigned aws_iam_role as role that assigned aws_iam_policy as policy\nreturn policy.displayName as x, count(user) as y"
+					}
+				]
+			}
+		},
+		{
+			"id": "51c4e0a2-8acb-4a60-94fb-b7a6e25f5ddb",
+			"title": "Users or Roles assigned Admin Access Policy",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find AccessPolicy with admin=true as policy \n  that ASSIGNED * as entity\nreturn\n  entity._type, entity.displayName, entity.webLink,\n  policy.tag.AccountName as account,\n  policy.displayName, policy.webLink"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 3,
+				"x": 8,
+				"y": 2,
+				"i": "0f10330f-7587-4216-8743-48b3a2156c0e"
+			},
+			{
+				"static": false,
+				"w": 7,
+				"moved": false,
+				"h": 2,
+				"x": 5,
+				"y": 8,
+				"i": "2f32d784-62e1-4e61-a4d4-411800e7e35f"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 8,
+				"y": 0,
+				"i": "e52f89d1-9b8a-4e2e-8bd8-4ea6be3d8852"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 4,
+				"y": 0,
+				"i": "3fb7564f-b120-4d59-ac44-6e4fcb238481"
+			},
+			{
+				"static": false,
+				"w": 8,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 2,
+				"i": "0c4c846f-6d3d-468d-81be-d408f82dbdc1"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "40982e7a-f5ce-4d31-ac02-d90e1da7f543"
+			},
+			{
+				"static": false,
+				"w": 5,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "672f82ce-3a15-4f50-a0ed-a438cc45cbf7"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 5,
+				"i": "51c4e0a2-8acb-4a60-94fb-b7a6e25f5ddb"
+			}
+		],
+		"xl": [],
+		"md": [
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "0"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "1"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "2"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 6,
+				"i": "3"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "4"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "5"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 12,
+				"i": "6"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 14,
+				"i": "7"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 16,
+				"i": "8"
+			}
+		]
+	}
+}
