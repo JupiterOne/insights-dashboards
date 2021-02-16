@@ -1,0 +1,85 @@
+{
+	"widgets": [
+		{
+			"id": "6ad084c9-685f-4ff4-9f16-60eada53abaf",
+			"title": "Users have incomplete training",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find unique Training as t \nthat assigned as enrollment User as u \nwhere enrollment.completedOn = undefined \nreturn t.displayName as name, count(u) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "b850107e-1fef-4a38-9ee0-18bc1d76ca10",
+			"title": "Users completed assigned training",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find Training as t \nthat assigned as enrollment User as u \nwhere enrollment.completedOn != undefined \nreturn t.displayName as name, count(u) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "41a2bc5f-fd73-4d7c-b9a3-de283a9a860c",
+			"title": "Users have not completed assigned training",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find unique Training as t \nthat assigned as enrollment User as u \nwhere enrollment.completedOn = undefined \nreturn u.displayName, u.email, t.displayName"
+					}
+				]
+			}
+		},
+		{
+			"id": "7d9249f1-5989-4936-9c00-c60425f9de4c",
+			"title": "Assigned Security Awareness Trainings",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query 1",
+						"query": "Find training_campaign as c that HAS training_module as m that ASSIGNED \nUser as u return m.displayName as Training, c.completionPercentage as percentComplete, count(u) as assignedUsers"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"x": 0,
+				"h": 2,
+				"i": "6ad084c9-685f-4ff4-9f16-60eada53abaf",
+				"y": 0,
+				"w": 6
+			},
+			{
+				"x": 6,
+				"h": 2,
+				"i": "b850107e-1fef-4a38-9ee0-18bc1d76ca10",
+				"y": 0,
+				"w": 6
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "41a2bc5f-fd73-4d7c-b9a3-de283a9a860c",
+				"y": 2,
+				"w": 12
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
