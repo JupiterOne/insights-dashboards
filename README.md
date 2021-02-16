@@ -14,8 +14,11 @@ List of dashboards:
 - [High Risk Assets](boards/high-risk-assets/)
 - [Resource Classification](boards/resource-classification/)
 - [Risk Register](boards/risk-register/)
+- [Software Package Dependencies and Licenses](boards/code-deps-licenses/)
+- [Team Growth](boards/team-growth/)
 - [User Access](boards/user-access/)
 - [User Endpoints](boards/user-endpoints/)
+- [User Training](boards/user-training/)
 - [Vendor Management](boards/vendor-mgmt/)
 
 ## Importing a dashboard to your J1 account
