@@ -20,6 +20,7 @@ List of dashboards:
 - [User Endpoints](boards/user-endpoints/)
 - [User Training](boards/user-training/)
 - [Vendor Management](boards/vendor-mgmt/)
+- [Vulnerability Reporting](boards/vuln-reporting/)
 
 ## Importing a dashboard to your J1 account
 
