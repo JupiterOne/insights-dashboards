@@ -6,7 +6,7 @@ Publisher: JupiterOne
 
 ![sample-screenshot](board.png)
 
-This dashboards presents multiple operational and reporting metrics to help
+This dashboard presents multiple operational and reporting metrics to help
 with vulnerability management. It aggregates findings and risks across both
 infrastructure and application development, identifies the highest risk items
 by context, such as findings impacting production workloads and applications
@@ -25,4 +25,3 @@ from other ticketing systems.
 > - application code repos (GitHub / GitLab / Bitbucket)
 > - infrastrustructure vulnerability scanners (AWS Inspector / Qualys / Tenable / etc.)
 > - code scanners (Snyk / Veracode / Rapid7 / etc.)
-
