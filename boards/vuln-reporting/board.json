@@ -1,0 +1,447 @@
+{
+	"widgets": [
+		{
+			"id": "349fc061-44dd-4ef4-bad0-e474d23c621e",
+			"title": "Opening Vuln Findings by Severity",
+			"type": "bar",
+			"config": {
+				"queries": [
+					{
+						"name": "query0",
+						"query": "Find (Vulnerability|Finding) with open=true as v\nreturn\n  v.severity as x,\n  count(v) as y"
+					}
+				]
+			}
+		},
+		{
+			"id": "f56853dc-aace-4e9b-8e79-561deb4736e3",
+			"title": "Threats by Attack Source (GuardDuty)",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "attackSource",
+						"query": "Find aws_guardduty_finding as f\n  return f.attackSource as name, count(f) as value"
+					},
+					{
+						"name": "undefined",
+						"query": "Find aws_guardduty_finding with attackSource=undefined as f\n  return f.tag.AccountName as name, count(f) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "5754519b-a4a1-4360-8737-4124976be4fe",
+			"title": "Threats by Attack Target (GuardDuty)",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_guardduty_finding as f\n  return f.targets as name, count(f) as value\n  order by value desc limit 25"
+					}
+				]
+			}
+		},
+		{
+			"id": "0b6ec497-5270-479e-8873-a836b5e0e451",
+			"title": "Threats by Attack Target Type",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find (Application|Host|Project|CodeRepo) as t that has Finding as f\n  return t._type as name, count(f) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "6a90569c-1161-4f88-a35f-a83815195318",
+			"title": "Top 10 CWEs",
+			"type": "bar",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find (Vulnerability|Finding) as v that exploits cwe as w\n  return w.displayName as x, count(v) as y order by y desc limit 10"
+					}
+				]
+			}
+		},
+		{
+			"id": "3f9c8980-5dc5-485c-85fc-0ac0b650832f",
+			"title": "Open Findings by Type",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query0",
+						"query": "Find Finding with open!=false as f \n  return f._type as name, count(f) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "7867906b-8927-46cf-b3ad-811f89b13c42",
+			"title": "Top 10 CVEs",
+			"type": "bar",
+			"config": {
+				"queries": [
+					{
+						"name": "query0",
+						"query": "Find cve as cve that (HAS|IS) * as f\n  return cve.displayName as x, count(f) as y order by y desc limit 10"
+					}
+				]
+			}
+		},
+		{
+			"id": "b53577bc-1f22-4aa0-9fb6-20fb23f321bf",
+			"title": "AWS EC2 Instance Vuln Findings by Account",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query0",
+						"query": "Find aws_instance as i that has Finding as f\nreturn i.tag.AccountName as name, count(f) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "39d3073a-7387-4b5a-847d-657540025daa",
+			"title": "Code Vuln Findings by App/Project",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query0",
+						"query": "Find (Application|Product|Project|Account) as a\n  that (has|owns) CodeRepo as c\n  that has (Vulnerability|Finding) as f\nreturn a.displayName as name, count(f) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "5ed8ee84-229f-488d-8742-5a555396354f",
+			"title": "Open Security Tickets",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find Record with displayName ^= 'SEC' and (active=true or open=true) as i \nreturn count(i) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "0d062bfd-7cc9-4021-a2d2-cfe9a81f8bf1",
+			"title": "Open AppSec Tickets",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find Record with displayName ^= 'SEC-' and labels = 'ProdSec' and (open=true or active=true) as i \nRETURN i.displayName as Ticket, i.summary as Summary, i.priority as Priority, i.status as Status"
+					}
+				]
+			}
+		},
+		{
+			"id": "f6ad2d37-9f9e-4c8d-8d3a-1be55c951e06",
+			"title": "Production workloads at risk",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find (Host|Function|Container) with tag.Production=true\n(that uses Image)?\nthat has Finding\nreturn tree"
+					}
+				]
+			}
+		},
+		{
+			"id": "91fd7c54-0b38-4f1e-b8c7-92ae0dcd8406",
+			"title": "Vulnerability Findings on Production Workloads ",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find (Host|Function|Container) with tag.Production=true as i\n(that uses Image)?\nthat has Finding as f\nreturn count(f) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "376685a3-d45a-4fb4-a5a3-57b78ad9e83f",
+			"title": "Vulnerability Findings on Production Applications",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find Finding as f\nthat has CodeRepo \nthat (Defines|Deployed) (Function|Host|Container) with tag.Production=true\nreturn count(f) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "35e36b5d-5b71-4381-bcaa-137e2813f338",
+			"title": "Production Applications At Risk",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find Finding \nthat has CodeRepo \nthat (Defines|Deployed) (Function|Host|Container) with tag.Production=true\nreturn TREE"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [
+			{
+				"x": 0,
+				"h": 2,
+				"i": "349fc061-44dd-4ef4-bad0-e474d23c621e",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "f56853dc-aace-4e9b-8e79-561deb4736e3",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "5754519b-a4a1-4360-8737-4124976be4fe",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "0b6ec497-5270-479e-8873-a836b5e0e451",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "6a90569c-1161-4f88-a35f-a83815195318",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "3f9c8980-5dc5-485c-85fc-0ac0b650832f",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "7867906b-8927-46cf-b3ad-811f89b13c42",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "b53577bc-1f22-4aa0-9fb6-20fb23f321bf",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "39d3073a-7387-4b5a-847d-657540025daa",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "5ed8ee84-229f-488d-8742-5a555396354f",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "0d062bfd-7cc9-4021-a2d2-cfe9a81f8bf1",
+				"y": 1000000000000,
+				"w": 2
+			},
+			{
+				"x": 0,
+				"h": 2,
+				"i": "70ffd883-b92f-4b16-85cd-162b8d31daef",
+				"y": 1000000000000,
+				"w": 2
+			}
+		],
+		"xs": [],
+		"lg": [
+			{
+				"w": 6,
+				"h": 3,
+				"x": 6,
+				"y": 0,
+				"i": "349fc061-44dd-4ef4-bad0-e474d23c621e",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 16,
+				"i": "f56853dc-aace-4e9b-8e79-561deb4736e3",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 4,
+				"h": 3,
+				"x": 0,
+				"y": 9,
+				"i": "5754519b-a4a1-4360-8737-4124976be4fe",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 6,
+				"y": 16,
+				"i": "0b6ec497-5270-479e-8873-a836b5e0e451",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 6,
+				"y": 14,
+				"i": "6a90569c-1161-4f88-a35f-a83815195318",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 3,
+				"x": 0,
+				"y": 0,
+				"i": "3f9c8980-5dc5-485c-85fc-0ac0b650832f",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 14,
+				"i": "7867906b-8927-46cf-b3ad-811f89b13c42",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 4,
+				"h": 3,
+				"x": 4,
+				"y": 9,
+				"i": "b53577bc-1f22-4aa0-9fb6-20fb23f321bf",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 4,
+				"h": 3,
+				"x": 8,
+				"y": 9,
+				"i": "39d3073a-7387-4b5a-847d-657540025daa",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 0,
+				"y": 12,
+				"i": "5ed8ee84-229f-488d-8742-5a555396354f",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 2,
+				"x": 3,
+				"y": 12,
+				"i": "0d062bfd-7cc9-4021-a2d2-cfe9a81f8bf1",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 3,
+				"x": 3,
+				"y": 3,
+				"i": "f6ad2d37-9f9e-4c8d-8d3a-1be55c951e06",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 3,
+				"x": 0,
+				"y": 3,
+				"i": "91fd7c54-0b38-4f1e-b8c7-92ae0dcd8406",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 3,
+				"x": 0,
+				"y": 6,
+				"i": "376685a3-d45a-4fb4-a5a3-57b78ad9e83f",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 3,
+				"x": 3,
+				"y": 6,
+				"i": "35e36b5d-5b71-4381-bcaa-137e2813f338",
+				"moved": false,
+				"static": false
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
