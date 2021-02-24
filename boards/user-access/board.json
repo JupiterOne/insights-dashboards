@@ -35,6 +35,10 @@
 					{
 						"name": "query1",
 						"query": "Find User with admin=true \nReturn User.tag.AccountName as Account, \n  User._type, User.displayName, User.email"
+					},
+					{
+						"name": "query2",
+						"query": "Find User that ASSIGNED AccessRole that ASSIGNED AccessPolicy with admin = true\nReturn AccessRole.tag.AccountName as Account, \n  User._type, User.displayName, User.email"
 					}
 				]
 			}
