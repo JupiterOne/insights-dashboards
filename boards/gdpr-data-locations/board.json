@@ -1,0 +1,232 @@
+{
+	"widgets": [
+		{
+			"id": "9389aa2f-bf6f-45b1-baae-ba9c0d1f60be",
+			"title": "Data stores in the US",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find DataStore with \n  region ~= ('us' or 'US') or \n  location ~= ('us' or 'US') or\n  zone ~= ('us' or 'US')\nreturn\n  DataStore._class as _class,\n  DataStore._type as _type,\n  DataStore.id as id,\n  DataStore.displayName as displayName,\n  DataStore.location as location, DataStore.region as region, DataStore.zone as zone, \n  DataStore.tag.AccountName as AccountName,\n  DataStore.classification as classification,\n  DataStore.owner as owner,\n  DataStore.createdOn as createdOn,\n  DataStore.public as public,\n  DataStore.encrypted as encrypted,\n  DataStore.webLink as webLink"
+					},
+					{
+						"name": "query2",
+						"query": "Find DataStore \nthat has (Service|Account) with \n  region ~= ('us' or 'US') or \n  location ~= ('us' or 'US') or\n  zone ~= ('us' or 'US') as e\nreturn\n  DataStore._class as _class,\n  DataStore._type as _type,\n  DataStore.id as id,\n  DataStore.displayName as displayName,\n  e.location as location, e.region as region, e.zone as zone, \n  DataStore.tag.AccountName as AccountName,\n  DataStore.classification as classification,\n  DataStore.owner as owner,\n  DataStore.createdOn as createdOn,\n  DataStore.public as public,\n  DataStore.encrypted as encrypted,\n  DataStore.webLink as webLink"
+					}
+				]
+			}
+		},
+		{
+			"id": "628f924d-bd24-42a6-8ac0-5fd96596af82",
+			"title": "Data stores in the US",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find DataStore with \n  region ~= ('us' or 'US') or \n  location ~= ('us' or 'US') or \n  zone ~= ('us' or 'US')\nreturn count(DataStore) as value"
+					},
+					{
+						"name": "query2",
+						"query": "Find DataStore \nthat has (Service|Account) with \n  region ~= ('us' or 'US') or \n  location ~= ('us' or 'US') or \n  zone ~= ('us' or 'US')\nreturn count(DataStore) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "1a555b9e-e05d-4d42-ac6f-016d89026527",
+			"title": "Data Stores in the EU",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find DataStore with \n  region ~= ('eu' or 'EU') or \n  location ~= ('eu' or 'EU') or\n  zone ~= ('eu' or 'EU')\nreturn count(DataStore) as value"
+					},
+					{
+						"name": "query2",
+						"query": "Find DataStore \nthat has (Service|Account) with \n  region ~= ('eu' or 'EU') or \n  location ~= ('eu' or 'EU') or\n  zone ~= ('eu' or 'EU')\nreturn count(DataStore) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"success": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "9b5037a5-e26c-4a05-b08c-db04a324c6cd",
+			"title": "Data Stores in the EU",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find DataStore with \n  region ~= ('eu' or 'EU') or \n  location ~= ('eu' or 'EU') or \n  zone ~= ('eu' or 'EU')\nreturn\n  DataStore._class as _class,\n  DataStore._type as _type,\n  DataStore.id as id,\n  DataStore.displayName as displayName,\n  DataStore.location as location, DataStore.region as region, DataStore.zone as zone, \n  DataStore.tag.AccountName as AccountName,\n  DataStore.classification as classification,\n  DataStore.owner as owner,\n  DataStore.createdOn as createdOn,\n  DataStore.public as public,\n  DataStore.encrypted as encrypted,\n  DataStore.webLink as webLink"
+					},
+					{
+						"name": "query2",
+						"query": "Find DataStore \nthat has (Service|Account) with\n  region ~= ('eu' or 'EU') or \n  location ~= ('eu' or 'EU') or\n  zone ~= ('eu' or 'EU') as e\nreturn\n  DataStore._class as _class,\n  DataStore._type as _type,\n  DataStore.id as id,\n  DataStore.displayName as displayName,\n  e.location as location, e.region as region, e.zone as zone, \n  DataStore.tag.AccountName as AccountName,\n  DataStore.classification as classification,\n  DataStore.owner as owner,\n  DataStore.createdOn as createdOn,\n  DataStore.public as public,\n  DataStore.encrypted as encrypted,\n  DataStore.webLink as webLink\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "f118da55-8852-4ea5-8c8f-a944f7a54f4c",
+			"title": "Non-EU/US Data Stores",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find DataStore with \n  (region !~= ('eu' and 'EU' and 'us' and 'US') and region != undefined) or\n  (location !~= ('eu' and 'EU' and 'us' and 'US') and location != undefined) or\n  (zone !~= ('eu' and 'EU' and 'us' and 'US') and zone != undefined) or\n  (region = undefined and location = undefined and zone = undefined)\nthat !has (Account|Service|Host) with \n  region ~= ('eu' or 'EU' or 'us' or 'US') or\n  location ~= ('eu' or 'EU' or 'us' or 'US') or \n  zone ~= ('eu' or 'EU' or 'us' or 'US')\nreturn count(DataStore) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "289a0ec4-27b4-44b2-8f66-6ce0cc3db001",
+			"title": "Non-EU/US Data Stored",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find DataStore with \n  (region !~= ('eu' and 'EU' and 'us' and 'US') and region != undefined) or\n  (location !~= ('eu' and 'EU' and 'us' and 'US') and location != undefined) or\n  (zone !~= ('eu' and 'EU' and 'us' and 'US') and zone != undefined) or\n  (region = undefined and location = undefined and zone = undefined)\nthat !has (Account|Service|Host) with \n  region ~= ('eu' or 'EU' or 'us' or 'US') or\n  location ~= ('eu' or 'EU' or 'us' or 'US') or\n  zone ~= ('eu' or 'EU' or 'us' or 'US')\nreturn\n  DataStore._class as _class,\n  DataStore._type as _type,\n  DataStore.id as id,\n  DataStore.displayName as displayName,\n  DataStore.location as location, DataStore.region as region, DataStore.zone as zone, \n  DataStore.tag.AccountName as AccountName,\n  DataStore.classification as classification,\n  DataStore.owner as owner,\n  DataStore.createdOn as createdOn,\n  DataStore.public as public,\n  DataStore.encrypted as encrypted,\n  DataStore.webLink as webLink"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "9389aa2f-bf6f-45b1-baae-ba9c0d1f60be"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "628f924d-bd24-42a6-8ac0-5fd96596af82"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "1a555b9e-e05d-4d42-ac6f-016d89026527"
+			}
+		],
+		"lg": [
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 3,
+				"x": 3,
+				"y": 3,
+				"i": "9389aa2f-bf6f-45b1-baae-ba9c0d1f60be"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 3,
+				"i": "628f924d-bd24-42a6-8ac0-5fd96596af82"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 0,
+				"i": "1a555b9e-e05d-4d42-ac6f-016d89026527"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 3,
+				"x": 3,
+				"y": 0,
+				"i": "9b5037a5-e26c-4a05-b08c-db04a324c6cd"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 6,
+				"i": "f118da55-8852-4ea5-8c8f-a944f7a54f4c"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 3,
+				"x": 3,
+				"y": 6,
+				"i": "289a0ec4-27b4-44b2-8f66-6ce0cc3db001"
+			}
+		],
+		"xl": [],
+		"md": [
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "9389aa2f-bf6f-45b1-baae-ba9c0d1f60be"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "628f924d-bd24-42a6-8ac0-5fd96596af82"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "1a555b9e-e05d-4d42-ac6f-016d89026527"
+			}
+		]
+	}
+}

@@ -11,6 +11,7 @@ List of dashboards:
 - [Data Breach Cost](boards/data-breach-cost/)
 - [Data Protection](boards/data-protection/)
 - [Development](boards/development/)
+- [GDPR Data Locations](boards/gdpr-data-locations/)
 - [High Risk Assets](boards/high-risk-assets/)
 - [Resource Classification](boards/resource-classification/)
 - [Risk Register](boards/risk-register/)
