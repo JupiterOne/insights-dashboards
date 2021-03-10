@@ -1,0 +1,45 @@
+name: Publish
+on: [push, pull_request]
+
+jobs:
+  npm:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Initialize Output
+        run: echo "::set-output name=didpublishnpm::false"
+
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Check if publish needed
+        run: |
+          name="$(jq -r .name package.json)"
+          npmver="$(npm show $name version 2>/dev/null || echo v0.0.0)"
+          pkgver="$(jq -r .version package.json)"
+          if [ "$npmver" = "$pkgver" ]
+          then
+            echo "Package version ($pkgver) is the same as last published NPM version ($npmver), skipping publish."
+          else
+            echo "Package version ($pkgver) is different from latest NPM version ($npmver), publishing!"
+            echo "shouldpublishnpm=true" >> $GITHUB_ENV
+          fi
+      - name: Setup Node
+        if: env.shouldpublishnpm
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        if: env.shouldpublishnpm
+        run: yarn
+
+      - name: Publish
+        if: env.shouldpublishnpm
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > .npmrc
+          npm publish --access public
+          echo "::set-output name=didpublishnpm::true"
