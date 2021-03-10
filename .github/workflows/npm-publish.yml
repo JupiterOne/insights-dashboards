@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 jobs:
   npm:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
