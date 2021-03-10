@@ -1,0 +1,8 @@
+{
+  "name": "@jupiterone/insights-dashboards",
+  "version": "1.0.0",
+  "description": "JupiterOne Insights Dasbboards",
+  "files": [
+    "boards/**/*"
+  ]
+}
