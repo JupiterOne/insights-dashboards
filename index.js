@@ -1,10 +1,12 @@
 import * as awsAccountBoard from "./boards/aws-accounts/board.json";
 import * as awsIamBoard from "./boards/aws-iam/board.json";
+import * as awsResourcesBoard from "./boards/aws-resources/board.json";
 import * as awsS3Security from "./boards/aws-s3-security/board.json";
 import * as codeDepsBoard from "./boards/code-deps-licenses/board.json";
 import * as dataBreachCostBoard from "./boards/data-breach-cost/board.json";
 import * as dataProtectionBoard from "./boards/data-protection/board.json";
 import * as developmentBoard from "./boards/development/board.json";
+import * as firewallBoard from "./boards/firewall/board.json";
 import * as gdprDataLocationsBoard from "./boards/gdprDataLocations/board.json";
 import * as highRiskAssetsBoard from "./boards/high-risk-assets/board.json";
 import * as resourceClassificationBoard from "./boards/resource-classification/board.json";
@@ -19,11 +21,13 @@ import * as vulnReportingBoard from "./boards/vuln-reporting/board.json";
 export const InsightsDashboards = {
   "AWS Accounts": awsAccountBoard,
   "AWS IAM": awsIamBoard,
+  "AWS Resources": awsResourcesBoard,
   "AWS S3 Security": awsS3Security,
   "Software Dependencies and Licenses": codeDepsBoard,
   "Data Brach Cost": dataBreachCostBoard,
   "Data Protection": dataProtectionBoard,
   "Secure Development": developmentBoard,
+  "Firewall Rules Matrix": firewallBoard,
   "GDPR Data Locations": gdprDataLocationsBoard,
   "High Risk Assets": highRiskAssetsBoard,
   "Resource Classification": resourceClassificationBoard,
