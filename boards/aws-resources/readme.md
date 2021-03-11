@@ -4,7 +4,7 @@ Publisher: JupiterOne
 
 # AWS Resources
 
-Shows and lists AWS Resources across accounts
+Shows key AWS resources and related metrics across accounts
 
 > Prerequisite:
 >
