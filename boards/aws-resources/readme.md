@@ -8,4 +8,4 @@ Shows key AWS resources and related metrics across accounts
 
 > Prerequisite:
 >
-> This requires integrations AWS.
+> This requires integrations with one or more AWS accounts.
