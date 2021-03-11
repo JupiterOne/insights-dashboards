@@ -7,7 +7,7 @@ import * as dataBreachCostBoard from "./boards/data-breach-cost/board.json";
 import * as dataProtectionBoard from "./boards/data-protection/board.json";
 import * as developmentBoard from "./boards/development/board.json";
 import * as firewallBoard from "./boards/firewall/board.json";
-import * as gdprDataLocationsBoard from "./boards/gdprDataLocations/board.json";
+import * as gdprDataLocationsBoard from "./boards/gdpr-data-locations/board.json";
 import * as highRiskAssetsBoard from "./boards/high-risk-assets/board.json";
 import * as resourceClassificationBoard from "./boards/resource-classification/board.json";
 import * as riskRegisterBoard from "./boards/risk-register/board.json";
