@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "JupiterOne Insights Dasbboards",
   "main": "index.js",
   "files": [
