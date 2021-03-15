@@ -3,7 +3,6 @@ on: [push, pull_request]
 
 jobs:
   npm:
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
@@ -13,7 +12,21 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v2
 
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+
+      - name: Build
+        run: |
+          yarn
+          yarn global add rollup
+          yarn build
+          cp ./package.json ./dist/package.json
+          cp ./README.md ./dist/README.md
+
       - name: Check if publish needed
+        if: github.ref == 'refs/heads/main'
         run: |
           name="$(jq -r .name package.json)"
           npmver="$(npm show $name version 2>/dev/null || echo v0.0.0)"
@@ -25,15 +38,6 @@ jobs:
             echo "Package version ($pkgver) is different from latest NPM version ($npmver), publishing!"
             echo "shouldpublishnpm=true" >> $GITHUB_ENV
           fi
-      - name: Setup Node
-        if: env.shouldpublishnpm
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        if: env.shouldpublishnpm
-        run: yarn
 
       - name: Publish
         if: env.shouldpublishnpm
