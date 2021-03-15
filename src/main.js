@@ -18,7 +18,7 @@ import userTrainingBoard from "./boards/user-training/board.json";
 import vendorMgmtBoard from "./boards/vendor-mgmt/board.json";
 import vulnReportingBoard from "./boards/vuln-reporting/board.json";
 
-export const InsightsDashboards = {
+const InsightsDashboards = {
   "AWS Accounts": awsAccountBoard,
   "AWS IAM": awsIamBoard,
   "AWS Resources": awsResourcesBoard,
