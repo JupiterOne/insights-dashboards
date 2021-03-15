@@ -22,8 +22,6 @@ jobs:
           yarn
           yarn global add rollup
           yarn build
-          cp ./package.json ./dist/package.json
-          cp ./README.md ./dist/README.md
 
       - name: Check if publish needed
         if: github.ref == 'refs/heads/main'
@@ -44,6 +42,9 @@ jobs:
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
+          yarn
+          yarn global add rollup
+          yarn build
           echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > .npmrc
           npm publish --access public
           echo "::set-output name=didpublishnpm::true"
