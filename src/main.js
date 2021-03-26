@@ -24,7 +24,7 @@ const InsightsDashboards = {
   "AWS Resources": awsResourcesBoard,
   "AWS S3 Security": awsS3Security,
   "Software Dependencies and Licenses": codeDepsBoard,
-  "Data Brach Cost": dataBreachCostBoard,
+  "Data Breach Cost": dataBreachCostBoard,
   "Data Protection": dataProtectionBoard,
   "Secure Development": developmentBoard,
   "Firewall Rules Matrix": firewallBoard,
