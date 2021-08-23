@@ -1,7 +1,7 @@
 {
 	"widgets": [
 		{
-			"id": "70a3a6e7-834c-4018-b996-1b9646b7a484",
+			"id": "5f4a0105-c7f3-4cdf-a40e-2bf8c04a2493",
 			"title": "S3 Buckets without SecureTransport Enabled",
 			"type": "pie",
 			"config": {
@@ -14,7 +14,7 @@
 			}
 		},
 		{
-			"id": "9e5e4d19-24b2-4a24-b7bf-cf34bc6250e3",
+			"id": "de813b92-a04b-411f-b877-e5d807f9ba57",
 			"title": "Non-public buckets exposed publicly",
 			"type": "table",
 			"config": {
@@ -27,20 +27,20 @@
 			}
 		},
 		{
-			"id": "b4deef22-6a18-43ed-9903-6610725227c6",
+			"id": "14d18176-047b-4b7f-8570-78779055c0cb",
 			"title": "S3 buckets granted full access to someone other than the owner account",
 			"type": "graph",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find aws_s3_bucket as bucket \n  that ALLOWS as grant * as grantee\nwhere \n  grant.permission='FULL_CONTROL' and bucket.ownerId != grantee.canonicalUserId \nreturn tree\n"
+						"query": "Find aws_s3_bucket with _source!='system-mapper' as bucket \n  that ALLOWS as grant * as grantee\n  (that ASSIGNED * as principal)?\nwhere \n  bucket.accountId != grantee.accountId or\n  (principal._type!=undefined and bucket.accountId != principal.accountId)\nreturn tree\n"
 					}
 				]
 			}
 		},
 		{
-			"id": "3d72429c-1f0a-4364-89a5-12bc2a54fb50",
+			"id": "38653008-7237-4223-84cf-be1d099089f6",
 			"title": "S3 buckets containing CloudTrail Logs",
 			"type": "table",
 			"config": {
@@ -53,7 +53,7 @@
 			}
 		},
 		{
-			"id": "57f67119-c019-4e35-9855-4f1bbe379c4a",
+			"id": "175c65ae-2fdd-48b0-8bc1-1cb9b827c02f",
 			"title": "Unencrypted S3 buckets containing CloudTrail logs",
 			"type": "table",
 			"config": {
@@ -66,7 +66,7 @@
 			}
 		},
 		{
-			"id": "4cb3fc69-8e7e-4370-878c-2755243140ba",
+			"id": "06c004dc-aaa7-4978-beda-168d068b166e",
 			"title": "S3 buckets containing CloudTrail Logs",
 			"type": "number",
 			"config": {
@@ -87,7 +87,7 @@
 			}
 		},
 		{
-			"id": "8f2a2fa5-2a0b-48b3-a101-a0a506ab0a0e",
+			"id": "8d837010-033f-4cd1-a8e5-7ddecad49748",
 			"title": "Unencrypted S3 buckets containing CloudTrail Logs",
 			"type": "number",
 			"config": {
@@ -108,7 +108,7 @@
 			}
 		},
 		{
-			"id": "39e91d59-ebd6-44ae-941c-04b4b6944b19",
+			"id": "0eebbe4b-30bf-4e6a-9470-df7e21622c96",
 			"title": "Non-public S3 buckets exposed via public facing EC2 instances",
 			"type": "graph",
 			"config": {
@@ -121,7 +121,7 @@
 			}
 		},
 		{
-			"id": "3df829bb-e006-4754-8adb-e8a33b49103d",
+			"id": "cdee5cb9-919f-4c88-a70a-f15befaf750b",
 			"title": "Top 10 largest (most expensive) S3 buckets",
 			"type": "table",
 			"config": {
@@ -134,7 +134,7 @@
 			}
 		},
 		{
-			"id": "eddfa41e-a08a-42ca-9f7f-f439410be971",
+			"id": "844d3825-927d-4207-8e33-7a0c9022a6c8",
 			"title": "S3 buckets hosting static content for CloudFront distribution (CDN)",
 			"type": "graph",
 			"config": {
@@ -147,7 +147,7 @@
 			}
 		},
 		{
-			"id": "3c0f0b87-520a-49fe-8634-a20a4f8ef60e",
+			"id": "84cef726-d7cf-43ac-a7c8-c79b35020568",
 			"title": "Non-public buckets with Objects that can be public",
 			"type": "table",
 			"config": {
@@ -160,7 +160,7 @@
 			}
 		},
 		{
-			"id": "fade7e9a-e2cf-45a5-aeae-5d9433d2fd2c",
+			"id": "5d1e97fb-ea8c-4e50-9ef4-6dfa427fe2d8",
 			"title": "S3 buckets without default encryption enabled",
 			"type": "pie",
 			"config": {
@@ -171,6 +171,58 @@
 					}
 				]
 			}
+		},
+		{
+			"id": "71ca9e29-5413-4976-bf10-d8ed27ac8506",
+			"title": "Buckets granted access to AWS services without source condition",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_s3_bucket as bucket\nthat allows Service \n  with name = ('serverlessrepo' or 'cloudtrail' or 'config')\nwhere \n  allows.conditions = undefined or (\n  allows.conditions !~= 'aws:SourceAccount' and \n  allows.conditions !~= 'aws:PrincipalOrgId' and\n  allows.conditions !~= bucket.accountId\n  )\nreturn tree\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "46154f6c-4452-4d71-a269-4d6a58e41e14",
+			"title": "Public buckets with sensitive data or secrets",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find (Everyone|aws_cloudfront_distribution)\nthat (allows|connects) aws_s3_bucket \nthat has Finding \n  with hasSecrets=true or hasSensitiveData=true\nreturn tree"
+					}
+				]
+			}
+		},
+		{
+			"id": "37eebce1-b495-4db5-9497-d1744e408d8d",
+			"title": "S3 cross account access via VPC peering",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find (aws_s3|aws_s3_bucket) \n  that allows aws_vpc_endpoint\n  that has aws_vpc\n  that connects aws_vpc\nreturn TREE"
+					}
+				]
+			}
+		},
+		{
+			"id": "c8c96d7f-fccd-4c53-98d0-cf69ceb8d097",
+			"title": "SAML SSO users with access to prod s3 buckets",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find okta_user that assigned AccessRole\n  that assigned AccessPolicy\n  that allows (aws_s3|aws_s3_bucket|aws_account) with tag.Production=true\n  (that has aws_s3)?\n  (that has aws_s3_bucket)?\nreturn tree"
+					}
+				]
+			}
 		}
 	],
 	"layouts": {
@@ -178,115 +230,296 @@
 		"xs": [],
 		"lg": [
 			{
+				"static": false,
 				"w": 4,
+				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 0,
-				"i": "70a3a6e7-834c-4018-b996-1b9646b7a484",
-				"moved": false,
-				"static": false
+				"i": "5f4a0105-c7f3-4cdf-a40e-2bf8c04a2493"
 			},
 			{
+				"static": false,
 				"w": 8,
+				"moved": false,
 				"h": 2,
 				"x": 4,
 				"y": 0,
-				"i": "9e5e4d19-24b2-4a24-b7bf-cf34bc6250e3",
-				"moved": false,
-				"static": false
+				"i": "de813b92-a04b-411f-b877-e5d807f9ba57"
 			},
 			{
+				"static": false,
 				"w": 6,
+				"moved": false,
 				"h": 4,
 				"x": 0,
 				"y": 4,
-				"i": "b4deef22-6a18-43ed-9903-6610725227c6",
-				"moved": false,
-				"static": false
+				"i": "14d18176-047b-4b7f-8570-78779055c0cb"
 			},
 			{
+				"static": false,
 				"w": 9,
+				"moved": false,
 				"h": 3,
 				"x": 3,
-				"y": 11,
-				"i": "3d72429c-1f0a-4364-89a5-12bc2a54fb50",
-				"moved": false,
-				"static": false
+				"y": 19,
+				"i": "38653008-7237-4223-84cf-be1d099089f6"
 			},
 			{
+				"static": false,
 				"w": 9,
+				"moved": false,
 				"h": 2,
 				"x": 3,
-				"y": 14,
-				"i": "57f67119-c019-4e35-9855-4f1bbe379c4a",
-				"moved": false,
-				"static": false
+				"y": 22,
+				"i": "175c65ae-2fdd-48b0-8bc1-1cb9b827c02f"
 			},
 			{
+				"static": false,
 				"w": 3,
+				"moved": false,
 				"h": 3,
 				"x": 0,
-				"y": 11,
-				"i": "4cb3fc69-8e7e-4370-878c-2755243140ba",
-				"moved": false,
-				"static": false
+				"y": 19,
+				"i": "06c004dc-aaa7-4978-beda-168d068b166e"
 			},
 			{
+				"static": false,
 				"w": 3,
+				"moved": false,
 				"h": 2,
 				"x": 0,
-				"y": 14,
-				"i": "8f2a2fa5-2a0b-48b3-a101-a0a506ab0a0e",
-				"moved": false,
-				"static": false
+				"y": 22,
+				"i": "8d837010-033f-4cd1-a8e5-7ddecad49748"
 			},
 			{
+				"static": false,
 				"w": 6,
+				"moved": false,
+				"h": 4,
+				"x": 6,
+				"y": 8,
+				"i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 24,
+				"i": "cdee5cb9-919f-4c88-a70a-f15befaf750b"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 16,
+				"i": "844d3825-927d-4207-8e33-7a0c9022a6c8"
+			},
+			{
+				"static": false,
+				"w": 8,
+				"moved": false,
+				"h": 2,
+				"x": 4,
+				"y": 2,
+				"i": "84cef726-d7cf-43ac-a7c8-c79b35020568"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "5d1e97fb-ea8c-4e50-9ef4-6dfa427fe2d8"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 4,
+				"x": 0,
+				"y": 12,
+				"i": "71ca9e29-5413-4976-bf10-d8ed27ac8506"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 4,
+				"x": 6,
+				"y": 12,
+				"i": "46154f6c-4452-4d71-a269-4d6a58e41e14"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
 				"h": 4,
 				"x": 6,
 				"y": 4,
-				"i": "39e91d59-ebd6-44ae-941c-04b4b6944b19",
-				"moved": false,
-				"static": false
+				"i": "37eebce1-b495-4db5-9497-d1744e408d8d"
 			},
 			{
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 16,
-				"i": "3df829bb-e006-4754-8adb-e8a33b49103d",
+				"static": false,
+				"w": 6,
 				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 3,
+				"h": 4,
 				"x": 0,
 				"y": 8,
-				"i": "eddfa41e-a08a-42ca-9f7f-f439410be971",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 2,
-				"x": 4,
-				"y": 2,
-				"i": "3c0f0b87-520a-49fe-8634-a20a4f8ef60e",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "fade7e9a-e2cf-45a5-aeae-5d9433d2fd2c",
-				"moved": false,
-				"static": false
+				"i": "c8c96d7f-fccd-4c53-98d0-cf69ceb8d097"
 			}
 		],
 		"xl": [],
-		"md": []
+		"md": [
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "5f4a0105-c7f3-4cdf-a40e-2bf8c04a2493",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "de813b92-a04b-411f-b877-e5d807f9ba57",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "14d18176-047b-4b7f-8570-78779055c0cb",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 6,
+				"i": "38653008-7237-4223-84cf-be1d099089f6",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "175c65ae-2fdd-48b0-8bc1-1cb9b827c02f",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "06c004dc-aaa7-4978-beda-168d068b166e",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 12,
+				"i": "8d837010-033f-4cd1-a8e5-7ddecad49748",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 14,
+				"i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 16,
+				"i": "cdee5cb9-919f-4c88-a70a-f15befaf750b",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 18,
+				"i": "844d3825-927d-4207-8e33-7a0c9022a6c8",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 20,
+				"i": "84cef726-d7cf-43ac-a7c8-c79b35020568",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 22,
+				"i": "5d1e97fb-ea8c-4e50-9ef4-6dfa427fe2d8",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 24,
+				"i": "71ca9e29-5413-4976-bf10-d8ed27ac8506",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 26,
+				"i": "46154f6c-4452-4d71-a269-4d6a58e41e14",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 28,
+				"i": "37eebce1-b495-4db5-9497-d1744e408d8d",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 30,
+				"i": "c8c96d7f-fccd-4c53-98d0-cf69ceb8d097",
+				"moved": false,
+				"static": false
+			}
+		]
 	}
 }
