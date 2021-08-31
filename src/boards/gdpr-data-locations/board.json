@@ -84,7 +84,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find DataStore with \n  (region !~= ('eu' and 'EU' and 'us' and 'US') and region != undefined) or\n  (location !~= ('eu' and 'EU' and 'us' and 'US') and location != undefined) or\n  (zone !~= ('eu' and 'EU' and 'us' and 'US') and zone != undefined) or\n  (region = undefined and location = undefined and zone = undefined)\nthat !has (Account|Service|Host) with \n  region ~= ('eu' or 'EU' or 'us' or 'US') or\n  location ~= ('eu' or 'EU' or 'us' or 'US') or \n  zone ~= ('eu' or 'EU' or 'us' or 'US')\nreturn count(DataStore) as value"
+						"query": "Find DataStore with \n  (region !~= ('eu' or 'EU' or 'us' or 'US') and region != undefined) or\n  (location !~= ('eu' or 'EU' or 'us' or 'US') and location != undefined) or\n  (zone !~= ('eu' or 'EU' or 'us' or 'US') and zone != undefined) or\n  (region = undefined and location = undefined and zone = undefined)\nthat !has (Account|Service|Host) with \n  region ~= ('eu' and 'EU' and 'us' and 'US') or\n  location ~= ('eu' and 'EU' and 'us' and 'US') or \n  zone ~= ('eu' and 'EU' and 'us' and 'US')\nreturn count(DataStore) as value"
 					}
 				],
 				"settings": {
@@ -105,7 +105,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find DataStore with \n  (region !~= ('eu' and 'EU' and 'us' and 'US') and region != undefined) or\n  (location !~= ('eu' and 'EU' and 'us' and 'US') and location != undefined) or\n  (zone !~= ('eu' and 'EU' and 'us' and 'US') and zone != undefined) or\n  (region = undefined and location = undefined and zone = undefined)\nthat !has (Account|Service|Host) with \n  region ~= ('eu' or 'EU' or 'us' or 'US') or\n  location ~= ('eu' or 'EU' or 'us' or 'US') or\n  zone ~= ('eu' or 'EU' or 'us' or 'US')\nreturn\n  DataStore._class as _class,\n  DataStore._type as _type,\n  DataStore.id as id,\n  DataStore.displayName as displayName,\n  DataStore.location as location, DataStore.region as region, DataStore.zone as zone, \n  DataStore.tag.AccountName as AccountName,\n  DataStore.classification as classification,\n  DataStore.owner as owner,\n  DataStore.createdOn as createdOn,\n  DataStore.public as public,\n  DataStore.encrypted as encrypted,\n  DataStore.webLink as webLink"
+						"query": "Find DataStore with \n  (region !~= ('eu' or 'EU' or 'us' or 'US') and region != undefined) or\n  (location !~= ('eu' or 'EU' or 'us' or 'US') and location != undefined) or\n  (zone !~= ('eu' or 'EU' or 'us' or 'US') and zone != undefined) or\n  (region = undefined and location = undefined and zone = undefined)\nthat !has (Account|Service|Host) with \n  region ~= ('eu' and 'EU' and 'us' and 'US') or\n  location ~= ('eu' and 'EU' and 'us' and 'US') or\n  zone ~= ('eu' and 'EU' and 'us' and 'US')\nreturn\n  DataStore._class as _class,\n  DataStore._type as _type,\n  DataStore.id as id,\n  DataStore.displayName as displayName,\n  DataStore.location as location, DataStore.region as region, DataStore.zone as zone, \n  DataStore.tag.AccountName as AccountName,\n  DataStore.classification as classification,\n  DataStore.owner as owner,\n  DataStore.createdOn as createdOn,\n  DataStore.public as public,\n  DataStore.encrypted as encrypted,\n  DataStore.webLink as webLink"
 					}
 				]
 			}
