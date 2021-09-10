@@ -223,6 +223,58 @@
 					}
 				]
 			}
+		},
+		{
+			"id": "88c50e88-46aa-496e-80bf-efa530849e59",
+			"title": "S3 buckets with server access logging enabled",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_s3_bucket that logs to aws_s3_bucket\nreturn tree"
+					}
+				]
+			}
+		},
+		{
+			"id": "701bc5e9-b00b-4b8c-9cdb-8b2dc01986ee",
+			"title": "S3 buckets with object level logging enabled",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find aws_s3_bucket \nthat sends aws_cloudtrail \nthat logs to * \nreturn TREE"
+					}
+				]
+			}
+		},
+		{
+			"id": "9a05e25e-a833-46c4-8d8c-ce163086511b",
+			"title": "Production S3 buckets without any logging enabled",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_s3_bucket with loggingEnabled!=true and tag.Production=true"
+					}
+				]
+			}
+		},
+		{
+			"id": "d3b2e2e0-4f7e-463a-876f-ebeae3f81602",
+			"title": "S3 buckets publishing inventory reports",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find aws_s3_bucket that publishes to >> aws_s3_bucket\nreturn tree"
+					}
+				]
+			}
 		}
 	],
 	"layouts": {
@@ -303,11 +355,11 @@
 			},
 			{
 				"static": false,
-				"w": 12,
+				"w": 8,
 				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 24,
+				"h": 3,
+				"x": 4,
+				"y": 28,
 				"i": "cdee5cb9-919f-4c88-a70a-f15befaf750b"
 			},
 			{
@@ -372,154 +424,45 @@
 				"x": 0,
 				"y": 8,
 				"i": "c8c96d7f-fccd-4c53-98d0-cf69ceb8d097"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 4,
+				"x": 8,
+				"y": 24,
+				"i": "88c50e88-46aa-496e-80bf-efa530849e59"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 4,
+				"x": 4,
+				"y": 24,
+				"i": "701bc5e9-b00b-4b8c-9cdb-8b2dc01986ee"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 4,
+				"x": 0,
+				"y": 24,
+				"i": "9a05e25e-a833-46c4-8d8c-ce163086511b"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 28,
+				"i": "d3b2e2e0-4f7e-463a-876f-ebeae3f81602"
 			}
 		],
 		"xl": [],
-		"md": [
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "5f4a0105-c7f3-4cdf-a40e-2bf8c04a2493",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "de813b92-a04b-411f-b877-e5d807f9ba57",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 4,
-				"i": "14d18176-047b-4b7f-8570-78779055c0cb",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "38653008-7237-4223-84cf-be1d099089f6",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "175c65ae-2fdd-48b0-8bc1-1cb9b827c02f",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 10,
-				"i": "06c004dc-aaa7-4978-beda-168d068b166e",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 12,
-				"i": "8d837010-033f-4cd1-a8e5-7ddecad49748",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 14,
-				"i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 16,
-				"i": "cdee5cb9-919f-4c88-a70a-f15befaf750b",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 18,
-				"i": "844d3825-927d-4207-8e33-7a0c9022a6c8",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 20,
-				"i": "84cef726-d7cf-43ac-a7c8-c79b35020568",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 22,
-				"i": "5d1e97fb-ea8c-4e50-9ef4-6dfa427fe2d8",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 24,
-				"i": "71ca9e29-5413-4976-bf10-d8ed27ac8506",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 26,
-				"i": "46154f6c-4452-4d71-a269-4d6a58e41e14",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 28,
-				"i": "37eebce1-b495-4db5-9497-d1744e408d8d",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 30,
-				"i": "c8c96d7f-fccd-4c53-98d0-cf69ceb8d097",
-				"moved": false,
-				"static": false
-			}
-		]
+		"md": []
 	}
 }
