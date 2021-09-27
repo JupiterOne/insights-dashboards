@@ -1,7 +1,7 @@
 {
 	"widgets": [
 		{
-			"id": "27a9f964-ec4a-4dd9-911d-9e99ee5cdfd5",
+			"id": "1f5f820d-62f7-4ba0-9f67-6d4e0b1d1655",
 			"title": "Endpoint agent protection status",
 			"type": "pie",
 			"config": {
@@ -22,7 +22,7 @@
 			}
 		},
 		{
-			"id": "29263916-6b14-42b2-82d6-d7468920c685",
+			"id": "7b0471f0-da35-4912-9693-06454f19a8cc",
 			"title": "Number of users without an assigned device",
 			"type": "number",
 			"config": {
@@ -35,7 +35,7 @@
 			}
 		},
 		{
-			"id": "311eb5b3-f2b5-4227-b2d2-18549dfc0b82",
+			"id": "61af2ebc-3740-4d14-bf06-62969ffba8b2",
 			"title": "User Devices by Location",
 			"type": "pie",
 			"config": {
@@ -48,7 +48,7 @@
 			}
 		},
 		{
-			"id": "8e97ea26-0669-49f7-8937-19febc8ebf9a",
+			"id": "6f0f97fa-26dd-4c6b-a7e8-d592d1bacb44",
 			"title": "User Devices by OS",
 			"type": "pie",
 			"config": {
@@ -61,7 +61,7 @@
 			}
 		},
 		{
-			"id": "99dd8dff-4134-46c4-8f0e-3b7dcbfd07b5",
+			"id": "4a2a3a34-9b1d-4cf6-809c-c15af2d0d50f",
 			"title": "Devices not seen for >7 days",
 			"type": "table",
 			"config": {
@@ -74,7 +74,7 @@
 			}
 		},
 		{
-			"id": "31a80290-8d25-4705-8220-10861191c527",
+			"id": "611be95d-bb3d-481a-9e6d-08e47cbd62c4",
 			"title": "User Devices by OS and Version",
 			"type": "table",
 			"config": {
@@ -87,7 +87,7 @@
 			}
 		},
 		{
-			"id": "ba81c0e4-e425-4666-a78e-09fa7aaf5ef0",
+			"id": "1ba1ea9c-29f0-40dc-97e5-c8c3750c5302",
 			"title": "Endpoint Encryption Status",
 			"type": "pie",
 			"config": {
@@ -98,6 +98,32 @@
 					}
 				]
 			}
+		},
+		{
+			"id": "4722e8b5-748d-4e74-b856-0e9d79d7409d",
+			"title": "Number of users affected by Google Chrome zero-day vulnerability  (version < 93.0.4577.82)",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND User\nTHAT HAS Device\nTHAT INSTALLED Application\n  WITH name~= ('Chrome' or 'Chromium')\n  AND version != \"93.0.4577.82\" as a\nRETURN COUNT(User) as value, a.version as name"
+					}
+				]
+			}
+		},
+		{
+			"id": "8358b11d-e8f5-4946-9fb2-79f6d0f87aae",
+			"title": "Devices affected by Google Chrome zero-day vulnerability",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND User as user\nTHAT HAS Device as device\nTHAT INSTALLED Application \n  WITH name~= ('Chrome' or 'Chromium')\n  AND version != \"93.0.4577.82\" AS app\nRETURN \n  user.displayName,\n  user.email,\n  device.serialNumber,\n  app.version as chromeVersion"
+					}
+				]
+			}
 		}
 	],
 	"layouts": {
@@ -105,67 +131,85 @@
 		"xs": [],
 		"lg": [
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 4,
 				"y": 4,
-				"i": "27a9f964-ec4a-4dd9-911d-9e99ee5cdfd5"
+				"i": "1f5f820d-62f7-4ba0-9f67-6d4e0b1d1655",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 0,
-				"i": "29263916-6b14-42b2-82d6-d7468920c685"
+				"i": "7b0471f0-da35-4912-9693-06454f19a8cc",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 4,
-				"i": "311eb5b3-f2b5-4227-b2d2-18549dfc0b82"
+				"i": "61af2ebc-3740-4d14-bf06-62969ffba8b2",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 2,
-				"i": "8e97ea26-0669-49f7-8937-19febc8ebf9a"
+				"i": "6f0f97fa-26dd-4c6b-a7e8-d592d1bacb44",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 8,
-				"moved": false,
 				"h": 2,
 				"x": 4,
 				"y": 0,
-				"i": "99dd8dff-4134-46c4-8f0e-3b7dcbfd07b5"
+				"i": "4a2a3a34-9b1d-4cf6-809c-c15af2d0d50f",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 8,
-				"moved": false,
 				"h": 2,
 				"x": 4,
 				"y": 2,
-				"i": "31a80290-8d25-4705-8220-10861191c527"
+				"i": "611be95d-bb3d-481a-9e6d-08e47cbd62c4",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 8,
 				"y": 4,
-				"i": "ba81c0e4-e425-4666-a78e-09fa7aaf5ef0"
+				"i": "1ba1ea9c-29f0-40dc-97e5-c8c3750c5302",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 3,
+				"x": 0,
+				"y": 6,
+				"i": "4722e8b5-748d-4e74-b856-0e9d79d7409d",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 3,
+				"x": 6,
+				"y": 6,
+				"i": "8358b11d-e8f5-4946-9fb2-79f6d0f87aae",
+				"moved": false,
+				"static": false
 			}
 		],
 		"xl": [],

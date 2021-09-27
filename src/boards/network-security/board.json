@@ -1,0 +1,226 @@
+{
+	"widgets": [
+		{
+			"id": "176f8889-6db3-49be-97d4-38104ce64091",
+			"title": "Internet Access",
+			"type": "matrix",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND Firewall AS row\nTHAT allows AS rel\nInternet AS col\nRETURN\nrow.displayName AS x,\ncol.displayName AS y,\nrel.egress AS egress,\nrel.ingress AS ingress,\nrel.fromPort as fromPort,\nrel.toPort as toPort,\nrel.ipProtocol AS label"
+					}
+				]
+			}
+		},
+		{
+			"id": "38dbb84c-d60b-46cc-a048-db6400eb8365",
+			"title": "Firewall Matrix - External",
+			"type": "matrix",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND Firewall AS row\nTHAT allows AS rel\nNetwork with public=true or _source='system-mapper' AS col\nRETURN\nrow.displayName AS x,\ncol.displayName AS y,\nrel.egress AS egress,\nrel.ingress AS ingress,\nrel.fromPort as fromPort,\nrel.toPort as toPort,\nrel.ipProtocol AS label"
+					}
+				]
+			}
+		},
+		{
+			"id": "454c3867-395e-4e1c-9cac-7b06129780a3",
+			"title": "Firewall Matrix - Internal",
+			"type": "matrix",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND Firewall AS row\nTHAT allows AS rel\nNetwork with public!=true AS col\nRETURN\nrow.displayName AS x,\ncol.displayName AS y,\nrel.egress AS egress,\nrel.ingress AS ingress,\nrel.fromPort as fromPort,\nrel.toPort as toPort,\nrel.ipProtocol AS label"
+					}
+				]
+			}
+		},
+		{
+			"id": "1f65e9e3-cdc1-421d-89a8-b57e1461b161",
+			"title": "Expired certificates",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find Certificate with active=false as c return count(c) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "e284971f-bc14-407b-b970-95169f5a7b77",
+			"title": "DNS Records Not Pointing to an Internal Resource",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find aws_route53_record with (resourceRecords!=undefined or aliasTarget!=undefined) \nand type=('A' or 'AAAA' or 'CNAME') as a\nthat !connects *\nreturn count(a) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "4ef4fe4e-7ed8-4e3d-bd4a-3532248a4ece",
+			"title": "Domains and subdomains",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find DomainRecord as a return count(a) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "8d869e4c-88ac-4a03-893b-075fe52189ef",
+			"title": "Expired certificates",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find Certificate with active=false as c \nreturn\nc._type, c.displayName, c.accountId, c.active, \nc.alternativeNames, c.expiresOn, c.inUse, c.region"
+					}
+				]
+			}
+		},
+		{
+			"id": "35f366a0-e9c5-4f4c-8edb-3e775e172c56",
+			"title": "DNS records not pointing to an internal resource",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find DomainRecord with (resourceRecords!=undefined or aliasTarget!=undefined) \nand type=('A' or 'AAAA' or 'CNAME') as a\nthat !connects *\nreturn \na.displayName, a.accountId, a.resourceRecords"
+					}
+				]
+			}
+		},
+		{
+			"id": "b93c54e1-06bf-4365-8d68-9296ded782fc",
+			"title": "Domains and subdomains",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find DomainRecord as a\nreturn\na._type, a.displayName, a.accountId, a.resourceRecords, a.type"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "176f8889-6db3-49be-97d4-38104ce64091",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "38dbb84c-d60b-46cc-a048-db6400eb8365",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "454c3867-395e-4e1c-9cac-7b06129780a3",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 0,
+				"y": 6,
+				"i": "1f65e9e3-cdc1-421d-89a8-b57e1461b161",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "e284971f-bc14-407b-b970-95169f5a7b77",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "4ef4fe4e-7ed8-4e3d-bd4a-3532248a4ece",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 2,
+				"x": 3,
+				"y": 6,
+				"i": "8d869e4c-88ac-4a03-893b-075fe52189ef",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 2,
+				"x": 3,
+				"y": 8,
+				"i": "35f366a0-e9c5-4f4c-8edb-3e775e172c56",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 2,
+				"x": 3,
+				"y": 10,
+				"i": "b93c54e1-06bf-4365-8d68-9296ded782fc",
+				"moved": false,
+				"static": false
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
