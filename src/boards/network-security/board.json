@@ -1,7 +1,7 @@
 {
 	"widgets": [
 		{
-			"id": "176f8889-6db3-49be-97d4-38104ce64091",
+			"id": "c16b43de-c19c-477d-b3e8-3d6ee8161d96",
 			"title": "Internet Access",
 			"type": "matrix",
 			"config": {
@@ -14,7 +14,7 @@
 			}
 		},
 		{
-			"id": "38dbb84c-d60b-46cc-a048-db6400eb8365",
+			"id": "1d821690-9321-41e5-a685-43f217246a7d",
 			"title": "Firewall Matrix - External",
 			"type": "matrix",
 			"config": {
@@ -27,7 +27,7 @@
 			}
 		},
 		{
-			"id": "454c3867-395e-4e1c-9cac-7b06129780a3",
+			"id": "ce0a65dc-00d2-4d00-ae47-8f70ef8b3508",
 			"title": "Firewall Matrix - Internal",
 			"type": "matrix",
 			"config": {
@@ -40,7 +40,7 @@
 			}
 		},
 		{
-			"id": "1f65e9e3-cdc1-421d-89a8-b57e1461b161",
+			"id": "a821bca8-af27-4493-9bcc-7e24d6896d16",
 			"title": "Expired certificates",
 			"type": "number",
 			"config": {
@@ -61,7 +61,7 @@
 			}
 		},
 		{
-			"id": "e284971f-bc14-407b-b970-95169f5a7b77",
+			"id": "12899afd-1417-4dd6-b169-d796bbdcba0a",
 			"title": "DNS Records Not Pointing to an Internal Resource",
 			"type": "number",
 			"config": {
@@ -82,7 +82,7 @@
 			}
 		},
 		{
-			"id": "4ef4fe4e-7ed8-4e3d-bd4a-3532248a4ece",
+			"id": "77dfa554-0130-4172-80fb-d0af1f902bed",
 			"title": "Domains and subdomains",
 			"type": "number",
 			"config": {
@@ -95,7 +95,7 @@
 			}
 		},
 		{
-			"id": "8d869e4c-88ac-4a03-893b-075fe52189ef",
+			"id": "397ef1a2-f0ba-4fed-aea8-04f80d595232",
 			"title": "Expired certificates",
 			"type": "table",
 			"config": {
@@ -108,7 +108,7 @@
 			}
 		},
 		{
-			"id": "35f366a0-e9c5-4f4c-8edb-3e775e172c56",
+			"id": "8ff278e8-e276-44a6-8175-9e6fde695f6d",
 			"title": "DNS records not pointing to an internal resource",
 			"type": "table",
 			"config": {
@@ -121,7 +121,7 @@
 			}
 		},
 		{
-			"id": "b93c54e1-06bf-4365-8d68-9296ded782fc",
+			"id": "70fb172a-56dd-458f-b9f7-e581d4e1cf9e",
 			"title": "Domains and subdomains",
 			"type": "table",
 			"config": {
@@ -139,85 +139,85 @@
 		"xs": [],
 		"lg": [
 			{
-				"w": 12,
-				"h": 2,
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 4,
 				"x": 0,
 				"y": 0,
-				"i": "176f8889-6db3-49be-97d4-38104ce64091",
-				"moved": false,
-				"static": false
+				"i": "c16b43de-c19c-477d-b3e8-3d6ee8161d96"
 			},
 			{
-				"w": 12,
+				"static": false,
+				"w": 9,
+				"moved": false,
 				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "38dbb84c-d60b-46cc-a048-db6400eb8365",
-				"moved": false,
-				"static": false
+				"x": 3,
+				"y": 0,
+				"i": "1d821690-9321-41e5-a685-43f217246a7d"
 			},
 			{
-				"w": 12,
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 2,
+				"i": "ce0a65dc-00d2-4d00-ae47-8f70ef8b3508"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 4,
-				"i": "454c3867-395e-4e1c-9cac-7b06129780a3",
-				"moved": false,
-				"static": false
+				"i": "a821bca8-af27-4493-9bcc-7e24d6896d16"
 			},
 			{
+				"static": false,
 				"w": 3,
+				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 6,
-				"i": "1f65e9e3-cdc1-421d-89a8-b57e1461b161",
-				"moved": false,
-				"static": false
+				"i": "12899afd-1417-4dd6-b169-d796bbdcba0a"
 			},
 			{
+				"static": false,
 				"w": 3,
+				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 8,
-				"i": "e284971f-bc14-407b-b970-95169f5a7b77",
-				"moved": false,
-				"static": false
+				"i": "77dfa554-0130-4172-80fb-d0af1f902bed"
 			},
 			{
-				"w": 3,
-				"h": 2,
-				"x": 0,
-				"y": 10,
-				"i": "4ef4fe4e-7ed8-4e3d-bd4a-3532248a4ece",
-				"moved": false,
-				"static": false
-			},
-			{
+				"static": false,
 				"w": 9,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 4,
+				"i": "397ef1a2-f0ba-4fed-aea8-04f80d595232"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
 				"h": 2,
 				"x": 3,
 				"y": 6,
-				"i": "8d869e4c-88ac-4a03-893b-075fe52189ef",
-				"moved": false,
-				"static": false
+				"i": "8ff278e8-e276-44a6-8175-9e6fde695f6d"
 			},
 			{
+				"static": false,
 				"w": 9,
+				"moved": false,
 				"h": 2,
 				"x": 3,
 				"y": 8,
-				"i": "35f366a0-e9c5-4f4c-8edb-3e775e172c56",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 9,
-				"h": 2,
-				"x": 3,
-				"y": 10,
-				"i": "b93c54e1-06bf-4365-8d68-9296ded782fc",
-				"moved": false,
-				"static": false
+				"i": "70fb172a-56dd-458f-b9f7-e581d4e1cf9e"
 			}
 		],
 		"xl": [],
