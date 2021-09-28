@@ -1,7 +1,7 @@
 {
 	"widgets": [
 		{
-			"id": "39e8c4ac-66ac-442f-890b-8d613daf9d57",
+			"id": "267dcabe-899f-4435-b248-14337893933c",
 			"title": "Internal AWS Organization sub-accounts",
 			"type": "table",
 			"config": {
@@ -14,7 +14,7 @@
 			}
 		},
 		{
-			"id": "c4b6fc77-f8b2-4bef-8092-f5aafa1a2b52",
+			"id": "8a3bc47e-01fe-478f-a2b1-eafca39d1949",
 			"title": "Sandbox AWS Accounts",
 			"type": "table",
 			"config": {
@@ -27,7 +27,7 @@
 			}
 		},
 		{
-			"id": "6d442eea-2404-4053-b8b1-ee7ab3e94d8b",
+			"id": "0df734d1-48e7-418b-8af0-8e771b5c4701",
 			"title": "External Vendor AWS accounts",
 			"type": "table",
 			"config": {
@@ -40,7 +40,7 @@
 			}
 		},
 		{
-			"id": "85247439-d5cc-4bf8-ac8d-71bb12c64f0e",
+			"id": "c9f83b68-530a-4c5f-a733-67b79e39cea7",
 			"title": "AWS Master Account",
 			"type": "table",
 			"config": {
@@ -53,7 +53,7 @@
 			}
 		},
 		{
-			"id": "397f5108-a367-4c86-ab14-4d1d1cd01d54",
+			"id": "36117f2c-5cd7-4ed6-844e-23f9e6c3feca",
 			"title": "AWS Organization Sub-Accounts",
 			"type": "number",
 			"config": {
@@ -66,7 +66,7 @@
 			}
 		},
 		{
-			"id": "3db4b0a1-bc42-4302-9b84-ea3eece9ce87",
+			"id": "304be4d4-e929-47bb-808f-752764aa7a21",
 			"title": "AWS Sandbox Accounts",
 			"type": "number",
 			"config": {
@@ -79,7 +79,7 @@
 			}
 		},
 		{
-			"id": "d80ca0be-1524-42a2-94de-800d7444ac1a",
+			"id": "f1c5c818-9344-416f-9762-96d1a0a251c9",
 			"title": "Validated External Vendor Accounts",
 			"type": "number",
 			"config": {
@@ -100,7 +100,7 @@
 			}
 		},
 		{
-			"id": "076193c7-1bea-43f7-a699-0669fe151abf",
+			"id": "b8b0d6eb-844d-4301-a1e1-e6f9aa93fcc3",
 			"title": "Unvalidated External Vendor Accounts",
 			"type": "number",
 			"config": {
@@ -119,6 +119,19 @@
 					}
 				}
 			}
+		},
+		{
+			"id": "09cc74c4-69e5-483c-9d5c-f06626a9a879",
+			"title": "External AWS Accounts with Access to internal (company) AWS Accounts",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find aws_account that has aws_iam that has aws_iam_role as a\n  that (trusts|assigned) (Account|AccessRole|User|UserGroup) as b\nwhere\n  a.tag.AccountName!=b.tag.AccountName\nreturn tree"
+					}
+				]
+			}
 		}
 	],
 	"layouts": {
@@ -126,56 +139,56 @@
 			{
 				"x": 0,
 				"h": 2,
-				"i": "39e8c4ac-66ac-442f-890b-8d613daf9d57",
+				"i": "267dcabe-899f-4435-b248-14337893933c",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "c4b6fc77-f8b2-4bef-8092-f5aafa1a2b52",
+				"i": "8a3bc47e-01fe-478f-a2b1-eafca39d1949",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "6d442eea-2404-4053-b8b1-ee7ab3e94d8b",
+				"i": "0df734d1-48e7-418b-8af0-8e771b5c4701",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "85247439-d5cc-4bf8-ac8d-71bb12c64f0e",
+				"i": "c9f83b68-530a-4c5f-a733-67b79e39cea7",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "397f5108-a367-4c86-ab14-4d1d1cd01d54",
+				"i": "36117f2c-5cd7-4ed6-844e-23f9e6c3feca",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "3db4b0a1-bc42-4302-9b84-ea3eece9ce87",
+				"i": "304be4d4-e929-47bb-808f-752764aa7a21",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "d80ca0be-1524-42a2-94de-800d7444ac1a",
+				"i": "f1c5c818-9344-416f-9762-96d1a0a251c9",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "076193c7-1bea-43f7-a699-0669fe151abf",
+				"i": "b8b0d6eb-844d-4301-a1e1-e6f9aa93fcc3",
 				"y": 1000000000000,
 				"w": 2
 			}
@@ -183,76 +196,85 @@
 		"xs": [],
 		"lg": [
 			{
-				"static": false,
 				"w": 10,
-				"moved": false,
 				"h": 2,
 				"x": 2,
 				"y": 1,
-				"i": "39e8c4ac-66ac-442f-890b-8d613daf9d57"
+				"i": "267dcabe-899f-4435-b248-14337893933c",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 10,
-				"moved": false,
 				"h": 2,
 				"x": 2,
 				"y": 3,
-				"i": "c4b6fc77-f8b2-4bef-8092-f5aafa1a2b52"
+				"i": "8a3bc47e-01fe-478f-a2b1-eafca39d1949",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 8,
-				"moved": false,
 				"h": 2,
 				"x": 4,
 				"y": 5,
-				"i": "6d442eea-2404-4053-b8b1-ee7ab3e94d8b"
+				"i": "0df734d1-48e7-418b-8af0-8e771b5c4701",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 12,
-				"moved": false,
 				"h": 1,
 				"x": 0,
 				"y": 0,
-				"i": "85247439-d5cc-4bf8-ac8d-71bb12c64f0e"
+				"i": "c9f83b68-530a-4c5f-a733-67b79e39cea7",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 2,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 1,
-				"i": "397f5108-a367-4c86-ab14-4d1d1cd01d54"
+				"i": "36117f2c-5cd7-4ed6-844e-23f9e6c3feca",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 2,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 3,
-				"i": "3db4b0a1-bc42-4302-9b84-ea3eece9ce87"
+				"i": "304be4d4-e929-47bb-808f-752764aa7a21",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 2,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 5,
-				"i": "d80ca0be-1524-42a2-94de-800d7444ac1a"
+				"i": "f1c5c818-9344-416f-9762-96d1a0a251c9",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 2,
-				"moved": false,
 				"h": 2,
 				"x": 2,
 				"y": 5,
-				"i": "076193c7-1bea-43f7-a699-0669fe151abf"
+				"i": "b8b0d6eb-844d-4301-a1e1-e6f9aa93fcc3",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 7,
+				"i": "09cc74c4-69e5-483c-9d5c-f06626a9a879",
+				"moved": false,
+				"static": false
 			}
 		],
 		"xl": [],

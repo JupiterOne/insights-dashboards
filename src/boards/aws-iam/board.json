@@ -1,7 +1,7 @@
 {
 	"widgets": [
 		{
-			"id": "0f10330f-7587-4216-8743-48b3a2156c0e",
+			"id": "65c89401-0046-458d-83c2-e0088cd84b52",
 			"title": "Users assigned \"Support\" role to AWS",
 			"type": "table",
 			"config": {
@@ -14,7 +14,7 @@
 			}
 		},
 		{
-			"id": "2f32d784-62e1-4e61-a4d4-411800e7e35f",
+			"id": "8705e12f-1b3b-490a-9fd5-0c9a710c2dbd",
 			"title": "Users assigned AWS Admin Access",
 			"type": "table",
 			"config": {
@@ -27,7 +27,7 @@
 			}
 		},
 		{
-			"id": "e52f89d1-9b8a-4e2e-8bd8-4ea6be3d8852",
+			"id": "7965d076-d48d-4170-8051-411c155d051a",
 			"title": "Number of IAM Roles by Account",
 			"type": "pie",
 			"config": {
@@ -40,7 +40,7 @@
 			}
 		},
 		{
-			"id": "3fb7564f-b120-4d59-ac44-6e4fcb238481",
+			"id": "bff2f359-755e-431c-a2c0-c1944839087b",
 			"title": "Number of IAM Users by Account",
 			"type": "pie",
 			"config": {
@@ -53,7 +53,7 @@
 			}
 		},
 		{
-			"id": "0c4c846f-6d3d-468d-81be-d408f82dbdc1",
+			"id": "cee9bd20-0931-4c37-9135-f50e366907b7",
 			"title": "AWS User or Role with inline policies",
 			"type": "table",
 			"config": {
@@ -66,7 +66,7 @@
 			}
 		},
 		{
-			"id": "40982e7a-f5ce-4d31-ac02-d90e1da7f543",
+			"id": "a8d16b11-854e-41d5-8c59-875c92856fc1",
 			"title": "Number of IAM groups by Account",
 			"type": "pie",
 			"config": {
@@ -79,7 +79,7 @@
 			}
 		},
 		{
-			"id": "672f82ce-3a15-4f50-a0ed-a438cc45cbf7",
+			"id": "8acd3cba-db90-4132-90e8-4042576f16b5",
 			"title": "AWS policy assignment to Okta Users",
 			"type": "bar",
 			"config": {
@@ -92,7 +92,7 @@
 			}
 		},
 		{
-			"id": "51c4e0a2-8acb-4a60-94fb-b7a6e25f5ddb",
+			"id": "d6e6eeaa-4b59-4cc1-9b8c-6131900b35a3",
 			"title": "Users or Roles assigned Admin Access Policy",
 			"type": "table",
 			"config": {
@@ -103,6 +103,74 @@
 					}
 				]
 			}
+		},
+		{
+			"id": "b11e6bb9-2593-4a78-a644-4663943ed8ac",
+			"title": "Custom admin policies in use",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find * with _class!='AccessPolicy' that (trusts|assigned) AccessRole\n  that assigned AccessPolicy with\n  arn!='arn:aws:iam::aws:policy/AdministratorAccess' and\n  _key!$=':role/Administrator/AdministratorAccess' and\n  _key!$=':role/OrganizationAccountAccessRole/AdministratorAccess' and\n  exception !=true and\n  tag.Exception != true as p\nthat allows as r aws_account\nwhere r.permission='FULL_CONTROL'\nreturn count(p) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "ff0fd280-e83f-423f-950d-3e7894aac5f6",
+			"title": "Custom Admin Policies in Use",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find * with _class!='AccessPolicy' that (trusts|assigned) AccessRole\n  that assigned AccessPolicy with\n  arn!='arn:aws:iam::aws:policy/AdministratorAccess' and\n  _key!$=':role/Administrator/AdministratorAccess' and\n  _key!$=':role/OrganizationAccountAccessRole/AdministratorAccess' and\n  exception !=true and\n  tag.Exception != true as p\nthat allows as r aws_account\nwhere r.permission='FULL_CONTROL'\nreturn p.*"
+					}
+				]
+			}
+		},
+		{
+			"id": "c41a5294-1032-45fc-887c-9046c443f9af",
+			"title": "IAM Users Without MFA Enabled",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find aws_iam_user with mfaEnabled=false as a return count(a) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "dcba47f0-4628-4f5a-b469-f1a581f7cc62",
+			"title": "IAM users without MFA enabled",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find aws_iam_user with mfaEnabled=false as a \nreturn\na.displayName, a.accessKeyEnabled, a.accessKeyLastUsed,\na.accountId, a.email, a.id, a.passwordEnabled, a.tag.AccountName,\na.tag.AssignmentGroup, a.tag.Production"
+					}
+				]
+			}
 		}
 	],
 	"layouts": {
@@ -110,76 +178,112 @@
 		"xs": [],
 		"lg": [
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 3,
 				"x": 8,
 				"y": 2,
-				"i": "0f10330f-7587-4216-8743-48b3a2156c0e"
+				"i": "65c89401-0046-458d-83c2-e0088cd84b52",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 7,
-				"moved": false,
 				"h": 2,
 				"x": 5,
 				"y": 8,
-				"i": "2f32d784-62e1-4e61-a4d4-411800e7e35f"
+				"i": "8705e12f-1b3b-490a-9fd5-0c9a710c2dbd",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 8,
 				"y": 0,
-				"i": "e52f89d1-9b8a-4e2e-8bd8-4ea6be3d8852"
+				"i": "7965d076-d48d-4170-8051-411c155d051a",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 4,
 				"y": 0,
-				"i": "3fb7564f-b120-4d59-ac44-6e4fcb238481"
+				"i": "bff2f359-755e-431c-a2c0-c1944839087b",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 8,
-				"moved": false,
 				"h": 3,
 				"x": 0,
 				"y": 2,
-				"i": "0c4c846f-6d3d-468d-81be-d408f82dbdc1"
+				"i": "cee9bd20-0931-4c37-9135-f50e366907b7",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 0,
-				"i": "40982e7a-f5ce-4d31-ac02-d90e1da7f543"
+				"i": "a8d16b11-854e-41d5-8c59-875c92856fc1",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 5,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 8,
-				"i": "672f82ce-3a15-4f50-a0ed-a438cc45cbf7"
+				"i": "8acd3cba-db90-4132-90e8-4042576f16b5",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 12,
-				"moved": false,
 				"h": 3,
 				"x": 0,
 				"y": 5,
-				"i": "51c4e0a2-8acb-4a60-94fb-b7a6e25f5ddb"
+				"i": "d6e6eeaa-4b59-4cc1-9b8c-6131900b35a3",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "b11e6bb9-2593-4a78-a644-4663943ed8ac",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 2,
+				"x": 3,
+				"y": 10,
+				"i": "ff0fd280-e83f-423f-950d-3e7894aac5f6",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 0,
+				"y": 12,
+				"i": "c41a5294-1032-45fc-887c-9046c443f9af",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 2,
+				"x": 3,
+				"y": 12,
+				"i": "dcba47f0-4628-4f5a-b469-f1a581f7cc62",
+				"moved": false,
+				"static": false
 			}
 		],
 		"xl": [],
