@@ -10,7 +10,19 @@
 						"name": "query1",
 						"query": "Find azure_managed_disk with attached=false and encrypted=true as a\nreturn count(a) as value\n"
 					}
-				]
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						},
+						"success": {
+							"limitCondition": "equalTo",
+							"val1": 0
+						}
+					}
+				}
 			}
 		},
 		{
@@ -23,7 +35,22 @@
 						"name": "query1",
 						"query": "Find azure_managed_disk with attached=false and encrypted!=true as a return count(a) as value\n\n"
 					}
-				]
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						},
+						"default": {
+							"limitCondition": "equalTo"
+						},
+						"success": {
+							"limitCondition": "equalTo",
+							"val1": 0
+						}
+					}
+				}
 			}
 		},
 		{
@@ -36,7 +63,19 @@
 						"name": "query1",
 						"query": "FIND azure_vm THAT USES azure_storage_account with encryptedBlob!=true as a return count(a) as value\n"
 					}
-				]
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						},
+						"success": {
+							"limitCondition": "equalTo",
+							"val1": 0
+						}
+					}
+				}
 			}
 		},
 		{
@@ -62,7 +101,19 @@
 						"name": "query1",
 						"query": "Find azure_managed_disk with osType!=undefined and attached=true and encrypted!=true as a return count(a) as value\n\n"
 					}
-				]
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						},
+						"success": {
+							"limitCondition": "equalTo",
+							"val1": 0
+						}
+					}
+				}
 			}
 		},
 		{
@@ -75,7 +126,19 @@
 						"name": "query1",
 						"query": "Find azure_security_group that allows as rule Internet\nwhere rule.inbound=true and rule.fromPort <= 22 and rule.toPort >= 22\nreturn count(rule) as value\n"
 					}
-				]
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						},
+						"success": {
+							"limitCondition": "equalTo",
+							"val1": 0
+						}
+					}
+				}
 			}
 		},
 		{

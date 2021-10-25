@@ -2,7 +2,7 @@
 	"widgets": [
 		{
 			"id": "2077bd40-6374-4f0e-8ce2-cdbe325ac23d",
-			"title": "Azure Storage Containers without SecureTransport Enabled - OK",
+			"title": "Azure Storage Containers without SecureTransport Enabled",
 			"type": "pie",
 			"config": {
 				"queries": [
@@ -15,7 +15,7 @@
 		},
 		{
 			"id": "a1e84ab1-302c-41b2-8ed4-8e13739dbe4b",
-			"title": "Azure Storage Containers without default encryption enabled - OK",
+			"title": "Azure Storage Containers without default encryption enabled",
 			"type": "pie",
 			"config": {
 				"queries": [
@@ -41,7 +41,7 @@
 		},
 		{
 			"id": "f3d05c46-622b-4129-9c3a-cac85a3f5c00",
-			"title": "Azure Storage Containers with SecureTransport Enabled - OK",
+			"title": "Azure Storage Containers with SecureTransport Enabled",
 			"type": "pie",
 			"config": {
 				"queries": [
@@ -54,7 +54,7 @@
 		},
 		{
 			"id": "bd4b5a50-18ff-433a-b096-4bf4dc696d59",
-			"title": "Azure Storage Containers with default encryption enabled - OK",
+			"title": "Azure Storage Containers with default encryption enabled",
 			"type": "pie",
 			"config": {
 				"queries": [
