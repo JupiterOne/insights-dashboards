@@ -6,7 +6,7 @@ import codeDepsBoard from "./boards/code-deps-licenses/board.json";
 import dataBreachCostBoard from "./boards/data-breach-cost/board.json";
 import dataProtectionBoard from "./boards/data-protection/board.json";
 import developmentBoard from "./boards/development/board.json";
-import firewallBoard from "./boards/firewall/board.json";
+import firewallBoard from "./boards/network-security/board.json";
 import gdprDataLocationsBoard from "./boards/gdpr-data-locations/board.json";
 import highRiskAssetsBoard from "./boards/high-risk-assets/board.json";
 import resourceClassificationBoard from "./boards/resource-classification/board.json";
@@ -27,7 +27,7 @@ const InsightsDashboards = {
   "Data Breach Cost": dataBreachCostBoard,
   "Data Protection": dataProtectionBoard,
   "Secure Development": developmentBoard,
-  "Firewall Rules Matrix": firewallBoard,
+  "Network Security": firewallBoard,
   "GDPR Data Locations": gdprDataLocationsBoard,
   "High Risk Assets": highRiskAssetsBoard,
   "Resource Classification": resourceClassificationBoard,
@@ -41,3 +41,4 @@ const InsightsDashboards = {
 };
 
 export default InsightsDashboards;
+``
