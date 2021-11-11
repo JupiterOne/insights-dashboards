@@ -16,7 +16,11 @@ import userAccessBoard from "./boards/user-access/board.json";
 import userEndpointsBoard from "./boards/user-endpoints/board.json";
 import userTrainingBoard from "./boards/user-training/board.json";
 import vendorMgmtBoard from "./boards/vendor-mgmt/board.json";
-import vulnReportingBoard from "./boards/vuln-reporting/board.json";
+import vulnReportingBoard from "./boards/azure-resources/board.json";
+import gcpCompute from "./boards/gcp-compute/board.json";
+import gcpIam from "./boards/gcp-iam/board.json";
+import azureDataStoreSecurity from "./boards/azure-datastore-security/board.json";
+import azureResources from "./boards/azure-resources/board.json";
 
 const InsightsDashboards = {
   "AWS Accounts": awsAccountBoard,
@@ -38,7 +42,10 @@ const InsightsDashboards = {
   "User Training": userTrainingBoard,
   "Vendor Management": vendorMgmtBoard,
   "Vulnerability Reporting": vulnReportingBoard,
+  "GCP compute": gcpCompute,
+  "GCP IAM": gcpIam,
+  "Azure DataStore Security": azureDataStoreSecurity,
+  "Azure Resources": azureResources,
 };
 
 export default InsightsDashboards;
-``
