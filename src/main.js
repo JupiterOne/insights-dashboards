@@ -16,7 +16,7 @@ import userAccessBoard from "./boards/user-access/board.json";
 import userEndpointsBoard from "./boards/user-endpoints/board.json";
 import userTrainingBoard from "./boards/user-training/board.json";
 import vendorMgmtBoard from "./boards/vendor-mgmt/board.json";
-import vulnReportingBoard from "./boards/azure-resources/board.json";
+import vulnReportingBoard from "./boards/vuln-reporting/board.json";
 import gcpCompute from "./boards/gcp-compute/board.json";
 import gcpIam from "./boards/gcp-iam/board.json";
 import azureDataStoreSecurity from "./boards/azure-datastore-security/board.json";
