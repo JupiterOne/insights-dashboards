@@ -1,0 +1,266 @@
+{
+	"widgets": [
+		{
+			"id": "c5213438-e370-483c-b3a6-34e5e3874fa1",
+			"title": "Indirect attack surface for critical assets",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find UNIQUE #CriticalAsset as CriticalAsset\n(that RELATES TO *)?\nthat RELATES TO * as AttackSurface\nthat (ALLOWS|CONNECTS) (Internet|Everyone)\nRETURN \n  CriticalAsset._type, \n  AttackSurface._type, AttackSurface.displayName"
+					}
+				]
+			}
+		},
+		{
+			"id": "a7a53d25-dc96-40e0-b908-1be6ea0c29f6",
+			"title": "Indirect attack surface counts by critical asset type",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find UNIQUE #CriticalAsset as CriticalAsset\n(that RELATES TO *)?\nthat RELATES TO * as AttackSurface\nthat (ALLOWS|CONNECTS) (Internet|Everyone)\nRETURN \n  CriticalAsset._type as name, count(AttackSurface) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "d61b1438-0a01-4951-97cd-04b3228c18ff",
+			"title": "Critical Assets directly exposed to the Internet or Everyone",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find UNIQUE #CriticalAsset as CriticalAsset\nthat (ALLOWS|CONNECTS) (Internet|Everyone)\nRETURN \n  count(CriticalAsset) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						},
+						"success": {
+							"limitCondition": "equalTo",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "2155acdd-b482-405d-b1f7-e407c4d2a730",
+			"title": "Critical Assets directly exposed to the Internet or Everyone",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find #CriticalAsset\nthat (ALLOWS|CONNECTS) (Internet|Everyone)\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "a781bcf5-20f0-454a-a6cb-9c3bf057ccfe",
+			"title": "Critical Assets connected to user endpoints without host agent protection",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find UNIQUE #CriticalAsset as CriticalAsset\n(that RELATES TO *)?\nthat RELATES TO user_endpoint as AttackSurface\nthat !(PROTECTS|MONITORS) << HostAgent\nRETURN \n  CriticalAsset._type, CriticalAsset.displayName, \n  AttackSurface._type, AttackSurface.displayName"
+					}
+				]
+			}
+		},
+		{
+			"id": "32ff637f-39a4-4d87-b50f-2724064be99d",
+			"title": "Critical Assets connected to user endpoints without host agent protection",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find UNIQUE #CriticalAsset as CriticalAsset\n(that RELATES TO *)?\nthat RELATES TO user_endpoint as AttackSurface\nthat !(PROTECTS|MONITORS) << HostAgent\nRETURN \n  CriticalAsset._type as name, Count(AttackSurface) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "af7a82e0-10da-49aa-a271-68c3419dc601",
+			"title": "Attack Path Graph for Critical Assets",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find UNIQUE #CriticalAsset as CriticalAsset\n(that RELATES TO *)?\nthat RELATES TO * as AttackSurface\nthat (ALLOWS|CONNECTS) (Internet|Everyone)\nRETURN TREE"
+					}
+				]
+			}
+		},
+		{
+			"id": "ec87592e-91a9-4811-8526-58c04edd0f9b",
+			"title": "",
+			"type": "markdown",
+			"config": {
+				"queries": [],
+				"settings": {
+					"markdown": {
+						"text": "Critical Assets are those that are business critical, defined by contextual attributes in the \n[Assets app](/assets)\n(click on the gear/settings icon to review and make changes).\n\nCritical Assets directly exposed to the Internet or directly allowing access to Everyone\nshould be immediately mitigated. The number should remain zero. There is a \"Critical Assets\"\nalert rule pack that can be imported to continuously monitor and alert on it.\n\n"
+					}
+				}
+			}
+		},
+		{
+			"id": "7bc64f0a-6913-449d-96e6-4e4f0035c786",
+			"title": "",
+			"type": "markdown",
+			"config": {
+				"queries": [],
+				"settings": {
+					"markdown": {
+						"text": "Additionally, there are widgets to show the Attack Surface associated with\nCritical Assets that are indirectly connected to the Internet or allowing access\nto Everyone. These attack surface entities are the immediate first hop such that\nif compromised, could lead to the compromise of critical assets a few degrees\naway. These attack surface entities should be closely monitor for any configuration\nchanges or any alerts/problems. \n\nAt the bottom of this dashboard are a few widgets showing Critical Assets\nconnected to user endpoints 1-2 degrees away that are not monitored or protected\nby an agent, and accessible by users without MFA. User endpoints and users are \ninherently risky, especially with a remote workforce. If any of those were found,\nthey should be remediated by installing a security agent on the user endpoint\nand enabling MFA on the user account."
+					}
+				}
+			}
+		},
+		{
+			"id": "7c66723b-1e56-46d2-8de4-bc73cd2d10d4",
+			"title": "Critical Assets accessible by users without MFA",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find UNIQUE #CriticalAsset as CriticalAsset\n(that RELATES TO *)?\nthat RELATES TO User with mfaEnabled!=true as AttackSurface\nRETURN \n  CriticalAsset._type as name, Count(AttackSurface) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "11cc5791-fae6-4872-90cd-931f7f63c78c",
+			"title": "Critical Assets accessible by users without MFA",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find UNIQUE #CriticalAsset as CriticalAsset\n(that RELATES TO *)?\nthat RELATES TO User with mfaEnabled!=true as AttackSurface\nRETURN \n  CriticalAsset._type, CriticalAsset.displayName,\n  AttackSurface._type, AttackSurface.displayName, AttackSurface.mfaEnabled"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"static": false,
+				"w": 8,
+				"moved": false,
+				"h": 4,
+				"x": 4,
+				"y": 5,
+				"i": "c5213438-e370-483c-b3a6-34e5e3874fa1"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 4,
+				"x": 0,
+				"y": 5,
+				"i": "a7a53d25-dc96-40e0-b908-1be6ea0c29f6"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 2,
+				"i": "d61b1438-0a01-4951-97cd-04b3228c18ff"
+			},
+			{
+				"static": false,
+				"w": 8,
+				"moved": false,
+				"h": 3,
+				"x": 4,
+				"y": 2,
+				"i": "2155acdd-b482-405d-b1f7-e407c4d2a730"
+			},
+			{
+				"static": false,
+				"w": 8,
+				"moved": false,
+				"h": 3,
+				"x": 4,
+				"y": 13,
+				"i": "a781bcf5-20f0-454a-a6cb-9c3bf057ccfe"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 13,
+				"i": "32ff637f-39a4-4d87-b50f-2724064be99d"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 4,
+				"x": 0,
+				"y": 9,
+				"i": "af7a82e0-10da-49aa-a271-68c3419dc601"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "ec87592e-91a9-4811-8526-58c04edd0f9b"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 6,
+				"y": 0,
+				"i": "7bc64f0a-6913-449d-96e6-4e4f0035c786"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 16,
+				"i": "7c66723b-1e56-46d2-8de4-bc73cd2d10d4"
+			},
+			{
+				"static": false,
+				"w": 8,
+				"moved": false,
+				"h": 3,
+				"x": 4,
+				"y": 16,
+				"i": "11cc5791-fae6-4872-90cd-931f7f63c78c"
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
