@@ -2,7 +2,7 @@
 Publisher: JupiterOne
 ---
 
-# AWS Critical Attack Surface
+# Critical Asset Attack Surface
 
 ![sample-screenshot](board.png)
 
