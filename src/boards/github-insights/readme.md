@@ -2,7 +2,7 @@
 Publisher: JupiterOne
 ---
 
-# AWS GitHub Insights
+# GitHub Insights
 
 ![sample-screenshot](board.png)
 
