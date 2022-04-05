@@ -8,6 +8,7 @@ List of dashboards:
 - [AWS Accounts](src/boards/aws-accounts/)
 - [AWS IAM](src/boards/aws-iam/)
 - [AWS S3 Security](src/boards/aws-s3-security/)
+- [Critical Attack Surface](src/boards/critical-attack-surface)
 - [Data Breach Cost](src/boards/data-breach-cost/)
 - [Data Protection](src/boards/data-protection/)
 - [Development](src/boards/development/)
