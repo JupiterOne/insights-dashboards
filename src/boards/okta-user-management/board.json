@@ -1,0 +1,211 @@
+{
+	"widgets": [
+		{
+			"id": "fcc10441-31b7-418e-bc52-6865caf0ad0b",
+			"title": "Okta User by Status",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find okta_user as o \nreturn o.status as name, count(o) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "fd9d71bc-5909-4ab2-9300-f1f04f4ad328",
+			"title": "Okta Users Inactive For More Than 90 Days",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find okta_user with lastLoginOn < date.now-90 days and status != \"DEPROVISIONED\"  as u\nreturn\ncount(u) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "1daf1741-2ac8-438d-be66-06ba830c1204",
+			"title": "Okta Users Inactive for more than 90 days",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find okta_user with lastLoginOn < date.now-90 days and status != \"DEPROVISIONED\" as o\n\nRETURN o.displayName as email, o.name as name, o.status as status"
+					}
+				]
+			}
+		},
+		{
+			"id": "2524b1a7-313e-4515-a5df-72f54b7b6482",
+			"title": "OKTA DEPROVISIONED OR Inactive Users with Access to User account",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find okta_user with ( lastLoginOn < date.now-90 days OR status=\"DEPROVISIONED\") and lastName!~=\"Agent\" as o that is Person that is User with active=true as u \nRETURN count(o) as value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 1
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "af134176-1956-4f5e-a1c0-dac66aededeb",
+			"title": "OKTA DEPROVISIONED OR Inactive Users with Access to User account",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find okta_user with ( lastLoginOn < date.now-90 days OR status=\"DEPROVISIONED\") and lastName!~=\"Agent\" as o that is Person that is User with active=true as u\nRETURN o.name as Name, u._type as Account, u.username as Username"
+					}
+				]
+			}
+		},
+		{
+			"id": "01d9dc2c-5661-460a-9079-2bafcb79361c",
+			"title": "New Users Access Requirements",
+			"type": "status",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find okta_user with createdOn > date.now - 1 month as o (That (HAS|ASSIGNED) (mfa_device) as p )? \nreturn o.displayName as id, \no.organization as \"OrgAssigned\",\no.employeeNumber as EmployeeNumber,\no.jobTitle as \"JobTitle\",\no.manager as \"Manager\",\np.displayName as \"MFADevice\""
+					},
+					{
+						"name": "query2",
+						"query": "Find okta_user with createdOn > date.now - 1 month as o (That (HAS|ASSIGNED) UserGroup with displayName~=\"Everyone\" as p )? \nreturn o.displayName as id, \np.displayName as \"EveryoneGroup\""
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "fcc10441-31b7-418e-bc52-6865caf0ad0b"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "fd9d71bc-5909-4ab2-9300-f1f04f4ad328"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 2,
+				"i": "1daf1741-2ac8-438d-be66-06ba830c1204"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "2524b1a7-313e-4515-a5df-72f54b7b6482"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 4,
+				"i": "af134176-1956-4f5e-a1c0-dac66aededeb"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 6,
+				"i": "01d9dc2c-5661-460a-9079-2bafcb79361c"
+			}
+		],
+		"xl": [],
+		"md": [
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "fcc10441-31b7-418e-bc52-6865caf0ad0b"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "fd9d71bc-5909-4ab2-9300-f1f04f4ad328"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "1daf1741-2ac8-438d-be66-06ba830c1204"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 6,
+				"i": "2524b1a7-313e-4515-a5df-72f54b7b6482"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "af134176-1956-4f5e-a1c0-dac66aededeb"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "01d9dc2c-5661-460a-9079-2bafcb79361c"
+			}
+		]
+	}
+}
