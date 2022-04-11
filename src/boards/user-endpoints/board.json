@@ -55,7 +55,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find user_endpoint as d\nreturn\n  d.osName as name,\n  count(d) as value"
+						"query": "Find (user_endpoint|workstation|laptop|desktop|computer|smartphone|tablet) as d\nreturn\n  d.osName as name,\n  count(d) as value"
 					}
 				]
 			}
@@ -81,7 +81,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find user_endpoint as d\nreturn\n  d.osName as osName,\n  d.osVersion as osVersion,\n  count(d) as deviceCount"
+						"query": "Find (user_endpoint|workstation|laptop|desktop|computer|smartphone|tablet) as d\nreturn\n  d.osName as osName,\n  d.osVersion as osVersion,\n  count(d) as deviceCount"
 					}
 				]
 			}
@@ -94,7 +94,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find user_endpoint as d\nreturn d.encrypted as name, count(d) as value"
+						"query": "Find (user_endpoint|workstation|laptop|desktop|computer|smartphone|tablet) as d\nreturn d.encrypted as name, count(d) as value"
 					}
 				]
 			}
