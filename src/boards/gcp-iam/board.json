@@ -229,6 +229,19 @@
 					}
 				}
 			}
+		},
+		{
+			"id": "df333bf5-22ba-4518-bdc3-995bb1a24585",
+			"title": "Service Account Permissions List",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND google_iam_service_account WITH email $= \"gserviceaccount.com\" as s\n  (THAT ASSIGNED << AccessPolicy)?\n  (THAT USES AccessRole)?\n  THAT ASSIGNED << AccessPolicy AS p\n  THAT ALLOWS >> *\nRETURN s.email, p.name, p.permissions, p.organization, p.folders, p.project"
+					}
+				]
+			}
 		}
 	],
 	"layouts": {
@@ -360,6 +373,15 @@
 				"x": 0,
 				"y": 8,
 				"i": "18b673fb-c504-4aa8-9073-9a21997dda8e"
+			},
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "df333bf5-22ba-4518-bdc3-995bb1a24585",
+				"moved": false,
+				"static": false
 			}
 		],
 		"xl": [],
