@@ -101,26 +101,26 @@
 		},
 		{
 			"id": "4722e8b5-748d-4e74-b856-0e9d79d7409d",
-			"title": "Number of users affected by Google Chrome zero-day vulnerability  (version < 93.0.4577.82)",
+			"title": "Number of users with Google Chrome installed, by version",
 			"type": "pie",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND User\nTHAT HAS Device\nTHAT INSTALLED Application\n  WITH name~= ('Chrome' or 'Chromium')\n  AND version != \"93.0.4577.82\" as a\nRETURN COUNT(User) as value, a.version as name"
+						"query": "FIND User\nTHAT HAS Device\nTHAT (INSTALLED|ASSIGNED) Application\n  WITH displayName ~= ('Chrome' or 'Chromium') as a\nRETURN COUNT(User) as value, a.version as name"
 					}
 				]
 			}
 		},
 		{
 			"id": "8358b11d-e8f5-4946-9fb2-79f6d0f87aae",
-			"title": "Devices affected by Google Chrome zero-day vulnerability",
+			"title": "Devices with Google Chrome installed, by version",
 			"type": "table",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND User as user\nTHAT HAS Device as device\nTHAT INSTALLED Application \n  WITH name~= ('Chrome' or 'Chromium')\n  AND version != \"93.0.4577.82\" AS app\nRETURN \n  user.displayName,\n  user.email,\n  device.serialNumber,\n  app.version as chromeVersion"
+						"query": "FIND User as user\nTHAT HAS Device as device\nTHAT (INSTALLED|ASSIGNED) Application\n  WITH displayName ~= ('Chrome' or 'Chromium') as a\nRETURN \n  user.displayName,\n  user.email,\n  device.serialNumber,\n  a.version as chromeVersion"
 					}
 				]
 			}
