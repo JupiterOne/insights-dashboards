@@ -382,10 +382,7 @@
 				"i": "df333bf5-22ba-4518-bdc3-995bb1a24585",
 				"moved": false,
 				"static": false
-			}
-		],
-		"xl": [],
-		"md": [
+			},
 			{
 				"w": 6,
 				"h": 2,
@@ -512,6 +509,8 @@
 				"moved": false,
 				"static": false
 			}
-		]
+		],
+		"xl": [],
+		"md": []
 	}
 }
