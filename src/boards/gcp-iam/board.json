@@ -1,7 +1,7 @@
 {
 	"widgets": [
 		{
-			"id": "b8c9affa-6742-4b6e-ab62-9a0bd833e973",
+			"id": "81eef08b-b102-4407-a31f-71af759a236a",
 			"title": "GCP-managed service account keys",
 			"type": "number",
 			"config": {
@@ -22,7 +22,7 @@
 			}
 		},
 		{
-			"id": "d8a93309-905c-4625-b0b1-16f97d497c99",
+			"id": "3cc320d6-a75f-43f5-8d50-51e916c2b8e4",
 			"title": "User-managed  service account keys",
 			"type": "number",
 			"config": {
@@ -43,7 +43,7 @@
 			}
 		},
 		{
-			"id": "9e002344-cb24-4bd0-8e2b-14174702d666",
+			"id": "432d53e9-e8cc-4ecb-b3f6-ee302d8a1696",
 			"title": "User-managed  service account keys",
 			"type": "table",
 			"config": {
@@ -56,7 +56,7 @@
 			}
 		},
 		{
-			"id": "dccf875b-915c-4d32-bbc6-70193bf0121a",
+			"id": "e0f98e0e-1a38-4035-8e24-a679afbee4f1",
 			"title": "Service accounts with Admin privileges",
 			"type": "number",
 			"config": {
@@ -77,7 +77,7 @@
 			}
 		},
 		{
-			"id": "9f3dab59-ddab-4d14-9788-ac9865834f50",
+			"id": "b17fd05c-0465-4083-98b1-0040b5a68e3f",
 			"title": "IAM Service Accounts",
 			"type": "pie",
 			"config": {
@@ -90,7 +90,7 @@
 			}
 		},
 		{
-			"id": "e8303a14-5cf5-42e7-877b-d87db294e315",
+			"id": "2586de92-3bfd-45aa-a4e6-43883dffa57e",
 			"title": "Service Accounts with Admin privileges",
 			"type": "table",
 			"config": {
@@ -103,7 +103,7 @@
 			}
 		},
 		{
-			"id": "3d8c0553-5b0a-4820-80c1-e1b813722f09",
+			"id": "284cd905-02ff-4fde-92ba-006682a2e00a",
 			"title": "IAM users by Account",
 			"type": "pie",
 			"config": {
@@ -116,7 +116,7 @@
 			}
 		},
 		{
-			"id": "8826eedb-3f4f-4657-b4ec-3d7862d33702",
+			"id": "4cb25be1-076d-4f97-b209-4fa63c079ae9",
 			"title": "IAM Roles by Account",
 			"type": "pie",
 			"config": {
@@ -129,7 +129,7 @@
 			}
 		},
 		{
-			"id": "051ce60a-dab0-4d4e-9cdd-08c03799a482",
+			"id": "20e885d1-31bc-401a-9a0d-f6cd18a8e8e8",
 			"title": "Service Accounts with Keys older than 90 days",
 			"type": "table",
 			"config": {
@@ -142,33 +142,33 @@
 			}
 		},
 		{
-			"id": "0f5a541b-fdaa-4aa1-b92e-3bad90db9536",
+			"id": "06d184f3-4f64-44ab-8748-3db3a7bb87f7",
 			"title": "Service accounts with write privileges",
 			"type": "graph",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find google_iam_service_account as user\n  that assigned google_iam_binding\n  that uses google_iam_role with readonly!=true\nreturn tree"
+						"query": "Find google_iam_service_account with tag.AccountName = 'sysdig-development-2' as user\n  that assigned google_iam_binding\n  that uses google_iam_role with readonly!=true\nreturn tree"
 					}
 				]
 			}
 		},
 		{
-			"id": "1a27a908-9ed9-4a3a-9578-7eac98308738",
+			"id": "df62a65d-6e77-4320-ba60-3a3564594d9f",
 			"title": "External users with write privileges",
 			"type": "graph",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find google_user with _source = 'system-mapper'\n  that assigned google_iam_binding\n  that uses google_iam_role with readonly!=true \n  return tree"
+						"query": "Find google_user with _source = 'system-mapper'\n  that assigned google_iam_binding with tag.AccountName = 'datadog-dev-335212'\n  that uses google_iam_role with readonly!=true \n  return tree"
 					}
 				]
 			}
 		},
 		{
-			"id": "abe21a24-f03d-4d0c-8b0b-5cffdeb362c3",
+			"id": "d6777e2c-189f-4b48-8b82-0a5ce3531988",
 			"title": "Service Accounts with Write Privileges",
 			"type": "number",
 			"config": {
@@ -189,7 +189,7 @@
 			}
 		},
 		{
-			"id": "d3d3c430-654d-40e7-a9d7-d54607d29cac",
+			"id": "6223553a-accd-4981-b1af-fdb49e61aadf",
 			"title": "External Users with Write Privileges",
 			"type": "number",
 			"config": {
@@ -210,7 +210,7 @@
 			}
 		},
 		{
-			"id": "18b673fb-c504-4aa8-9073-9a21997dda8e",
+			"id": "e3f23f81-f3b4-4d22-8f2b-942e0b563458",
 			"title": "Service Accounts with Keys older than 90 days",
 			"type": "number",
 			"config": {
@@ -231,7 +231,7 @@
 			}
 		},
 		{
-			"id": "df333bf5-22ba-4518-bdc3-995bb1a24585",
+			"id": "5ee6fa9a-533e-4db5-a1f0-004f85007bbd",
 			"title": "Service Account Permissions List",
 			"type": "table",
 			"config": {
@@ -249,263 +249,137 @@
 		"xs": [],
 		"lg": [
 			{
-				"static": false,
 				"w": 2,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 2,
-				"i": "b8c9affa-6742-4b6e-ab62-9a0bd833e973"
+				"i": "81eef08b-b102-4407-a31f-71af759a236a",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 2,
-				"moved": false,
 				"h": 2,
 				"x": 2,
 				"y": 2,
-				"i": "d8a93309-905c-4625-b0b1-16f97d497c99"
+				"i": "3cc320d6-a75f-43f5-8d50-51e916c2b8e4",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 8,
-				"moved": false,
 				"h": 2,
 				"x": 4,
 				"y": 2,
-				"i": "9e002344-cb24-4bd0-8e2b-14174702d666"
+				"i": "432d53e9-e8cc-4ecb-b3f6-ee302d8a1696",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 4,
-				"i": "dccf875b-915c-4d32-bbc6-70193bf0121a"
+				"i": "e0f98e0e-1a38-4035-8e24-a679afbee4f1",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 8,
 				"y": 0,
-				"i": "9f3dab59-ddab-4d14-9788-ac9865834f50"
+				"i": "b17fd05c-0465-4083-98b1-0040b5a68e3f",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 8,
-				"moved": false,
 				"h": 2,
 				"x": 4,
 				"y": 4,
-				"i": "e8303a14-5cf5-42e7-877b-d87db294e315"
+				"i": "2586de92-3bfd-45aa-a4e6-43883dffa57e",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 0,
-				"i": "3d8c0553-5b0a-4820-80c1-e1b813722f09"
+				"i": "284cd905-02ff-4fde-92ba-006682a2e00a",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 4,
-				"moved": false,
 				"h": 2,
 				"x": 4,
 				"y": 0,
-				"i": "8826eedb-3f4f-4657-b4ec-3d7862d33702"
-			},
-			{
-				"static": false,
-				"w": 8,
+				"i": "4cb25be1-076d-4f97-b209-4fa63c079ae9",
 				"moved": false,
-				"h": 2,
-				"x": 4,
-				"y": 8,
-				"i": "051ce60a-dab0-4d4e-9cdd-08c03799a482"
-			},
-			{
-				"static": false,
-				"w": 8,
-				"moved": false,
-				"h": 2,
-				"x": 4,
-				"y": 6,
-				"i": "0f5a541b-fdaa-4aa1-b92e-3bad90db9536"
-			},
-			{
-				"static": false,
-				"w": 8,
-				"moved": false,
-				"h": 2,
-				"x": 4,
-				"y": 10,
-				"i": "1a27a908-9ed9-4a3a-9578-7eac98308738"
-			},
-			{
-				"static": false,
-				"w": 4,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "abe21a24-f03d-4d0c-8b0b-5cffdeb362c3"
-			},
-			{
-				"static": false,
-				"w": 4,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 10,
-				"i": "d3d3c430-654d-40e7-a9d7-d54607d29cac"
-			},
-			{
-				"static": false,
-				"w": 4,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "18b673fb-c504-4aa8-9073-9a21997dda8e"
+				"static": false
 			},
 			{
 				"w": 12,
 				"h": 2,
 				"x": 0,
-				"y": 0,
-				"i": "df333bf5-22ba-4518-bdc3-995bb1a24585",
+				"y": 10,
+				"i": "20e885d1-31bc-401a-9a0d-f6cd18a8e8e8",
 				"moved": false,
 				"static": false
 			},
 			{
 				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "b8c9affa-6742-4b6e-ab62-9a0bd833e973",
+				"h": 4,
+				"x": 6,
+				"y": 6,
+				"i": "06d184f3-4f64-44ab-8748-3db3a7bb87f7",
 				"moved": false,
 				"static": false
 			},
 			{
 				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "d8a93309-905c-4625-b0b1-16f97d497c99",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 4,
-				"i": "9e002344-cb24-4bd0-8e2b-14174702d666",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
+				"h": 4,
 				"x": 0,
 				"y": 6,
-				"i": "dccf875b-915c-4d32-bbc6-70193bf0121a",
+				"i": "df62a65d-6e77-4320-ba60-3a3564594d9f",
 				"moved": false,
 				"static": false
 			},
 			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "9f3dab59-ddab-4d14-9788-ac9865834f50",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 10,
-				"i": "e8303a14-5cf5-42e7-877b-d87db294e315",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
+				"w": 12,
 				"h": 2,
 				"x": 0,
 				"y": 12,
-				"i": "3d8c0553-5b0a-4820-80c1-e1b813722f09",
+				"i": "d6777e2c-189f-4b48-8b82-0a5ce3531988",
 				"moved": false,
 				"static": false
 			},
 			{
-				"w": 6,
+				"w": 12,
 				"h": 2,
 				"x": 0,
 				"y": 14,
-				"i": "8826eedb-3f4f-4657-b4ec-3d7862d33702",
+				"i": "6223553a-accd-4981-b1af-fdb49e61aadf",
 				"moved": false,
 				"static": false
 			},
 			{
-				"w": 6,
+				"w": 12,
 				"h": 2,
 				"x": 0,
 				"y": 16,
-				"i": "051ce60a-dab0-4d4e-9cdd-08c03799a482",
+				"i": "e3f23f81-f3b4-4d22-8f2b-942e0b563458",
 				"moved": false,
 				"static": false
 			},
 			{
-				"w": 6,
+				"w": 12,
 				"h": 2,
 				"x": 0,
 				"y": 18,
-				"i": "0f5a541b-fdaa-4aa1-b92e-3bad90db9536",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 20,
-				"i": "1a27a908-9ed9-4a3a-9578-7eac98308738",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 22,
-				"i": "abe21a24-f03d-4d0c-8b0b-5cffdeb362c3",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 24,
-				"i": "d3d3c430-654d-40e7-a9d7-d54607d29cac",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 26,
-				"i": "18b673fb-c504-4aa8-9073-9a21997dda8e",
+				"i": "5ee6fa9a-533e-4db5-a1f0-004f85007bbd",
 				"moved": false,
 				"static": false
 			}
