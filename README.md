@@ -13,6 +13,7 @@ List of dashboards:
 - [Data Protection](src/boards/data-protection/)
 - [Development](src/boards/development/)
 - [GDPR Data Locations](src/boards/gdpr-data-locations/)
+- [GitHub Insights](src/boards/github-insights)
 - [High Risk Assets](src/boards/high-risk-assets/)
 - [Resource Classification](src/boards/resource-classification/)
 - [Risk Register](src/boards/risk-register/)
