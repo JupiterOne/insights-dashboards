@@ -8,7 +8,7 @@
 				"queries": [
 					{
 						"name": "query0",
-						"query": "FIND CodeRepo AS repo that has (Project|Account) as p\n        RETURN\n        p.name as name,\n        count(repo) AS value"
+						"query": "FIND CodeRepo AS repo that (has|owns) (Project|Account) as p\n        RETURN\n        p.name as name,\n        count(repo) AS value"
 					}
 				]
 			}
