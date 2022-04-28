@@ -1,0 +1,276 @@
+{
+	"widgets": [
+		{
+			"id": "160eea9d-a6e5-43d9-8b8b-3e2b27aab612",
+			"title": "CrowdStrike Sensor Installs by Platform",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find crowdstrike_sensor as e\nreturn e.platformName as name, count(e) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "b23cf3b7-1959-4c24-9a53-ab8e93fd6fdb",
+			"title": "JAMF Devices",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find user_endpoint with _integrationName~='JAMF' as a\nRETURN count(a) AS value"
+					}
+				]
+			}
+		},
+		{
+			"id": "935670e3-a70a-48c9-9e82-221820f93e25",
+			"title": "JAMF Devices NOT Protected By CrowdStrike",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find user_endpoint with _integrationName~='JAMF' \nthat !has jamf_computer_group with displayName=\"Crowdstrike - Installed\" as a \nreturn count(a) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "7deb5a06-4e02-4360-9e2f-3a12176b26f6",
+			"title": "JAMF Devices Protected By CrowdStrike",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find user_endpoint with _integrationName~='JAMF' \nthat has jamf_computer_group with displayName=\"Crowdstrike - Installed\" as a \nreturn count(a) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "789d5793-930f-49af-867f-8d7c94e1f214",
+			"title": "CrowdStrike Sensors By Platform Type Reporting In The Last 24 Hours",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find crowdstrike_sensor with lastSeenOn > date.now - 24 hours as e\nreturn e.platformName as name, count(e) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "1bd7d501-e43b-474f-8f2c-5ccba1f71122",
+			"title": "Crowdstrike Sensors NOT Seen In The Last 7 Days",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find crowdstrike_sensor with date.now - 7 days < lastSeenOn as e\nreturn e.platformName as name, count(e) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "652c73cd-ad97-4398-8e2d-8f2c8757de5d",
+			"title": "Test - looking for JAMF Devices Missing Encryption on the Network in the Last 24 Hours",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query 1",
+						"query": "Find user_endpoint With (lastSeenOn > date.now - 1 days) AND (encrypted!=true or encrypted=false) AS e\nRETURN count(e) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "3d446fba-6415-482f-8457-dbbf76d33572",
+			"title": "CrowdStrike Sensors Not Seen in the Last 7 Days",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find crowdstrike_sensor with date.now - 7 days < lastSeenOn as e\nRETURN e.displayName, e.hostname, e.lastSeenOn, e.macAddress, e.osVersion\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "bfec2a85-cb31-4007-b926-5a1d280e4832",
+			"title": " TEST - jamf_computer_group with displayName=\"Crowdstrike - Not Installed\" ",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find user_endpoint with _integrationName~='JAMF' \nthat has jamf_computer_group with displayName=\"Crowdstrike - Not Installed\" as a \nreturn count(a) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "e5cb22cf-d5ca-440b-a0c3-f5a40635a7ad",
+			"title": "TEST -  jamf_computer_group with displayName=\"Crowdstrike - Installed\"",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find user_endpoint with _integrationName~='JAMF' \nthat has jamf_computer_group with displayName=\"Crowdstrike - Installed\" as a \nreturn count(a) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "9c3ea370-357f-4c21-8a8a-13fa743f0bd1",
+			"title": "TEST - Does NOT have EITHER  jamf_computer_group with displayName=\"Crowdstrike - Not Installed\" OR displayName=\"Crowdstrike - Installed\"",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find user_endpoint with _integrationName~='JAMF' \nthat !has jamf_computer_group with (displayName=\"Crowdstrike - Installed\" OR displayName=\"Crowdstrike - Not Installed\") as a \nreturn count(a) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "464502b3-6d09-4c12-94fd-22f9f9a53d4c",
+			"title": "JAMF Devices Missing Encryption on Network in the Last 24 Hours",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find user_endpoint With (lastSeenOn > date.now - 1 days) AND (encrypted!=true or encrypted=false) AS e\nRETURN e.displayName, e.encrypted, e.lastSeenOn"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "160eea9d-a6e5-43d9-8b8b-3e2b27aab612"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "b23cf3b7-1959-4c24-9a53-ab8e93fd6fdb"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 8,
+				"y": 4,
+				"i": "935670e3-a70a-48c9-9e82-221820f93e25"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 4,
+				"y": 4,
+				"i": "7deb5a06-4e02-4360-9e2f-3a12176b26f6"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 4,
+				"y": 0,
+				"i": "789d5793-930f-49af-867f-8d7c94e1f214"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 8,
+				"y": 0,
+				"i": "1bd7d501-e43b-474f-8f2c-5ccba1f71122"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "652c73cd-ad97-4398-8e2d-8f2c8757de5d"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "3d446fba-6415-482f-8457-dbbf76d33572"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 4,
+				"y": 6,
+				"i": "bfec2a85-cb31-4007-b926-5a1d280e4832"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 6,
+				"i": "e5cb22cf-d5ca-440b-a0c3-f5a40635a7ad"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 2,
+				"x": 8,
+				"y": 6,
+				"i": "9c3ea370-357f-4c21-8a8a-13fa743f0bd1"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "464502b3-6d09-4c12-94fd-22f9f9a53d4c"
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
