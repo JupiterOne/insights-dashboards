@@ -1,0 +1,208 @@
+{
+	"widgets": [
+		{
+			"id": "1664f4f2-8a95-4288-b945-51649021dc86",
+			"title": "Google WorkSpace Active Users",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND google_user WITH active=true AS a \nRETURN COUNT(a) AS value\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "ca0afa65-70fb-4814-8ece-57952cb082cc",
+			"title": "Non-Active Workspace Admins",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND google_user with admin=true and active=false AS a \nRETURN COUNT(a) AS value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"id": "eaa71c6d-2699-4f4d-8f61-11e9b965ab70",
+			"title": "Active Workspace Admins",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND google_user WITH admin=true AND active=true AS a \nRETURN COUNT(a) AS value"
+					}
+				]
+			}
+		},
+		{
+			"id": "615fd2c6-5831-43df-b69c-392004efea50",
+			"title": "Total WorkSpace Admins (Active/Non-Active)",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND google_user WITH admin=true AS a\nRETURN COUNT(a) AS value"
+					}
+				]
+			}
+		},
+		{
+			"id": "18eb300e-6bf2-4ded-ae0d-be5e810b01b9",
+			"title": "Workspace Users in my Organization That Have Issued an OAuth Token With a Risky Scope to a 3rd Party Application",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find google_user as user THAT ASSIGNED google_token with\n  scopes^=(\n    \"https://mail.google.com\" OR\n    \"https://www.googleapis.com/auth/gmail.\" OR\n    \"https://www.googleapis.com/auth/drive\" OR\n    \"https://www.googleapis.com/auth/ediscovery\" OR\n    \"https://www.googleapis.com/auth/admin.\"\n  )\n  return\n    user.email as Email,\n    user.name as Name,\n    google_token.name as \"Google Token\",\n    google_token.scopes as \"Google Scope\""
+					}
+				]
+			}
+		},
+		{
+			"id": "75740abe-542e-45d7-86da-d0c58c5c326c",
+			"title": "Total Workspace Users",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FINd google_user AS a\nRETURN count(a) AS value"
+					}
+				]
+			}
+		},
+		{
+			"id": "d76a0b33-e198-4e01-8baf-fe838633a3ed",
+			"title": "Non-Active Workspace Admins ",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND google_user with admin=true and active=false as a\nRETURN \na.displayName as \"Display Name\",\na.active as Active,\na.admin as Admin,\na.firstName as \"First Name\",\na.lastName as \"Last Name\",\na.email as Email\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "91c57856-d59b-47a8-a673-7186ba259ee7",
+			"title": "Non-Active Super Admins",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND google_user with admin=true and active=false and isAdmon=true AS a \nRETURN COUNT(a) AS value"
+					}
+				],
+				"settings": {
+					"number": {
+						"error": {
+							"limitCondition": "greaterThan",
+							"val1": 0
+						},
+						"success": {
+							"limitCondition": "equalTo",
+							"val1": 0
+						}
+					}
+				}
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"static": false,
+				"w": 2,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 0,
+				"i": "1664f4f2-8a95-4288-b945-51649021dc86"
+			},
+			{
+				"static": false,
+				"w": 2,
+				"moved": false,
+				"h": 2,
+				"x": 9,
+				"y": 0,
+				"i": "ca0afa65-70fb-4814-8ece-57952cb082cc"
+			},
+			{
+				"static": false,
+				"w": 2,
+				"moved": false,
+				"h": 2,
+				"x": 7,
+				"y": 0,
+				"i": "eaa71c6d-2699-4f4d-8f61-11e9b965ab70"
+			},
+			{
+				"static": false,
+				"w": 2,
+				"moved": false,
+				"h": 2,
+				"x": 5,
+				"y": 0,
+				"i": "615fd2c6-5831-43df-b69c-392004efea50"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 4,
+				"i": "18eb300e-6bf2-4ded-ae0d-be5e810b01b9"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "75740abe-542e-45d7-86da-d0c58c5c326c"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "d76a0b33-e198-4e01-8baf-fe838633a3ed"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 11,
+				"y": 0,
+				"i": "91c57856-d59b-47a8-a673-7186ba259ee7"
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
