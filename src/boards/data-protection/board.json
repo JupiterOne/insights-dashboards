@@ -34,7 +34,7 @@
 				"queries": [
 					{
 						"name": "query0",
-						"query": "Find DataStore with encrypted=false as ds\n        return\n        ds._type as name,\n        count(ds) as value"
+						"query": "Find DataStore with encrypted!=true as ds\n        return\n        ds._type as name,\n        count(ds) as value"
 					}
 				]
 			}
@@ -47,7 +47,7 @@
 				"queries": [
 					{
 						"name": "query0",
-						"query": "Find DataStore with encrypted=false as ds\n        return\n          ds.tag.AccountName as name,\n          count(ds) as value"
+						"query": "Find DataStore with encrypted!=true as ds\n        return\n          ds.tag.AccountName as name,\n          count(ds) as value"
 					}
 				]
 			}
@@ -73,7 +73,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find DataStore with encrypted=false and tag.Production=true as ds\nreturn\n  count(ds) as value"
+						"query": "Find DataStore with encrypted!=true and tag.Production=true as ds\nreturn\n  count(ds) as value"
 					}
 				],
 				"settings": {
