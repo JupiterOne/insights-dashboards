@@ -1,7 +1,7 @@
 {
 	"widgets": [
 		{
-			"id": "1664f4f2-8a95-4288-b945-51649021dc86",
+			"id": "94f3a582-3588-435f-aaa8-c73c47338f08",
 			"title": "Google WorkSpace Active Users",
 			"type": "number",
 			"config": {
@@ -14,7 +14,7 @@
 			}
 		},
 		{
-			"id": "ca0afa65-70fb-4814-8ece-57952cb082cc",
+			"id": "e743571a-83c7-4817-8e6f-b36b93521b3e",
 			"title": "Non-Active Workspace Admins",
 			"type": "number",
 			"config": {
@@ -35,7 +35,7 @@
 			}
 		},
 		{
-			"id": "eaa71c6d-2699-4f4d-8f61-11e9b965ab70",
+			"id": "db7e3e65-25ab-4936-839f-fdeed1b64039",
 			"title": "Active Workspace Admins",
 			"type": "number",
 			"config": {
@@ -48,7 +48,7 @@
 			}
 		},
 		{
-			"id": "615fd2c6-5831-43df-b69c-392004efea50",
+			"id": "b4a3f066-4ec5-4779-b507-cd7695f942a0",
 			"title": "Total WorkSpace Admins (Active/Non-Active)",
 			"type": "number",
 			"config": {
@@ -61,7 +61,7 @@
 			}
 		},
 		{
-			"id": "18eb300e-6bf2-4ded-ae0d-be5e810b01b9",
+			"id": "a277d8c4-fcf3-4c2b-a633-552b9e7f12a0",
 			"title": "Workspace Users in my Organization That Have Issued an OAuth Token With a Risky Scope to a 3rd Party Application",
 			"type": "table",
 			"config": {
@@ -74,7 +74,7 @@
 			}
 		},
 		{
-			"id": "75740abe-542e-45d7-86da-d0c58c5c326c",
+			"id": "32734777-dfb2-4c5f-a888-13e8546d40c6",
 			"title": "Total Workspace Users",
 			"type": "number",
 			"config": {
@@ -87,7 +87,7 @@
 			}
 		},
 		{
-			"id": "d76a0b33-e198-4e01-8baf-fe838633a3ed",
+			"id": "13c35776-9463-406c-ac09-e6a9053757ac",
 			"title": "Non-Active Workspace Admins ",
 			"type": "table",
 			"config": {
@@ -100,7 +100,7 @@
 			}
 		},
 		{
-			"id": "91c57856-d59b-47a8-a673-7186ba259ee7",
+			"id": "12d5a9be-d3f7-4627-a357-9e8314e9a0b1",
 			"title": "Non-Active Super Admins",
 			"type": "number",
 			"config": {
@@ -123,6 +123,45 @@
 					}
 				}
 			}
+		},
+		{
+			"id": "824a6a68-47b4-498c-ac7c-54e38f8dfa1d",
+			"title": "Google Workspace Users With MFA Not Enabled",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND employee \nTHAT IS google_user with mfaEnabled != true\nRETURN\n  google_user.displayName,\n  google_user.email,\n  google_user.admin,\n  google_user.mfaEnabled,\n  google_user.lastLoginOn,\n  google_user._createdOn\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "af752651-ec2f-4993-87e7-bb726b8c00c3",
+			"title": "Google Chrome Users Not Using Version Number 93.0.4577.82 (Edit Version Number As-Needed For Desired Baseline)",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND Person as person\nTHAT OWNS Device\n(THAT (MANAGES|MONITORS) HostAgent)?\nTHAT (IDENTIFIED|INSTALLED) as i Application as app\nWHERE \n  app.name ~= ('Chrome' or 'Chromium') AND\n  i.version != \"93.0.4577.82\"\nRETURN \n  person.displayName,\n  person.email,\n  i.version as chromeVersion\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "28c35b84-75aa-4d8d-b8c8-90bae41469fc",
+			"title": "Google Chrome Version Tracking Number",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND Person as person\nTHAT OWNS Device\n(THAT (MANAGES|MONITORS) HostAgent)?\nTHAT (IDENTIFIED|INSTALLED) as i Application as app\nWHERE \n  app.name ~= ('Chrome' or 'Chromium') \nRETURN \n  i.version as name,\n  count(i) AS value\n"
+					}
+				]
+			}
 		}
 	],
 	"layouts": {
@@ -130,76 +169,103 @@
 		"xs": [],
 		"lg": [
 			{
-				"static": false,
 				"w": 2,
-				"moved": false,
 				"h": 2,
 				"x": 3,
 				"y": 0,
-				"i": "1664f4f2-8a95-4288-b945-51649021dc86"
+				"i": "94f3a582-3588-435f-aaa8-c73c47338f08",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 2,
-				"moved": false,
 				"h": 2,
 				"x": 9,
 				"y": 0,
-				"i": "ca0afa65-70fb-4814-8ece-57952cb082cc"
+				"i": "e743571a-83c7-4817-8e6f-b36b93521b3e",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 2,
-				"moved": false,
 				"h": 2,
 				"x": 7,
 				"y": 0,
-				"i": "eaa71c6d-2699-4f4d-8f61-11e9b965ab70"
+				"i": "db7e3e65-25ab-4936-839f-fdeed1b64039",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 2,
-				"moved": false,
 				"h": 2,
 				"x": 5,
 				"y": 0,
-				"i": "615fd2c6-5831-43df-b69c-392004efea50"
+				"i": "b4a3f066-4ec5-4779-b507-cd7695f942a0",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 12,
-				"moved": false,
 				"h": 3,
 				"x": 0,
 				"y": 4,
-				"i": "18eb300e-6bf2-4ded-ae0d-be5e810b01b9"
+				"i": "a277d8c4-fcf3-4c2b-a633-552b9e7f12a0",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 3,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 0,
-				"i": "75740abe-542e-45d7-86da-d0c58c5c326c"
+				"i": "32734777-dfb2-4c5f-a888-13e8546d40c6",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 12,
-				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 2,
-				"i": "d76a0b33-e198-4e01-8baf-fe838633a3ed"
+				"i": "13c35776-9463-406c-ac09-e6a9053757ac",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 1,
-				"moved": false,
 				"h": 2,
 				"x": 11,
 				"y": 0,
-				"i": "91c57856-d59b-47a8-a673-7186ba259ee7"
+				"i": "12d5a9be-d3f7-4627-a357-9e8314e9a0b1",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 7,
+				"i": "824a6a68-47b4-498c-ac7c-54e38f8dfa1d",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 6,
+				"y": 9,
+				"i": "af752651-ec2f-4993-87e7-bb726b8c00c3",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 9,
+				"i": "28c35b84-75aa-4d8d-b8c8-90bae41469fc",
+				"moved": false,
+				"static": false
 			}
 		],
 		"xl": [],
