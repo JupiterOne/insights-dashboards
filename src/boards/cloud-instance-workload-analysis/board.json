@@ -1,0 +1,147 @@
+{
+	"widgets": [
+		{
+			"id": "4bef6b9a-ff35-43ad-ae15-de9de918ab13",
+			"title": "Connected Resources to the Instance / Workload",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find \"{{hostname or instanceId or ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  that relates to * \nreturn tree"
+					}
+				],
+				"settings": {
+					"graph": {
+						"graphViewType": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"id": "1a8a2b88-410a-41e7-ba5a-b0264820b559",
+			"title": "Blast Radius",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find \"{{hostname or instanceId or ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database') as e1\n  that relates to (AccessRole|Application|Cluster|CodeRepo|DataStore|Firewall|Gateway|Group|Key|Network|Project|User|UserGroup)\n  that relates to * as e2\nwhere e1._class=e2._class\nreturn TREE"
+					}
+				],
+				"settings": {
+					"graph": {
+						"graphViewType": "mesh"
+					}
+				}
+			}
+		},
+		{
+			"id": "30d88d59-5df5-4337-9937-aae4bdb59bbd",
+			"title": "Internet Attack Path",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find \"{{hostname or instanceId or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that (has|contains) Network)?\n  (that (has|contains) Network)?\n  that relates to (Gateway|Firewall)\n  that allows Internet\nreturn TREE"
+					}
+				],
+				"settings": {
+					"graph": {
+						"graphViewType": "tree"
+					}
+				}
+			}
+		},
+		{
+			"id": "0a9593fd-f6b1-4909-9f8d-1d25eb89cb89",
+			"title": "Privileged Access to the Instance / Workload",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find \"{{hostname or instanceId or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that has * with _class!=('Problem' or 'Alert'))?\n  (that has Account)?\n  (that has (Group|Organization))?\n  that allows as permissions AccessPolicy\n  (that (allows|assigned) AccessRole)?\n  that (trusts|allows|assigned) (User|UserGroup|AccessRole|Account)\nwhere permissions.admin=true or permissions.admin=undefined\nreturn TREE"
+					}
+				],
+				"settings": {
+					"graph": {
+						"graphViewType": "tree_horizontal"
+					}
+				}
+			}
+		},
+		{
+			"id": "b2c35ed6-1d86-44a2-9aad-86879d5ba233",
+			"title": "Access to Data Stores from the Instance / Workload",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "Find \"{{hostname or instanceId or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that (assigned|uses) AccessRole)?\n  (that (assigned|uses) AccessPolicy)?\n  that (allows|uses) DataStore\nreturn TREE"
+					}
+				],
+				"settings": {
+					"graph": {
+						"graphViewType": "tree_horizontal"
+					}
+				}
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"w": 6,
+				"h": 3,
+				"x": 0,
+				"y": 0,
+				"i": "4bef6b9a-ff35-43ad-ae15-de9de918ab13",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 3,
+				"x": 6,
+				"y": 0,
+				"i": "1a8a2b88-410a-41e7-ba5a-b0264820b559",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 4,
+				"x": 0,
+				"y": 7,
+				"i": "30d88d59-5df5-4337-9937-aae4bdb59bbd",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 4,
+				"x": 0,
+				"y": 3,
+				"i": "0a9593fd-f6b1-4909-9f8d-1d25eb89cb89",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 4,
+				"x": 6,
+				"y": 7,
+				"i": "b2c35ed6-1d86-44a2-9aad-86879d5ba233",
+				"moved": false,
+				"static": false
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
