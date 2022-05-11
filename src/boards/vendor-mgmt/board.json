@@ -56,7 +56,7 @@
 				"queries": [
 					{
 						"name": "Vendors",
-						"query": "Find Vendor with validated=false as v return count(v) as value"
+						"query": "Find Vendor with validated!=true as v return count(v) as value"
 					}
 				],
 				"settings": {
