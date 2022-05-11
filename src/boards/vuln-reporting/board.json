@@ -1,7 +1,7 @@
 {
 	"widgets": [
 		{
-			"id": "349fc061-44dd-4ef4-bad0-e474d23c621e",
+			"id": "e439f075-561a-4c0e-b019-acae7d7fff2a",
 			"title": "Opening Vuln Findings by Severity",
 			"type": "bar",
 			"config": {
@@ -14,7 +14,7 @@
 			}
 		},
 		{
-			"id": "f56853dc-aace-4e9b-8e79-561deb4736e3",
+			"id": "dda8c329-55a9-431f-b7ab-428f9e9c4000",
 			"title": "Threats by Attack Source (GuardDuty)",
 			"type": "pie",
 			"config": {
@@ -31,7 +31,7 @@
 			}
 		},
 		{
-			"id": "5754519b-a4a1-4360-8737-4124976be4fe",
+			"id": "beb388e2-22d7-406f-a7fe-1df792c2167f",
 			"title": "Threats by Attack Target (GuardDuty)",
 			"type": "pie",
 			"config": {
@@ -44,7 +44,7 @@
 			}
 		},
 		{
-			"id": "0b6ec497-5270-479e-8873-a836b5e0e451",
+			"id": "916bab69-3807-4a7c-a98d-d523f6761be8",
 			"title": "Threats by Attack Target Type",
 			"type": "pie",
 			"config": {
@@ -57,7 +57,7 @@
 			}
 		},
 		{
-			"id": "6a90569c-1161-4f88-a35f-a83815195318",
+			"id": "07d01371-1f9c-4254-aa2d-0adbf90a6164",
 			"title": "Top 10 CWEs",
 			"type": "bar",
 			"config": {
@@ -70,7 +70,7 @@
 			}
 		},
 		{
-			"id": "3f9c8980-5dc5-485c-85fc-0ac0b650832f",
+			"id": "7615dbb0-97ee-4326-8530-3e4b6743ff3e",
 			"title": "Open Findings by Type",
 			"type": "pie",
 			"config": {
@@ -83,7 +83,7 @@
 			}
 		},
 		{
-			"id": "7867906b-8927-46cf-b3ad-811f89b13c42",
+			"id": "4a2d266b-5613-467b-aef4-bd7ac1e8b5be",
 			"title": "Top 10 CVEs",
 			"type": "bar",
 			"config": {
@@ -96,7 +96,7 @@
 			}
 		},
 		{
-			"id": "b53577bc-1f22-4aa0-9fb6-20fb23f321bf",
+			"id": "e2a35ddc-b36b-4b2d-8d57-cc4f356bc239",
 			"title": "AWS EC2 Instance Vuln Findings by Account",
 			"type": "pie",
 			"config": {
@@ -109,7 +109,7 @@
 			}
 		},
 		{
-			"id": "39d3073a-7387-4b5a-847d-657540025daa",
+			"id": "26968170-f2de-4ffe-9790-9a565ea3e504",
 			"title": "Code Vuln Findings by App/Project",
 			"type": "pie",
 			"config": {
@@ -122,7 +122,7 @@
 			}
 		},
 		{
-			"id": "5ed8ee84-229f-488d-8742-5a555396354f",
+			"id": "d91dbb06-efc4-4fb5-a009-ade0b498b8e1",
 			"title": "Open Security Tickets",
 			"type": "number",
 			"config": {
@@ -135,7 +135,7 @@
 			}
 		},
 		{
-			"id": "0d062bfd-7cc9-4021-a2d2-cfe9a81f8bf1",
+			"id": "1237f2c4-6e2f-4b39-95ab-138059592898",
 			"title": "Open AppSec Tickets",
 			"type": "table",
 			"config": {
@@ -148,7 +148,7 @@
 			}
 		},
 		{
-			"id": "f6ad2d37-9f9e-4c8d-8d3a-1be55c951e06",
+			"id": "36620430-9912-444b-be8e-5f5b58e1430e",
 			"title": "Production workloads at risk",
 			"type": "graph",
 			"config": {
@@ -161,7 +161,7 @@
 			}
 		},
 		{
-			"id": "91fd7c54-0b38-4f1e-b8c7-92ae0dcd8406",
+			"id": "af26879a-be06-4f44-ac48-0addb7f1c582",
 			"title": "Vulnerability Findings on Production Workloads ",
 			"type": "number",
 			"config": {
@@ -182,7 +182,7 @@
 			}
 		},
 		{
-			"id": "376685a3-d45a-4fb4-a5a3-57b78ad9e83f",
+			"id": "db8aa5cd-216e-4faf-b0a4-33ab2837d105",
 			"title": "Vulnerability Findings on Production Applications",
 			"type": "number",
 			"config": {
@@ -203,7 +203,7 @@
 			}
 		},
 		{
-			"id": "35e36b5d-5b71-4381-bcaa-137e2813f338",
+			"id": "b01d55a6-5cae-42f3-8cd4-7b4896684e3e",
 			"title": "Production Applications At Risk",
 			"type": "graph",
 			"config": {
@@ -214,6 +214,19 @@
 					}
 				]
 			}
+		},
+		{
+			"id": "6e2e93be-fc19-4b77-98bc-794d629d31eb",
+			"title": "Top 5 CodeRepos by number of Vuln Findings",
+			"type": "bar",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND CodeRepo as cr\nTHAT HAS Finding as f\nRETURN cr.fullName as x, COUNT(f) as y\nORDER BY y DESC\nLIMIT 5"
+					}
+				]
+			}
 		}
 	],
 	"layouts": {
@@ -221,77 +234,77 @@
 			{
 				"x": 0,
 				"h": 2,
-				"i": "349fc061-44dd-4ef4-bad0-e474d23c621e",
+				"i": "e439f075-561a-4c0e-b019-acae7d7fff2a",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "f56853dc-aace-4e9b-8e79-561deb4736e3",
+				"i": "dda8c329-55a9-431f-b7ab-428f9e9c4000",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "5754519b-a4a1-4360-8737-4124976be4fe",
+				"i": "beb388e2-22d7-406f-a7fe-1df792c2167f",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "0b6ec497-5270-479e-8873-a836b5e0e451",
+				"i": "916bab69-3807-4a7c-a98d-d523f6761be8",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "6a90569c-1161-4f88-a35f-a83815195318",
+				"i": "07d01371-1f9c-4254-aa2d-0adbf90a6164",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "3f9c8980-5dc5-485c-85fc-0ac0b650832f",
+				"i": "7615dbb0-97ee-4326-8530-3e4b6743ff3e",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "7867906b-8927-46cf-b3ad-811f89b13c42",
+				"i": "4a2d266b-5613-467b-aef4-bd7ac1e8b5be",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "b53577bc-1f22-4aa0-9fb6-20fb23f321bf",
+				"i": "e2a35ddc-b36b-4b2d-8d57-cc4f356bc239",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "39d3073a-7387-4b5a-847d-657540025daa",
+				"i": "26968170-f2de-4ffe-9790-9a565ea3e504",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "5ed8ee84-229f-488d-8742-5a555396354f",
+				"i": "d91dbb06-efc4-4fb5-a009-ade0b498b8e1",
 				"y": 1000000000000,
 				"w": 2
 			},
 			{
 				"x": 0,
 				"h": 2,
-				"i": "0d062bfd-7cc9-4021-a2d2-cfe9a81f8bf1",
+				"i": "1237f2c4-6e2f-4b39-95ab-138059592898",
 				"y": 1000000000000,
 				"w": 2
 			},
@@ -310,7 +323,7 @@
 				"h": 3,
 				"x": 6,
 				"y": 0,
-				"i": "349fc061-44dd-4ef4-bad0-e474d23c621e",
+				"i": "e439f075-561a-4c0e-b019-acae7d7fff2a",
 				"moved": false,
 				"static": false
 			},
@@ -319,7 +332,7 @@
 				"h": 2,
 				"x": 0,
 				"y": 16,
-				"i": "f56853dc-aace-4e9b-8e79-561deb4736e3",
+				"i": "dda8c329-55a9-431f-b7ab-428f9e9c4000",
 				"moved": false,
 				"static": false
 			},
@@ -328,7 +341,7 @@
 				"h": 3,
 				"x": 0,
 				"y": 9,
-				"i": "5754519b-a4a1-4360-8737-4124976be4fe",
+				"i": "beb388e2-22d7-406f-a7fe-1df792c2167f",
 				"moved": false,
 				"static": false
 			},
@@ -337,7 +350,7 @@
 				"h": 2,
 				"x": 6,
 				"y": 16,
-				"i": "0b6ec497-5270-479e-8873-a836b5e0e451",
+				"i": "916bab69-3807-4a7c-a98d-d523f6761be8",
 				"moved": false,
 				"static": false
 			},
@@ -346,7 +359,7 @@
 				"h": 2,
 				"x": 6,
 				"y": 14,
-				"i": "6a90569c-1161-4f88-a35f-a83815195318",
+				"i": "07d01371-1f9c-4254-aa2d-0adbf90a6164",
 				"moved": false,
 				"static": false
 			},
@@ -355,7 +368,7 @@
 				"h": 3,
 				"x": 0,
 				"y": 0,
-				"i": "3f9c8980-5dc5-485c-85fc-0ac0b650832f",
+				"i": "7615dbb0-97ee-4326-8530-3e4b6743ff3e",
 				"moved": false,
 				"static": false
 			},
@@ -364,7 +377,7 @@
 				"h": 2,
 				"x": 0,
 				"y": 14,
-				"i": "7867906b-8927-46cf-b3ad-811f89b13c42",
+				"i": "4a2d266b-5613-467b-aef4-bd7ac1e8b5be",
 				"moved": false,
 				"static": false
 			},
@@ -373,7 +386,7 @@
 				"h": 3,
 				"x": 4,
 				"y": 9,
-				"i": "b53577bc-1f22-4aa0-9fb6-20fb23f321bf",
+				"i": "e2a35ddc-b36b-4b2d-8d57-cc4f356bc239",
 				"moved": false,
 				"static": false
 			},
@@ -382,7 +395,7 @@
 				"h": 3,
 				"x": 8,
 				"y": 9,
-				"i": "39d3073a-7387-4b5a-847d-657540025daa",
+				"i": "26968170-f2de-4ffe-9790-9a565ea3e504",
 				"moved": false,
 				"static": false
 			},
@@ -391,7 +404,7 @@
 				"h": 2,
 				"x": 0,
 				"y": 12,
-				"i": "5ed8ee84-229f-488d-8742-5a555396354f",
+				"i": "d91dbb06-efc4-4fb5-a009-ade0b498b8e1",
 				"moved": false,
 				"static": false
 			},
@@ -400,7 +413,7 @@
 				"h": 2,
 				"x": 3,
 				"y": 12,
-				"i": "0d062bfd-7cc9-4021-a2d2-cfe9a81f8bf1",
+				"i": "1237f2c4-6e2f-4b39-95ab-138059592898",
 				"moved": false,
 				"static": false
 			},
@@ -409,7 +422,7 @@
 				"h": 3,
 				"x": 3,
 				"y": 3,
-				"i": "f6ad2d37-9f9e-4c8d-8d3a-1be55c951e06",
+				"i": "36620430-9912-444b-be8e-5f5b58e1430e",
 				"moved": false,
 				"static": false
 			},
@@ -418,7 +431,7 @@
 				"h": 3,
 				"x": 0,
 				"y": 3,
-				"i": "91fd7c54-0b38-4f1e-b8c7-92ae0dcd8406",
+				"i": "af26879a-be06-4f44-ac48-0addb7f1c582",
 				"moved": false,
 				"static": false
 			},
@@ -427,7 +440,7 @@
 				"h": 3,
 				"x": 0,
 				"y": 6,
-				"i": "376685a3-d45a-4fb4-a5a3-57b78ad9e83f",
+				"i": "db8aa5cd-216e-4faf-b0a4-33ab2837d105",
 				"moved": false,
 				"static": false
 			},
@@ -436,7 +449,16 @@
 				"h": 3,
 				"x": 3,
 				"y": 6,
-				"i": "35e36b5d-5b71-4381-bcaa-137e2813f338",
+				"i": "b01d55a6-5cae-42f3-8cd4-7b4896684e3e",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 18,
+				"i": "6e2e93be-fc19-4b77-98bc-794d629d31eb",
 				"moved": false,
 				"static": false
 			}
