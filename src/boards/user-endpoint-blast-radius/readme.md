@@ -6,7 +6,7 @@ Publisher: JupiterOne
 
 ![sample-screenshot](board.png)
 
-Enter a macAddress of a device and visualize the device owners access, full inventory of digital identities, and resource allocation.  
+This is an interactive dashboard that will prompt you to enter a macAddress of a device and visualize the device owner's access, full inventory of digital identities, and the resources they have access to.  
 
 > Prerequisite: 
 >
