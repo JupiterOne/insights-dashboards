@@ -6,8 +6,9 @@ Publisher: JupiterOne
 
 ![sample-screenshot](board.png)
 
-Type in a managers email and gather data on their direct reports, what team members and peers they have along with their directs information.  
+Type an individual's email to get the person's peers/team members, manager, and direct reports.
 
 > Prerequisite: 
 >
-> An integration to an identity provider or directory service, such as Okta, Azure AD, JumpCloud.
+> An integration to an identity provider that is configured with a directory service with data related to people management. 
+> Integrations such as Google Workspace, Okta, Azure AD, JumpCloud, and HRIS integrations such as BambooHR.
