@@ -6,7 +6,9 @@ Publisher: JupiterOne
 
 ![sample-screenshot](board.png)
 
-This board answers 5 key questions for any given virtual instance or workload across all 3 major CSPs in seconds:
+This is an interactive dashboard that will prompt you to enter the hostname or IP address or instance ID of a cloud workload / instance.
+
+This board answers these key questions for any given virtual instance or workload across all 3 major CSPs in seconds:
 
 What resources are connected to it?
 What else are in the same blast radius?
