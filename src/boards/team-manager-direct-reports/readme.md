@@ -6,7 +6,7 @@ Publisher: JupiterOne
 
 ![sample-screenshot](board.png)
 
-Type an individual's email to get the person's peers/team members, manager, and direct reports.
+This is an interactive dashboard that will prompt you to enter an individual's email to get the person's peers/team members, manager, and direct reports.
 
 > Prerequisite: 
 >
