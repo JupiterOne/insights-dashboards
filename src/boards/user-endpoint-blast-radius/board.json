@@ -1,0 +1,39 @@
+{
+	"widgets": [
+		{
+			"id": "b34e25d1-4e3a-4f1c-a01e-fc8890a90e50",
+			"title": "Device Owner's Digital Identities and Access",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND Device WITH macAddress = \"{{macAddress (e.g. 78:4f:43:7f:7d:cb)}}\"\n  THAT (OWNS|HAS) Person\n  THAT IS User \n  THAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application)\nRETURN TREE"
+					}
+				],
+				"settings": {
+					"graph": {
+						"graphViewType": "tree_horizontal"
+					}
+				}
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 5,
+				"x": 0,
+				"y": 0,
+				"i": "b34e25d1-4e3a-4f1c-a01e-fc8890a90e50"
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
