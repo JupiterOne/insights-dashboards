@@ -6,9 +6,8 @@ Publisher: JupiterOne
 
 ![sample-screenshot](board.png)
 
-Enter a variable such as an ipAddress to visualize a device owners access, full inventory of digital identities, and resource allocation.  
+Enter a macAddress of a device and visualize the device owners access, full inventory of digital identities, and resource allocation.  
 
 > Prerequisite: 
 >
-> This works best when integrations to different providers and accounts are 
-> as complete as possible.
+> This works best when integrations related to user endpoint agents and SaaS applications is as complete as possible.
