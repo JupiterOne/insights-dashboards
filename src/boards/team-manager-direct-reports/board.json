@@ -1,0 +1,78 @@
+{
+	"widgets": [
+		{
+			"id": "6d557c4e-87ad-4a96-91a7-c77734f37400",
+			"title": "Manager",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find Person that manages >> Person with email='{{email}}'"
+					}
+				]
+			}
+		},
+		{
+			"id": "d3323a60-9af1-4272-abc7-1446667c0164",
+			"title": "Direct Reports",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find Person that manages << Person with email='{{email}}'"
+					}
+				]
+			}
+		},
+		{
+			"id": "f9ecbc29-87c7-4466-8d8f-95773b4cf47d",
+			"title": "Team Members / Peers",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "find Person\n  that manages << Person\n  that manages >> Person with email='{{email}}'"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [],
+		"lg": [
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "6d557c4e-87ad-4a96-91a7-c77734f37400",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "d3323a60-9af1-4272-abc7-1446667c0164",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 3,
+				"x": 0,
+				"y": 4,
+				"i": "f9ecbc29-87c7-4466-8d8f-95773b4cf47d",
+				"moved": false,
+				"static": false
+			}
+		],
+		"xl": [],
+		"md": []
+	}
+}
