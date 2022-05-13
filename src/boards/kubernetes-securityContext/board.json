@@ -1,0 +1,627 @@
+{
+	"widgets": [
+		{
+			"id": "f53810ba-6cb7-478d-afe2-4814a32d6ef9",
+			"title": "Number of Kubernetes Clusters",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_cluster as cluster RETURN count(cluster) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "ed160f64-b9a1-43ca-8335-1e8035bafc92",
+			"title": "Number of Namespaces by Cluster",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_cluster \n    THAT CONTAINS kube_namespace as nameSpace \nRETURN\n    COUNT(nameSpace) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "b83fe3ea-db2f-4355-89f7-2b283a431ad4",
+			"title": "Namespace by Cluster",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_cluster \n    THAT CONTAINS kube_namespace as nameSpace \nRETURN\n    TREE"
+					}
+				]
+			}
+		},
+		{
+			"id": "ae74073a-2211-4c30-ae43-c725fbf1dc50",
+			"title": "Number of Deployments  per Kubernetes Cluster",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_cluster \n    THAT CONTAINS kube_namespace \n    THAT CONTAINS kube_deployment as deployment\nRETURN \n\tCOUNT(deployment) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "59aa1d7a-8f9b-4450-a39c-7d94c8348321",
+			"title": "Deployments Related to Cluster",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_cluster \n    THAT CONTAINS kube_namespace \n    THAT CONTAINS kube_deployment as deployment\nRETURN \n\tTREE"
+					}
+				]
+			}
+		},
+		{
+			"id": "cd71a499-f845-4e95-8bd1-3288e8c5c13f",
+			"title": " Number of Containers in Status of Privilege Escalation",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "allowPrivilegeEscalation Set to True",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.allowPrivilegeEscalation = (true or false) or (securityContext.allowPrivilegeEscalation= (undefined)) as spec\nRETURN\n    spec.securityContext.allowPrivilegeEscalation as name,\n    count(spec) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "df1ccf9a-f539-4bd2-9f72-0e149ecadc53",
+			"title": "Number of Containers in Status of Read Only File System",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.readOnlyRootFilesystem = (true or false) or (securityContext.readOnlyRootFilesystem = undefined) as spec\nRETURN\n    spec.securityContext.readOnlyRootFilesystem as name,\n    count(spec) as value\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "11d2ee4d-4e45-418b-ab4e-701bb38ac6f2",
+			"title": " Number of Containers in Status of NonRoot",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.runAsNonRoot = undefined or (securityContext.runAsNonRoot = (true or false)) as spec\nRETURN\n    spec.securityContext.runAsNonRoot as name,\n    count(spec) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "138e91e3-8537-4886-ba5c-9c34d016ed9b",
+			"title": "Number of Containers in Status of Run As User",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.runAsUser != undefined or securityContext.runAsUser = undefined as spec\nRETURN\nspec.securityContext.runAsUser as name, COUNT(spec) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "a810898d-cf0e-4219-b39b-dcba95272ccf",
+			"title": "Status of Privilege Escalation",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.allowPrivilegeEscalation = undefined or (securityContext.allowPrivilegeEscalation= (true or false)) as spec\nRETURN\n    spec.displayName as Display_Name,\n    spec.securityContext.allowPrivilegeEscalation as Status\norder by \n    spec.securityContext.allowPrivilegeEscalation"
+					}
+				]
+			}
+		},
+		{
+			"id": "108c17e4-9d4c-40c2-b85b-6d790ce2d823",
+			"title": "Status of Read Only File System",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.readOnlyRootFilesystem = undefined or (securityContext.readOnlyRootFilesystem= (true or false)) as spec\nRETURN\n    spec.displayName as Display_Name,\n    spec.securityContext.readOnlyRootFilesystem as Status\norder by \n    spec.securityContext.readOnlyRootFilesystem"
+					}
+				]
+			}
+		},
+		{
+			"id": "eba1e41b-9ccf-4786-9103-7cc0700c02ef",
+			"title": "Status of NonRoot",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.runAsNonRoot = (true or false) or (securityContext.runAsNonRoot= undefined) as spec\nRETURN\n    spec.displayName as Display_Name,\n    spec.securityContext.runAsNonRoot as Status\norder by \n    spec.securityContext.runAsNonRoot"
+					}
+				]
+			}
+		},
+		{
+			"id": "84db2fac-5098-41e7-805d-44663733b4d0",
+			"title": "Status of Run As User",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.runAsUser != undefined or securityContext.runAsUser = undefined as spec\nRETURN\nspec.displayName as Display_Name,spec.securityContext.runAsUser as User_Name\nORDER BY spec.securityContext.runAsUser"
+					}
+				]
+			}
+		},
+		{
+			"id": "d38406c4-ad6f-4dd4-970a-8854c3d45672",
+			"title": "Number of Containers per Deployment",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_deployment as deployment\n    THAT USES kube_container_spec as containerSpec\nRETURN\n    count(containerSpec) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "3639807f-9274-440a-8d9e-2754483067d6",
+			"title": "Container Specs per Deployment",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_deployment as deployment\n    THAT USES kube_container_spec as containerSpec\nRETURN\n   tree"
+					}
+				]
+			}
+		},
+		{
+			"id": "7ca00ff9-c07d-4ade-b502-882b258bb350",
+			"title": "Containers per Deployment",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_deployment as deployment\n    THAT USES kube_container_spec as containerSpec\nRETURN\n    deployment.displayName as name,\n    containerSpec.image as value"
+					}
+				]
+			}
+		}
+	],
+	"layouts": {
+		"sm": [],
+		"xs": [
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "f53810ba-6cb7-478d-afe2-4814a32d6ef9"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "ed160f64-b9a1-43ca-8335-1e8035bafc92"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "b83fe3ea-db2f-4355-89f7-2b283a431ad4"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 6,
+				"i": "ae74073a-2211-4c30-ae43-c725fbf1dc50"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "59aa1d7a-8f9b-4450-a39c-7d94c8348321"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "cd71a499-f845-4e95-8bd1-3288e8c5c13f"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 12,
+				"i": "df1ccf9a-f539-4bd2-9f72-0e149ecadc53"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 14,
+				"i": "11d2ee4d-4e45-418b-ab4e-701bb38ac6f2"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 16,
+				"i": "138e91e3-8537-4886-ba5c-9c34d016ed9b"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 18,
+				"i": "a810898d-cf0e-4219-b39b-dcba95272ccf"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 20,
+				"i": "108c17e4-9d4c-40c2-b85b-6d790ce2d823"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 22,
+				"i": "eba1e41b-9ccf-4786-9103-7cc0700c02ef"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 24,
+				"i": "84db2fac-5098-41e7-805d-44663733b4d0"
+			}
+		],
+		"lg": [
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 0,
+				"i": "f53810ba-6cb7-478d-afe2-4814a32d6ef9"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 3,
+				"x": 0,
+				"y": 3,
+				"i": "ed160f64-b9a1-43ca-8335-1e8035bafc92"
+			},
+			{
+				"static": false,
+				"w": 4,
+				"moved": false,
+				"h": 3,
+				"x": 3,
+				"y": 3,
+				"i": "b83fe3ea-db2f-4355-89f7-2b283a431ad4"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 3,
+				"x": 3,
+				"y": 0,
+				"i": "ae74073a-2211-4c30-ae43-c725fbf1dc50"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 3,
+				"x": 6,
+				"y": 0,
+				"i": "59aa1d7a-8f9b-4450-a39c-7d94c8348321"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "cd71a499-f845-4e95-8bd1-3288e8c5c13f"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "df1ccf9a-f539-4bd2-9f72-0e149ecadc53"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 12,
+				"i": "11d2ee4d-4e45-418b-ab4e-701bb38ac6f2"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 14,
+				"i": "138e91e3-8537-4886-ba5c-9c34d016ed9b"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 8,
+				"i": "a810898d-cf0e-4219-b39b-dcba95272ccf"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 10,
+				"i": "108c17e4-9d4c-40c2-b85b-6d790ce2d823"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 12,
+				"i": "eba1e41b-9ccf-4786-9103-7cc0700c02ef"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 14,
+				"i": "84db2fac-5098-41e7-805d-44663733b4d0"
+			},
+			{
+				"static": false,
+				"w": 3,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 6,
+				"i": "d38406c4-ad6f-4dd4-970a-8854c3d45672"
+			},
+			{
+				"static": false,
+				"w": 5,
+				"moved": false,
+				"h": 3,
+				"x": 7,
+				"y": 3,
+				"i": "3639807f-9274-440a-8d9e-2754483067d6"
+			},
+			{
+				"static": false,
+				"w": 9,
+				"moved": false,
+				"h": 2,
+				"x": 3,
+				"y": 6,
+				"i": "7ca00ff9-c07d-4ade-b502-882b258bb350"
+			}
+		],
+		"xl": [],
+		"md": [
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "f53810ba-6cb7-478d-afe2-4814a32d6ef9"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "ed160f64-b9a1-43ca-8335-1e8035bafc92"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "b83fe3ea-db2f-4355-89f7-2b283a431ad4"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 1,
+				"x": 0,
+				"y": 6,
+				"i": "ae74073a-2211-4c30-ae43-c725fbf1dc50"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 1,
+				"x": 0,
+				"y": 7,
+				"i": "59aa1d7a-8f9b-4450-a39c-7d94c8348321"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "cd71a499-f845-4e95-8bd1-3288e8c5c13f"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "df1ccf9a-f539-4bd2-9f72-0e149ecadc53"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 12,
+				"i": "11d2ee4d-4e45-418b-ab4e-701bb38ac6f2"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 14,
+				"i": "138e91e3-8537-4886-ba5c-9c34d016ed9b"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 16,
+				"i": "a810898d-cf0e-4219-b39b-dcba95272ccf"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 18,
+				"i": "108c17e4-9d4c-40c2-b85b-6d790ce2d823"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 20,
+				"i": "eba1e41b-9ccf-4786-9103-7cc0700c02ef"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 22,
+				"i": "84db2fac-5098-41e7-805d-44663733b4d0"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 24,
+				"i": "d38406c4-ad6f-4dd4-970a-8854c3d45672"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 26,
+				"i": "3639807f-9274-440a-8d9e-2754483067d6"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 28,
+				"i": "7ca00ff9-c07d-4ade-b502-882b258bb350"
+			}
+		]
+	}
+}
