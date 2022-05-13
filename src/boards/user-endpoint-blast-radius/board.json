@@ -60,20 +60,20 @@
 			},
 			{
 				"static": false,
-				"w": 12,
+				"w": 3,
 				"moved": false,
-				"h": 2,
+				"h": 4,
 				"x": 0,
 				"y": 5,
 				"i": "b74df9ed-b5d9-41bc-a7d7-4216f6a68001"
 			},
 			{
 				"static": false,
-				"w": 12,
+				"w": 9,
 				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 7,
+				"h": 4,
+				"x": 3,
+				"y": 5,
 				"i": "2dc10640-83d1-4dbf-bb46-766b9d51c7ae"
 			}
 		],
