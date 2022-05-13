@@ -8,7 +8,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND Device WITH macAddress = \"{{macAddress (e.g. 78:4f:43:7f:7d:cb)}}\"\n  THAT (OWNS|HAS) Person\n  THAT IS User \n  THAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application)\nRETURN TREE"
+						"query": "FIND Device \n  WITH \n    macAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    ipAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    hostname = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    email = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    owner = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    user = \"{{macAddress or hostname or email or ipAddress}}\"\nTHAT (OWNS|HAS) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application)\nRETURN TREE"
 					}
 				],
 				"settings": {
@@ -16,6 +16,32 @@
 						"graphViewType": "tree_horizontal"
 					}
 				}
+			}
+		},
+		{
+			"id": "b74df9ed-b5d9-41bc-a7d7-4216f6a68001",
+			"title": "Access Metrics",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND Device \n  WITH \n    macAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    ipAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    hostname = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    email = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    owner = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    user = \"{{macAddress or hostname or email or ipAddress}}\"\nTHAT (OWNS|HAS) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application) as entity\nRETURN entity._type as accessType, count(entity) as accessCount order by accessCount DESC"
+					}
+				]
+			}
+		},
+		{
+			"id": "2dc10640-83d1-4dbf-bb46-766b9d51c7ae",
+			"title": "FIndings & Problems",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND Unique Device \n  WITH \n    macAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    ipAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    hostname = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    email = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    owner = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    user = \"{{macAddress or hostname or email or ipAddress}}\"\n(that (has|owns) (Person|User))?\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
+					}
+				]
 			}
 		}
 	],
@@ -31,6 +57,24 @@
 				"x": 0,
 				"y": 0,
 				"i": "b34e25d1-4e3a-4f1c-a01e-fc8890a90e50"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 5,
+				"i": "b74df9ed-b5d9-41bc-a7d7-4216f6a68001"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 7,
+				"i": "2dc10640-83d1-4dbf-bb46-766b9d51c7ae"
 			}
 		],
 		"xl": [],
