@@ -32,7 +32,7 @@ List of dashboards:
 - [Risk Register](src/boards/risk-register/)
 - [Software Package Dependencies and Licenses](src/boards/code-deps-licenses/)
 - [Team Growth](src/boards/team-growth/)
-- [Team Management and Direct Repors](src/boards/team-manager-direct-reports/)
+- [Team, Manager and Direct Reports](src/boards/team-manager-direct-reports/)
 - [User Access](src/boards/user-access/)
 - [User Endpoints](src/boards/user-endpoints/)
 - [User Training](src/boards/user-training/)
