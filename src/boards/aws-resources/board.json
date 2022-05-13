@@ -125,7 +125,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find aws_lambda_function as f that HAS aws_vpc as v\nReturn\nv.name as name,\ncount(f) as value"
+						"query": "Find aws_lambda_function as f (that HAS aws_subnet)? that (CONTAINS|HAS) aws_vpc as v\nReturn\nv.name as name,\ncount(f) as value"
 					}
 				]
 			}
@@ -138,7 +138,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find aws_lambda_function with VpcId=undefined or VpcId='' as f\nReturn\nf.tag.AccountName as name,\ncount(f) as value"
+						"query": "Find aws_lambda_function with vpcId=undefined or vpcId='' as f\nReturn\nf.tag.AccountName as name,\ncount(f) as value"
 					}
 				]
 			}
