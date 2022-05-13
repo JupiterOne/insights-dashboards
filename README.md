@@ -35,7 +35,7 @@ the desired `board.json` file to your new board.
 
 ## Contributing your dashboard template
 
-We welcome and appreciate your contribution to this repository of 
+We welcome and appreciate your contribution to this repository of
 dashboard templates. You can download the dashboard JSON using the
 download button near the top right of your selected Insights board
 in the JupiterOne web app, and make a pull request to this repo.
@@ -44,3 +44,13 @@ team or in the `jupiterone-community` Slack.
 
 The JSON download only contains the widget definitions and layout.
 It does **NOT** contain any of your actual data.
+
+### How deploying of this package works
+
+When changes are ready to be deployed to the frontend insights page the `package.json` version
+of this repo needs to be manually bumped. This triggers a Github action once merged that publishes a new
+`@jupiterone/insights-dashboard` package version.
+
+Note - Only boards exported from `src/main.js` will be available in the frontend application.
+
+Finally, the applications team will need to bump the dependency version in the insights SPA.
