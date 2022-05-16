@@ -1,134 +1,209 @@
 {
 	"widgets": [
 		{
-			"id": "c16b43de-c19c-477d-b3e8-3d6ee8161d96",
-			"title": "Internet Access",
-			"type": "matrix",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND Firewall AS row\nTHAT allows AS rel\nInternet AS col\nRETURN\nrow.displayName AS x,\ncol.displayName AS y,\nrel.egress AS egress,\nrel.ingress AS ingress,\nrel.fromPort as fromPort,\nrel.toPort as toPort,\nrel.ipProtocol AS label"
-					}
-				]
-			}
-		},
-		{
-			"id": "1d821690-9321-41e5-a685-43f217246a7d",
-			"title": "Firewall Matrix - External",
-			"type": "matrix",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND Firewall AS row\nTHAT allows AS rel\nNetwork with public=true or _source='system-mapper' AS col\nRETURN\nrow.displayName AS x,\ncol.displayName AS y,\nrel.egress AS egress,\nrel.ingress AS ingress,\nrel.fromPort as fromPort,\nrel.toPort as toPort,\nrel.ipProtocol AS label"
-					}
-				]
-			}
-		},
-		{
-			"id": "ce0a65dc-00d2-4d00-ae47-8f70ef8b3508",
-			"title": "Firewall Matrix - Internal",
-			"type": "matrix",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND Firewall AS row\nTHAT allows AS rel\nNetwork with public!=true AS col\nRETURN\nrow.displayName AS x,\ncol.displayName AS y,\nrel.egress AS egress,\nrel.ingress AS ingress,\nrel.fromPort as fromPort,\nrel.toPort as toPort,\nrel.ipProtocol AS label"
-					}
-				]
-			}
-		},
-		{
-			"id": "a821bca8-af27-4493-9bcc-7e24d6896d16",
-			"title": "Expired certificates",
+			"id": "f53810ba-6cb7-478d-afe2-4814a32d6ef9",
+			"title": "Number of Kubernetes Clusters",
 			"type": "number",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "find Certificate with active=false as c return count(c) as value"
+						"query": "FIND kube_cluster as cluster RETURN count(cluster) as value"
 					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
+				]
 			}
 		},
 		{
-			"id": "12899afd-1417-4dd6-b169-d796bbdcba0a",
-			"title": "DNS Records Not Pointing to an Internal Resource",
+			"id": "ed160f64-b9a1-43ca-8335-1e8035bafc92",
+			"title": "Number of Namespaces by Cluster",
 			"type": "number",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "find aws_route53_record with (resourceRecords!=undefined or aliasTarget!=undefined) \nand type=('A' or 'AAAA' or 'CNAME') as a\nthat !connects *\nreturn count(a) as value"
+						"query": "FIND kube_cluster \n    THAT CONTAINS kube_namespace as nameSpace \nRETURN\n    COUNT(nameSpace) as value"
 					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
+				]
 			}
 		},
 		{
-			"id": "77dfa554-0130-4172-80fb-d0af1f902bed",
-			"title": "Domains and subdomains",
+			"id": "b83fe3ea-db2f-4355-89f7-2b283a431ad4",
+			"title": "Namespace by Cluster",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_cluster \n    THAT CONTAINS kube_namespace as nameSpace \nRETURN\n    TREE"
+					}
+				]
+			}
+		},
+		{
+			"id": "ae74073a-2211-4c30-ae43-c725fbf1dc50",
+			"title": "Number of Deployments  per Kubernetes Cluster",
 			"type": "number",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "find DomainRecord as a return count(a) as value"
+						"query": "FIND kube_cluster \n    THAT CONTAINS kube_namespace \n    THAT CONTAINS kube_deployment as deployment\nRETURN \n\tCOUNT(deployment) as value"
 					}
 				]
 			}
 		},
 		{
-			"id": "397ef1a2-f0ba-4fed-aea8-04f80d595232",
-			"title": "Expired certificates",
-			"type": "table",
+			"id": "59aa1d7a-8f9b-4450-a39c-7d94c8348321",
+			"title": "Deployments Related to Cluster",
+			"type": "graph",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "find Certificate with active=false as c \nreturn\nc._type, c.displayName, c.accountId, c.active, \nc.alternativeNames, c.expiresOn, c.inUse, c.region"
+						"query": "FIND kube_cluster \n    THAT CONTAINS kube_namespace \n    THAT CONTAINS kube_deployment as deployment\nRETURN \n\tTREE"
 					}
 				]
 			}
 		},
 		{
-			"id": "8ff278e8-e276-44a6-8175-9e6fde695f6d",
-			"title": "DNS records not pointing to an internal resource",
-			"type": "table",
+			"id": "cd71a499-f845-4e95-8bd1-3288e8c5c13f",
+			"title": " Number of Containers in Status of Privilege Escalation",
+			"type": "pie",
 			"config": {
 				"queries": [
 					{
-						"name": "query1",
-						"query": "find DomainRecord with (resourceRecords!=undefined or aliasTarget!=undefined) \nand type=('A' or 'AAAA' or 'CNAME') as a\nthat !connects *\nreturn \na.displayName, a.accountId, a.resourceRecords"
+						"name": "allowPrivilegeEscalation Set to True",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.allowPrivilegeEscalation = (true or false) or (securityContext.allowPrivilegeEscalation= (undefined)) as spec\nRETURN\n    spec.securityContext.allowPrivilegeEscalation as name,\n    count(spec) as value"
 					}
 				]
 			}
 		},
 		{
-			"id": "70fb172a-56dd-458f-b9f7-e581d4e1cf9e",
-			"title": "Domains and subdomains",
+			"id": "df1ccf9a-f539-4bd2-9f72-0e149ecadc53",
+			"title": "Number of Containers in Status of Read Only File System",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.readOnlyRootFilesystem = (true or false) or (securityContext.readOnlyRootFilesystem = undefined) as spec\nRETURN\n    spec.securityContext.readOnlyRootFilesystem as name,\n    count(spec) as value\n"
+					}
+				]
+			}
+		},
+		{
+			"id": "11d2ee4d-4e45-418b-ab4e-701bb38ac6f2",
+			"title": " Number of Containers in Status of NonRoot",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.runAsNonRoot = undefined or (securityContext.runAsNonRoot = (true or false)) as spec\nRETURN\n    spec.securityContext.runAsNonRoot as name,\n    count(spec) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "138e91e3-8537-4886-ba5c-9c34d016ed9b",
+			"title": "Number of Containers in Status of Run As User",
+			"type": "pie",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.runAsUser != undefined or securityContext.runAsUser = undefined as spec\nRETURN\nspec.securityContext.runAsUser as name, COUNT(spec) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "a810898d-cf0e-4219-b39b-dcba95272ccf",
+			"title": "Status of Privilege Escalation",
 			"type": "table",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "find DomainRecord as a\nreturn\na._type, a.displayName, a.accountId, a.resourceRecords, a.type"
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.allowPrivilegeEscalation = undefined or (securityContext.allowPrivilegeEscalation= (true or false)) as spec\nRETURN\n    spec.displayName as Display_Name,\n    spec.securityContext.allowPrivilegeEscalation as Status\norder by \n    spec.securityContext.allowPrivilegeEscalation"
+					}
+				]
+			}
+		},
+		{
+			"id": "108c17e4-9d4c-40c2-b85b-6d790ce2d823",
+			"title": "Status of Read Only File System",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.readOnlyRootFilesystem = undefined or (securityContext.readOnlyRootFilesystem= (true or false)) as spec\nRETURN\n    spec.displayName as Display_Name,\n    spec.securityContext.readOnlyRootFilesystem as Status\norder by \n    spec.securityContext.readOnlyRootFilesystem"
+					}
+				]
+			}
+		},
+		{
+			"id": "eba1e41b-9ccf-4786-9103-7cc0700c02ef",
+			"title": "Status of NonRoot",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.runAsNonRoot = (true or false) or (securityContext.runAsNonRoot= undefined) as spec\nRETURN\n    spec.displayName as Display_Name,\n    spec.securityContext.runAsNonRoot as Status\norder by \n    spec.securityContext.runAsNonRoot"
+					}
+				]
+			}
+		},
+		{
+			"id": "84db2fac-5098-41e7-805d-44663733b4d0",
+			"title": "Status of Run As User",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_namespace\n    THAT CONTAINS kube_deployment\n    THAT USES kube_container_spec with securityContext.runAsUser != undefined or securityContext.runAsUser = undefined as spec\nRETURN\nspec.displayName as Display_Name,spec.securityContext.runAsUser as User_Name\nORDER BY spec.securityContext.runAsUser"
+					}
+				]
+			}
+		},
+		{
+			"id": "d38406c4-ad6f-4dd4-970a-8854c3d45672",
+			"title": "Number of Containers per Deployment",
+			"type": "number",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_deployment as deployment\n    THAT USES kube_container_spec as containerSpec\nRETURN\n    count(containerSpec) as value"
+					}
+				]
+			}
+		},
+		{
+			"id": "3639807f-9274-440a-8d9e-2754483067d6",
+			"title": "Container Specs per Deployment",
+			"type": "graph",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_deployment as deployment\n    THAT USES kube_container_spec as containerSpec\nRETURN\n   tree"
+					}
+				]
+			}
+		},
+		{
+			"id": "7ca00ff9-c07d-4ade-b502-882b258bb350",
+			"title": "Containers per Deployment",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND kube_deployment as deployment\n    THAT USES kube_container_spec as containerSpec\nRETURN\n    deployment.displayName as name,\n    containerSpec.image as value"
 					}
 				]
 			}
@@ -136,91 +211,562 @@
 	],
 	"layouts": {
 		"sm": [],
-		"xs": [],
-		"lg": [
+		"xs": [
 			{
 				"static": false,
-				"w": 3,
+				"w": 1,
 				"moved": false,
-				"h": 4,
+				"h": 2,
 				"x": 0,
 				"y": 0,
-				"i": "c16b43de-c19c-477d-b3e8-3d6ee8161d96"
+				"i": "f53810ba-6cb7-478d-afe2-4814a32d6ef9"
 			},
 			{
 				"static": false,
-				"w": 9,
+				"w": 1,
 				"moved": false,
 				"h": 2,
-				"x": 3,
-				"y": 0,
-				"i": "1d821690-9321-41e5-a685-43f217246a7d"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 2,
-				"x": 3,
+				"x": 0,
 				"y": 2,
-				"i": "ce0a65dc-00d2-4d00-ae47-8f70ef8b3508"
+				"i": "ed160f64-b9a1-43ca-8335-1e8035bafc92"
 			},
 			{
 				"static": false,
-				"w": 3,
+				"w": 1,
 				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 4,
-				"i": "a821bca8-af27-4493-9bcc-7e24d6896d16"
+				"i": "b83fe3ea-db2f-4355-89f7-2b283a431ad4"
 			},
 			{
 				"static": false,
-				"w": 3,
+				"w": 1,
 				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 6,
-				"i": "12899afd-1417-4dd6-b169-d796bbdcba0a"
+				"i": "ae74073a-2211-4c30-ae43-c725fbf1dc50"
 			},
 			{
 				"static": false,
-				"w": 3,
+				"w": 1,
 				"moved": false,
 				"h": 2,
 				"x": 0,
 				"y": 8,
-				"i": "77dfa554-0130-4172-80fb-d0af1f902bed"
+				"i": "59aa1d7a-8f9b-4450-a39c-7d94c8348321"
 			},
 			{
 				"static": false,
-				"w": 9,
+				"w": 1,
 				"moved": false,
 				"h": 2,
-				"x": 3,
-				"y": 4,
-				"i": "397ef1a2-f0ba-4fed-aea8-04f80d595232"
+				"x": 0,
+				"y": 10,
+				"i": "cd71a499-f845-4e95-8bd1-3288e8c5c13f"
 			},
 			{
 				"static": false,
-				"w": 9,
+				"w": 1,
 				"moved": false,
 				"h": 2,
-				"x": 3,
-				"y": 6,
-				"i": "8ff278e8-e276-44a6-8175-9e6fde695f6d"
+				"x": 0,
+				"y": 12,
+				"i": "df1ccf9a-f539-4bd2-9f72-0e149ecadc53"
 			},
 			{
 				"static": false,
-				"w": 9,
+				"w": 1,
 				"moved": false,
 				"h": 2,
-				"x": 3,
-				"y": 8,
-				"i": "70fb172a-56dd-458f-b9f7-e581d4e1cf9e"
+				"x": 0,
+				"y": 14,
+				"i": "11d2ee4d-4e45-418b-ab4e-701bb38ac6f2"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 16,
+				"i": "138e91e3-8537-4886-ba5c-9c34d016ed9b"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 18,
+				"i": "a810898d-cf0e-4219-b39b-dcba95272ccf"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 20,
+				"i": "108c17e4-9d4c-40c2-b85b-6d790ce2d823"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 22,
+				"i": "eba1e41b-9ccf-4786-9103-7cc0700c02ef"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 24,
+				"i": "84db2fac-5098-41e7-805d-44663733b4d0"
 			}
 		],
-		"xl": [],
-		"md": []
+		"lg": [
+			{
+				"w": 3,
+				"h": 3,
+				"x": 0,
+				"y": 0,
+				"i": "f53810ba-6cb7-478d-afe2-4814a32d6ef9",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 3,
+				"x": 0,
+				"y": 3,
+				"i": "ed160f64-b9a1-43ca-8335-1e8035bafc92",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 4,
+				"h": 3,
+				"x": 3,
+				"y": 3,
+				"i": "b83fe3ea-db2f-4355-89f7-2b283a431ad4",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 3,
+				"x": 3,
+				"y": 0,
+				"i": "ae74073a-2211-4c30-ae43-c725fbf1dc50",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 6,
+				"h": 3,
+				"x": 6,
+				"y": 0,
+				"i": "59aa1d7a-8f9b-4450-a39c-7d94c8348321",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "cd71a499-f845-4e95-8bd1-3288e8c5c13f",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 6,
+				"y": 8,
+				"i": "df1ccf9a-f539-4bd2-9f72-0e149ecadc53",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "11d2ee4d-4e45-418b-ab4e-701bb38ac6f2",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 6,
+				"y": 10,
+				"i": "138e91e3-8537-4886-ba5c-9c34d016ed9b",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 3,
+				"y": 8,
+				"i": "a810898d-cf0e-4219-b39b-dcba95272ccf",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 9,
+				"y": 8,
+				"i": "108c17e4-9d4c-40c2-b85b-6d790ce2d823",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 3,
+				"y": 10,
+				"i": "eba1e41b-9ccf-4786-9103-7cc0700c02ef",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 9,
+				"y": 10,
+				"i": "84db2fac-5098-41e7-805d-44663733b4d0",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 3,
+				"h": 2,
+				"x": 0,
+				"y": 6,
+				"i": "d38406c4-ad6f-4dd4-970a-8854c3d45672",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 5,
+				"h": 3,
+				"x": 7,
+				"y": 3,
+				"i": "3639807f-9274-440a-8d9e-2754483067d6",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 9,
+				"h": 2,
+				"x": 3,
+				"y": 6,
+				"i": "7ca00ff9-c07d-4ade-b502-882b258bb350",
+				"moved": false,
+				"static": false
+			}
+		],
+		"xl": [
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "f53810ba-6cb7-478d-afe2-4814a32d6ef9"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "ed160f64-b9a1-43ca-8335-1e8035bafc92"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "b83fe3ea-db2f-4355-89f7-2b283a431ad4"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 6,
+				"i": "ae74073a-2211-4c30-ae43-c725fbf1dc50"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "59aa1d7a-8f9b-4450-a39c-7d94c8348321"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "cd71a499-f845-4e95-8bd1-3288e8c5c13f"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 12,
+				"i": "df1ccf9a-f539-4bd2-9f72-0e149ecadc53"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 14,
+				"i": "11d2ee4d-4e45-418b-ab4e-701bb38ac6f2"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 16,
+				"i": "138e91e3-8537-4886-ba5c-9c34d016ed9b"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 18,
+				"i": "a810898d-cf0e-4219-b39b-dcba95272ccf"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 20,
+				"i": "108c17e4-9d4c-40c2-b85b-6d790ce2d823"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 22,
+				"i": "eba1e41b-9ccf-4786-9103-7cc0700c02ef"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 24,
+				"i": "84db2fac-5098-41e7-805d-44663733b4d0"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 26,
+				"i": "d38406c4-ad6f-4dd4-970a-8854c3d45672"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 28,
+				"i": "3639807f-9274-440a-8d9e-2754483067d6"
+			},
+			{
+				"static": false,
+				"w": 12,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 30,
+				"i": "7ca00ff9-c07d-4ade-b502-882b258bb350"
+			}
+		],
+		"md": [
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "f53810ba-6cb7-478d-afe2-4814a32d6ef9"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "ed160f64-b9a1-43ca-8335-1e8035bafc92"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "b83fe3ea-db2f-4355-89f7-2b283a431ad4"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 1,
+				"x": 0,
+				"y": 6,
+				"i": "ae74073a-2211-4c30-ae43-c725fbf1dc50"
+			},
+			{
+				"static": false,
+				"w": 1,
+				"moved": false,
+				"h": 1,
+				"x": 0,
+				"y": 7,
+				"i": "59aa1d7a-8f9b-4450-a39c-7d94c8348321"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 8,
+				"i": "cd71a499-f845-4e95-8bd1-3288e8c5c13f"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 10,
+				"i": "df1ccf9a-f539-4bd2-9f72-0e149ecadc53"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 12,
+				"i": "11d2ee4d-4e45-418b-ab4e-701bb38ac6f2"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 14,
+				"i": "138e91e3-8537-4886-ba5c-9c34d016ed9b"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 16,
+				"i": "a810898d-cf0e-4219-b39b-dcba95272ccf"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 18,
+				"i": "108c17e4-9d4c-40c2-b85b-6d790ce2d823"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 20,
+				"i": "eba1e41b-9ccf-4786-9103-7cc0700c02ef"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 22,
+				"i": "84db2fac-5098-41e7-805d-44663733b4d0"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 24,
+				"i": "d38406c4-ad6f-4dd4-970a-8854c3d45672"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 26,
+				"i": "3639807f-9274-440a-8d9e-2754483067d6"
+			},
+			{
+				"static": false,
+				"w": 6,
+				"moved": false,
+				"h": 2,
+				"x": 0,
+				"y": 28,
+				"i": "7ca00ff9-c07d-4ade-b502-882b258bb350"
+			}
+		]
 	}
 }
