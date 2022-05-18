@@ -6,7 +6,7 @@ Publisher: JupiterOne
 
 ![sample-screenshot](board.png)
 
-Shows various counts of Clusters, Namespaces and Containers. Additionally, this board shows container  and their current securityContext configurations. 
+Shows various counts of Clusters, Namespaces and Containers. Additionally, this board shows containers and their current securityContext configurations. 
 
 > Prerequisite: 
 >
