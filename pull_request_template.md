@@ -11,4 +11,5 @@
 - [ ] Upload the dashboard JSON into JupiterOne to validate
 - [ ] Make sure there is a screenshot
 - [ ] Update the main README.md file in the repository
+- [ ] Ensure file naming is consistent (board.json, board.png, readme.md)
 - [ ] Update `main.js` file with new board
