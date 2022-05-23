@@ -7,7 +7,7 @@ import dataBreachCost from "./boards/data-breach-cost/board.json";
 import dataProtection from "./boards/data-protection/board.json";
 import development from "./boards/development/board.json";
 import firewall from "./boards/network-security/board.json";
-import gdprDataLocations from "./developments/gdpr-data-locations/board.json";
+import gdprDataLocations from "./boards/gdpr-data-locations/board.json";
 import highRiskAssets from "./boards/high-risk-assets/board.json";
 import resourceClassification from "./boards/resource-classification/board.json";
 import riskRegister from "./boards/risk-register/board.json";
@@ -30,8 +30,8 @@ import jamfCrowdStrike from "./boards/jamf-crowdstrike/board.json";
 import jiraInsights from "./boards/jira-insights/board.json";
 import kubernetesSecurityContext from "./boards/kubernetes-security-context/board.json";
 import oktaUserManagement from "./boards/okta-user-management/board.json";
-import teamPeersManagersDirectReports from "./boards/team-peers-managers-direct-reports/board.json";
-import userEndpointBlast from "./boards/user-endpoint-blast/board.json";
+import teamManagerDirectReports from "./boards/team-manager-direct-reports/board.json";
+import userEndpointBlastRadius from "./boards/user-endpoint-blast-radius/board.json";
 
 const InsightsDashboards = {
   "AWS Accounts": awsAccount,
@@ -60,11 +60,11 @@ const InsightsDashboards = {
   "Risk Register": riskRegister,
   "Secure Development": development,
   "Software Dependencies and Licenses": codeDeps,
-  "Team / Peers, Manager and Direct Reports": teamPeersManagersDirectReports,
+  "Team / Peers, Manager and Direct Reports": teamManagerDirectReports,
   "Team Growth": teamGrowth,
   "User Access": userAccess,
   "User Endpoints": userEndpoints,
-  "User Endpoint Blast Radius": userEndpointBlast,
+  "User Endpoint Blast Radius": userEndpointBlastRadius,
   "User Training": userTraining,
   "Vendor Management": vendorMgmt,
   "Vulnerability Reporting": vulnReporting,
