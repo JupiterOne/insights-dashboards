@@ -2,7 +2,7 @@
 Publisher: JupiterOne
 ---
 
-# Firewall Rules Matrix
+# Network Security
 
 This board contains several widgets:
 
@@ -11,7 +11,6 @@ This board contains several widgets:
 - A matrix table showing the ingress/egress access and allowed ports between internal networks
 - A list of expired certificates
 - A list of DNS records not pointing to an internal resource
-- A list of domains/subdomains  
-
+- A list of domains/subdomains
 
 ![sample-screenshot](board.png)
