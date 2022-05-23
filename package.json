@@ -1,7 +1,7 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "1.6.0",
-  "description": "JupiterOne Insights Dasbboards",
+  "version": "1.7.0",
+  "description": "JupiterOne Insights Dashboards",
   "main": "dist/insights-dashboards.cjs.js",
   "module": "dist/insights-dashboards.esm.js",
   "browser": "dist/insights-dashboards.umd.js",
