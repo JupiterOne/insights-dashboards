@@ -23,7 +23,7 @@ import azureDataStoreSecurity from "./boards/azure-datastore-security/board.json
 import azureResources from "./boards/azure-resources/board.json";
 import awsCostAnalysis from "./boards/aws-cost-analysis/board.json";
 import cloudInstanceWorkloadAnalysis from "./boards/cloud-instance-workload-analysis/board.json";
-import criticalAssetAttackSurface from "./boards/critical-asset-attack-surface/board.json";
+import criticalAttackSurface from "./boards/critical-attack-surface/board.json";
 import githubInsights from "./boards/github-insights/board.json";
 import googleWorkspace from "./boards/google-workspace/board.json";
 import jamfCrowdStrike from "./boards/jamf-crowdstrike/board.json";
@@ -42,7 +42,7 @@ const InsightsDashboards = {
   "Azure DataStore Security": azureDataStoreSecurity,
   "Azure Resources": azureResources,
   "Cloud Instance Workload Anlysis": cloudInstanceWorkloadAnalysis,
-  "Critical Asset Attack Surface": criticalAssetAttackSurface,
+  "Critical Asset Attack Surface": criticalAttackSurface,
   "CrowdStrike and JAMF Comparison": jamfCrowdStrike,
   "Data Breach Cost": dataBreachCost,
   "Data Protection": dataProtection,
