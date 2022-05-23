@@ -2,7 +2,7 @@
 Publisher: JupiterOne
 ---
 
-# CLOUD INSTANCE & WORLOAD ANALYSIS
+# IR - Cloud Instance & Workload Analysis
 
 ![sample-screenshot](board.png)
 
