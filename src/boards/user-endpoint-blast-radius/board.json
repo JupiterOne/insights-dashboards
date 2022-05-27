@@ -8,7 +8,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND Device \n  WITH \n    macAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    ipAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    hostname = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    email = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    owner = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    user = \"{{macAddress or hostname or email or ipAddress}}\"\nTHAT (OWNS|HAS) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application)\nRETURN TREE"
+						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application)\nRETURN TREE"
 					}
 				],
 				"settings": {
@@ -26,7 +26,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND Device \n  WITH \n    macAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    ipAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    hostname = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    email = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    owner = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    user = \"{{macAddress or hostname or email or ipAddress}}\"\nTHAT (OWNS|HAS) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application) as entity\nRETURN entity._type as accessType, count(entity) as accessCount order by accessCount DESC"
+						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application) as entity\nRETURN entity._type as accessType, count(entity) as accessCount order by accessCount DESC"
 					}
 				]
 			}
@@ -39,7 +39,15 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND Unique Device \n  WITH \n    macAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    ipAddress = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    hostname = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    email = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    owner = \"{{macAddress or hostname or email or ipAddress}}\"\n  OR\n    user = \"{{macAddress or hostname or email or ipAddress}}\"\n(that (has|owns) (Person|User))?\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
+						"query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
+					},
+					{
+						"name": "query2",
+						"query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\nTHAT (HAS|OWNS|MANAGES) User\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
+					},
+					{
+						"name": "query3",
+						"query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\nTHAT (HAS|OWNS|MANAGES) User\nTHAT (IS|OWNS|MANAGES) Person\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
 					}
 				]
 			}
