@@ -8,13 +8,21 @@
   "files": [
     "dist"
   ],
+  "type": "module",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "postbuild": "node ./bin/buildJSON.js --experimental-modules",
+    "deploy": "jupiterone-manual-deploy -t jupiterone-dev -a apply",
+    "destroy": "jupiterone-manual-deploy -t jupiterone-dev -a destroy",
+    "plan": "jupiterone-manual-deploy -t jupiterone-dev -a plan"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
     "rollup": "^2.41.2"
+  },
+  "dependencies": {
+    "@jupiterone/dev-tools": "^11.3.1"
   }
 }
