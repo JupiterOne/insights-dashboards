@@ -5,7 +5,7 @@ pipeline {
 
   stages {
     stage('build') {
-      // when { branch 'main' }
+      when { branch 'main' }
       agent { label 'ecs-builder-node14' }
       steps {
         initBuild()
@@ -17,7 +17,7 @@ pipeline {
       }
     }
     stage('deploy') {
-      // when { branch 'main' }
+      when { branch 'main' }
       agent { label 'ecs-builder-node14' }
       steps {
         deployToJupiterEnvironments (
