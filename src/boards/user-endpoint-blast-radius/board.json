@@ -26,7 +26,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \n(that has UserGroup)?\nthat (assigned|has|uses) (Account|AccessRole|AccessKey|Application|Token)\n(that assigned AccessPolicy)?\n(that allows *)?\nRETURN TREE"
+						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" WITH _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \n(THAT HAS UserGroup)?\nTHAT (ASSIGNED|HAS|USES) (Account|AccessRole|AccessKey|Application|Token)\n(THAT ASSIGNED AccessPolicy)?\n(THAT ALLOWS *)?\nRETURN TREE"
 					}
 				]
 			}
