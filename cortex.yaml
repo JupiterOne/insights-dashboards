@@ -1,0 +1,18 @@
+openapi: 3.0.1
+info:
+  title: Insights Dashboards
+  description: default insights board templates
+  x-cortex-git:
+    github:
+      repository: JupiterOne/insights-dashboards
+  x-cortex-owners:
+    - type: group
+      name: JupiterOne/Prometheus
+  x-cortex-tag: insights-dashboards
+  x-cortex-service-groups:
+    - tier-4
+  x-cortex-link:
+    - name: Project README
+      type: documentation
+      url: https://github.com/JupiterOne/insights-dashboards/blob/main/README.md
+      description: General overview
