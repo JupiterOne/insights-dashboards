@@ -7,7 +7,17 @@ info:
       repository: JupiterOne/insights-dashboards
   x-cortex-owners:
     - type: group
-      name: JupiterOne/Prometheus
+      name: JupiterOne/prometheus
+    - type: group
+      name: JupiterOne/solutions
+    - type: group
+      name: JupiterOne/janus
+    - type: group
+      name: JupiterOne/saturn
+    - type: group
+      name: JupiterOne/customer-success
+    - type: group
+      name: JupiterOne/product
   x-cortex-tag: insights-dashboards
   x-cortex-service-groups:
     - tier-4
