@@ -14,3 +14,5 @@
 - [ ] Ensure file naming is consistent (board.json, board.png, readme.md)
 - [ ] Update `main.js` file with new board
 - [ ] Update the `package.json` version ex: 1.7.0 -> 1.7.1 or 1.7.0 -> 1.8.0
+
+Note: Once your changes have been merged, the owners of the insights app need to be notified
