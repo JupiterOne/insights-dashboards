@@ -65,6 +65,6 @@ When changes are ready to be deployed to the frontend insights page the `package
 of this repo needs to be manually bumped. This triggers a Github action once merged that publishes a new
 `@jupiterone/insights-dashboard` package version.
 
-Note - Only boards exported from `src/main.js` will be available in the frontend application.
+Note - Only boards exported from `src/index.ts` will be available in the frontend application.
 
 Finally, the applications team will need to bump the dependency version in the insights SPA.
