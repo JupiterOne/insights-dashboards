@@ -2,11 +2,12 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import pkg from "./package.json";
+import typescript from "@rollup/plugin-typescript";
 
 export default [
   // browser-friendly UMD build
   {
-    input: "src/main.js",
+    input: "src/index.ts",
     output: {
       name: "InsightsDashboards",
       file: pkg.browser,
@@ -26,13 +27,14 @@ export default [
   // an array for the `output` option, where we can specify
   // `file` and `format` for each target)
   {
-    input: "src/main.js",
+    input: "src/index.ts",
     output: [
       { file: pkg.main, format: "cjs" },
       { file: pkg.module, format: "es" },
     ],
     plugins: [
       json(), // to parse json files
+      typescript(), // For typescript support
     ],
   },
 ];
