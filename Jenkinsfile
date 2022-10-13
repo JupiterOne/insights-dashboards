@@ -17,7 +17,7 @@ pipeline {
           if (env.BRANCH_NAME == 'main') {
             sh 'jupiterone-publish'
 
-            // publish client and types if updated
+            // publish new package version if updated
             publishNewNpmVersionIfAny('./package.json', './dist')
           }
         }
