@@ -12,7 +12,15 @@ pipeline {
         sh 'yarn build'
         sh 'cp -r dist ./deploy'
         sh 'jupiterone-build'
-        sh 'jupiterone-publish'
+
+        script {
+          if (env.BRANCH_NAME == 'main') {
+            sh 'jupiterone-publish'
+
+            // publish client and types if updated
+            publishNewNpmVersionIfAny('./package.json', './dist')
+          }
+        }
       }
     }
     stage('dev-deploy') {
