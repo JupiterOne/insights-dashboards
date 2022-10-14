@@ -11,7 +11,7 @@
   "type": "module",
   "scripts": {
     "build": "rollup -c",
-    "postbuild": "node ./bin/buildJSON.js --experimental-modules",
+    "postbuild": "node ./bin/buildJSON.js --experimental-modules; cp yarn.lock package.json ./dist",
     "deploy": "jupiterone-manual-deploy -t jupiterone-dev -a apply",
     "destroy": "jupiterone-manual-deploy -t jupiterone-dev -a destroy",
     "plan": "jupiterone-manual-deploy -t jupiterone-dev -a plan",
