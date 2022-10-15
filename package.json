@@ -5,9 +5,6 @@
   "main": "dist/insights-dashboards.cjs.js",
   "module": "dist/insights-dashboards.esm.js",
   "browser": "dist/insights-dashboards.umd.js",
-  "files": [
-    "dist"
-  ],
   "type": "module",
   "scripts": {
     "build": "rollup -c",
