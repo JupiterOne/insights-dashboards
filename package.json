@@ -1,12 +1,15 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "JupiterOne Insights Dashboards",
-  "main": "dist/insights-dashboards.cjs.js",
-  "module": "dist/insights-dashboards.esm.js",
-  "browser": "dist/insights-dashboards.umd.js",
+  "main": "insights-dashboards.cjs.js",
+  "module": "insights-dashboards.esm.js",
+  "browser": "insights-dashboards.umd.js",
   "files": [
-    "dist"
+    "boards.json",
+    "insights-dashboards.cjs.js",
+    "insights-dashboards.esm.js",
+    "insights-dashboards.umd.js"
   ],
   "type": "module",
   "scripts": {
