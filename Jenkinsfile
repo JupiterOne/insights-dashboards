@@ -15,10 +15,10 @@ pipeline {
         sh 'jupiterone-publish'
 
         script {
-          if (env.BRANCH_NAME == 'main') {
+          // if (env.BRANCH_NAME == 'main') {
             // publish new package version if updated
             publishNewNpmVersionIfAny('./package.json', './dist')
-          }
+          // }
         }
       }
     }
