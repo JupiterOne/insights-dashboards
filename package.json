@@ -1,11 +1,14 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "JupiterOne Insights Dashboards",
   "main": "dist/insights-dashboards.cjs.js",
   "module": "dist/insights-dashboards.esm.js",
   "browser": "dist/insights-dashboards.umd.js",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollup -c",
     "postbuild": "node ./bin/buildJSON.js --experimental-modules; cp yarn.lock package.json ./dist",
