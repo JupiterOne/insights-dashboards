@@ -1,18 +1,23 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "2.0.5",
+  "version": "2.0.6",
+  "license": "UNLICENSED",
   "description": "JupiterOne Insights Dashboards",
   "main": "dist/insights-dashboards.cjs.js",
   "module": "dist/insights-dashboards.esm.js",
   "browser": "dist/insights-dashboards.umd.js",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "rimraf dist && yarn build:types && rollup -c",
     "postbuild": "node ./bin/buildJSON.js --experimental-modules; cp yarn.lock package.json ./dist",
     "deploy": "jupiterone-manual-deploy -t jupiterone-dev -a apply",
     "destroy": "jupiterone-manual-deploy -t jupiterone-dev -a destroy",
     "plan": "jupiterone-manual-deploy -t jupiterone-dev -a plan",
-    "typecheck": "tsc -b"
+    "build:types": "tsc -b",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",

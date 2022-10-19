@@ -17,6 +17,7 @@
     "target": "esnext",
     "sourceMap": true,
     "inlineSourceMap": false,
-    "outDir": "dist"
+    "outDir": "dist",
+    "declaration": true
   }
 }
