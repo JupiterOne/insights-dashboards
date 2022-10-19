@@ -1,6 +1,7 @@
 {
 	"widgets": [
 		{
+			"description": "",
 			"id": "b34e25d1-4e3a-4f1c-a01e-fc8890a90e50",
 			"title": "Device Owner's Digital Identities and Access",
 			"type": "graph",
@@ -8,7 +9,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" WITH _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application)\nRETURN TREE"
+						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" WITH _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \n(THAT HAS UserGroup)?\nTHAT (ASSIGNED|HAS|USES) (Account|AccessRole|AccessKey|Application|Token)\n(THAT ASSIGNED AccessPolicy)?\n(THAT ALLOWS *)?\nRETURN TREE"
 					}
 				],
 				"settings": {
@@ -26,31 +27,45 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" WITH _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application) as entity\nRETURN entity._type as accessType, count(entity) as accessCount order by accessCount DESC"
+						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application) as entity\nRETURN entity._type as accessType, count(entity) as accessCount order by accessCount DESC"
 					}
 				]
 			}
 		},
 		{
 			"id": "2dc10640-83d1-4dbf-bb46-766b9d51c7ae",
-			"title": "FIndings & Problems",
+			"title": "Findings & Problems",
 			"type": "table",
 			"config": {
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" WITH _class='Device'\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
+						"query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
 					},
 					{
 						"name": "query2",
-						"query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" WITH _class='Device'\nTHAT (HAS|OWNS|MANAGES) User\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
+						"query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\nTHAT (HAS|OWNS|MANAGES) User\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
 					},
 					{
 						"name": "query3",
-						"query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" WITH _class='Device'\nTHAT (HAS|OWNS|MANAGES) User\nTHAT (IS|OWNS|MANAGES) Person\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
+						"query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\nTHAT (HAS|OWNS|MANAGES) User\nTHAT (IS|OWNS|MANAGES) Person\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
 					}
 				]
 			}
+		},
+		{
+			"id": "4693fed3-9f48-4785-bb85-d5fe8dc23aaa",
+			"title": "Group Membership",
+			"type": "table",
+			"config": {
+				"queries": [
+					{
+						"name": "query1",
+						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'HostAgent' or 'User' or 'HostAgent')\n  (that RELATES TO user_endpoint)?\n  (that OWNS << Person)?\n  (that (IS|HAS) User)?\n  that HAS UserGroup\nRETURN \n  UserGroup.displayName as \"Group Name\", \n  UserGroup._type as \"Group Type\""
+					}
+				]
+			},
+			"description": "Returns AD and Other Group Memberships"
 		}
 	],
 	"layouts": {
@@ -58,31 +73,40 @@
 		"xs": [],
 		"lg": [
 			{
-				"static": false,
 				"w": 12,
-				"moved": false,
 				"h": 5,
 				"x": 0,
 				"y": 0,
-				"i": "b34e25d1-4e3a-4f1c-a01e-fc8890a90e50"
+				"i": "b34e25d1-4e3a-4f1c-a01e-fc8890a90e50",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 3,
-				"moved": false,
 				"h": 4,
 				"x": 0,
-				"y": 5,
-				"i": "b74df9ed-b5d9-41bc-a7d7-4216f6a68001"
+				"y": 7,
+				"i": "b74df9ed-b5d9-41bc-a7d7-4216f6a68001",
+				"moved": false,
+				"static": false
 			},
 			{
-				"static": false,
 				"w": 9,
-				"moved": false,
 				"h": 4,
 				"x": 3,
+				"y": 7,
+				"i": "2dc10640-83d1-4dbf-bb46-766b9d51c7ae",
+				"moved": false,
+				"static": false
+			},
+			{
+				"w": 12,
+				"h": 2,
+				"x": 0,
 				"y": 5,
-				"i": "2dc10640-83d1-4dbf-bb46-766b9d51c7ae"
+				"i": "4693fed3-9f48-4785-bb85-d5fe8dc23aaa",
+				"moved": false,
+				"static": false
 			}
 		],
 		"xl": [],
