@@ -1,15 +1,12 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "license": "UNLICENSED",
   "description": "JupiterOne Insights Dashboards",
   "main": "dist/insights-dashboards.cjs.js",
   "module": "dist/insights-dashboards.esm.js",
   "browser": "dist/insights-dashboards.umd.js",
   "type": "module",
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "build": "rimraf dist && yarn build:types && rollup -c",
     "postbuild": "node ./bin/buildJSON.js --experimental-modules; cp yarn.lock package.json ./dist",
