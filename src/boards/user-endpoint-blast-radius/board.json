@@ -9,7 +9,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application)\nRETURN TREE"
+						"query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" WITH _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \n(THAT HAS UserGroup)?\nTHAT (ASSIGNED|HAS|USES) (Account|AccessRole|AccessKey|Application|Token)\n(THAT ASSIGNED AccessPolicy)?\n(THAT ALLOWS *)?\nRETURN TREE"
 					}
 				],
 				"settings": {
@@ -34,7 +34,7 @@
 		},
 		{
 			"id": "2dc10640-83d1-4dbf-bb46-766b9d51c7ae",
-			"title": "FIndings & Problems",
+			"title": "Findings & Problems",
 			"type": "table",
 			"config": {
 				"queries": [
