@@ -13,7 +13,7 @@ pipeline {
         sh 'cp -r dist ./deploy'
         sh 'jupiterone-build'
         sh 'jupiterone-publish'
-        publishNewNpmVersionIfAny('dist/package.json', 'dist')
+        publishNewNpmVersionIfAny('package.json', 'dist')
       }
     }
     stage('dev-deploy') {
