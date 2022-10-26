@@ -33,7 +33,8 @@ import oktaUserManagement from "./boards/okta-user-management/board.json";
 import teamManagerDirectReports from "./boards/team-manager-direct-reports/board.json";
 import userEndpointBlastRadius from "./boards/user-endpoint-blast-radius/board.json";
 
-const InsightsDashboards = {
+// All of these boards are available as templates for import when creating a new board in app
+export const InsightsDashboards = {
   "AWS Accounts": awsAccount,
   "AWS Cost Analysis": awsCostAnalysis,
   "AWS IAM": awsIam,
@@ -70,4 +71,32 @@ const InsightsDashboards = {
   "Vulnerability Reporting": vulnReporting,
 };
 
-export default InsightsDashboards;
+export enum BoardCategory {
+  FAVORITE = "FAVORITE",
+  INCIDENT_RESPONSE = "INCIDENT_RESPONSE",
+  VULNERABILITY_MANAGEMENT = "VULNERABILITY_MANAGEMENT",
+}
+
+// Boards here will be added as "J1 Managed Boards"
+// IR and Vulnerability boards will be displayed in their respective sections
+// An undefined category will just be displayed in the 'J1 Managed Dashboards' section
+export const MANAGED_BOARDS = [
+  {
+    id: "ir-cloud-instance-workload-analysis",
+    name: "Cloud Instance Workload Analysis",
+    category: BoardCategory.INCIDENT_RESPONSE,
+    ...cloudInstanceWorkloadAnalysis,
+  },
+  {
+    id: "ir-user-endpoint-blast-radius",
+    name: "User Endpoint Blast Radius",
+    category: BoardCategory.INCIDENT_RESPONSE,
+    ...userEndpointBlastRadius,
+  },
+  {
+    id: "vulnerability-reporting",
+    name: "Vulnerability Reporting",
+    category: BoardCategory.VULNERABILITY_MANAGEMENT,
+    ...vulnReporting,
+  },
+];
