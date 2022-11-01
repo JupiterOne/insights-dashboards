@@ -100,3 +100,5 @@ export const MANAGED_BOARDS = [
     ...vulnReporting,
   },
 ];
+
+export default InsightsDashboards;

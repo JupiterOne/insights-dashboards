@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "license": "UNLICENSED",
   "description": "JupiterOne Insights Dashboards",
   "main": "dist/insights-dashboards.cjs.js",
@@ -21,7 +21,10 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
     "@rollup/plugin-typescript": "^9.0.1",
-    "rollup": "^2.41.2"
+    "esbuild": "^0.15.12",
+    "rollup": "^2.41.2",
+    "rollup-plugin-dts": "^5.0.0",
+    "rollup-plugin-esbuild": "^4.10.1"
   },
   "dependencies": {
     "@jupiterone/dev-tools": "^11.3.1",
