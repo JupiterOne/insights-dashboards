@@ -17,10 +17,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^11.2.0",
-    "@rollup/plugin-typescript": "^9.0.1",
     "esbuild": "^0.15.12",
     "rollup": "^2.41.2",
     "rollup-plugin-dts": "^5.0.0",
