@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "license": "UNLICENSED",
   "description": "JupiterOne Insights Dashboards",
   "main": "dist/insights-dashboards.js",
