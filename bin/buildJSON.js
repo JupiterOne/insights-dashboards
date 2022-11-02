@@ -3,7 +3,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-import boards from "../dist/insights-dashboards.cjs.mjs";
+import boards from "../dist/insights-dashboards.mjs";
 
 fs.writeFileSync(
   `${__dirname}/../dist/boards.json`,
