@@ -1,12 +1,9 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "license": "UNLICENSED",
   "description": "JupiterOne Insights Dashboards",
-  "main": "dist/insights-dashboards.js",
-  "module": "dist/insights-dashboards.mjs",
-  "typings": "dist/insights-dashboards.d.ts",
-  "browser": "dist/insights-dashboards.mjs",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "build": "rimraf dist && yarn build:types && rollup -c",
