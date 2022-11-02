@@ -2,6 +2,7 @@
   "compilerOptions": {
     "lib": ["esnext"],
     "target": "esnext",
+    "module": "commonjs",
     "outDir": "dist",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
