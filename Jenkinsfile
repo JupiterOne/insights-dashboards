@@ -13,13 +13,9 @@ pipeline {
         sh 'cp -r dist ./deploy'
         sh 'jupiterone-build'
         sh 'jupiterone-publish'
-        
-        // script {
-        //   if (env.BRANCH_NAME == 'main') {
-            // publish new package version if updated
+
         publishNewNpmVersionIfAny('dist/package.json', 'dist')
-          // }
-        }
+
       }
     }
     stage('dev-deploy') {
