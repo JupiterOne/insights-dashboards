@@ -71,7 +71,7 @@ export const InsightsDashboards = {
   "Vulnerability Reporting": vulnReporting,
 };
 
-export enum BoardCategory {
+export const enum BoardCategory {
   FAVORITE = "FAVORITE",
   INCIDENT_RESPONSE = "INCIDENT_RESPONSE",
   VULNERABILITY_MANAGEMENT = "VULNERABILITY_MANAGEMENT",
