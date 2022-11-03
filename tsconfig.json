@@ -3,7 +3,7 @@
     "lib": ["esnext"],
     "target": "esnext",
     "module": "commonjs",
-    "outDir": "dist",
+    "outDir": "tsc-dist",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,

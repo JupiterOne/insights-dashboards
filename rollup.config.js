@@ -1,36 +1,43 @@
-import dts from "rollup-plugin-dts";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
-import esbuild from "rollup-plugin-esbuild";
-
-const name = require("./package.json").main.replace(/\.js$/, "");
-
-const bundle = (config) => ({
-  ...config,
-  input: "src/index.ts",
-  external: (id) => !/^[./]/.test(id),
-});
+import dts from "rollup-plugin-dts";
+import pkg from "./package.json";
 
 export default [
-  bundle({
-    plugins: [esbuild(), json()],
+  {
+    input: "tsc-dist/index.js",
     output: [
       {
-        file: `${name}.js`,
+        file: pkg.main,
         format: "cjs",
+        exports: "named",
         sourcemap: true,
       },
       {
-        file: `${name}.mjs`,
+        file: pkg.module,
         format: "es",
+        exports: "named",
         sourcemap: true,
       },
+      {
+        file: pkg.browser,
+        format: "umd",
+        exports: "named",
+        sourcemap: true,
+        name: "InsightsDashboards",
+      },
     ],
-  }),
-  bundle({
-    plugins: [dts(), json()],
-    output: {
-      file: `${name}.d.ts`,
-      format: "es",
-    },
-  }),
+    plugins: [
+      json(), // to parse json files
+      resolve(), // so Rollup can find any dependencies
+      commonjs(), // so Rollup can convert dependencies to ES modules
+      // typescript(),
+    ],
+  },
+  {
+    input: "./tsc-dist/index.d.ts",
+    output: [{ file: "dist/index.d.ts", format: "es" }],
+    plugins: [dts()],
+  },
 ];
