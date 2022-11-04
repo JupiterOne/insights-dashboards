@@ -13,7 +13,7 @@ export default [
     input: "src/index.ts",
     output: {
       name: "InsightsDashboards",
-      file: `${OUT_DIR}/${pkg.browser}`,
+      file: `${OUT_DIR}/${pkg.main}`,
       format: "umd",
       sourcemap: true,
     },
