@@ -1,15 +1,15 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "3.2.6",
+  "version": "3.3.0",
   "license": "UNLICENSED",
   "description": "JupiterOne Insights Dashboards",
-  "main": "dist/insights-dashboards.cjs.js",
-  "module": "dist/insights-dashboards.esm.js",
-  "browser": "dist/insights-dashboards.umd.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
   "type": "module",
   "scripts": {
-    "build": "rimraf dist && yarn build:types && rollup -c",
-    "postbuild": "node ./bin/buildJSON.js --experimental-modules; cp yarn.lock package.json ./dist",
+    "build": "rimraf dist && rollup -c",
+    "postbuild": "cp yarn.lock package.json ./dist && node ./bin/buildJSON.js --experimental-modules",
     "deploy": "jupiterone-manual-deploy -t jupiterone-dev -a apply",
     "destroy": "jupiterone-manual-deploy -t jupiterone-dev -a destroy",
     "plan": "jupiterone-manual-deploy -t jupiterone-dev -a plan",
@@ -17,17 +17,15 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@rollup/plugin-json": "^4.1.0",
-    "esbuild": "^0.15.12",
-    "rollup": "^2.41.2",
-    "rollup-plugin-dts": "^5.0.0",
-    "rollup-plugin-esbuild": "^4.10.1"
-  },
-  "dependencies": {
     "@jupiterone/dev-tools": "^11.3.1",
     "@rollup/plugin-commonjs": "^23.0.2",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-typescript": "^9.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "esbuild": "^0.15.12",
+    "rollup": "^2.41.2",
+    "rollup-plugin-dts": "^5.0.0",
+    "rollup-plugin-esbuild": "^4.10.1",
     "typescript": "^4.8.4"
   }
 }

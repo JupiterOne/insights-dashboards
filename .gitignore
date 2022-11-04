@@ -4,4 +4,3 @@ dist
 work
 tmp
 .npmrc
-tsc-dist

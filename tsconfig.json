@@ -2,21 +2,22 @@
   "compilerOptions": {
     "lib": ["esnext"],
     "target": "esnext",
-    "module": "commonjs",
-    "outDir": "tsc-dist",
+    "module": "esnext",
+    "outDir": "dist",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "moduleResolution": "nodenext",
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
+    "moduleResolution": "node",
     "skipLibCheck": true,
     "strict": true,
     "baseUrl": ".",
-    "allowJs": false,
+    "allowJs": true,
     "sourceMap": true,
     "inlineSourceMap": false,
     "declaration": true
-  }
+  },
+  "include": ["src/**/*", "src/**/*.json"]
 }
