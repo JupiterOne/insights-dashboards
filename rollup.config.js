@@ -5,13 +5,15 @@ import pkg from "./package.json";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 
+const OUT_DIR = "dist";
+
 export default [
   // browser-friendly UMD build
   {
     input: "src/index.ts",
     output: {
       name: "InsightsDashboards",
-      file: pkg.browser,
+      file: `${OUT_DIR}/${pkg.browser}`,
       format: "umd",
       sourcemap: true,
     },
@@ -27,8 +29,8 @@ export default [
   {
     input: "src/index.ts",
     output: [
-      { file: pkg.main, format: "cjs", sourcemap: true },
-      { file: pkg.module, format: "es", sourcemap: true },
+      { file: `${OUT_DIR}/${pkg.main}`, format: "cjs", sourcemap: true },
+      { file: `${OUT_DIR}/${pkg.module}`, format: "es", sourcemap: true },
     ],
     plugins: [
       json(), // to parse json files
