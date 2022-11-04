@@ -1,9 +1,9 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "3.4.2",
+  "version": "3.4.3",
   "license": "UNLICENSED",
   "description": "JupiterOne Insights Dashboards",
-  "main": "insights-dashboards.umd.js",
+  "main": "insights-dashboards.js",
   "module": "insights-dashboards.es5.js",
   "typings": "insights-dashboards.d.ts",
   "type": "module",
