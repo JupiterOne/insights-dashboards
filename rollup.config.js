@@ -10,12 +10,12 @@ export default {
   input: "src/index.ts",
   output: [
     {
-      file: pkg.main,
+      file: `dist/${pkg.main}`,
       name: "InsightsDashboards",
       format: "umd",
       sourcemap: true,
     },
-    { file: pkg.module, format: "es", sourcemap: true },
+    { file: `dist/${pkg.module}`, format: "es", sourcemap: true },
   ],
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
   external: [],
