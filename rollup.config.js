@@ -1,46 +1,40 @@
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import json from "@rollup/plugin-json";
-import pkg from "./package.json";
-import typescript from "@rollup/plugin-typescript";
-import dts from "rollup-plugin-dts";
+import resolve from "rollup-plugin-node-resolve";
+import commonjs from "rollup-plugin-commonjs";
+import sourceMaps from "rollup-plugin-sourcemaps";
+import typescript from "rollup-plugin-typescript2";
+import json from "rollup-plugin-json";
 
-const OUT_DIR = "dist";
+const pkg = require("./package.json");
 
-export default [
-  // browser-friendly UMD build
-  {
-    input: "src/index.ts",
-    output: {
+export default {
+  input: "src/index.ts",
+  output: [
+    {
+      file: pkg.main,
       name: "InsightsDashboards",
-      file: `${OUT_DIR}/${pkg.main}`,
       format: "umd",
       sourcemap: true,
     },
-    plugins: [
-      json(), // to parse json files
-      resolve(), // so Rollup can find any dependencies
-      commonjs(), // so Rollup can convert dependencies to ES modules
-      typescript(),
-    ],
+    { file: pkg.module, format: "es", sourcemap: true },
+  ],
+  // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
+  external: [],
+  watch: {
+    include: "src/**",
   },
+  plugins: [
+    // Allow json resolution
+    json(),
+    // Compile TypeScript files
+    typescript({ useTsconfigDeclarationDir: true }),
+    // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
+    commonjs(),
+    // Allow node_modules resolution, so you can use 'external' to control
+    // which external modules to include in the bundle
+    // https://github.com/rollup/rollup-plugin-node-resolve#usage
+    resolve(),
 
-  // CommonJS (for Node) and ES module (for bundlers) build
-  {
-    input: "src/index.ts",
-    output: [
-      { file: `${OUT_DIR}/${pkg.main}`, format: "cjs", sourcemap: true },
-      { file: `${OUT_DIR}/${pkg.module}`, format: "es", sourcemap: true },
-    ],
-    plugins: [
-      json(), // to parse json files
-      typescript(),
-    ],
-  },
-  // Definition file for TS support
-  {
-    input: "./dist/index.d.ts",
-    output: [{ file: "dist/index.d.ts", format: "es" }],
-    plugins: [dts()],
-  },
-];
+    // Resolve source maps to the original source
+    sourceMaps(),
+  ],
+};
