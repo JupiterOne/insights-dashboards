@@ -19,7 +19,6 @@ pipeline {
             publishNewNpmVersionIfAny('dist/package.json', 'dist')
           }
         }
-
       }
     }
     stage('dev-deploy') {
