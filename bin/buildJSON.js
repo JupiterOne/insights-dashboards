@@ -3,10 +3,10 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-import boards from "../dist/insights-dashboards.esm.js";
+import InsightsDashboards from "../dist/insights-dashboards.es5.js";
 fs.writeFileSync(
   `${__dirname}/../dist/boards.json`,
-  JSON.stringify(boards, null, 2)
+  JSON.stringify(InsightsDashboards, null, 2)
 );
 
 export {};
