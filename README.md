@@ -59,7 +59,15 @@ team or in the `jupiterone-community` Slack.
 The JSON download only contains the widget definitions and layout.
 It does **NOT** contain any of your actual data.
 
-### How deploying of this package works
+## J1 Managed Boards
+
+Boards added to the mapping in `src/index.ts` `MANAGED_BOARDS` will be added to every account as "J1 Managed Boards".
+
+This mapping allows specifying the name for the boards title and a category for the default category this board will appear in. This category can be overriden by admin users of an account.
+
+Managed boards will be static and match the board/widget config defined in this repo exactly for each account.
+
+## How deploying of this package works
 
 When changes are ready to be deployed to the frontend insights page the `package.json` version
 of this repo needs to be manually bumped. This triggers a Jenkins action once merged that publishes a new
