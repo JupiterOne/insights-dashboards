@@ -109,7 +109,13 @@ exports.afterDeployTerraform = async (env) => {
 
   const removalWork = objectsToRemove.map((key) => {
     console.log("Removing the following from S3:", key);
-    const promise = s3.deleteObject({ Bucket: S3_BUCKET, Key: key }).promise();
+    const promise = s3
+      .deleteObject({ Bucket: S3_BUCKET, Key: key })
+      .promise()
+      .catch((err) => {
+        // Changing a directory/board name will give issues when trying to delete the old directory/board
+        console.error(`Error deleting ${key}! ${err.stack || err.toString()}`);
+      });
     return promise;
   });
 
