@@ -84,7 +84,7 @@ export enum BoardCategory {
 }
 
 export const BoardCategoryTitles = {
-  [BoardCategory.FAVORITE]: "Favorite",
+  [BoardCategory.FAVORITE]: "Favorites",
   [BoardCategory.ASSETS_ATTACK_SURFACE]: "Assets & Attack Surface",
   [BoardCategory.CLOUD_POSTURE]: "Cloud Posture",
   [BoardCategory.DATA_PROTECTION_PRIVACY]: "Data Protection & Privacy",
