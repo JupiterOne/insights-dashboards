@@ -100,12 +100,6 @@ export const BoardCategoryTitles = {
 // An undefined category will just be displayed in the 'J1 Managed Dashboards' section
 export const MANAGED_BOARDS = [
   {
-    id: "critical-attack-surface",
-    name: "Critical Asset Attack Surface",
-    category: BoardCategory.ASSETS_ATTACK_SURFACE,
-    ...criticalAttackSurface,
-  },
-  {
     id: "high-risk-assets",
     name: "High Risk Assets",
     category: BoardCategory.ASSETS_ATTACK_SURFACE,
