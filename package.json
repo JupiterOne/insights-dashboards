@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@jupiterone/dev-tools": "^11.3.1",
+    "@jupiterone/dev-tools": "^11.4.9",
     "rollup": "^2.41.2",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",

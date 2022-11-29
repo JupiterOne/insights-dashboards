@@ -111,7 +111,7 @@
     "@jupiterone/continuous-delivery-models" "^4.0.2"
     "@jupiterone/continuous-delivery-yaml" "^3.0.0"
 
-"@jupiterone/dev-tools@^11.3.1":
+"@jupiterone/dev-tools@^11.4.9":
   version "11.4.9"
   resolved "https://registry.yarnpkg.com/@jupiterone/dev-tools/-/dev-tools-11.4.9.tgz#1462a49b6f9122a2fdbeec6340da0fbc535d00d9"
   integrity sha512-JU7H0spoIo4E3cyKwQw0l2hbR3knQA4u2/4ZSxem1HivKLJ7vkd8CY4HzAcW3u3OBjJ4ToJit4kXHD2HVW5j0Q==
