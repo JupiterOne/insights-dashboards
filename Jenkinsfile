@@ -42,6 +42,14 @@ pipeline {
         )
       }
     }
-
+  }
+  post {
+    failure {
+      script {
+        notifyUser(
+          channel: "#alert-sre"
+        )
+      }
+    }
   }
 }
