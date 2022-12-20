@@ -32,7 +32,7 @@ import userEndpoints from "./boards/user-endpoints/board.json";
 import userTraining from "./boards/user-training/board.json";
 import vendorMgmt from "./boards/vendor-mgmt/board.json";
 import vulnReporting from "./boards/vuln-reporting/board.json";
-import povInsights from "./boards/pov-queries/board.json"
+import povInsights from "./boards/pov-insights/board.json"
 
 // All of these boards are available as templates for import when creating a new board in app
 export const InsightsDashboards = {
