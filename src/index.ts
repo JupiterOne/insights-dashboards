@@ -70,6 +70,7 @@ export const InsightsDashboards = {
   "User Training": userTraining,
   "Vendor Management": vendorMgmt,
   "Vulnerability Reporting": vulnReporting,
+  "PoV Insights": povInsights,
 };
 
 export enum BoardCategory {
