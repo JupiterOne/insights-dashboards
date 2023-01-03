@@ -38,6 +38,7 @@ List of dashboards:
 - [User Training](src/boards/user-training/)
 - [Vendor Management](src/boards/vendor-mgmt/)
 - [Vulnerability Reporting](src/boards/vuln-reporting/)
+- [PoV Insights](src/boards/pov-insights/)
 
 ## Importing a dashboard to your J1 account
 
