@@ -73,7 +73,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find aws_ebs_snapshot with shared=true as ebs\nreturn count(ebs) as value"
+						"query": "Find aws_ebs_snapshot with shared=true as ebs\nreturn ebs._type as x, count(ebs) as y"
 					}
 				]
 			}
