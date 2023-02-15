@@ -1,857 +1,550 @@
-Skip to Jira Navigation
-Skip to Side Navigation
-Skip to Main Content
-
-
-
-Your work
-
-Projects
-
-Filters
-
-Dashboards
-
-People
-
-Plans
-
-Apps
-
-Create
-Search
-
-9+
-
-
-
-Application
-Software project
-PLANNING
-DEVELOPMENT
-OPERATIONS
-APPS
-You're in a company-managed project
-Learn more
-
-
-Projects
-Application
-Prometheus Board
-
-8 days remainingComplete sprint
-
-Board Tools
-Prometheus Feb 15 - March 1
-CSV Export (Ship) J1 Dashboards to Home (Finish) UI for Asset Categories (UI) Query Sort spike cntd. Kick off discovery for Trend work
-Search this board
-Show tickets assigned to
-
-
-
-
-
-
-
-Only My Issues
-
-Recently Updated
-
-Clear all
-
-Insights
-TO DO
-IN PROGRESS
-RESOLVED
-DONE
-Understand Impact of enabling daily trend to all widget queries by default
-Add ability for Insights to track and visualize trends through widgets
-Spike
-Medium - Tier 3 priority
-3
-APP
-11045-
-Recently deleted entities not included in CSV download
-Bug
-High - Tier 2 priority
-3
-APP
-10893-
-Critical Assets Count Discrepancies Across UI
-Bug
-High - Tier 2 priority
-3
-APP
-10982-
-Ensure dashboards retain current interactive widget functionality on Home
-Ability to set dashboard as Homepage
-Story
-Medium - Tier 3 priority
-1
-APP
-10543-
-Identify excel/sheets to csv upload failures in Assets
-Story
-High - Tier 2 priority
-3
-APP
-10856-
-Graph viewer > marquee select (hold shift + drag) does not maintain bundle edge thickness
-Bug
-Medium - Tier 3 priority
-1
-APP
-11040-
-Hook up Logic and backend for new Asset UI
-UI for Asset Categories in Assets
-Story
-Medium - Tier 3 priority
-3
-APP
-11050-
-Deprecate old assets UI / migrate to new UI
-UI for Asset Categories in Assets
-Story
-Medium - Tier 3 priority
-1
-APP
-11073-
-Techdebt: Settings in Boards consolidation
-Add ability for Insights to track and visualize trends through widgets
-Spike
-Medium - Tier 3 priority
--
-APP
-11046-
-Write up acceptance criteria for our apps
-Story
-Medium - Tier 3 priority
-1
-APP
-11074-
-Pendo Tags
-UI for Asset Categories in Assets
-Story
-Medium - Tier 3 priority
-1
-APP
-10356-
-Fix local start scripts for asset-inventory-service
-Task
-Medium - Tier 3 priority
-1
-APP
-11082-
-Create UI for Asset Inventory side bar
-Story
-Medium - Tier 3 priority
-3
-APP
-11083-
-Implement separate count query for notification badge
-Story
-Medium - Tier 3 priority
-3
-APP
-11084-
-Adding a new widget clears the layout sizing for the first widget in a board
-Bug
-Medium - Tier 3 priority
--
-APP
-11095-
-Release Insights After Blockers alleviate
-Story
-Medium - Tier 3 priority
-1
-APP
-11101-
-Release Assets After Blockers alleviate
-Story
-Medium - Tier 3 priority
-1
-APP
-11102-
-investigate web-insights > area chart query results > copying results form team dashboard does not yield results after copy-pasting query into dashboard
-Task
-Medium - Tier 3 priority
-1
-APP
-11104-
-Update PoV dashboard - J1 Managed Schema
-Story
-Medium - Tier 3 priority
-1
-APP
-11041-
-Speed up notification polling interval
-Story
-Medium - Tier 3 priority
-1
-
-Assignee: Drew Johnson
-APP
-11042-
-
-APP-11041
-
-Update PoV dashboard - J1 Managed Schema
-
-Attach
-
-Create subtask
-
-Link issue
-
-
-General
-HubSpot
-Description
-
-See attached for new schema 
-
-Acceptance Criteria
-
-None
-Attachments (1)
-
-
-pov_insights_schema.json
-13 Feb 2023, 12:55 PM
-Activity
-Show:
-
-All
-
-Comments
-
-History
-
-Work log
-
-Newest first
-Add a comment…
-Pro tip: press M to comment
-
-In Progress
-Details
-Story Points
-
-1
-Assignee
-
-Drew Johnson
-Work Type
-
-Improvement
-Reporter
-
-Devon Lattrell
-Sprint
-
-Prometheus Feb 15 - March 1
-Squad
-
-Prometheus
-Development
-Create branch
-
-
-Create commit
-Labels
-
-None
-Customer
-
-None
-Components
-
-Insights
-Priority
-
-
-Medium - Tier 3
-Epic Link
-
-None
-Release notes (Story)?
-
-None
-Internally Reproducible
-
-None
-Include in Sprint Demo
-
-None
-Automation
-
-Rule executions
-Statuspage
-
-Update status page
-Sentry
-
-Linked Issues
-Status Time Free
-Open Status Time Free
-Zoom discussions
-Open Zoom discussions
-More fields
-Original estimate, Due date
-Created February 13, 2023 at 12:56 PM
-Updated February 15, 2023 at 12:52 PM
-Configure
-
-Pov_insights_schema.json
-json · 13 KB
-
 {
-	"widgets": [
-		{
-			"description": "this is an example description",
-			"id": "f45cbe51-e558-44fc-9be5-49b36c507cee",
-			"title": "Resources/assets with full admin perms",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find * with _class!='AccessPolicy' as asset \n(that (ASSIGNED|USES) AccessRole)? \nthat ASSIGNED AccessPolicy that \nALLOWS as rule Account \nwhere rule.permission='FULL_CONTROL'\nreturn\ncount(asset) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": "50"
-						},
-						"warning": {
-							"limitCondition": "greaterThan",
-							"val1": "10"
-						},
-						"default": {
-							"limitCondition": "lessThan",
-							"val1": "10"
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "2159be72-de67-4dae-92f4-5f5188e8adac",
-			"title": "Resources/assets with full admin perms",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find * with _class!='AccessPolicy' (that (ASSIGNED|USES) AccessRole)? that ASSIGNED AccessPolicy that ALLOWS as rule Account where rule.permission='FULL_CONTROL'"
-					}
-				]
-			}
-		},
-		{
-			"id": "6d9ad9e6-95f9-4056-857a-f232715723b3",
-			"title": "Nonpublic S3 buckets accessible via public EC2 instances",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Internet\n  that allows >> aws_security_group\n  that protects aws_instance with active=true\n  that uses aws_iam_role that assigned AccessPolicy\n  that allows (aws_s3|aws_s3_bucket) with public != true\nreturn tree"
-					}
-				]
-			}
-		},
-		{
-			"description": "",
-			"id": "53a59bff-1184-452d-a418-78b9949f0243",
-			"title": "Local accounts from inactive employees that still need to be de-provisioned",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find okta_user with active = false that is Person that is User with active = true as b return count(b), b._type"
-					}
-				]
-			}
-		},
-		{
-			"description": "Production Datastores NOT encrypted",
-			"id": "de8fedf1-c1d1-4b04-b662-c994e4827692",
-			"title": "Public, production data stores not encrypted, grouped by type",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find DataStore with encrypted != true and tag.Production = true and public = false as a \n  return a._type as name, count(a) as value"
-					}
-				]
-			}
-		},
-		{
-			"description": "",
-			"noResultMessage": "No cross-account VPC Peering conns!",
-			"id": "43131fa4-762a-4113-8eb0-1c9d54c14a64",
-			"title": "Are there cross-account VPC Peering connections?",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_vpc as vpc1 that connects aws_vpc as vpc2\nwhere vpc1.awsAccountId != vpc2.awsAccountId\nreturn tree"
-					}
-				]
-			}
-		},
-		{
-			"description": "",
-			"id": "0d12a7cf-582a-49a0-8a96-59a4ea0ed1f1",
-			"title": "Who has installed application  <X>",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND Person THAT OWNS Device THAT INSTALLED Application with _type ~= '{{ApplicationType}}'"
-					}
-				]
-			}
-		},
-		{
-			"description": "Which PRs contained self-approved commits that were merged last week?",
-			"id": "83cb6ada-9c58-4ff2-b8d5-efa21eb8dba2",
-			"title": "Which PRs contained self-approved commits that were merged last week?",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND PR WITH (approved = false OR allCommitsApproved = false) AND merged = true AND updatedOn > date.now - 7 days\n"
-					}
-				]
-			}
-		},
-		{
-			"description": "",
-			"id": "68308ca6-131f-434e-b3a5-2a5fa6753f12",
-			"title": "Users without MFA",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find User with active = true and mfaEnabled != true\n  that !(ASSIGNED|USES|HAS) mfa_device"
-					}
-				]
-			}
-		},
-		{
-			"description": "Github findings",
-			"id": "3dacbfc3-15fc-4265-83fd-d10dd92cf410",
-			"title": "Github Findings to review",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find github_finding as f that has github_repo as r (that has github_branch_protection_rule as b)? (that uses Secret as s)? that has github_pullrequest as pr that opened github_user as u return count(f) as ct, r.displayName order by ct desc"
-					}
-				]
-			}
-		},
-		{
-			"id": "0cc1b05b-c2f7-4030-a15d-e446d21fd227",
-			"title": "Assets with findings from multiple sources",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find Finding as a that has (CodeRepo|Host|HostAgent|Application|Project|Service|Alert) that has Finding as b where a._integrationType != b._integrationType"
-					}
-				]
-			}
-		},
-		{
-			"id": "413eb139-646d-42f1-8049-1b2e9ba730d2",
-			"title": "Public, production, critical data stores",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find DataStore with encrypted!=true and tag.Production=true and public=false and classification='critical'"
-					}
-				]
-			}
-		},
-		{
-			"id": "c76af3a6-a698-430b-9186-68b14d6e6a60",
-			"title": "Terminated Okta users that have lingering access",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find okta_user with active!=true that is Person that is User with active=true"
-					}
-				]
-			}
-		},
-		{
-			"id": "932a3e45-7bcb-4dcf-87d8-1b3e36909385",
-			"title": "AWS Cross-Account Assume Role Trusts Diagram",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_account that has aws_iam that has aws_iam_role as a that (trusts|assigned) (Account|AccessRole|User|UserGroup) as b where a.tag.AccountName!=b.tag.AccountName return tree"
-					}
-				]
-			}
-		},
-		{
-			"id": "b4f31bfb-5bc3-447f-a70c-c97c53ce4922",
-			"title": "EC2 instances accessible from the Internet via load balancer",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_alb with public=true that has aws_vpc that contains aws_subnet with public=true as n that HAS aws_instance as i that PROTECTS aws_security_group as sg that ALLOWS as rule Internet return tree"
-					}
-				]
-			}
-		},
-		{
-			"id": "89c3fbf6-b2a6-4c47-9c09-b2ff9cb5be2a",
-			"title": "Any resources with admin perms",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find * with _class!='AccessPolicy' that ASSIGNED AccessRole that ASSIGNED AccessPolicy that ALLOWS as rule Account where rule.permission='FULL_CONTROL'"
-					}
-				]
-			}
-		},
-		{
-			"description": "findings",
-			"id": "08048683-ef4c-4d63-8460-28c637fbf0a1",
-			"title": "Open findings by type",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find Finding with open!=false as f \n  return f._type as name, count(f) as value"
-					}
-				]
-			}
-		},
-		{
-			"description": "Google users that aren't active but still have provisioned token access to apps",
-			"id": "08b32e4a-3ba2-4576-bebe-33feb0fcae47",
-			"title": "Google users that aren't active but still have provisioned token access to apps",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND google_user WITH active!=true OR archived!=false THAT ASSIGNED google_token THAT ALLOWS *"
-					}
-				]
-			}
-		},
-		{
-			"description": "Google users with admin access token to Google Calendar or Drive",
-			"id": "187633fc-c7e9-4c01-a217-0cc725891186",
-			"title": "Google users with admin access token to Google Calendar or Drive",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find google_user as user THAT ASSIGNED google_token with scopes^=( \"https://mail.google.com\" OR \"https://www.googleapis.com/auth/gmail.\" OR \"https://www.googleapis.com/auth/drive\" OR \"https://www.googleapis.com/auth/ediscovery\" OR \"https://www.googleapis.com/auth/admin.\" ) return user.email, user.name, google_token.name, google_token.scopes"
-					}
-				]
-			}
-		},
-		{
-			"description": "Top vendors with admin access to your Google Calendar",
-			"id": "b52a6cdc-3385-412c-bd57-d64225e1a3e1",
-			"title": "Top vendors with admin access to your Google Calendar",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find UNIQUE google_token WITH (scopes=\"https://www.googleapis.com/auth/calendar\" and displayName != (\"macOS\" OR \"iOS\")) as t RETURN t.displayName as Vendor, count(t) as NumUsers"
-					}
-				]
-			}
-		},
-		{
-			"description": "Top vendors with admin access to your Google Drive",
-			"id": "f0afcf0d-9442-4caf-b81b-f8d88afaa9fe",
-			"title": "Top vendors with admin access to your Google Drive",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find UNIQUE google_token WITH scopes=\"https://www.googleapis.com/auth/drive\" as t RETURN t.displayName as Vendor, count(t) as NumUsers"
-					}
-				]
-			}
-		},
-		{
-			"description": "Top vendors with read access to your Google Drive",
-			"id": "3d13876f-ff29-4814-b2b2-9b407a0883d3",
-			"title": "Top vendors with read access to your Google Drive",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find UNIQUE google_token WITH scopes~=(\"drive\" AND \"readonly\") as t RETURN t.displayName as Vendor, count(t) as NumUsers"
-					}
-				]
-			}
-		},
-		{
-			"description": "Slack users without corporate email address",
-			"id": "3eb492b8-7d14-46db-a1a9-e44e69c1c51c",
-			"title": "Slack users without corporate email address",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find slack_user with emailDomain !~= 'jupiterone.com' and active = true and bot != true"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"static": false,
-				"w": 3,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "f45cbe51-e558-44fc-9be5-49b36c507cee"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 2,
-				"x": 3,
-				"y": 8,
-				"i": "2159be72-de67-4dae-92f4-5f5188e8adac"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 0,
-				"y": 2,
-				"i": "6d9ad9e6-95f9-4056-857a-f232715723b3"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 0,
-				"y": 10,
-				"i": "53a59bff-1184-452d-a418-78b9949f0243"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 0,
-				"y": 19,
-				"i": "de8fedf1-c1d1-4b04-b662-c994e4827692"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 6,
-				"y": 4,
-				"i": "43131fa4-762a-4113-8eb0-1c9d54c14a64"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 6,
-				"y": 10,
-				"i": "0d12a7cf-582a-49a0-8a96-59a4ea0ed1f1"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 0,
-				"y": 22,
-				"i": "83cb6ada-9c58-4ff2-b8d5-efa21eb8dba2"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 6,
-				"y": 13,
-				"i": "68308ca6-131f-434e-b3a5-2a5fa6753f12"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 6,
-				"y": 22,
-				"i": "3dacbfc3-15fc-4265-83fd-d10dd92cf410"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 4,
-				"x": 6,
-				"y": 0,
-				"i": "0cc1b05b-c2f7-4030-a15d-e446d21fd227"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 6,
-				"y": 19,
-				"i": "413eb139-646d-42f1-8049-1b2e9ba730d2"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 6,
-				"y": 15,
-				"i": "c76af3a6-a698-430b-9186-68b14d6e6a60"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 4,
-				"x": 0,
-				"y": 13,
-				"i": "932a3e45-7bcb-4dcf-87d8-1b3e36909385"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 0,
-				"y": 5,
-				"i": "b4f31bfb-5bc3-447f-a70c-c97c53ce4922"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 17,
-				"i": "89c3fbf6-b2a6-4c47-9c09-b2ff9cb5be2a"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "08048683-ef4c-4d63-8460-28c637fbf0a1"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 25,
-				"i": "08b32e4a-3ba2-4576-bebe-33feb0fcae47"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 27,
-				"i": "187633fc-c7e9-4c01-a217-0cc725891186"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 29,
-				"i": "b52a6cdc-3385-412c-bd57-d64225e1a3e1"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 31,
-				"i": "f0afcf0d-9442-4caf-b81b-f8d88afaa9fe"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 33,
-				"i": "3d13876f-ff29-4814-b2b2-9b407a0883d3"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 35,
-				"i": "3eb492b8-7d14-46db-a1a9-e44e69c1c51c"
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "widgets": [
+    {
+      "description": "this is an example description",
+      "id": "f45cbe51-e558-44fc-9be5-49b36c507cee",
+      "title": "Resources/assets with full admin perms",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find * with _class!='AccessPolicy' as asset \n(that (ASSIGNED|USES) AccessRole)? \nthat ASSIGNED AccessPolicy that \nALLOWS as rule Account \nwhere rule.permission='FULL_CONTROL'\nreturn\ncount(asset) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": "50"
+            },
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "10"
+            },
+            "default": {
+              "limitCondition": "lessThan",
+              "val1": "10"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "2159be72-de67-4dae-92f4-5f5188e8adac",
+      "title": "Resources/assets with full admin perms",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find * with _class!='AccessPolicy' (that (ASSIGNED|USES) AccessRole)? that ASSIGNED AccessPolicy that ALLOWS as rule Account where rule.permission='FULL_CONTROL'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "6d9ad9e6-95f9-4056-857a-f232715723b3",
+      "title": "Nonpublic S3 buckets accessible via public EC2 instances",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find Internet\n  that allows >> aws_security_group\n  that protects aws_instance with active=true\n  that uses aws_iam_role that assigned AccessPolicy\n  that allows (aws_s3|aws_s3_bucket) with public != true\nreturn tree"
+          }
+        ]
+      }
+    },
+    {
+      "description": "",
+      "id": "53a59bff-1184-452d-a418-78b9949f0243",
+      "title": "Local accounts from inactive employees that still need to be de-provisioned",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find okta_user with active = false that is Person that is User with active = true as b return count(b), b._type"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Production Datastores NOT encrypted",
+      "id": "de8fedf1-c1d1-4b04-b662-c994e4827692",
+      "title": "Public, production data stores not encrypted, grouped by type",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find DataStore with encrypted != true and tag.Production = true and public = false as a \n  return a._type as name, count(a) as value"
+          }
+        ]
+      }
+    },
+    {
+      "description": "",
+      "noResultMessage": "No cross-account VPC Peering conns!",
+      "id": "43131fa4-762a-4113-8eb0-1c9d54c14a64",
+      "title": "Are there cross-account VPC Peering connections?",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_vpc as vpc1 that connects aws_vpc as vpc2\nwhere vpc1.awsAccountId != vpc2.awsAccountId\nreturn tree"
+          }
+        ]
+      }
+    },
+    {
+      "description": "",
+      "id": "0d12a7cf-582a-49a0-8a96-59a4ea0ed1f1",
+      "title": "Who has installed application  <X>",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND Person THAT OWNS Device THAT INSTALLED Application with _type ~= '{{ApplicationType}}'"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Which PRs contained self-approved commits that were merged last week?",
+      "id": "83cb6ada-9c58-4ff2-b8d5-efa21eb8dba2",
+      "title": "Which PRs contained self-approved commits that were merged last week?",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND PR WITH (approved = false OR allCommitsApproved = false) AND merged = true AND updatedOn > date.now - 7 days\n"
+          }
+        ]
+      }
+    },
+    {
+      "description": "",
+      "id": "68308ca6-131f-434e-b3a5-2a5fa6753f12",
+      "title": "Users without MFA",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find User with active = true and mfaEnabled != true\n  that !(ASSIGNED|USES|HAS) mfa_device"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Github findings",
+      "id": "3dacbfc3-15fc-4265-83fd-d10dd92cf410",
+      "title": "Github Findings to review",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find github_finding as f that has github_repo as r (that has github_branch_protection_rule as b)? (that uses Secret as s)? that has github_pullrequest as pr that opened github_user as u return count(f) as ct, r.displayName order by ct desc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "0cc1b05b-c2f7-4030-a15d-e446d21fd227",
+      "title": "Assets with findings from multiple sources",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find Finding as a that has (CodeRepo|Host|HostAgent|Application|Project|Service|Alert) that has Finding as b where a._integrationType != b._integrationType"
+          }
+        ]
+      }
+    },
+    {
+      "id": "413eb139-646d-42f1-8049-1b2e9ba730d2",
+      "title": "Public, production, critical data stores",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find DataStore with encrypted!=true and tag.Production=true and public=false and classification='critical'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c76af3a6-a698-430b-9186-68b14d6e6a60",
+      "title": "Terminated Okta users that have lingering access",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find okta_user with active!=true that is Person that is User with active=true"
+          }
+        ]
+      }
+    },
+    {
+      "id": "932a3e45-7bcb-4dcf-87d8-1b3e36909385",
+      "title": "AWS Cross-Account Assume Role Trusts Diagram",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_account that has aws_iam that has aws_iam_role as a that (trusts|assigned) (Account|AccessRole|User|UserGroup) as b where a.tag.AccountName!=b.tag.AccountName return tree"
+          }
+        ]
+      }
+    },
+    {
+      "id": "b4f31bfb-5bc3-447f-a70c-c97c53ce4922",
+      "title": "EC2 instances accessible from the Internet via load balancer",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_alb with public=true that has aws_vpc that contains aws_subnet with public=true as n that HAS aws_instance as i that PROTECTS aws_security_group as sg that ALLOWS as rule Internet return tree"
+          }
+        ]
+      }
+    },
+    {
+      "id": "89c3fbf6-b2a6-4c47-9c09-b2ff9cb5be2a",
+      "title": "Any resources with admin perms",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find * with _class!='AccessPolicy' that ASSIGNED AccessRole that ASSIGNED AccessPolicy that ALLOWS as rule Account where rule.permission='FULL_CONTROL'"
+          }
+        ]
+      }
+    },
+    {
+      "description": "findings",
+      "id": "08048683-ef4c-4d63-8460-28c637fbf0a1",
+      "title": "Open findings by type",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find Finding with open!=false as f \n  return f._type as name, count(f) as value"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Google users that aren't active but still have provisioned token access to apps",
+      "id": "08b32e4a-3ba2-4576-bebe-33feb0fcae47",
+      "title": "Google users that aren't active but still have provisioned token access to apps",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND google_user WITH active!=true OR archived!=false THAT ASSIGNED google_token THAT ALLOWS *"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Google users with admin access token to Google Calendar or Drive",
+      "id": "187633fc-c7e9-4c01-a217-0cc725891186",
+      "title": "Google users with admin access token to Google Calendar or Drive",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find google_user as user THAT ASSIGNED google_token with scopes^=( \"https://mail.google.com\" OR \"https://www.googleapis.com/auth/gmail.\" OR \"https://www.googleapis.com/auth/drive\" OR \"https://www.googleapis.com/auth/ediscovery\" OR \"https://www.googleapis.com/auth/admin.\" ) return user.email, user.name, google_token.name, google_token.scopes"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Top vendors with admin access to your Google Calendar",
+      "id": "b52a6cdc-3385-412c-bd57-d64225e1a3e1",
+      "title": "Top vendors with admin access to your Google Calendar",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find UNIQUE google_token WITH (scopes=\"https://www.googleapis.com/auth/calendar\" and displayName != (\"macOS\" OR \"iOS\")) as t RETURN t.displayName as Vendor, count(t) as NumUsers"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Top vendors with admin access to your Google Drive",
+      "id": "f0afcf0d-9442-4caf-b81b-f8d88afaa9fe",
+      "title": "Top vendors with admin access to your Google Drive",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find UNIQUE google_token WITH scopes=\"https://www.googleapis.com/auth/drive\" as t RETURN t.displayName as Vendor, count(t) as NumUsers"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Top vendors with read access to your Google Drive",
+      "id": "3d13876f-ff29-4814-b2b2-9b407a0883d3",
+      "title": "Top vendors with read access to your Google Drive",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find UNIQUE google_token WITH scopes~=(\"drive\" AND \"readonly\") as t RETURN t.displayName as Vendor, count(t) as NumUsers"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Slack users without corporate email address",
+      "id": "3eb492b8-7d14-46db-a1a9-e44e69c1c51c",
+      "title": "Slack users without corporate email address",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find slack_user with emailDomain !~= 'jupiterone.com' and active = true and bot != true"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 8,
+        "i": "f45cbe51-e558-44fc-9be5-49b36c507cee"
+      },
+      {
+        "static": false,
+        "w": 9,
+        "moved": false,
+        "h": 2,
+        "x": 3,
+        "y": 8,
+        "i": "2159be72-de67-4dae-92f4-5f5188e8adac"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 2,
+        "i": "6d9ad9e6-95f9-4056-857a-f232715723b3"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 10,
+        "i": "53a59bff-1184-452d-a418-78b9949f0243"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 19,
+        "i": "de8fedf1-c1d1-4b04-b662-c994e4827692"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 4,
+        "i": "43131fa4-762a-4113-8eb0-1c9d54c14a64"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 10,
+        "i": "0d12a7cf-582a-49a0-8a96-59a4ea0ed1f1"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 22,
+        "i": "83cb6ada-9c58-4ff2-b8d5-efa21eb8dba2"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 13,
+        "i": "68308ca6-131f-434e-b3a5-2a5fa6753f12"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 22,
+        "i": "3dacbfc3-15fc-4265-83fd-d10dd92cf410"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 4,
+        "x": 6,
+        "y": 0,
+        "i": "0cc1b05b-c2f7-4030-a15d-e446d21fd227"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 19,
+        "i": "413eb139-646d-42f1-8049-1b2e9ba730d2"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 15,
+        "i": "c76af3a6-a698-430b-9186-68b14d6e6a60"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 4,
+        "x": 0,
+        "y": 13,
+        "i": "932a3e45-7bcb-4dcf-87d8-1b3e36909385"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 5,
+        "i": "b4f31bfb-5bc3-447f-a70c-c97c53ce4922"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 17,
+        "i": "89c3fbf6-b2a6-4c47-9c09-b2ff9cb5be2a"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "08048683-ef4c-4d63-8460-28c637fbf0a1"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 25,
+        "i": "08b32e4a-3ba2-4576-bebe-33feb0fcae47"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 27,
+        "i": "187633fc-c7e9-4c01-a217-0cc725891186"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 29,
+        "i": "b52a6cdc-3385-412c-bd57-d64225e1a3e1"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 31,
+        "i": "f0afcf0d-9442-4caf-b81b-f8d88afaa9fe"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 33,
+        "i": "3d13876f-ff29-4814-b2b2-9b407a0883d3"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 35,
+        "i": "3eb492b8-7d14-46db-a1a9-e44e69c1c51c"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }
