@@ -57,7 +57,7 @@ export const InsightsDashboards = {
   "IR - User Endpoint Blast Radius": userEndpointBlastRadius,
   "Jira Insights": jiraInsights,
   "Kubernetes Security Context": kubernetesSecurityContext,
-  "Network Security": firewall,
+  "Network Access and Firewall Rules": firewall,
   "Okta User Management": oktaUserManagement,
   "Resource Classification": resourceClassification,
   "Risk Register": riskRegister,
@@ -112,6 +112,12 @@ export const MANAGED_BOARDS = [
     name: "Resource Classification",
     category: BoardCategory.ASSETS_ATTACK_SURFACE,
     ...resourceClassification,
+  },
+  {
+    id: "firewall",
+    name: "Network Access and Firewall Rules",
+    category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    ...firewall,
   },
   {
     id: "aws-accounts",
