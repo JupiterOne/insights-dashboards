@@ -1,134 +1,40 @@
 {
 	"widgets": [
 		{
-			"id": "c16b43de-c19c-477d-b3e8-3d6ee8161d96",
-			"title": "Internet Access",
+			"id": "23787061-ae3b-48ca-b9bb-ecd0e1fa3f79",
+			"title": "Firewall Rules Matrix - External Access",
 			"type": "matrix",
 			"config": {
 				"queries": [
 					{
-						"name": "query1",
-						"query": "FIND Firewall AS row\nTHAT allows AS rel\nInternet AS col\nRETURN\nrow.displayName AS x,\ncol.displayName AS y,\nrel.egress AS egress,\nrel.ingress AS ingress,\nrel.fromPort as fromPort,\nrel.toPort as toPort,\nrel.ipProtocol AS label"
+						"name": "query0",
+						"query": "FIND Firewall AS src\n  THAT allows AS r\n  Network with public=true or _source='system-mapper' AS dst\nRETURN\n  concat(src.tag.AccountName, ' | ', src.displayName) AS x,\n  concat(dst.tag.AccountName, ' | ', dst.displayName) AS y,\n  r.egress AS egress,\n  r.ingress AS ingress,\n  r.fromPort as fromPort,\n  r.toPort as toPort,\n  r.ipProtocol AS protocol"
 					}
 				]
 			}
 		},
 		{
-			"id": "1d821690-9321-41e5-a685-43f217246a7d",
-			"title": "Firewall Matrix - External",
+			"id": "d3bb00d8-3c7a-463a-9a7f-0509a4c5e95a",
+			"title": "Firewall Rules Matrix - Internal Access",
 			"type": "matrix",
 			"config": {
 				"queries": [
 					{
-						"name": "query1",
-						"query": "FIND Firewall AS row\nTHAT allows AS rel\nNetwork with public=true or _source='system-mapper' AS col\nRETURN\nrow.displayName AS x,\ncol.displayName AS y,\nrel.egress AS egress,\nrel.ingress AS ingress,\nrel.fromPort as fromPort,\nrel.toPort as toPort,\nrel.ipProtocol AS label"
+						"name": "query0",
+						"query": "FIND Firewall AS src\n  THAT allows AS r\n  Network with public!=true AS dst\nRETURN\n  concat(src.tag.AccountName, ' | ', src.displayName) AS x,\n  concat(dst.tag.AccountName, ' | ', dst.displayName) AS y,\n  r.egress AS egress,\n  r.ingress AS ingress,\n  r.fromPort as fromPort,\n  r.toPort as toPort,\n  r.ipProtocol AS protocol"
 					}
 				]
 			}
 		},
 		{
-			"id": "ce0a65dc-00d2-4d00-ae47-8f70ef8b3508",
-			"title": "Firewall Matrix - Internal",
+			"id": "37ce7f75-ea05-4901-911e-8ac2f99666fd",
+			"title": "Firewalls / ACLs with Internet Access",
 			"type": "matrix",
 			"config": {
 				"queries": [
 					{
-						"name": "query1",
-						"query": "FIND Firewall AS row\nTHAT allows AS rel\nNetwork with public!=true AS col\nRETURN\nrow.displayName AS x,\ncol.displayName AS y,\nrel.egress AS egress,\nrel.ingress AS ingress,\nrel.fromPort as fromPort,\nrel.toPort as toPort,\nrel.ipProtocol AS label"
-					}
-				]
-			}
-		},
-		{
-			"id": "a821bca8-af27-4493-9bcc-7e24d6896d16",
-			"title": "Expired certificates",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Certificate with active=false as c return count(c) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "12899afd-1417-4dd6-b169-d796bbdcba0a",
-			"title": "DNS Records Not Pointing to an Internal Resource",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find aws_route53_record with (resourceRecords!=undefined or aliasTarget!=undefined) \nand type=('A' or 'AAAA' or 'CNAME') as a\nthat !connects *\nreturn count(a) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "77dfa554-0130-4172-80fb-d0af1f902bed",
-			"title": "Domains and subdomains",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find DomainRecord as a return count(a) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "397ef1a2-f0ba-4fed-aea8-04f80d595232",
-			"title": "Expired certificates",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Certificate with active=false as c \nreturn\nc._type, c.displayName, c.accountId, c.active, \nc.alternativeNames, c.expiresOn, c.inUse, c.region"
-					}
-				]
-			}
-		},
-		{
-			"id": "8ff278e8-e276-44a6-8175-9e6fde695f6d",
-			"title": "DNS records not pointing to an internal resource",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find DomainRecord with (resourceRecords!=undefined or aliasTarget!=undefined) \nand type=('A' or 'AAAA' or 'CNAME') as a\nthat !connects *\nreturn \na.displayName, a.accountId, a.resourceRecords"
-					}
-				]
-			}
-		},
-		{
-			"id": "70fb172a-56dd-458f-b9f7-e581d4e1cf9e",
-			"title": "Domains and subdomains",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find DomainRecord as a\nreturn\na._type, a.displayName, a.accountId, a.resourceRecords, a.type"
+						"name": "query0",
+						"query": "FIND Firewall AS src\n  THAT allows AS r\n  Internet AS dst\nRETURN\n  concat(src.tag.AccountName, ' | ', src.displayName) AS x,\n  dst.displayName AS y,\n  r.egress AS egress,\n  r.ingress AS ingress,\n  r.fromPort as fromPort,\n  r.toPort as toPort,\n  r.ipProtocol AS protocol"
 					}
 				]
 			}
@@ -140,84 +46,30 @@
 		"lg": [
 			{
 				"static": false,
-				"w": 3,
-				"moved": false,
-				"h": 4,
-				"x": 0,
-				"y": 0,
-				"i": "c16b43de-c19c-477d-b3e8-3d6ee8161d96"
-			},
-			{
-				"static": false,
 				"w": 9,
 				"moved": false,
-				"h": 2,
+				"h": 3,
 				"x": 3,
 				"y": 0,
-				"i": "1d821690-9321-41e5-a685-43f217246a7d"
+				"i": "23787061-ae3b-48ca-b9bb-ecd0e1fa3f79"
 			},
 			{
 				"static": false,
 				"w": 9,
 				"moved": false,
-				"h": 2,
+				"h": 3,
 				"x": 3,
-				"y": 2,
-				"i": "ce0a65dc-00d2-4d00-ae47-8f70ef8b3508"
+				"y": 3,
+				"i": "d3bb00d8-3c7a-463a-9a7f-0509a4c5e95a"
 			},
 			{
 				"static": false,
 				"w": 3,
 				"moved": false,
-				"h": 2,
+				"h": 6,
 				"x": 0,
-				"y": 4,
-				"i": "a821bca8-af27-4493-9bcc-7e24d6896d16"
-			},
-			{
-				"static": false,
-				"w": 3,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "12899afd-1417-4dd6-b169-d796bbdcba0a"
-			},
-			{
-				"static": false,
-				"w": 3,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "77dfa554-0130-4172-80fb-d0af1f902bed"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 2,
-				"x": 3,
-				"y": 4,
-				"i": "397ef1a2-f0ba-4fed-aea8-04f80d595232"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 2,
-				"x": 3,
-				"y": 6,
-				"i": "8ff278e8-e276-44a6-8175-9e6fde695f6d"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 2,
-				"x": 3,
-				"y": 8,
-				"i": "70fb172a-56dd-458f-b9f7-e581d4e1cf9e"
+				"y": 0,
+				"i": "37ce7f75-ea05-4901-911e-8ac2f99666fd"
 			}
 		],
 		"xl": [],
