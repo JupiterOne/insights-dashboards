@@ -1,0 +1,562 @@
+{
+  "widgets": [
+    {
+      "description": "Returns workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service but have access to non-public DataStores (buckets/databases).",
+      "id": "b90729b3-ab3f-4cb7-8b81-3a0282e8a35e",
+      "title": "Unscanned workloads with access to non-public cloud data",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND DataStore WITH public != true as data\n  THAT ALLOWS << AccessPolicy\n    THAT ASSIGNED << AccessRole\n      THAT (ASSIGNED|USES) (Host|Device|Function) as workload\n        THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n          WITH active=true\nRETURN\n  workload.displayName, workload.webLink, workload.id,\n  data.displayName, data.webLink"
+          }
+        ],
+        "settings": {
+          "table": {}
+        }
+      }
+    },
+    {
+      "description": "Returns workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service but have access to non-public DataStores (buckets/databases).",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "09632e57-572d-4241-990e-4e9ee73f3795",
+      "title": "Unscanned workloads with access to non-public cloud data",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND DataStore WITH public != true as data\n  THAT ALLOWS << AccessPolicy\n    THAT ASSIGNED << AccessRole\n      THAT (ASSIGNED|USES) (Host|Device|Function) as workload\n        THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n          WITH active=true\nRETURN\n  COUNT(workload) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": "0"
+            },
+            "trendDataIsEnabled": false
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service but have access to DataStores (buckets/databases) classified as CriticalAssets via user CriticalAsset definition.",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "c817de39-97f8-44f0-b46d-f237a0e60e5c",
+      "title": "Unscanned workloads with access to critical cloud data",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND #CriticalAsset with _class = 'DataStore' as data\n  THAT ALLOWS << AccessPolicy\n    THAT ASSIGNED << AccessRole\n      THAT (ASSIGNED|USES) (Host|Device|Function) as workload\n        THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n          WITH active=true\nRETURN COUNT(workload) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": "0"
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service but have access to DataStores (buckets/databases) classified as CriticalAssets via user CriticalAsset definition.",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "6f730bb9-41b3-474d-9d5f-e0165b5806d3",
+      "title": "Unscanned workloads with access to critical cloud data",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND #CriticalAsset with _class = 'DataStore' as data\n  THAT ALLOWS << AccessPolicy\n    THAT ASSIGNED << AccessRole\n      THAT (ASSIGNED|USES) (Host|Device|Function) as workload\n        THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n          WITH active=true\nRETURN\n  workload.displayName, workload.webLink, workload.id,\n  data.displayName, data.webLink"
+          }
+        ],
+        "settings": {
+          "table": {}
+        }
+      }
+    },
+    {
+      "description": "Returns workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service but are protected by a firewall that allows ingress from the internet (0.0.0.0/0)",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "a0f17bb4-3b9d-48ab-9249-0b2d9c974508",
+      "title": "Unscanned workloads with ingress allowed from the internet",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND Internet\n  THAT ALLOWS >> Firewall as fw\n    THAT PROTECTS (Host|Device|Function) as workload\n      THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n          WITH active=true\nRETURN\nCOUNT(workload) as value"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Returns user endpoints that are not related to an active HostAgent but are owned by a user that has access to non-public DataStores (buckets/databases).",
+      "noResultMessage": "No endpoints match this criteria",
+      "id": "771a44fb-4264-4501-87da-1392ed7dabcb",
+      "title": "Unscanned endpoints with an owner that has access to non-public cloud data",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND DataStore WITH public != true as data\n  THAT ALLOWS << AccessPolicy\n    (THAT ASSIGNED << AccessRole)?\n      THAT ASSIGNED User as user\n        THAT IS Person as p\n          THAT OWNS Device as d\n            THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n              WITH active=true\nRETURN COUNT(d) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": "0"
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns user endpoints that are not related to an active HostAgent but are owned by a user that has access to DataStores (buckets/databases) classified as CriticalAssets via user CriticalAsset definition.",
+      "noResultMessage": "No endpoints match this criteria",
+      "id": "5be15074-df5f-4b8a-bea1-016accbe0e9d",
+      "title": "Unscanned endpoints with an owner that has access to critical cloud data",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND #CriticalAsset with _class = 'DataStore'\n  THAT ALLOWS << AccessPolicy\n     (THAT ASSIGNED << AccessRole)?\n      THAT ASSIGNED User as user\n        THAT IS Person as p\n          THAT OWNS Device as d\n            THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n              WITH active=true\nRETURN\nCOUNT(d) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": "0"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "02a258d1-ccdf-4c62-8bb1-d576d1b3b02c",
+      "title": "",
+      "type": "markdown",
+      "config": {
+        "queries": [],
+        "settings": {
+          "markdown": {
+            "text": "# Unscanned Workloads with Access to Data or Ingress from 0.0.0.0/0"
+          }
+        }
+      }
+    },
+    {
+      "description": "Total number of workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "04be2c07-f1ae-479b-80dd-f2a963ef48f6",
+      "title": "Total unscanned workloads (by type)",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND (Host|Device|Function) as workload\n        THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n          WITH active=true\nRETURN\nworkload._type as name, COUNT(workload) as value"
+          }
+        ],
+        "settings": {
+          "pie": {
+            "type": "count"
+          }
+        }
+      }
+    },
+    {
+      "id": "65e000c5-33e0-4fe1-b573-2cfb852c5b3e",
+      "title": "",
+      "type": "markdown",
+      "config": {
+        "queries": [],
+        "settings": {
+          "markdown": {
+            "text": "# Critical or Non-public Data Accessible by Users with Unscanned Endpoints"
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service but have access to DataStores (buckets/databases) classified as CriticalAssets via user CriticalAsset definition.",
+      "noResultMessage": "No workloads fit this criteria",
+      "id": "1a2e6d1f-16ad-4625-90d4-f5c66352d9dc",
+      "title": "Unscanned workloads with access to critical cloud data",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND #CriticalAsset with _class = 'DataStore' as data\n  THAT ALLOWS << AccessPolicy\n    THAT ASSIGNED << AccessRole\n      THAT (ASSIGNED|USES) (Host|Device|Function) as workload\n        THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n          WITH active=true\nRETURN TREE"
+          }
+        ],
+        "settings": {
+          "graph": {
+            "graphNodeView": "grouped",
+            "graphViewType": "hierarchy"
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service but are protected by a firewall that allows ingress from the internet (0.0.0.0/0)",
+      "id": "dd1b8793-1e4b-415e-b077-98120be26e29",
+      "title": "Unscanned workloads with ingress allowed from the internet",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND Internet\n  THAT ALLOWS >> Firewall as fw\n    THAT PROTECTS (Host|Device|Function) as workload\n      THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n          WITH active=true\nRETURN\n  workload.displayName, workload.webLink, workload.id,\n  fw.displayName, fw.webLink"
+          }
+        ],
+        "settings": {
+          "table": {}
+        }
+      }
+    },
+    {
+      "description": "Returns user endpoints that are not related to an active HostAgent but are owned by a user that has access to non-public DataStores (buckets/databases).",
+      "noResultMessage": "No endpoints match this criteria",
+      "id": "cdaeae7c-b119-49ca-84eb-4fd332944c23",
+      "title": "Unscanned endpoints with an owner that has access to non-public cloud data",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND DataStore WITH public != true as data\n  THAT ALLOWS << AccessPolicy\n    (THAT ASSIGNED << AccessRole)?\n      THAT ASSIGNED User as user\n        THAT IS Person as p\n          THAT OWNS Device as d\n            THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n              WITH active=true\nRETURN\n  d.displayName, d.macAddress, d.owner,\n  user.displayName, p.email"
+          }
+        ],
+        "settings": {
+          "table": {}
+        }
+      }
+    },
+    {
+      "description": "Returns user endpoints that are not related to an active HostAgent but are owned by a user that has access to DataStores (buckets/databases) classified as CriticalAssets via user CriticalAsset definition.",
+      "noResultMessage": "No endpoints match this criteria",
+      "id": "2942de26-2d20-468e-9460-b9b8429c4693",
+      "title": "Unscanned endpoints with an owner that has access to critical cloud data",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND #CriticalAsset with _class = 'DataStore'\n  THAT ALLOWS << AccessPolicy\n     (THAT ASSIGNED << AccessRole)?\n      THAT ASSIGNED User as user\n        THAT IS Person as p\n          THAT OWNS Device as d\n            THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n              WITH active=true\nRETURN\n  d.displayName, d.macAddress, d.owner,\n  user.displayName, p.email"
+          }
+        ],
+        "settings": {
+          "table": {}
+        }
+      }
+    },
+    {
+      "description": "Returns user endpoints that are not related to an active HostAgent",
+      "noResultMessage": "No endpoints match this criteria",
+      "id": "550e1184-3269-4af0-b46d-68c85f0be4d3",
+      "title": "Total unscanned endpoints",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND Device as d\nTHAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n       WITH active=true\nRETURN d._type as name, COUNT(d) as value"
+          }
+        ],
+        "settings": {
+          "pie": {
+            "type": "count"
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service but have access to non-public DataStores (buckets/databases).",
+      "noResultMessage": "No Workloads fit this Criteria",
+      "id": "96c6e989-51b2-42f2-a3c2-8ddd3ac23c16",
+      "title": "Unscanned workloads with access to non-public cloud data",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND DataStore WITH public != true as data\n  THAT ALLOWS << AccessPolicy\n    THAT ASSIGNED << AccessRole\n      THAT (ASSIGNED|USES) (Host|Device|Function) as workload\n        THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n          WITH active=true\nRETURN TREE"
+          }
+        ],
+        "settings": {
+          "graph": {
+            "graphViewType": "hierarchy"
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service but are protected by a firewall that allows ingress from the internet (0.0.0.0/0)",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "1b9dd643-c24c-4367-b234-dc8cc3b2ab1c",
+      "title": "Unscanned workloads with ingress allowed from the internet",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND Internet\n  THAT ALLOWS >> Firewall as fw\n    THAT PROTECTS (Host|Device|Function) as workload\n      THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n          WITH active=true\nRETURN TREE"
+          }
+        ],
+        "settings": {
+          "graph": {
+            "graphViewType": "hierarchy"
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns user endpoints that are not related to an active HostAgent but are owned by a user that has access to non-public DataStores (buckets/databases).",
+      "noResultMessage": "No user endpoints match this criteria",
+      "id": "5dd86bcb-11ad-4c14-9979-220ca71ec7d6",
+      "title": "Unscanned endpoints with an owner that has access to non-public cloud data",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND DataStore WITH public != true as data\n  THAT ALLOWS << AccessPolicy\n    (THAT ASSIGNED << AccessRole)?\n      THAT ASSIGNED User as user\n        THAT IS Person as p\n          THAT OWNS Device as d\n            THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n              WITH active=true\nRETURN TREE"
+          }
+        ],
+        "settings": {
+          "graph": {
+            "graphViewType": "hierarchy"
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns user endpoints that are not related to an active HostAgent but are owned by a user that has access to DataStores (buckets/databases) classified as CriticalAssets via user CriticalAsset definition.",
+      "noResultMessage": "No endpoints match this criteria",
+      "id": "2e025cf1-d862-468c-b6d8-bebcdd020324",
+      "title": "Unscanned endpoints with an owner that has access to critical cloud data",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND #CriticalAsset with _class = 'DataStore'\n  THAT ALLOWS << AccessPolicy\n     (THAT ASSIGNED << AccessRole)?\n      THAT ASSIGNED User as user\n        THAT IS Person as p\n          THAT OWNS Device as d\n            THAT !(PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Service)\n              WITH active=true\nRETURN TREE"
+          }
+        ],
+        "settings": {
+          "graph": {
+            "graphViewType": "hierarchy"
+          }
+        }
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 6,
+        "i": "b90729b3-ab3f-4cb7-8b81-3a0282e8a35e"
+      },
+      {
+        "static": false,
+        "w": 2,
+        "moved": false,
+        "h": 2,
+        "x": 8,
+        "y": 1,
+        "i": "09632e57-572d-4241-990e-4e9ee73f3795"
+      },
+      {
+        "static": false,
+        "w": 2,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 1,
+        "i": "c817de39-97f8-44f0-b46d-f237a0e60e5c"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 3,
+        "i": "6f730bb9-41b3-474d-9d5f-e0165b5806d3"
+      },
+      {
+        "static": false,
+        "w": 2,
+        "moved": false,
+        "h": 2,
+        "x": 10,
+        "y": 1,
+        "i": "a0f17bb4-3b9d-48ab-9249-0b2d9c974508"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 13,
+        "i": "771a44fb-4264-4501-87da-1392ed7dabcb"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 9,
+        "y": 13,
+        "i": "5be15074-df5f-4b8a-bea1-016accbe0e9d"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 1,
+        "x": 0,
+        "y": 0,
+        "i": "02a258d1-ccdf-4c62-8bb1-d576d1b3b02c"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 1,
+        "i": "04be2c07-f1ae-479b-80dd-f2a963ef48f6"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 1,
+        "x": 0,
+        "y": 12,
+        "i": "65e000c5-33e0-4fe1-b573-2cfb852c5b3e"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 3,
+        "i": "1a2e6d1f-16ad-4625-90d4-f5c66352d9dc"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 9,
+        "i": "dd1b8793-1e4b-415e-b077-98120be26e29"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 15,
+        "i": "cdaeae7c-b119-49ca-84eb-4fd332944c23"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 18,
+        "i": "2942de26-2d20-468e-9460-b9b8429c4693"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 13,
+        "i": "550e1184-3269-4af0-b46d-68c85f0be4d3"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 6,
+        "i": "96c6e989-51b2-42f2-a3c2-8ddd3ac23c16"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 9,
+        "i": "1b9dd643-c24c-4367-b234-dc8cc3b2ab1c"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 15,
+        "i": "5dd86bcb-11ad-4c14-9979-220ca71ec7d6"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 18,
+        "i": "2e025cf1-d862-468c-b6d8-bebcdd020324"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
+}
