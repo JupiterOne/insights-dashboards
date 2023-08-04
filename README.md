@@ -15,7 +15,7 @@ List of dashboards:
 - [Critical Asset Attack Surface](src/boards/critical-attack-surface)
 - [Data Breach Cost](src/boards/data-breach-cost/)
 - [Data Protection](src/boards/data-protection/)
-- [Development](src/boards/development/)
+- [Device Management](src/boards/device-management/)
 - [GCP Compute Projects and Instances](src/boards/gcp-compute/)
 - [GCP IAM](src/boards/gcp-iam/)
 - [GDPR Data Locations](src/boards/gdpr-data-locations/)
