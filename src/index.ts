@@ -124,6 +124,18 @@ export const MANAGED_BOARDS = [
     ...firewall,
   },
   {
+    id: "device-management",
+    name: "Device Management",
+    category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    ...deviceManagement,
+  },
+  {
+    id: "toxic-combinations",
+    name: "Toxic Combinations",
+    category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    ...toxicCombinations,
+  },
+  {
     id: "aws-accounts",
     name: "AWS Accounts",
     category: BoardCategory.CLOUD_POSTURE,
