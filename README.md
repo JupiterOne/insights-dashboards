@@ -33,6 +33,7 @@ List of dashboards:
 - [Software Package Dependencies and Licenses](src/boards/code-deps-licenses/)
 - [Team Growth](src/boards/team-growth/)
 - [Team, Manager and Direct Reports](src/boards/team-manager-direct-reports/)
+- [Toxic Combinations](src/boards/toxic-combinations/)
 - [User Access](src/boards/user-access/)
 - [User Endpoints](src/boards/user-endpoints/)
 - [User Training](src/boards/user-training/)

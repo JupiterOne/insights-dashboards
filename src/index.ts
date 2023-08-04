@@ -27,6 +27,7 @@ import resourceClassification from "./boards/resource-classification/board.json"
 import riskRegister from "./boards/risk-register/board.json";
 import teamGrowth from "./boards/team-growth/board.json";
 import teamManagerDirectReports from "./boards/team-manager-direct-reports/board.json";
+import toxicCombinations from "./boards/toxic-combinations/board.json";
 import userAccess from "./boards/user-access/board.json";
 import userEndpointBlastRadius from "./boards/user-endpoint-blast-radius/board.json";
 import userEndpoints from "./boards/user-endpoints/board.json";
@@ -67,6 +68,7 @@ export const InsightsDashboards = {
   "Software Dependencies and Licenses": softwareDependenciesAndLicenses,
   "Team / Peers, Manager and Direct Reports": teamManagerDirectReports,
   "Team Growth": teamGrowth,
+  "Toxic Combinations": toxicCombinations,
   "User Access": userAccess,
   "User Endpoints": userEndpoints,
   "User Training": userTraining,
