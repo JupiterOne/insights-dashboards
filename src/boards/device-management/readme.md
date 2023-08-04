@@ -18,4 +18,5 @@ the above plus an integration with an Identity Provider.
 
 > Prerequisites:
 >
-> Requires at least an MDM (Device Management), EDR (Device Agent/Scanning), or Cloud Service Provider integration; Ideally utilizes all of the above plus an integration with an Identity Provider.
+> Requires at least an MDM (Device Management), EDR (Device Agent/Scanning), or Cloud Service Provider integration
+> Ideally utilizes all of the above plus an integration with an Identity Provider.
