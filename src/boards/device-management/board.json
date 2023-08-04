@@ -1,0 +1,448 @@
+{
+  "widgets": [
+    {
+      "description": "Returns all hosts + devices that have not been seen in the last 72 hours",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "262aba4a-f191-4cc5-a2e2-dd3aa9891ba1",
+      "title": "Hosts + devices that have not been online in more than 72 hours?",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND (Host|Device) WITH lastSeenOn < date.now - 72 hours AS x \nRETURN \ncount(x) AS value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "trendDataIsEnabled": false
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns all hosts + devices' encryption status",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "68a53af6-b5a2-4d65-a786-19e161f266b3",
+      "title": "Hosts + device encryption status",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND (Host | Device) AS d RETURN d.encrypted AS name, count(d) AS value"
+          }
+        ],
+        "settings": {
+          "pie": {
+            "type": "percent",
+            "trendDataIsEnabled": false
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns all Critical Assets that are Devices + Hosts, which have Problems associated with them",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "9aa1f877-9d66-434f-a9b6-0db7404d98bd",
+      "title": "Problems with our Critical Devices + Hosts by Severity",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND #CriticalAsset WITH _class = (\"Host\" or \"Device\") AS value \nTHAT HAS Problem AS p \nRETURN \ncount(p) AS Number, p.severity AS Severity, p._type AS Type"
+          }
+        ],
+        "settings": {
+          "table": {}
+        }
+      }
+    },
+    {
+      "description": "Returns all hosts + devices that are publicly accessible, but haven't been scanned by a network / vulnerability scanner in over a week.",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "db9d1e9d-6b31-4601-b944-f2c5c2a9dc70",
+      "title": "Public hosts + devices that haven't been scanned over a week",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND (Host|Device) WITH public = true\n  THAT (IS|PROTECTS|MANAGES|MONITORS|SCANS) (HostAgent|Record)\n    WITH lastSeenOn < date.now - 7 day as x\nreturn count(x) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "trendDataIsEnabled": false
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns all hosts + devices that do not have active host agents",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "31750f07-9c09-426d-89c2-3d06148b9cfd",
+      "title": "Hosts + devices missing active agents",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND (Host|Device) AS x \nTHAT !(PROTECTS|MANAGES|MONITORS|SCANS) HostAgent WITH active = true \nRETURN \ncount(x) AS value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "trendDataIsEnabled": false
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns all hosts + devices that have Host Agents which are not active or have not been seen within the last 30 days",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "bb332dda-d8b6-4024-84d7-39903ed17312",
+      "title": "Hosts + devices with agents not reporting",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND (Host|Device) AS x \nTHAT (PROTECTS|MANAGES|MONITORS|SCANS) HostAgent WITH active = false OR lastSeenOn < date.now - 30 day \nRETURN \ncount(x) AS value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "trendDataIsEnabled": false
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns Devices not related to a vulnerability scanning Service or Agent",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "6011e3d3-9e25-4c7d-baf2-09828d5ccca4",
+      "title": "Devices not scanned for vulnerabilities",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND Device AS x  \n  THAT !(IS|SCANS|PROTECTS|MANAGES|MONITORS) (Record|Service|HostAgent)\n    WITH function = 'vulnerability-management'\n    RETURN \ncount(x) AS value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "trendDataIsEnabled": false
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns all hosts + devices that are used, owned, or managed by a person whose IdP user is inactive or hasn't logged in within the last 30 days",
+      "noResultMessage": "No workloads match this criteria",
+      "id": "0b39a5b8-218b-47b1-b256-728fadaa04c6",
+      "title": "Active hosts + devices with inactive owner (IdP relationship)",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND (Host|Device) AS x \nTHAT (OWNS|MANAGES|HAS|USES) Person \nTHAT IS User WITH (active = false OR lastLoginOn < date.now - 30 day) AND _integrationClass=(\"SSO\" or \"IdP\") \nRETURN \ncount(x) AS value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "trendDataIsEnabled": false
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns all endpoints that have vulnerability findings with a normalized severity of 'critical'",
+      "noResultMessage": "No workloads meet this criteria",
+      "id": "6103aec9-c2af-480c-9fdd-da913f26c36e",
+      "title": "Hosts + devices with Critical Vulns",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND (Host|Device) AS x \n(THAT (PROTECTS | MANAGES) HostAgent)? \nTHAT HAS Finding WITH [j1_severity] = 'critical' \nRETURN \ncount(x) AS value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            },
+            "trendDataIsEnabled": false
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns all endpoints that have vulnerability findings with a normalized severity of 'high'",
+      "noResultMessage": "No workloads meet this criteria",
+      "id": "a8bccf84-d117-4891-a7e9-cddf2d35d279",
+      "title": "Hosts + devices with High Vulns",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND (Host|Device) AS x \n(THAT (PROTECTS | MANAGES) HostAgent)? \nTHAT HAS Finding WITH [j1_severity] = 'high' \nRETURN \ncount(x) AS value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns the breakout of the operating systems in use across hosts + devices",
+      "noResultMessage": "No workloads meet this criteria",
+      "id": "9d0ba231-7dcf-4b57-946d-3472f4082cb6",
+      "title": "Operating System Breakout",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "Host + Device OS Counts",
+            "query": "FIND (Host | Device) AS x \nRETURN \ncoalesce(CONCAT(x.osName, x.osVersion, x.os), 'Not Found') AS name, COUNT(x) AS value"
+          }
+        ],
+        "settings": {
+          "pie": {
+            "loadAllData": true,
+            "legendTrucationAtBeginning": false
+          }
+        }
+      }
+    },
+    {
+      "description": "Returns all endpoints that allow inbound traffic on ports 22 or 443",
+      "noResultMessage": "No devices match this criteria",
+      "id": "c909e7d6-eadb-483a-8cd1-27beed02ed28",
+      "title": "Which devices allow ingress via ports 22 or 443",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND (Device|Host) as d\n  (THAT PROTECTS Firewall)?\n  THAT ALLOWS AS r (Network|Host|Function|Account) as a\nWHERE ((r.fromPort <= 22 and r.toPort >= 22)\n  OR (r.fromPort <= 443 and r.toPort >= 443)\n  OR r.portRange = undefined)\n  AND r.ingress = true\nRETURN\n  d.displayName, a.displayName, r.portRange"
+          }
+        ],
+        "settings": {
+          "table": {}
+        }
+      }
+    },
+    {
+      "description": "Returns all cloud hosts that are not related to a vulnerability scanning Service",
+      "noResultMessage": "No cloud hosts match this criteria",
+      "id": "e4e17f01-1434-4de1-b9be-b9dbe82ae8be",
+      "title": "Cloud workloads not scanned for vulnerabilities",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND Host WITH _integrationClass=\"CSP\"\n  THAT !(IS|SCANS) (Record|Service)\n    WITH function = 'vulnerability-management' as x\nreturn count(x) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "table view listing any recent problems found with critical assets",
+      "noResultMessage": "No Critical Assets match this criteria",
+      "id": "4ce942ef-731a-4c5e-8b8f-784cfab44cfd",
+      "title": "Problems with Critical Assets created in last 7 days",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "list problems table",
+            "query": "FIND #CriticalAsset WITH _class = (\"Host\" or \"Device\") AS value \nTHAT HAS Problem WITH createdOn > date.now - 7 days AS p \nRETURN \np.displayName AS Name, p.createdOn as Created, \np.description as Description, p.severity AS Severity, \np.status as Status, p._type AS Type\nORDER BY Created DESC"
+          }
+        ],
+        "settings": {
+          "table": {}
+        }
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "262aba4a-f191-4cc5-a2e2-dd3aa9891ba1"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 3,
+        "y": 2,
+        "i": "68a53af6-b5a2-4d65-a786-19e161f266b3"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 6,
+        "i": "9aa1f877-9d66-434f-a9b6-0db7404d98bd"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 4,
+        "i": "db9d1e9d-6b31-4601-b944-f2c5c2a9dc70"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 3,
+        "y": 0,
+        "i": "31750f07-9c09-426d-89c2-3d06148b9cfd"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 0,
+        "i": "bb332dda-d8b6-4024-84d7-39903ed17312"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 9,
+        "y": 0,
+        "i": "6011e3d3-9e25-4c7d-baf2-09828d5ccca4"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "0b39a5b8-218b-47b1-b256-728fadaa04c6"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 9,
+        "y": 4,
+        "i": "6103aec9-c2af-480c-9fdd-da913f26c36e"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 3,
+        "y": 4,
+        "i": "a8bccf84-d117-4891-a7e9-cddf2d35d279"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 2,
+        "i": "9d0ba231-7dcf-4b57-946d-3472f4082cb6"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 4,
+        "x": 0,
+        "y": 6,
+        "i": "c909e7d6-eadb-483a-8cd1-27beed02ed28"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 4,
+        "i": "e4e17f01-1434-4de1-b9be-b9dbe82ae8be"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 8,
+        "i": "4ce942ef-731a-4c5e-8b8f-784cfab44cfd"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
+}

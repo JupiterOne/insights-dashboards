@@ -10,6 +10,7 @@ import softwareDependenciesAndLicenses from "./boards/software-dependencies-and-
 import criticalAttackSurface from "./boards/critical-attack-surface/board.json";
 import dataBreachCost from "./boards/data-breach-cost/board.json";
 import dataProtection from "./boards/data-protection/board.json";
+import deviceManagement from './boards/device-management/board.json';
 import secureDevelopment from "./boards/secure-development/board.json";
 import firewall from "./boards/network-security/board.json";
 import gcpCompute from "./boards/gcp-compute/board.json";
@@ -26,6 +27,7 @@ import resourceClassification from "./boards/resource-classification/board.json"
 import riskRegister from "./boards/risk-register/board.json";
 import teamGrowth from "./boards/team-growth/board.json";
 import teamManagerDirectReports from "./boards/team-manager-direct-reports/board.json";
+import toxicCombinations from "./boards/toxic-combinations/board.json";
 import userAccess from "./boards/user-access/board.json";
 import userEndpointBlastRadius from "./boards/user-endpoint-blast-radius/board.json";
 import userEndpoints from "./boards/user-endpoints/board.json";
@@ -47,6 +49,7 @@ export const InsightsDashboards = {
   "CrowdStrike and JAMF Comparison": jamfCrowdStrike,
   "Data Breach Cost": dataBreachCost,
   "Data Protection": dataProtection,
+  'Device Management': deviceManagement,
   "GCP Compute": gcpCompute,
   "GCP IAM": gcpIam,
   "GDPR Data Locations": gdprDataLocations,
@@ -65,6 +68,7 @@ export const InsightsDashboards = {
   "Software Dependencies and Licenses": softwareDependenciesAndLicenses,
   "Team / Peers, Manager and Direct Reports": teamManagerDirectReports,
   "Team Growth": teamGrowth,
+  "Toxic Combinations": toxicCombinations,
   "User Access": userAccess,
   "User Endpoints": userEndpoints,
   "User Training": userTraining,
@@ -118,6 +122,18 @@ export const MANAGED_BOARDS = [
     name: "Network Access and Firewall Rules",
     category: BoardCategory.ASSETS_ATTACK_SURFACE,
     ...firewall,
+  },
+  {
+    id: "device-management",
+    name: "Device Management",
+    category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    ...deviceManagement,
+  },
+  {
+    id: "toxic-combinations",
+    name: "Toxic Combinations",
+    category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    ...toxicCombinations,
   },
   {
     id: "aws-accounts",
