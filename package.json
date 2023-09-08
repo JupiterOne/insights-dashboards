@@ -6,7 +6,6 @@
   "main": "insights-dashboards.js",
   "module": "insights-dashboards.es5.js",
   "typings": "insights-dashboards.d.ts",
-  "type": "module",
   "scripts": {
     "build": "rimraf dist && yarn build:types && rollup -c",
     "postbuild": "cp yarn.lock package.json ./dist && node ./bin/buildJSON.js --experimental-modules",
