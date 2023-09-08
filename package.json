@@ -6,14 +6,12 @@
   "main": "insights-dashboards.js",
   "module": "insights-dashboards.es5.js",
   "typings": "insights-dashboards.d.ts",
-  "type": "module",
   "scripts": {
-    "build": "rimraf dist && yarn build:types && rollup -c",
+    "build": "rimraf dist && rollup -c",
     "postbuild": "cp yarn.lock package.json ./dist && node ./bin/buildJSON.js --experimental-modules",
     "deploy": "jupiterone-manual-deploy -t jupiterone-dev -a apply",
     "destroy": "jupiterone-manual-deploy -t jupiterone-dev -a destroy",
     "plan": "jupiterone-manual-deploy -t jupiterone-dev -a plan",
-    "build:types": "tsc --module commonjs",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

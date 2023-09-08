@@ -1,12 +1,12 @@
-import fs from "fs";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-import InsightsDashboards from "../dist/insights-dashboards.es5.js";
-fs.writeFileSync(
-  `${__dirname}/../dist/boards.json`,
-  JSON.stringify(InsightsDashboards, null, 2)
+const fs = require("fs");
+const { dirname } = require("path");
+const { fileURLToPath } = require("url");
+const __dirname2 = dirname(
+  fileURLToPath(require("url").pathToFileURL(__filename).toString())
 );
 
-export {};
+const { InsightsDashboards } = require("../dist/insights-dashboards.js");
+fs.writeFileSync(
+  `${__dirname2}/../dist/boards.json`,
+  JSON.stringify(InsightsDashboards, null, 2)
+);
