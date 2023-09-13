@@ -10,7 +10,6 @@ pipeline {
         initBuild()
         frozenYarnInstall()
         sh 'yarn build'
-        sh 'cp -r dist ./deploy'
         sh 'jupiterone-build'
         sh 'jupiterone-publish'
 
