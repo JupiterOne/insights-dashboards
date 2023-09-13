@@ -8,7 +8,6 @@
   "typings": "insights-dashboards.d.ts",
   "scripts": {
     "build": "rimraf dist && rollup -c",
-    "postbuild": "cp yarn.lock package.json ./dist && node ./bin/buildJSON.js --experimental-modules",
     "deploy": "jupiterone-manual-deploy -t jupiterone-dev -a apply",
     "destroy": "jupiterone-manual-deploy -t jupiterone-dev -a destroy",
     "plan": "jupiterone-manual-deploy -t jupiterone-dev -a plan",
