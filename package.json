@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/insights-dashboards",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "license": "UNLICENSED",
   "description": "JupiterOne Insights Dashboards",
   "main": "insights-dashboards.js",
@@ -8,6 +8,7 @@
   "typings": "insights-dashboards.d.ts",
   "scripts": {
     "build": "rimraf dist && rollup -c",
+    "postbuild": "cp yarn.lock package.json ./dist",
     "deploy": "jupiterone-manual-deploy -t jupiterone-dev -a apply",
     "destroy": "jupiterone-manual-deploy -t jupiterone-dev -a destroy",
     "plan": "jupiterone-manual-deploy -t jupiterone-dev -a plan",
