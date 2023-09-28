@@ -234,7 +234,7 @@ export const MANAGED_BOARDS = [
     ...jiraInsights,
   },
   {
-    id: "mongiodb-insights",
+    id: "mongodb-insights",
     name: "MongoDB Insights",
     category: "",
     ...mongoDbInsights,
