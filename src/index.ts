@@ -22,6 +22,7 @@ import highRiskAssets from "./boards/high-risk-assets/board.json";
 import jamfCrowdStrike from "./boards/jamf-crowdstrike/board.json";
 import jiraInsights from "./boards/jira-insights/board.json";
 import kubernetesSecurityContext from "./boards/kubernetes-security-context/board.json";
+import mongoDbInsights from "./boards/mongodb-insights/board.json";
 import oktaUserManagement from "./boards/okta-user-management/board.json";
 import resourceClassification from "./boards/resource-classification/board.json";
 import riskRegister from "./boards/risk-register/board.json";
@@ -60,6 +61,7 @@ export const InsightsDashboards = {
   "IR - User Endpoint Blast Radius": userEndpointBlastRadius,
   "Jira Insights": jiraInsights,
   "Kubernetes Security Context": kubernetesSecurityContext,
+  "MongoDB Insights": mongoDbInsights,
   "Network Access and Firewall Rules": firewall,
   "Okta User Management": oktaUserManagement,
   "Resource Classification": resourceClassification,
@@ -230,6 +232,12 @@ export const MANAGED_BOARDS = [
     name: "Jira Insights",
     category: BoardCategory.SDLC_DEVSECOPS,
     ...jiraInsights,
+  },
+  {
+    id: "mongodb-insights",
+    name: "MongoDB Insights",
+    category: "",
+    ...mongoDbInsights,
   },
   {
     id: "secure-development",
