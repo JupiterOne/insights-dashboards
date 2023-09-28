@@ -1,0 +1,185 @@
+{
+  "widgets": [
+    {
+      "noResultMessage": "No ingested API keys found",
+      "description": "show the related entities for all provisioned keys",
+      "includeDeleted": false,
+      "id": "4d305ef9-4c30-4ab5-abca-0ac672cb286b",
+      "title": "API Key Relationships",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "Find mongodb_api_key that relates to * return TREE"
+          }
+        ],
+        "settings": {
+          "graph": {
+            "graphNodeView": "expanded",
+            "graphViewType": "tree"
+          }
+        }
+      }
+    },
+    {
+      "noResultMessage": "No ingested API Keys found",
+      "questionId": "",
+      "description": "count of undeleted keys",
+      "id": "7a939522-532f-4f48-a692-80dc1ad9b3c5",
+      "title": "API Key Count",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND mongodb_api_key AS i RETURN count(i) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "trendDataIsEnabled": false
+          }
+        }
+      }
+    },
+    {
+      "description": "count of users with production access",
+      "id": "6173eb71-938b-4b28-851f-dd1974972d63",
+      "questionId": "",
+      "title": "Production Access User Count",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND mongodb_user as i THAT HAS << mongodb_project WITH tag.Production = true RETURN count(i) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "10"
+            },
+            "trendDataIsEnabled": false,
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": "30"
+            },
+            "success": {
+              "limitCondition": "greaterThan",
+              "val1": "20"
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "mapped people with login user for MongoDB",
+      "id": "c311004b-6fcb-4a2a-a3b5-d5a70f0ad94a",
+      "questionId": "",
+      "title": "Count of People with MongoDB Users",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND Person THAT IS << mongodb_user RETURN count (Person) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "10"
+            },
+            "trendDataIsEnabled": false,
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": "30"
+            },
+            "success": {
+              "limitCondition": "greaterThan",
+              "val1": "20"
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "mapped relationships for production projects",
+      "noResultMessage": "No ingested MongoDB projects found",
+      "id": "f4f123eb-f58b-41d0-9bef-116f409f3d2b",
+      "title": "Production Project Relationships",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND mongodb_project WITH tag.Production = true THAT RELATES TO * RETURN TREE"
+          }
+        ],
+        "settings": {
+          "graph": {
+            "graphNodeView": "expanded",
+            "graphViewType": "mesh"
+          }
+        }
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "4d305ef9-4c30-4ab5-abca-0ac672cb286b"
+      },
+      {
+        "static": false,
+        "w": 4,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "7a939522-532f-4f48-a692-80dc1ad9b3c5"
+      },
+      {
+        "static": false,
+        "w": 4,
+        "moved": false,
+        "h": 2,
+        "x": 4,
+        "y": 2,
+        "i": "6173eb71-938b-4b28-851f-dd1974972d63"
+      },
+      {
+        "static": false,
+        "w": 4,
+        "moved": false,
+        "h": 2,
+        "x": 8,
+        "y": 2,
+        "i": "c311004b-6fcb-4a2a-a3b5-d5a70f0ad94a"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 4,
+        "i": "f4f123eb-f58b-41d0-9bef-116f409f3d2b"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
+}
