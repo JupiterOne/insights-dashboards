@@ -26,6 +26,7 @@ List of dashboards:
 - [IR - User Endpoint Blast Radius](src/boards/user-endpoint-blast-radius/)
 - [Jamf & CrowdStrike Sensor Activity](src/boards/jamf-crowdstrike/)
 - [Jira Insights](src/boards/jira-insights/)
+- [MongoDB Insights](src/boards/mongodb-insights/)
 - [Network Security](src/boards/network-security/)
 - [Okta User Management](src/boards/okta-user-management/)
 - [Resource Classification](src/boards/resource-classification/)

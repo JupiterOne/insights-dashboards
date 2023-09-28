@@ -6,7 +6,7 @@ Publisher: JupiterOne
 
 ![sample-screenshot](board.png)
 
-DESCRIPTION GOES HERE
+See all your API keys, users, access, and projects from MongoDB and how they relate to your inventory.
 
 > Prerequisite:
 >
