@@ -1,8 +1,12 @@
 {
   "name": "@jupiterone/insights-dashboards",
   "version": "4.0.2",
-  "license": "UNLICENSED",
   "description": "JupiterOne Insights Dashboards",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JupiterOne/insights-dashboards"
+  },
+  "license": "UNLICENSED",
   "main": "insights-dashboards.js",
   "module": "insights-dashboards.es5.js",
   "typings": "insights-dashboards.d.ts",
