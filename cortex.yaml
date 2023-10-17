@@ -8,9 +8,9 @@ info:
   x-cortex-owners:
     - type: group
       name: JupiterOne/prometheus
-  x-cortex-tag: insights-dashboards
   x-cortex-service-groups:
     - tier-4
+  x-cortex-tag: insights-dashboards
   x-cortex-link:
     - name: Project README
       type: documentation
