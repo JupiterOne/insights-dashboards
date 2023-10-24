@@ -73,7 +73,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find crowdstrike_sensor with date.now - 7 days < lastSeenOn as e\nreturn e.platformName as name, count(e) as value"
+						"query": "Find crowdstrike_sensor with date.now - 7 days > lastSeenOn as e\nreturn e.platformName as name, count(e) as value"
 					}
 				]
 			}
@@ -99,7 +99,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find crowdstrike_sensor with date.now - 7 days < lastSeenOn as e\nRETURN e.displayName, e.hostname, e.lastSeenOn, e.macAddress, e.osVersion\n"
+						"query": "Find crowdstrike_sensor with date.now - 7 days > lastSeenOn as e\nRETURN e.displayName, e.hostname, e.lastSeenOn, e.macAddress, e.osVersion\n"
 					}
 				]
 			}
