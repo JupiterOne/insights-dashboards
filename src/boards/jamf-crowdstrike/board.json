@@ -73,7 +73,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find crowdstrike_sensor with date.now - 7 days < lastSeenOn as e\nreturn e.platformName as name, count(e) as value"
+						"query": "Find crowdstrike_sensor with date.now - 7 days > lastSeenOn as e\nreturn e.platformName as name, count(e) as value"
 					}
 				]
 			}
@@ -86,7 +86,7 @@
 				"queries": [
 					{
 						"name": "query 1",
-						"query": "Find user_endpoint With (lastSeenOn > date.now - 1 days) AND (encrypted!=true or encrypted=false) AS e\nRETURN count(e) as value"
+						"query": "Find user_endpoint with (lastSeenOn > date.now - 1 days) AND (encrypted!=true or encrypted=false) AS e\nRETURN count(e) as value"
 					}
 				]
 			}
@@ -99,7 +99,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find crowdstrike_sensor with date.now - 7 days < lastSeenOn as e\nRETURN e.displayName, e.hostname, e.lastSeenOn, e.macAddress, e.osVersion\n"
+						"query": "Find crowdstrike_sensor with date.now - 7 days > lastSeenOn as e\nRETURN e.displayName, e.hostname, e.lastSeenOn, e.macAddress, e.osVersion\n"
 					}
 				]
 			}
@@ -151,7 +151,7 @@
 				"queries": [
 					{
 						"name": "query1",
-						"query": "Find user_endpoint With (lastSeenOn > date.now - 1 days) AND (encrypted!=true or encrypted=false) AS e\nRETURN e.displayName, e.encrypted, e.lastSeenOn"
+						"query": "Find user_endpoint with (lastSeenOn > date.now - 1 days) AND (encrypted!=true or encrypted=false) AS e\nRETURN e.displayName, e.encrypted, e.lastSeenOn"
 					}
 				]
 			}
