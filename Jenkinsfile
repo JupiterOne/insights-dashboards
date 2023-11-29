@@ -5,7 +5,7 @@ pipeline {
 
   stages {
     stage('build') {
-      agent { label 'ecs-builder-node14' }
+      agent { label 'ecs-builder-node18' }
       steps {
         initBuild()
         frozenYarnInstall()
@@ -14,7 +14,7 @@ pipeline {
         script {
           if (env.BRANCH_NAME == 'main') {
             // publish new package version if updated
-            publishNewNpmVersionIfAny('dist/package.json', 'dist')
+            publishNewNpmVersionIfAny('dist/package.json', '.dist/')
           }
         }
       }
