@@ -10,7 +10,7 @@ import softwareDependenciesAndLicenses from "./boards/software-dependencies-and-
 import criticalAttackSurface from "./boards/critical-attack-surface/board.json";
 import dataBreachCost from "./boards/data-breach-cost/board.json";
 import dataProtection from "./boards/data-protection/board.json";
-import deviceManagement from './boards/device-management/board.json';
+import deviceManagement from "./boards/device-management/board.json";
 import secureDevelopment from "./boards/secure-development/board.json";
 import firewall from "./boards/network-security/board.json";
 import gcpCompute from "./boards/gcp-compute/board.json";
@@ -35,7 +35,8 @@ import userEndpoints from "./boards/user-endpoints/board.json";
 import userTraining from "./boards/user-training/board.json";
 import vendorMgmt from "./boards/vendor-mgmt/board.json";
 import vulnReporting from "./boards/vuln-reporting/board.json";
-import povInsights from "./boards/pov-insights/board.json"
+import povInsights from "./boards/pov-insights/board.json";
+import anomalyDetectionBeta from "./boards/device-anomaly-detection-beta/board.json";
 
 // All of these boards are available as templates for import when creating a new board in app
 export const InsightsDashboards = {
@@ -50,7 +51,7 @@ export const InsightsDashboards = {
   "CrowdStrike and JAMF Comparison": jamfCrowdStrike,
   "Data Breach Cost": dataBreachCost,
   "Data Protection": dataProtection,
-  'Device Management': deviceManagement,
+  "Device Management": deviceManagement,
   "GCP Compute": gcpCompute,
   "GCP IAM": gcpIam,
   "GDPR Data Locations": gdprDataLocations,
@@ -178,6 +179,12 @@ export const MANAGED_BOARDS = [
     name: "Azure Resources",
     category: BoardCategory.CLOUD_POSTURE,
     ...azureResources,
+  },
+  {
+    id: "device-anomaly-detection-beta",
+    name: "Device Anomaly Detection (Beta)",
+    category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    ...anomalyDetectionBeta,
   },
   {
     id: "gcp-compute",
