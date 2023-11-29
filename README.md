@@ -16,6 +16,7 @@ List of dashboards:
 - [Data Breach Cost](src/boards/data-breach-cost/)
 - [Data Protection](src/boards/data-protection/)
 - [Device Management](src/boards/device-management/)
+- [Device Anomaly Detection (Beta)](src/boards/device-anomaly-detection-beta/)
 - [GCP Compute Projects and Instances](src/boards/gcp-compute/)
 - [GCP IAM](src/boards/gcp-iam/)
 - [GDPR Data Locations](src/boards/gdpr-data-locations/)

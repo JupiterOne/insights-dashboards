@@ -1,0 +1,150 @@
+{
+  "widgets": [
+    {
+      "noResultMessage": "No unified_device entities were found.",
+      "questionId": "da1bee84-6767-4229-a26d-49780bd3af60",
+      "description": "",
+      "id": "50204d5b-dcbf-48fc-8b4d-d923675d5570",
+      "title": "Unified Devices",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND unified_device as d RETURN COUNT(d) as value",
+            "id": "1dacff4e-8cb0-4a64-b8de-1b931b4e056c"
+          }
+        ],
+        "settings": {
+          "number": {
+            "trendDataIsEnabled": true
+          }
+        }
+      }
+    },
+    {
+      "id": "1060bb89-dea7-41bd-b4b1-a43224abee80",
+      "title": "",
+      "type": "markdown",
+      "config": {
+        "queries": [],
+        "settings": {
+          "markdown": {
+            "text": "Welcome to the Device Anomaly Detection Beta!  We appreciate your willingness to give us feedback to help make JupiterOne better for everyone.\n\nThis dashboard highlights the data and insights produced by the anomaly detection system (powered by JupiterOne AI).\nThe system scans the `unified_device` entities in your account, and uses advanced machine learning\nalgorithms to detect anomalies in that data set.  It combines the raw property values with computed properties\nthat augment the data with overall graph context.  When an anomaly is found, it is persisted to the graph as\na `device_anomaly` entity, and related to the `unified_device` entity it describes."
+          }
+        }
+      }
+    },
+    {
+      "noResultMessage": "No anomalies found in your device inventory.",
+      "questionId": "39a1b9f7-a381-40c7-9d37-865a78f4b12f",
+      "description": "",
+      "id": "5438988b-53a0-4c01-985f-45bfe8b6b0ac",
+      "title": "Anomalies Identified",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND device_anomaly as d RETURN COUNT(d) as value",
+            "id": "3ca282cc-d61c-48ba-a80e-c68b571f467a"
+          }
+        ],
+        "settings": {
+          "number": {
+            "trendDataIsEnabled": true
+          }
+        }
+      }
+    },
+    {
+      "description": "This widget sorts the device_anomaly entities by their anomalyScore, which indicates the overall degree of anomalousness.",
+      "id": "4dbda07a-8db1-4e4e-a6d1-ab8bc3bc2759",
+      "title": "Most Anomalous Devices",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND device_anomaly (THAT HAS unified_device as device)? \nRETURN device_anomaly.displayName as anomalyName, device_anomaly.anomalyScore as anomalyScore, device.displayName  as deviceName\nORDER BY device_anomaly.anomalyScore DESC\n"
+          }
+        ],
+        "settings": {
+          "table": {}
+        }
+      }
+    },
+    {
+      "description": "This widget shows the entire graph structure of how the anomaly_detection_assessment relates to the unified_device through a device_anomaly entity.",
+      "id": "5ded0d7e-d2c8-4f04-bb45-8a0ce85e44a4",
+      "title": "Anomaly Detection Assessment",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "Query 1",
+            "query": "FIND anomaly_detection_assessment\n  THAT IDENTIFIED device_anomaly\n  (THAT HAS unified_device)?\nRETURN TREE"
+          }
+        ],
+        "settings": {
+          "graph": {
+            "graphViewType": "tree_horizontal"
+          }
+        }
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 3,
+        "x": 3,
+        "y": 2,
+        "i": "50204d5b-dcbf-48fc-8b4d-d923675d5570"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "1060bb89-dea7-41bd-b4b1-a43224abee80"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 2,
+        "i": "5438988b-53a0-4c01-985f-45bfe8b6b0ac"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 5,
+        "i": "4dbda07a-8db1-4e4e-a6d1-ab8bc3bc2759"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 2,
+        "i": "5ded0d7e-d2c8-4f04-bb45-8a0ce85e44a4"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
+}
