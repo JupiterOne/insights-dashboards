@@ -46,7 +46,7 @@
         "queries": [
           {
             "name": "Query 1",
-            "query": "FIND device_anomaly as d RETURN COUNT(d) as value",
+            "query": "FIND device_anomaly as d that has unified_device RETURN COUNT(d) as value",
             "id": "3ca282cc-d61c-48ba-a80e-c68b571f467a"
           }
         ],
@@ -66,7 +66,7 @@
         "queries": [
           {
             "name": "Query 1",
-            "query": "FIND device_anomaly (THAT HAS unified_device as device)? \nRETURN device_anomaly.displayName as anomalyName, device_anomaly.anomalyScore as anomalyScore, device.displayName  as deviceName\nORDER BY device_anomaly.anomalyScore DESC\n"
+            "query": "FIND device_anomaly THAT HAS unified_device as device \nRETURN device_anomaly.displayName as anomalyName, device_anomaly.anomalyScore as anomalyScore, device.displayName  as deviceName\nORDER BY device_anomaly.anomalyScore DESC\n"
           }
         ],
         "settings": {
