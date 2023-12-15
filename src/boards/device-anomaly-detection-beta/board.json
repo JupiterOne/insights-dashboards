@@ -16,9 +16,7 @@
           }
         ],
         "settings": {
-          "number": {
-            "trendDataIsEnabled": true
-          }
+          "number": {}
         }
       }
     },
@@ -51,9 +49,7 @@
           }
         ],
         "settings": {
-          "number": {
-            "trendDataIsEnabled": true
-          }
+          "number": {}
         }
       }
     },
