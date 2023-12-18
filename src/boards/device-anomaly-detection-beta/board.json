@@ -2,8 +2,7 @@
   "widgets": [
     {
       "noResultMessage": "No unified_device entities were found.",
-      "questionId": "da1bee84-6767-4229-a26d-49780bd3af60",
-      "description": "",
+      "description": "Determines a count of the unified_device entities in your inventory.",
       "id": "50204d5b-dcbf-48fc-8b4d-d923675d5570",
       "title": "Unified Devices",
       "type": "number",
@@ -11,13 +10,9 @@
         "queries": [
           {
             "name": "Query 1",
-            "query": "FIND unified_device as d RETURN COUNT(d) as value",
-            "id": "1dacff4e-8cb0-4a64-b8de-1b931b4e056c"
+            "query": "FIND unified_device as d RETURN COUNT(d) as value"
           }
-        ],
-        "settings": {
-          "number": {}
-        }
+        ]
       }
     },
     {
@@ -35,8 +30,7 @@
     },
     {
       "noResultMessage": "No anomalies found in your device inventory.",
-      "questionId": "39a1b9f7-a381-40c7-9d37-865a78f4b12f",
-      "description": "",
+      "description": "Determines the count of the device_anomaly entities in your inventory, i.e. how many devices have an anomaly.",
       "id": "5438988b-53a0-4c01-985f-45bfe8b6b0ac",
       "title": "Anomalies Identified",
       "type": "number",
@@ -44,13 +38,9 @@
         "queries": [
           {
             "name": "Query 1",
-            "query": "FIND device_anomaly as d that has unified_device RETURN COUNT(d) as value",
-            "id": "3ca282cc-d61c-48ba-a80e-c68b571f467a"
+            "query": "FIND device_anomaly as d that has unified_device RETURN COUNT(d) as value"
           }
-        ],
-        "settings": {
-          "number": {}
-        }
+        ]
       }
     },
     {
