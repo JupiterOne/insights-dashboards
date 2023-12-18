@@ -10,8 +10,7 @@
         "queries": [
           {
             "name": "Query 1",
-            "query": "FIND unified_device as d RETURN COUNT(d) as value",
-            "id": "1dacff4e-8cb0-4a64-b8de-1b931b4e056c"
+            "query": "FIND unified_device as d RETURN COUNT(d) as value"
           }
         ]
       }
@@ -39,8 +38,7 @@
         "queries": [
           {
             "name": "Query 1",
-            "query": "FIND device_anomaly as d that has unified_device RETURN COUNT(d) as value",
-            "id": "3ca282cc-d61c-48ba-a80e-c68b571f467a"
+            "query": "FIND device_anomaly as d that has unified_device RETURN COUNT(d) as value"
           }
         ]
       }
