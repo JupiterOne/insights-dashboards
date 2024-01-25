@@ -1,10 +1,10 @@
 {
   "requiredIntegrations": [
     {
-      "type": "aws",
-      "title": "AWS",
+      "type": "azure",
+      "title": "Azure",
       "category": "CLOUD"
     }
   ],
-  "supportedUseCase": "Stringified markdown here"
+  "supportedUseCase": "Shows Azure container resources and encryption settings as well as logging options set on containers."
 }
