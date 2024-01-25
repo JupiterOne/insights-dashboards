@@ -6,5 +6,5 @@
       "category": "CLOUD"
     }
   ],
-  "supportedUseCase": "Stringified markdown here"
+  "supportedUseCase": "This dashboard requires the J1 AWS integration with one or more AWS accounts."
 }

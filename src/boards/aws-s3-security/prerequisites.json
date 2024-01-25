@@ -6,5 +6,5 @@
       "category": "CLOUD"
     }
   ],
-  "supportedUseCase": "Stringified markdown here"
+  "supportedUseCase": "Show several key configurations, metrics, and graphs related to AWS S3 security."
 }

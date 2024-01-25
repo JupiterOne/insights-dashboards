@@ -6,5 +6,5 @@
       "category": "CLOUD"
     }
   ],
-  "supportedUseCase": "Stringified markdown here"
+  "supportedUseCase": "Shows AWS IAM Groups, Users, Roles, and important access policy assignments."
 }

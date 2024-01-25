@@ -6,5 +6,5 @@
       "category": "CLOUD"
     }
   ],
-  "supportedUseCase": "Stringified markdown here"
+  "supportedUseCase": "Shows AWS master accounts, sub-accounts, as well as validated/unvalidated external accounts discovered by JupiterOne via analysis of IAM policies and trusts."
 }
