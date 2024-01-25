@@ -1,0 +1,10 @@
+{
+  "requiredIntegrations": [
+    {
+      "type": "aws",
+      "title": "AWS",
+      "category": "CLOUD"
+    }
+  ],
+  "supportedUseCase": "Stringified markdown here"
+}
