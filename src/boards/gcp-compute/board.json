@@ -1,230 +1,237 @@
 {
-	"widgets": [
-		{
-			"id": "185b3507-c122-4370-916a-4bb4e85ae3dd",
-			"title": "Projects with Default network",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find google_compute_network with name=\"default\" as network\nreturn network.projectId, network.name, network.description, network.webLink"
-					}
-				]
-			}
-		},
-		{
-			"id": "a5d9dfdc-37c6-407d-add9-a161792e97d3",
-			"title": "Firewall Rules that allow SSH from Internet",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Internet\n  THAT ALLOWS as rule google_compute_firewall as firewall\n  THAT PROTECTS google_compute_network as network\n  THAT CONTAINS google_compute_subnetwork as subnetwork\nWHERE\n  firewall.ingress=true AND\n  rule.ipProtocol='tcp' AND\n  rule.fromPort <= 22 AND\n  rule.toPort >= 22\nreturn\n  rule.ipProtocol,\n    rule.fromPort,\n    rule.toPort,\n  firewall.sourceRanges,\n    firewall.destinationRanges,\n  network.displayName,\n    network.name,\n    network.description,\n  subnetwork.CIDR,\n    subnetwork.displayName,\n    subnetwork.name"
-					}
-				]
-			}
-		},
-		{
-			"id": "700b1965-0837-4695-82cd-4a54afe933c3",
-			"title": "Firewall Rules that allow SSH from Internet",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Internet\n  THAT ALLOWS as rule google_compute_firewall as firewall\n  THAT PROTECTS google_compute_network as network\n  THAT CONTAINS google_compute_subnetwork as subnetwork\nWHERE\n  firewall.ingress=true AND\n  rule.ipProtocol='tcp' AND\n  rule.fromPort <= 22 AND\n  rule.toPort >= 22\nreturn\n  tree"
-					}
-				]
-			}
-		},
-		{
-			"id": "ac2a7e17-337d-4ea4-87bb-738d355ae827",
-			"title": "Firewall rules that allow RDP from internet",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Internet\n  THAT ALLOWS as rule google_compute_firewall as firewall\n  THAT PROTECTS google_compute_network as network\n  THAT CONTAINS google_compute_subnetwork as subnetwork\nWHERE\n  firewall.ingress=true AND\n  rule.ipProtocol='tcp' AND\n  rule.fromPort <= 3389 AND\n  rule.toPort >= 3389\nreturn\n  rule.ipProtocol,\n    rule.fromPort,\n    rule.toPort,\n  firewall.sourceRanges,\n    firewall.destinationRanges,\n  network.displayName,\n    network.name,\n    network.description,\n  subnetwork.CIDR,\n    subnetwork.displayName,\n    subnetwork.name"
-					}
-				]
-			}
-		},
-		{
-			"id": "967440a5-317c-4e29-8402-769d8249bb88",
-			"title": "Firewall rules that allow RDP from internet",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Internet\n  THAT ALLOWS as rule google_compute_firewall as firewall\n  THAT PROTECTS google_compute_network as network\n  THAT CONTAINS google_compute_subnetwork as subnetwork\nWHERE\n  firewall.ingress=true AND\n  rule.ipProtocol='tcp' AND\n  rule.fromPort <= 3389 AND\n  rule.toPort >= 3389\nreturn\n  tree"
-					}
-				]
-			}
-		},
-		{
-			"id": "5894b912-a370-49bc-9065-4ec19f744bc7",
-			"title": "Which compute instances in production projects have firewalls that allow remote user access?",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND Internet\n  THAT ALLOWS AS rule google_compute_firewall\n    WITH ingress = true AS firewall\n  THAT PROTECTS google_compute_network AS network\n  THAT CONTAINS google_compute_subnetwork AS subnetwork\n  THAT HAS google_compute_instance\n    WITH projectId ~= 'prod' as instance\nWHERE (\n    (rule.fromPort <= 3389 AND rule.toPort >= 3389) OR\n    (rule.fromPort <= 22 AND rule.toPort >= 22) OR\n    (rule.fromPort <= 5985 AND rule.toPort >= 5985) OR\n    (rule.fromPort <= 5986 AND rule.toPort >= 5986)\n)\nRETURN\n  tree"
-					}
-				]
-			}
-		},
-		{
-			"id": "49cf2488-6931-4331-b84b-0e041f29c0e9",
-			"title": "Projects with OS Login Disabled",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find google_compute_project as project\n  that HAS google_compute_instance as instance\n where\n  project.isOSLoginEnabled=false or\n  (project.isOSLoginEnabled=true and instance.isOSLoginEnabled=false)\n  return tree\n "
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"w": 6,
-				"h": 3,
-				"x": 0,
-				"y": 0,
-				"i": "185b3507-c122-4370-916a-4bb4e85ae3dd",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 3,
-				"x": 0,
-				"y": 6,
-				"i": "a5d9dfdc-37c6-407d-add9-a161792e97d3",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 3,
-				"x": 6,
-				"y": 6,
-				"i": "700b1965-0837-4695-82cd-4a54afe933c3",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 3,
-				"x": 0,
-				"y": 9,
-				"i": "ac2a7e17-337d-4ea4-87bb-738d355ae827",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 3,
-				"x": 6,
-				"y": 9,
-				"i": "967440a5-317c-4e29-8402-769d8249bb88",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 3,
-				"x": 0,
-				"y": 3,
-				"i": "5894b912-a370-49bc-9065-4ec19f744bc7",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 3,
-				"x": 6,
-				"y": 0,
-				"i": "49cf2488-6931-4331-b84b-0e041f29c0e9",
-				"moved": false,
-				"static": false
-			}
-		],
-		"xl": [],
-		"md": [
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "185b3507-c122-4370-916a-4bb4e85ae3dd"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "a5d9dfdc-37c6-407d-add9-a161792e97d3"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 4,
-				"i": "700b1965-0837-4695-82cd-4a54afe933c3"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "ac2a7e17-337d-4ea4-87bb-738d355ae827"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "967440a5-317c-4e29-8402-769d8249bb88"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 10,
-				"i": "5894b912-a370-49bc-9065-4ec19f744bc7"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 12,
-				"i": "49cf2488-6931-4331-b84b-0e041f29c0e9"
-			}
-		]
-	}
+  "requiredIntegrations": [
+    {
+      "name": "google_cloud",
+      "title": "Google Cloud"
+    }
+  ],
+  "supportedUseCase": "Shows important configurations related to GCP Compute Projects and Instances.",
+  "widgets": [
+    {
+      "id": "185b3507-c122-4370-916a-4bb4e85ae3dd",
+      "title": "Projects with Default network",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find google_compute_network with name=\"default\" as network\nreturn network.projectId, network.name, network.description, network.webLink"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a5d9dfdc-37c6-407d-add9-a161792e97d3",
+      "title": "Firewall Rules that allow SSH from Internet",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find Internet\n  THAT ALLOWS as rule google_compute_firewall as firewall\n  THAT PROTECTS google_compute_network as network\n  THAT CONTAINS google_compute_subnetwork as subnetwork\nWHERE\n  firewall.ingress=true AND\n  rule.ipProtocol='tcp' AND\n  rule.fromPort <= 22 AND\n  rule.toPort >= 22\nreturn\n  rule.ipProtocol,\n    rule.fromPort,\n    rule.toPort,\n  firewall.sourceRanges,\n    firewall.destinationRanges,\n  network.displayName,\n    network.name,\n    network.description,\n  subnetwork.CIDR,\n    subnetwork.displayName,\n    subnetwork.name"
+          }
+        ]
+      }
+    },
+    {
+      "id": "700b1965-0837-4695-82cd-4a54afe933c3",
+      "title": "Firewall Rules that allow SSH from Internet",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find Internet\n  THAT ALLOWS as rule google_compute_firewall as firewall\n  THAT PROTECTS google_compute_network as network\n  THAT CONTAINS google_compute_subnetwork as subnetwork\nWHERE\n  firewall.ingress=true AND\n  rule.ipProtocol='tcp' AND\n  rule.fromPort <= 22 AND\n  rule.toPort >= 22\nreturn\n  tree"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ac2a7e17-337d-4ea4-87bb-738d355ae827",
+      "title": "Firewall rules that allow RDP from internet",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find Internet\n  THAT ALLOWS as rule google_compute_firewall as firewall\n  THAT PROTECTS google_compute_network as network\n  THAT CONTAINS google_compute_subnetwork as subnetwork\nWHERE\n  firewall.ingress=true AND\n  rule.ipProtocol='tcp' AND\n  rule.fromPort <= 3389 AND\n  rule.toPort >= 3389\nreturn\n  rule.ipProtocol,\n    rule.fromPort,\n    rule.toPort,\n  firewall.sourceRanges,\n    firewall.destinationRanges,\n  network.displayName,\n    network.name,\n    network.description,\n  subnetwork.CIDR,\n    subnetwork.displayName,\n    subnetwork.name"
+          }
+        ]
+      }
+    },
+    {
+      "id": "967440a5-317c-4e29-8402-769d8249bb88",
+      "title": "Firewall rules that allow RDP from internet",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find Internet\n  THAT ALLOWS as rule google_compute_firewall as firewall\n  THAT PROTECTS google_compute_network as network\n  THAT CONTAINS google_compute_subnetwork as subnetwork\nWHERE\n  firewall.ingress=true AND\n  rule.ipProtocol='tcp' AND\n  rule.fromPort <= 3389 AND\n  rule.toPort >= 3389\nreturn\n  tree"
+          }
+        ]
+      }
+    },
+    {
+      "id": "5894b912-a370-49bc-9065-4ec19f744bc7",
+      "title": "Which compute instances in production projects have firewalls that allow remote user access?",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND Internet\n  THAT ALLOWS AS rule google_compute_firewall\n    WITH ingress = true AS firewall\n  THAT PROTECTS google_compute_network AS network\n  THAT CONTAINS google_compute_subnetwork AS subnetwork\n  THAT HAS google_compute_instance\n    WITH projectId ~= 'prod' as instance\nWHERE (\n    (rule.fromPort <= 3389 AND rule.toPort >= 3389) OR\n    (rule.fromPort <= 22 AND rule.toPort >= 22) OR\n    (rule.fromPort <= 5985 AND rule.toPort >= 5985) OR\n    (rule.fromPort <= 5986 AND rule.toPort >= 5986)\n)\nRETURN\n  tree"
+          }
+        ]
+      }
+    },
+    {
+      "id": "49cf2488-6931-4331-b84b-0e041f29c0e9",
+      "title": "Projects with OS Login Disabled",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find google_compute_project as project\n  that HAS google_compute_instance as instance\n where\n  project.isOSLoginEnabled=false or\n  (project.isOSLoginEnabled=true and instance.isOSLoginEnabled=false)\n  return tree\n "
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "w": 6,
+        "h": 3,
+        "x": 0,
+        "y": 0,
+        "i": "185b3507-c122-4370-916a-4bb4e85ae3dd",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 3,
+        "x": 0,
+        "y": 6,
+        "i": "a5d9dfdc-37c6-407d-add9-a161792e97d3",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 3,
+        "x": 6,
+        "y": 6,
+        "i": "700b1965-0837-4695-82cd-4a54afe933c3",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 3,
+        "x": 0,
+        "y": 9,
+        "i": "ac2a7e17-337d-4ea4-87bb-738d355ae827",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 3,
+        "x": 6,
+        "y": 9,
+        "i": "967440a5-317c-4e29-8402-769d8249bb88",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 12,
+        "h": 3,
+        "x": 0,
+        "y": 3,
+        "i": "5894b912-a370-49bc-9065-4ec19f744bc7",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 3,
+        "x": 6,
+        "y": 0,
+        "i": "49cf2488-6931-4331-b84b-0e041f29c0e9",
+        "moved": false,
+        "static": false
+      }
+    ],
+    "xl": [],
+    "md": [
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "185b3507-c122-4370-916a-4bb4e85ae3dd"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "a5d9dfdc-37c6-407d-add9-a161792e97d3"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 4,
+        "i": "700b1965-0837-4695-82cd-4a54afe933c3"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 6,
+        "i": "ac2a7e17-337d-4ea4-87bb-738d355ae827"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 8,
+        "i": "967440a5-317c-4e29-8402-769d8249bb88"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 10,
+        "i": "5894b912-a370-49bc-9065-4ec19f744bc7"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 12,
+        "i": "49cf2488-6931-4331-b84b-0e041f29c0e9"
+      }
+    ]
+  }
 }

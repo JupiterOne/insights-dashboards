@@ -1,7 +1,7 @@
 {
   "requiredIntegrations": [
     {
-      "type": "azure",
+      "name": "azure",
       "title": "Azure"
     }
   ],
