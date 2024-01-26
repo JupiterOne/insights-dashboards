@@ -6,12 +6,5 @@
       "category": "CLOUD"
     }
   ],
-  "acceptanceCriteria": [
-    {
-      "value": 0,
-      "condition": "GREATER THAN",
-      "query": "FIND * as a WHERE a._integrationType = \"aws\" RETURN count(a)"
-    }
-  ],
   "supportedUseCase": "Show several key configurations, metrics, and graphs related to AWS S3 security."
 }

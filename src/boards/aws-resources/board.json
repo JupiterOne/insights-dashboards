@@ -1,320 +1,327 @@
 {
-	"widgets": [
-		{
-			"id": "3c820d43-e28d-425e-86d3-b293a30c62c2",
-			"title": "Number of Active EC2 Instances by Account",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_instance with active=true as e\nreturn e.tag.AccountName as name, count(e) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "4050384e-1a33-4513-995d-5f75dc1e6301",
-			"title": "Recently terminated EC2 instances by account",
-			"type": "bar",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_instance with state='terminated' as i\nreturn i.tag.AccountName as x, count(i) as y"
-					}
-				]
-			}
-		},
-		{
-			"id": "66aa3102-f4ad-40ee-84c9-d96f380bdb92",
-			"title": "ENI Count by Account",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_eni as e\nreturn e.tag.AccountName as name, count(e) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "d5b27042-3705-4767-ab60-8f31c6dbb989",
-			"title": "Unused ENI Count by Account",
-			"type": "bar",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_eni as e that !USES (Host|Gateway|Function|Database|Cluster|Task)\nreturn e.tag.AccountName as x, count(e) as y"
-					}
-				]
-			}
-		},
-		{
-			"id": "22524980-2755-4c43-b4c2-1f6f2ffbf20e",
-			"title": "Unused EBS volumes by account",
-			"type": "bar",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_ebs_volume as v that !uses aws_instance\nreturn v.tag.AccountName as x, count(v) as y"
-					}
-				]
-			}
-		},
-		{
-			"id": "f4f00eef-f18d-4d4b-8649-5f2fa6908869",
-			"title": "EBS Snapshots shared with another account",
-			"type": "bar",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_ebs_snapshot with shared=true as ebs\nreturn ebs._type as x, count(ebs) as y"
-					}
-				]
-			}
-		},
-		{
-			"id": "14b49323-dc14-4aa5-b3a1-e30fb4340bc7",
-			"title": "EBS Snapshots shared publicly with everyone",
-			"type": "bar",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_ebs_snapshot with public=true as ebs\nreturn count(ebs) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "40cbe45d-7f7c-4bd1-96a5-605874f74589",
-			"title": "Number of S3 buckets by account",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND aws_s3_bucket as bkt\nRETURN\n  bkt.tag.AccountName AS name,\n  count(bkt) AS value"
-					}
-				]
-			}
-		},
-		{
-			"id": "00f29764-7794-44a7-b4fa-f1f61f36e050",
-			"title": "Number of lambda functions by Runtime",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_lambda_function as f\nReturn\n  f.runtime as name,\n  count(f) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "2e019ddb-1fae-40bd-9112-72ef27ea78b6",
-			"title": "Number of lambda functions by VPC",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_lambda_function as f (that HAS aws_subnet)? that (CONTAINS|HAS) aws_vpc as v\nReturn\nv.name as name,\ncount(f) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "8540943a-3979-4ec9-a88e-b991532c4818",
-			"title": "Number of Lambda Functions not connected to a VPC",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_lambda_function with vpcId=undefined or vpcId='' as f\nReturn\nf.tag.AccountName as name,\ncount(f) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "726a0397-100f-411a-86ca-9ae2097c8cbc",
-			"title": "RDS instances count by size",
-			"type": "bar",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find aws_db_instance as i\nreturn i.dbInstanceClass as x, count(i) as y"
-					}
-				]
-			}
-		},
-		{
-			"id": "b7faea97-c0fa-49bd-b0af-085fbe7357aa",
-			"title": "Production RDS instances count by cluster name",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_rds_cluster with tag.Production=true as c \nthat contains aws_db_instance as i\nreturn c.displayName as name, count(i) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "9bd30fc9-9d6a-4bd6-a10d-efd2e30db6a8",
-			"title": "AWS Resources with Unrestricted Access",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find * with _class!='AccessPolicy' \nthat ASSIGNED AccessRole \nthat ASSIGNED AccessPolicy \nthat ALLOWS as rule Account \nwhere rule.permission='FULL_CONTROL'\nreturn tree"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"w": 4,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "3c820d43-e28d-425e-86d3-b293a30c62c2",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 2,
-				"x": 4,
-				"y": 0,
-				"i": "4050384e-1a33-4513-995d-5f75dc1e6301",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "66aa3102-f4ad-40ee-84c9-d96f380bdb92",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 2,
-				"x": 4,
-				"y": 2,
-				"i": "d5b27042-3705-4767-ab60-8f31c6dbb989",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 4,
-				"i": "22524980-2755-4c43-b4c2-1f6f2ffbf20e",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 6,
-				"y": 4,
-				"i": "f4f00eef-f18d-4d4b-8649-5f2fa6908869",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "14b49323-dc14-4aa5-b3a1-e30fb4340bc7",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 8,
-				"y": 6,
-				"i": "40cbe45d-7f7c-4bd1-96a5-605874f74589",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "00f29764-7794-44a7-b4fa-f1f61f36e050",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 4,
-				"y": 8,
-				"i": "2e019ddb-1fae-40bd-9112-72ef27ea78b6",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 8,
-				"y": 8,
-				"i": "8540943a-3979-4ec9-a88e-b991532c4818",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 2,
-				"x": 0,
-				"y": 10,
-				"i": "726a0397-100f-411a-86ca-9ae2097c8cbc",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 8,
-				"y": 10,
-				"i": "b7faea97-c0fa-49bd-b0af-085fbe7357aa",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 12,
-				"i": "9bd30fc9-9d6a-4bd6-a10d-efd2e30db6a8",
-				"moved": false,
-				"static": false
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "requiredIntegrations": [
+    {
+      "type": "aws",
+      "title": "AWS"
+    }
+  ],
+  "supportedUseCase": "This dashboard requires the J1 AWS integration with one or more AWS accounts.",
+  "widgets": [
+    {
+      "id": "3c820d43-e28d-425e-86d3-b293a30c62c2",
+      "title": "Number of Active EC2 Instances by Account",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_instance with active=true as e\nreturn e.tag.AccountName as name, count(e) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4050384e-1a33-4513-995d-5f75dc1e6301",
+      "title": "Recently terminated EC2 instances by account",
+      "type": "bar",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_instance with state='terminated' as i\nreturn i.tag.AccountName as x, count(i) as y"
+          }
+        ]
+      }
+    },
+    {
+      "id": "66aa3102-f4ad-40ee-84c9-d96f380bdb92",
+      "title": "ENI Count by Account",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_eni as e\nreturn e.tag.AccountName as name, count(e) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "d5b27042-3705-4767-ab60-8f31c6dbb989",
+      "title": "Unused ENI Count by Account",
+      "type": "bar",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_eni as e that !USES (Host|Gateway|Function|Database|Cluster|Task)\nreturn e.tag.AccountName as x, count(e) as y"
+          }
+        ]
+      }
+    },
+    {
+      "id": "22524980-2755-4c43-b4c2-1f6f2ffbf20e",
+      "title": "Unused EBS volumes by account",
+      "type": "bar",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_ebs_volume as v that !uses aws_instance\nreturn v.tag.AccountName as x, count(v) as y"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f4f00eef-f18d-4d4b-8649-5f2fa6908869",
+      "title": "EBS Snapshots shared with another account",
+      "type": "bar",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_ebs_snapshot with shared=true as ebs\nreturn ebs._type as x, count(ebs) as y"
+          }
+        ]
+      }
+    },
+    {
+      "id": "14b49323-dc14-4aa5-b3a1-e30fb4340bc7",
+      "title": "EBS Snapshots shared publicly with everyone",
+      "type": "bar",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_ebs_snapshot with public=true as ebs\nreturn count(ebs) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "40cbe45d-7f7c-4bd1-96a5-605874f74589",
+      "title": "Number of S3 buckets by account",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND aws_s3_bucket as bkt\nRETURN\n  bkt.tag.AccountName AS name,\n  count(bkt) AS value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "00f29764-7794-44a7-b4fa-f1f61f36e050",
+      "title": "Number of lambda functions by Runtime",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_lambda_function as f\nReturn\n  f.runtime as name,\n  count(f) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2e019ddb-1fae-40bd-9112-72ef27ea78b6",
+      "title": "Number of lambda functions by VPC",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_lambda_function as f (that HAS aws_subnet)? that (CONTAINS|HAS) aws_vpc as v\nReturn\nv.name as name,\ncount(f) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "8540943a-3979-4ec9-a88e-b991532c4818",
+      "title": "Number of Lambda Functions not connected to a VPC",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_lambda_function with vpcId=undefined or vpcId='' as f\nReturn\nf.tag.AccountName as name,\ncount(f) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "726a0397-100f-411a-86ca-9ae2097c8cbc",
+      "title": "RDS instances count by size",
+      "type": "bar",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find aws_db_instance as i\nreturn i.dbInstanceClass as x, count(i) as y"
+          }
+        ]
+      }
+    },
+    {
+      "id": "b7faea97-c0fa-49bd-b0af-085fbe7357aa",
+      "title": "Production RDS instances count by cluster name",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_rds_cluster with tag.Production=true as c \nthat contains aws_db_instance as i\nreturn c.displayName as name, count(i) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "9bd30fc9-9d6a-4bd6-a10d-efd2e30db6a8",
+      "title": "AWS Resources with Unrestricted Access",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find * with _class!='AccessPolicy' \nthat ASSIGNED AccessRole \nthat ASSIGNED AccessPolicy \nthat ALLOWS as rule Account \nwhere rule.permission='FULL_CONTROL'\nreturn tree"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "w": 4,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "3c820d43-e28d-425e-86d3-b293a30c62c2",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 2,
+        "x": 4,
+        "y": 0,
+        "i": "4050384e-1a33-4513-995d-5f75dc1e6301",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "66aa3102-f4ad-40ee-84c9-d96f380bdb92",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 2,
+        "x": 4,
+        "y": 2,
+        "i": "d5b27042-3705-4767-ab60-8f31c6dbb989",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 4,
+        "i": "22524980-2755-4c43-b4c2-1f6f2ffbf20e",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 6,
+        "y": 4,
+        "i": "f4f00eef-f18d-4d4b-8649-5f2fa6908869",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 2,
+        "x": 0,
+        "y": 6,
+        "i": "14b49323-dc14-4aa5-b3a1-e30fb4340bc7",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 8,
+        "y": 6,
+        "i": "40cbe45d-7f7c-4bd1-96a5-605874f74589",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 0,
+        "y": 8,
+        "i": "00f29764-7794-44a7-b4fa-f1f61f36e050",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 4,
+        "y": 8,
+        "i": "2e019ddb-1fae-40bd-9112-72ef27ea78b6",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 8,
+        "y": 8,
+        "i": "8540943a-3979-4ec9-a88e-b991532c4818",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 2,
+        "x": 0,
+        "y": 10,
+        "i": "726a0397-100f-411a-86ca-9ae2097c8cbc",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 8,
+        "y": 10,
+        "i": "b7faea97-c0fa-49bd-b0af-085fbe7357aa",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 12,
+        "i": "9bd30fc9-9d6a-4bd6-a10d-efd2e30db6a8",
+        "moved": false,
+        "static": false
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }

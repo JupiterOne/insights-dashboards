@@ -1,92 +1,99 @@
 {
-	"widgets": [
-		{
-			"id": "99644fe4-ee6c-4595-96d4-e221b0469a29",
-			"title": "Potential cost of data breach in public-facing and unencrypted data stores",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find Finding with open!=false and hasSensitiveData=true and \n  numericSeverity>5 and extension!='js' and\n  (public=true or encrypted!=true)\nreturn sum(Finding.detectionsCount) * 142 as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThanOrEqualTo",
-							"val1": 1000000
-						},
-						"warning": {
-							"limitCondition": "between",
-							"val2": 999999,
-							"val1": 100000
-						},
-						"currencyFormat": "$"
-					}
-				}
-			}
-		},
-		{
-			"id": "e6b14510-23a8-4de9-a7f5-b50b8b26d606",
-			"title": "Sensitive data that may be publicly accessible or unencrypted",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find unique Finding with open!=false and hasSensitiveData=true \n  and numericSeverity>5 and extension!='js' and\n  (public=true or encrypted!=true)\nreturn \n  Finding._type, Finding.name, Finding.severity, Finding.file, Finding.path,\n  Finding.PII, Finding.PCI, Finding.secret"
-					}
-				]
-			}
-		},
-		{
-			"id": "0341141c-81dd-46e6-bf74-02518b1f190b",
-			"title": "Sensitive data records in public or unencrypted data stores",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find Finding with open!=false and hasSensitiveData=true and \n  numericSeverity>5 and extension!='js' and\n  (public=true or encrypted!=true)\nreturn sum(Finding.detectionsCount) as value"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"static": false,
-				"w": 7,
-				"moved": false,
-				"h": 2,
-				"x": 5,
-				"y": 0,
-				"i": "99644fe4-ee6c-4595-96d4-e221b0469a29"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 5,
-				"x": 0,
-				"y": 2,
-				"i": "e6b14510-23a8-4de9-a7f5-b50b8b26d606"
-			},
-			{
-				"static": false,
-				"w": 5,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "0341141c-81dd-46e6-bf74-02518b1f190b"
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "requiredIntegrations": [
+    {
+      "type": "aws",
+      "title": "AWS Macie"
+    }
+  ],
+  "supportedUseCase": "Shows sensitive data discovery findings from publicly accessible or unencrypted data stores, and use a formula to calculate the potential cost if based on the number of sensitive data records that could be exposed.",
+  "widgets": [
+    {
+      "id": "99644fe4-ee6c-4595-96d4-e221b0469a29",
+      "title": "Potential cost of data breach in public-facing and unencrypted data stores",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find Finding with open!=false and hasSensitiveData=true and \n  numericSeverity>5 and extension!='js' and\n  (public=true or encrypted!=true)\nreturn sum(Finding.detectionsCount) * 142 as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThanOrEqualTo",
+              "val1": 1000000
+            },
+            "warning": {
+              "limitCondition": "between",
+              "val2": 999999,
+              "val1": 100000
+            },
+            "currencyFormat": "$"
+          }
+        }
+      }
+    },
+    {
+      "id": "e6b14510-23a8-4de9-a7f5-b50b8b26d606",
+      "title": "Sensitive data that may be publicly accessible or unencrypted",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find unique Finding with open!=false and hasSensitiveData=true \n  and numericSeverity>5 and extension!='js' and\n  (public=true or encrypted!=true)\nreturn \n  Finding._type, Finding.name, Finding.severity, Finding.file, Finding.path,\n  Finding.PII, Finding.PCI, Finding.secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "0341141c-81dd-46e6-bf74-02518b1f190b",
+      "title": "Sensitive data records in public or unencrypted data stores",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find Finding with open!=false and hasSensitiveData=true and \n  numericSeverity>5 and extension!='js' and\n  (public=true or encrypted!=true)\nreturn sum(Finding.detectionsCount) as value"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 7,
+        "moved": false,
+        "h": 2,
+        "x": 5,
+        "y": 0,
+        "i": "99644fe4-ee6c-4595-96d4-e221b0469a29"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 5,
+        "x": 0,
+        "y": 2,
+        "i": "e6b14510-23a8-4de9-a7f5-b50b8b26d606"
+      },
+      {
+        "static": false,
+        "w": 5,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "0341141c-81dd-46e6-bf74-02518b1f190b"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }

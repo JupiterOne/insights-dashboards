@@ -1,195 +1,222 @@
 {
-	"widgets": [
-		{
-			"id": "5c49bc63-eb74-4fc3-87cf-4a453dfd80e9",
-			"title": "Number of data stores by account",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "FIND DataStore AS ds\n        RETURN\n        ds.tag.AccountName as name,\n        count(ds) AS value"
-					}
-				]
-			}
-		},
-		{
-			"id": "e9faca7f-a237-4b21-8ec4-184b25c077f7",
-			"title": "Unclassified data stores by account",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "Find DataStore with classification=undefined as ds\n        return\n          ds.tag.AccountName as name,\n          count(ds) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "e933256a-2a69-46d1-82c4-4f0e1743fa18",
-			"title": "Unencrypted data stores by type",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "Find DataStore with encrypted!=true as ds\n        return\n        ds._type as name,\n        count(ds) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "3d167e1b-1999-4f37-b312-ddca51f00383",
-			"title": "Unencrypted data stores by account",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "Find DataStore with encrypted!=true as ds\n        return\n          ds.tag.AccountName as name,\n          count(ds) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "3d81394c-7773-4b8e-87d7-3d909595cfda",
-			"title": "Non-public data stores with public access",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "Find DataStore with (classification!='public' or classification=undefined) as ds\n  that ALLOWS everyone\nreturn ds._type, ds.name, ds.tag.AccountName, ds.encrypted, ds.createdOn, ds.webLink"
-					}
-				]
-			}
-		},
-		{
-			"id": "7a4c72e0-57c5-4fd9-ae04-bffa7b220b34",
-			"title": "Unencrypted Data Stores in Production",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find DataStore with encrypted!=true and tag.Production=true as ds\nreturn\n  count(ds) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
-			}
-		}
-	],
-	"layouts": {
-		"sm": [
-			{
-				"x": 0,
-				"h": 2,
-				"i": "5c49bc63-eb74-4fc3-87cf-4a453dfd80e9",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "e9faca7f-a237-4b21-8ec4-184b25c077f7",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "e933256a-2a69-46d1-82c4-4f0e1743fa18",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "3d167e1b-1999-4f37-b312-ddca51f00383",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "3d81394c-7773-4b8e-87d7-3d909595cfda",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "7a4c72e0-57c5-4fd9-ae04-bffa7b220b34",
-				"y": 1000000000000,
-				"w": 2
-			}
-		],
-		"xs": [],
-		"lg": [
-			{
-				"w": 3,
-				"h": 3,
-				"x": 0,
-				"y": 0,
-				"i": "5c49bc63-eb74-4fc3-87cf-4a453dfd80e9",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 3,
-				"h": 3,
-				"x": 3,
-				"y": 0,
-				"i": "e9faca7f-a237-4b21-8ec4-184b25c077f7",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 3,
-				"h": 3,
-				"x": 9,
-				"y": 0,
-				"i": "e933256a-2a69-46d1-82c4-4f0e1743fa18",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 3,
-				"h": 3,
-				"x": 6,
-				"y": 0,
-				"i": "3d167e1b-1999-4f37-b312-ddca51f00383",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 9,
-				"h": 2,
-				"x": 3,
-				"y": 3,
-				"i": "3d81394c-7773-4b8e-87d7-3d909595cfda",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 3,
-				"h": 2,
-				"x": 0,
-				"y": 3,
-				"i": "7a4c72e0-57c5-4fd9-ae04-bffa7b220b34",
-				"moved": false,
-				"static": false
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "requiredIntegrations": [
+    {
+      "name": "github",
+      "title": "GitHub"
+    },
+    {
+      "name": "gitlab",
+      "title": "Gitlab"
+    },
+    {
+      "name": "bitbucket",
+      "title": "Bitbucket"
+    },
+    {
+      "name": "okta",
+      "title": "Okta"
+    },
+    {
+      "name": "google",
+      "title": "Google SSO"
+    },
+    {
+      "name": "azure",
+      "title": "Azure Active Directory"
+    }
+  ],
+  "supportedUseCase": "Stringified markdown here",
+  "widgets": [
+    {
+      "id": "5c49bc63-eb74-4fc3-87cf-4a453dfd80e9",
+      "title": "Number of data stores by account",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "FIND DataStore AS ds\n        RETURN\n        ds.tag.AccountName as name,\n        count(ds) AS value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e9faca7f-a237-4b21-8ec4-184b25c077f7",
+      "title": "Unclassified data stores by account",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "Find DataStore with classification=undefined as ds\n        return\n          ds.tag.AccountName as name,\n          count(ds) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e933256a-2a69-46d1-82c4-4f0e1743fa18",
+      "title": "Unencrypted data stores by type",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "Find DataStore with encrypted!=true as ds\n        return\n        ds._type as name,\n        count(ds) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "3d167e1b-1999-4f37-b312-ddca51f00383",
+      "title": "Unencrypted data stores by account",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "Find DataStore with encrypted!=true as ds\n        return\n          ds.tag.AccountName as name,\n          count(ds) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "3d81394c-7773-4b8e-87d7-3d909595cfda",
+      "title": "Non-public data stores with public access",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "Find DataStore with (classification!='public' or classification=undefined) as ds\n  that ALLOWS everyone\nreturn ds._type, ds.name, ds.tag.AccountName, ds.encrypted, ds.createdOn, ds.webLink"
+          }
+        ]
+      }
+    },
+    {
+      "id": "7a4c72e0-57c5-4fd9-ae04-bffa7b220b34",
+      "title": "Unencrypted Data Stores in Production",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find DataStore with encrypted!=true and tag.Production=true as ds\nreturn\n  count(ds) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            }
+          }
+        }
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [
+      {
+        "x": 0,
+        "h": 2,
+        "i": "5c49bc63-eb74-4fc3-87cf-4a453dfd80e9",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "e9faca7f-a237-4b21-8ec4-184b25c077f7",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "e933256a-2a69-46d1-82c4-4f0e1743fa18",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "3d167e1b-1999-4f37-b312-ddca51f00383",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "3d81394c-7773-4b8e-87d7-3d909595cfda",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "7a4c72e0-57c5-4fd9-ae04-bffa7b220b34",
+        "y": 1000000000000,
+        "w": 2
+      }
+    ],
+    "xs": [],
+    "lg": [
+      {
+        "w": 3,
+        "h": 3,
+        "x": 0,
+        "y": 0,
+        "i": "5c49bc63-eb74-4fc3-87cf-4a453dfd80e9",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 3,
+        "h": 3,
+        "x": 3,
+        "y": 0,
+        "i": "e9faca7f-a237-4b21-8ec4-184b25c077f7",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 3,
+        "h": 3,
+        "x": 9,
+        "y": 0,
+        "i": "e933256a-2a69-46d1-82c4-4f0e1743fa18",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 3,
+        "h": 3,
+        "x": 6,
+        "y": 0,
+        "i": "3d167e1b-1999-4f37-b312-ddca51f00383",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 9,
+        "h": 2,
+        "x": 3,
+        "y": 3,
+        "i": "3d81394c-7773-4b8e-87d7-3d909595cfda",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 3,
+        "h": 2,
+        "x": 0,
+        "y": 3,
+        "i": "7a4c72e0-57c5-4fd9-ae04-bffa7b220b34",
+        "moved": false,
+        "static": false
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }
