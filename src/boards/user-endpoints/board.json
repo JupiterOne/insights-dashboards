@@ -1,218 +1,228 @@
 {
-	"widgets": [
-		{
-			"id": "1f5f820d-62f7-4ba0-9f67-6d4e0b1d1655",
-			"title": "Endpoint agent protection status",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "Find HostAgent with active=true as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.active as name,\n  count(agent) as value"
-					},
-					{
-						"name": "query1",
-						"query": "Find HostAgent with active=false as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.active as name,\n  count(agent) as value"
-					},
-					{
-						"name": "query2",
-						"query": "Find HostAgent with active=undefined as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.active as name,\n  count(agent) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "7b0471f0-da35-4912-9693-06454f19a8cc",
-			"title": "Number of users without an assigned device",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "Find Person as p that !owns Device return count(p) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "61af2ebc-3740-4d14-bf06-62969ffba8b2",
-			"title": "User Devices by Location",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find HostAgent as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.lastLocation as name,\n  count(agent) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "6f0f97fa-26dd-4c6b-a7e8-d592d1bacb44",
-			"title": "User Devices by OS",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find (user_endpoint|workstation|laptop|desktop|computer|smartphone|tablet) as d\nreturn\n  d.osName as name,\n  count(d) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "4a2a3a34-9b1d-4cf6-809c-c15af2d0d50f",
-			"title": "Devices not seen for >7 days",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find HostAgent with lastReportedTime < date.now - 7days as d\n  that (monitors|manages|protects) (Host|Device)\nReturn \n  d.displayName as device, \n  d.lastReportedTime as lastSeenOn, \n  d.email as owner"
-					}
-				]
-			}
-		},
-		{
-			"id": "611be95d-bb3d-481a-9e6d-08e47cbd62c4",
-			"title": "User Devices by OS and Version",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find (user_endpoint|workstation|laptop|desktop|computer|smartphone|tablet) as d\nreturn\n  d.osName as osName,\n  d.osVersion as osVersion,\n  count(d) as deviceCount"
-					}
-				]
-			}
-		},
-		{
-			"id": "1ba1ea9c-29f0-40dc-97e5-c8c3750c5302",
-			"title": "Endpoint Encryption Status",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find (user_endpoint|workstation|laptop|desktop|computer|smartphone|tablet) as d\nreturn d.encrypted as name, count(d) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "4722e8b5-748d-4e74-b856-0e9d79d7409d",
-			"title": "Number of users with Google Chrome installed, by version",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND User\nTHAT HAS Device\nTHAT (INSTALLED|ASSIGNED) Application\n  WITH displayName ~= ('Chrome' or 'Chromium') as a\nRETURN COUNT(User) as value, a.version as name"
-					}
-				]
-			}
-		},
-		{
-			"id": "8358b11d-e8f5-4946-9fb2-79f6d0f87aae",
-			"title": "Devices with Google Chrome installed, by version",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND User as user\nTHAT HAS Device as device\nTHAT (INSTALLED|ASSIGNED) Application\n  WITH displayName ~= ('Chrome' or 'Chromium') as a\nRETURN \n  user.displayName,\n  user.email,\n  device.serialNumber,\n  a.version as chromeVersion"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"w": 4,
-				"h": 2,
-				"x": 4,
-				"y": 4,
-				"i": "1f5f820d-62f7-4ba0-9f67-6d4e0b1d1655",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "7b0471f0-da35-4912-9693-06454f19a8cc",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 0,
-				"y": 4,
-				"i": "61af2ebc-3740-4d14-bf06-62969ffba8b2",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "6f0f97fa-26dd-4c6b-a7e8-d592d1bacb44",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 2,
-				"x": 4,
-				"y": 0,
-				"i": "4a2a3a34-9b1d-4cf6-809c-c15af2d0d50f",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 2,
-				"x": 4,
-				"y": 2,
-				"i": "611be95d-bb3d-481a-9e6d-08e47cbd62c4",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 8,
-				"y": 4,
-				"i": "1ba1ea9c-29f0-40dc-97e5-c8c3750c5302",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 3,
-				"x": 0,
-				"y": 6,
-				"i": "4722e8b5-748d-4e74-b856-0e9d79d7409d",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 3,
-				"x": 6,
-				"y": 6,
-				"i": "8358b11d-e8f5-4946-9fb2-79f6d0f87aae",
-				"moved": false,
-				"static": false
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "device",
+        "title": "Device Integration",
+        "category": "Device Management"
+      }
+    ],
+    "supportedUseCase": "Shows key metrics and status associated with user endpoints/devices and endpoint security agents."
+  },
+  "widgets": [
+    {
+      "id": "1f5f820d-62f7-4ba0-9f67-6d4e0b1d1655",
+      "title": "Endpoint agent protection status",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "Find HostAgent with active=true as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.active as name,\n  count(agent) as value"
+          },
+          {
+            "name": "query1",
+            "query": "Find HostAgent with active=false as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.active as name,\n  count(agent) as value"
+          },
+          {
+            "name": "query2",
+            "query": "Find HostAgent with active=undefined as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.active as name,\n  count(agent) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "7b0471f0-da35-4912-9693-06454f19a8cc",
+      "title": "Number of users without an assigned device",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "Find Person as p that !owns Device return count(p) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "61af2ebc-3740-4d14-bf06-62969ffba8b2",
+      "title": "User Devices by Location",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find HostAgent as agent\n  that (monitors|manages|protects) (Host|Device)\nreturn\n  agent.lastLocation as name,\n  count(agent) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "6f0f97fa-26dd-4c6b-a7e8-d592d1bacb44",
+      "title": "User Devices by OS",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find (user_endpoint|workstation|laptop|desktop|computer|smartphone|tablet) as d\nreturn\n  d.osName as name,\n  count(d) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4a2a3a34-9b1d-4cf6-809c-c15af2d0d50f",
+      "title": "Devices not seen for >7 days",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find HostAgent with lastReportedTime < date.now - 7days as d\n  that (monitors|manages|protects) (Host|Device)\nReturn \n  d.displayName as device, \n  d.lastReportedTime as lastSeenOn, \n  d.email as owner"
+          }
+        ]
+      }
+    },
+    {
+      "id": "611be95d-bb3d-481a-9e6d-08e47cbd62c4",
+      "title": "User Devices by OS and Version",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find (user_endpoint|workstation|laptop|desktop|computer|smartphone|tablet) as d\nreturn\n  d.osName as osName,\n  d.osVersion as osVersion,\n  count(d) as deviceCount"
+          }
+        ]
+      }
+    },
+    {
+      "id": "1ba1ea9c-29f0-40dc-97e5-c8c3750c5302",
+      "title": "Endpoint Encryption Status",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find (user_endpoint|workstation|laptop|desktop|computer|smartphone|tablet) as d\nreturn d.encrypted as name, count(d) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4722e8b5-748d-4e74-b856-0e9d79d7409d",
+      "title": "Number of users with Google Chrome installed, by version",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND User\nTHAT HAS Device\nTHAT (INSTALLED|ASSIGNED) Application\n  WITH displayName ~= ('Chrome' or 'Chromium') as a\nRETURN COUNT(User) as value, a.version as name"
+          }
+        ]
+      }
+    },
+    {
+      "id": "8358b11d-e8f5-4946-9fb2-79f6d0f87aae",
+      "title": "Devices with Google Chrome installed, by version",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND User as user\nTHAT HAS Device as device\nTHAT (INSTALLED|ASSIGNED) Application\n  WITH displayName ~= ('Chrome' or 'Chromium') as a\nRETURN \n  user.displayName,\n  user.email,\n  device.serialNumber,\n  a.version as chromeVersion"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "w": 4,
+        "h": 2,
+        "x": 4,
+        "y": 4,
+        "i": "1f5f820d-62f7-4ba0-9f67-6d4e0b1d1655",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "7b0471f0-da35-4912-9693-06454f19a8cc",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 0,
+        "y": 4,
+        "i": "61af2ebc-3740-4d14-bf06-62969ffba8b2",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "6f0f97fa-26dd-4c6b-a7e8-d592d1bacb44",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 2,
+        "x": 4,
+        "y": 0,
+        "i": "4a2a3a34-9b1d-4cf6-809c-c15af2d0d50f",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 2,
+        "x": 4,
+        "y": 2,
+        "i": "611be95d-bb3d-481a-9e6d-08e47cbd62c4",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 8,
+        "y": 4,
+        "i": "1ba1ea9c-29f0-40dc-97e5-c8c3750c5302",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 3,
+        "x": 0,
+        "y": 6,
+        "i": "4722e8b5-748d-4e74-b856-0e9d79d7409d",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 3,
+        "x": 6,
+        "y": 6,
+        "i": "8358b11d-e8f5-4946-9fb2-79f6d0f87aae",
+        "moved": false,
+        "static": false
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }

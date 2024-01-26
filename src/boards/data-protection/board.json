@@ -22,7 +22,7 @@
     },
     {
       "name": "azure",
-      "title": "Azure Active Directory"
+      "title": "Azure AD"
     }
   ],
   "supportedUseCase": "Stringified markdown here",
