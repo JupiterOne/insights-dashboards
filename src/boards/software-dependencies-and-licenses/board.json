@@ -1,174 +1,197 @@
 {
-	"widgets": [
-		{
-			"id": "6e65ec84-3f81-49bb-8663-84a7019461f8",
-			"title": "All Licenses by Package",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find UNIQUE CodeRepo \nTHAT USES npm_package AS p \nRETURN p.name as Package, p.license as License, count(CodeRepo) as UsageCount\nORDER BY p.license ASC"
-					}
-				]
-			}
-		},
-		{
-			"id": "34840786-08c5-435a-b259-1da611a60143",
-			"title": "Unique Licenses Used by Direct Dependencies",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND UNIQUE CodeRepo \nTHAT USES npm_package with license != 'unset' and license != 'UNLICENSED' as p \nreturn p.license as License\nORDER BY p.license ASC"
-					}
-				]
-			}
-		},
-		{
-			"id": "f5228a40-396f-4c3e-ad1e-799e16445e20",
-			"title": "Total Unique Production NPM Dependencies",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find UNIQUE CodeRepo THAT USES as u npm_package AS p WHERE u.devDependency != true RETURN COUNT(p) AS value"
-					}
-				]
-			}
-		},
-		{
-			"id": "18484870-a5ba-4df4-b8a1-511c6d1e4d4f",
-			"title": "License Usage",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND CodeRepo \nTHAT USES as u npm_package as p \nWHERE u.devDependency != true\nRETURN p.license as name, count(p) as value"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [
-			{
-				"static": false,
-				"w": 1,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "6e65ec84-3f81-49bb-8663-84a7019461f8"
-			},
-			{
-				"static": false,
-				"w": 1,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "34840786-08c5-435a-b259-1da611a60143"
-			},
-			{
-				"static": false,
-				"w": 1,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 4,
-				"i": "f5228a40-396f-4c3e-ad1e-799e16445e20"
-			},
-			{
-				"static": false,
-				"w": 1,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "18484870-a5ba-4df4-b8a1-511c6d1e4d4f"
-			}
-		],
-		"lg": [
-			{
-				"static": false,
-				"w": 4,
-				"moved": false,
-				"h": 7,
-				"x": 4,
-				"y": 0,
-				"i": "6e65ec84-3f81-49bb-8663-84a7019461f8"
-			},
-			{
-				"static": false,
-				"w": 4,
-				"moved": false,
-				"h": 7,
-				"x": 8,
-				"y": 0,
-				"i": "34840786-08c5-435a-b259-1da611a60143"
-			},
-			{
-				"static": false,
-				"w": 4,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "f5228a40-396f-4c3e-ad1e-799e16445e20"
-			},
-			{
-				"static": false,
-				"w": 4,
-				"moved": false,
-				"h": 5,
-				"x": 0,
-				"y": 2,
-				"i": "18484870-a5ba-4df4-b8a1-511c6d1e4d4f"
-			}
-		],
-		"xl": [],
-		"md": [
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "6e65ec84-3f81-49bb-8663-84a7019461f8"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "34840786-08c5-435a-b259-1da611a60143"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 4,
-				"i": "f5228a40-396f-4c3e-ad1e-799e16445e20"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "18484870-a5ba-4df4-b8a1-511c6d1e4d4f"
-			}
-		]
-	}
+  "requiredIntegrations": [
+    {
+      "name": "github",
+      "title": "GitHub"
+    },
+    {
+      "name": "gitlab",
+      "title": "Gitlab"
+    },
+    {
+      "name": "bitbucket",
+      "title": "Bitbucket"
+    },
+    {
+      "name": "npm",
+      "title": "NPM"
+    },
+    {
+      "name": "artifactory",
+      "title": "Artifactory"
+    }
+  ],
+  "supportedUseCase": "Shows a dynamically updating report of package dependencies in the software code repos and their corresponding licenses, which is helpful to produce an open-source report for auditing.\n\nThe dashboard can be shared with an auditor/customer/partner by generating a unique shareable link (similar to sharing a Google Doc).",
+  "widgets": [
+    {
+      "id": "6e65ec84-3f81-49bb-8663-84a7019461f8",
+      "title": "All Licenses by Package",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find UNIQUE CodeRepo \nTHAT USES npm_package AS p \nRETURN p.name as Package, p.license as License, count(CodeRepo) as UsageCount\nORDER BY p.license ASC"
+          }
+        ]
+      }
+    },
+    {
+      "id": "34840786-08c5-435a-b259-1da611a60143",
+      "title": "Unique Licenses Used by Direct Dependencies",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND UNIQUE CodeRepo \nTHAT USES npm_package with license != 'unset' and license != 'UNLICENSED' as p \nreturn p.license as License\nORDER BY p.license ASC"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f5228a40-396f-4c3e-ad1e-799e16445e20",
+      "title": "Total Unique Production NPM Dependencies",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find UNIQUE CodeRepo THAT USES as u npm_package AS p WHERE u.devDependency != true RETURN COUNT(p) AS value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "18484870-a5ba-4df4-b8a1-511c6d1e4d4f",
+      "title": "License Usage",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND CodeRepo \nTHAT USES as u npm_package as p \nWHERE u.devDependency != true\nRETURN p.license as name, count(p) as value"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [
+      {
+        "static": false,
+        "w": 1,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "6e65ec84-3f81-49bb-8663-84a7019461f8"
+      },
+      {
+        "static": false,
+        "w": 1,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "34840786-08c5-435a-b259-1da611a60143"
+      },
+      {
+        "static": false,
+        "w": 1,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 4,
+        "i": "f5228a40-396f-4c3e-ad1e-799e16445e20"
+      },
+      {
+        "static": false,
+        "w": 1,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 6,
+        "i": "18484870-a5ba-4df4-b8a1-511c6d1e4d4f"
+      }
+    ],
+    "lg": [
+      {
+        "static": false,
+        "w": 4,
+        "moved": false,
+        "h": 7,
+        "x": 4,
+        "y": 0,
+        "i": "6e65ec84-3f81-49bb-8663-84a7019461f8"
+      },
+      {
+        "static": false,
+        "w": 4,
+        "moved": false,
+        "h": 7,
+        "x": 8,
+        "y": 0,
+        "i": "34840786-08c5-435a-b259-1da611a60143"
+      },
+      {
+        "static": false,
+        "w": 4,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "f5228a40-396f-4c3e-ad1e-799e16445e20"
+      },
+      {
+        "static": false,
+        "w": 4,
+        "moved": false,
+        "h": 5,
+        "x": 0,
+        "y": 2,
+        "i": "18484870-a5ba-4df4-b8a1-511c6d1e4d4f"
+      }
+    ],
+    "xl": [],
+    "md": [
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "6e65ec84-3f81-49bb-8663-84a7019461f8"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "34840786-08c5-435a-b259-1da611a60143"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 4,
+        "i": "f5228a40-396f-4c3e-ad1e-799e16445e20"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 6,
+        "i": "18484870-a5ba-4df4-b8a1-511c6d1e4d4f"
+      }
+    ]
+  }
 }

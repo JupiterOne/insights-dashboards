@@ -1,163 +1,186 @@
 {
-	"widgets": [
-		{
-			"id": "e06623f1-8c59-43cd-ae78-4df47edfe31b",
-			"title": "Number of Code Repos by Project",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "FIND CodeRepo AS repo that (has|owns) (Project|Account) as p\n        RETURN\n        p.name as name,\n        count(repo) AS value"
-					}
-				]
-			}
-		},
-		{
-			"id": "e1dc29f2-4de1-4ae7-8adf-75e9bf6dff4c",
-			"title": "PRs containing self-approved commits that merged last month",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "Find PR with\n    approved=false and merged=true and updatedOn > date.now-30days as pr\nreturn count(pr) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"warning": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "9ee0574f-ba9d-40af-b967-f7b16e260ce7",
-			"title": "Top Open PRs by Developer",
-			"type": "bar",
-			"config": {
-				"settings": {
-					"view": "bar"
-				},
-				"queries": [
-					{
-						"name": "query0",
-						"query": "FIND Person AS p\n  THAT IS User AS u\n  THAT opened PR WITH state='OPEN' AS pr\nRETURN\n  p.displayName AS x,\n  count(pr) AS y\nORDER BY y DESC\nLIMIT 10"
-					}
-				]
-			}
-		},
-		{
-			"id": "a5695fd3-930a-4aa3-a242-e8cae8b31fd7",
-			"title": "PRs containing commits from unvalidated developers last month",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find PR with\n    validated=false and updatedOn > date.now-30days as pr\nreturn count(pr) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "c5c83cbf-8b08-41ea-b479-5ea751bacb21",
-			"title": "PRs containing self-approved commits that merged last month",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find PR with\n    approved=false and merged=true and updatedOn > date.now-30days"
-					}
-				]
-			}
-		},
-		{
-			"id": "afa6db8f-225f-41a2-b378-0a0e61ef0b99",
-			"title": "PRs containing commits from unvalidated developers last month",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find PR with\n    validated=false and updatedOn > date.now-30days"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"w": 4,
-				"h": 3,
-				"x": 0,
-				"y": 0,
-				"i": "e06623f1-8c59-43cd-ae78-4df47edfe31b",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 3,
-				"x": 0,
-				"y": 3,
-				"i": "e1dc29f2-4de1-4ae7-8adf-75e9bf6dff4c",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 3,
-				"x": 4,
-				"y": 0,
-				"i": "9ee0574f-ba9d-40af-b967-f7b16e260ce7",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 3,
-				"x": 0,
-				"y": 6,
-				"i": "a5695fd3-930a-4aa3-a242-e8cae8b31fd7",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 3,
-				"x": 4,
-				"y": 3,
-				"i": "c5c83cbf-8b08-41ea-b479-5ea751bacb21",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 3,
-				"x": 4,
-				"y": 6,
-				"i": "afa6db8f-225f-41a2-b378-0a0e61ef0b99",
-				"moved": false,
-				"static": false
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "requiredIntegrations": [
+    {
+      "name": "github",
+      "title": "GitHub"
+    },
+    {
+      "name": "gitlab",
+      "title": "Gitlab"
+    },
+    {
+      "name": "bitbucket",
+      "title": "Bitbucket"
+    },
+    {
+      "name": "npm",
+      "title": "NPM"
+    },
+    {
+      "name": "artifactory",
+      "title": "Artifactory"
+    }
+  ],
+  "supportedUseCase": "Shows a dynamically updating report of package dependencies in the software code repos and their corresponding licenses, which is helpful to produce an open-source report for auditing.\n\nThe dashboard can be shared with an auditor/customer/partner by generating a unique shareable link (similar to sharing a Google Doc).",
+  "widgets": [
+    {
+      "id": "e06623f1-8c59-43cd-ae78-4df47edfe31b",
+      "title": "Number of Code Repos by Project",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "FIND CodeRepo AS repo that (has|owns) (Project|Account) as p\n        RETURN\n        p.name as name,\n        count(repo) AS value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e1dc29f2-4de1-4ae7-8adf-75e9bf6dff4c",
+      "title": "PRs containing self-approved commits that merged last month",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "Find PR with\n    approved=false and merged=true and updatedOn > date.now-30days as pr\nreturn count(pr) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "9ee0574f-ba9d-40af-b967-f7b16e260ce7",
+      "title": "Top Open PRs by Developer",
+      "type": "bar",
+      "config": {
+        "settings": {
+          "view": "bar"
+        },
+        "queries": [
+          {
+            "name": "query0",
+            "query": "FIND Person AS p\n  THAT IS User AS u\n  THAT opened PR WITH state='OPEN' AS pr\nRETURN\n  p.displayName AS x,\n  count(pr) AS y\nORDER BY y DESC\nLIMIT 10"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a5695fd3-930a-4aa3-a242-e8cae8b31fd7",
+      "title": "PRs containing commits from unvalidated developers last month",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find PR with\n    validated=false and updatedOn > date.now-30days as pr\nreturn count(pr) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "c5c83cbf-8b08-41ea-b479-5ea751bacb21",
+      "title": "PRs containing self-approved commits that merged last month",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find PR with\n    approved=false and merged=true and updatedOn > date.now-30days"
+          }
+        ]
+      }
+    },
+    {
+      "id": "afa6db8f-225f-41a2-b378-0a0e61ef0b99",
+      "title": "PRs containing commits from unvalidated developers last month",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find PR with\n    validated=false and updatedOn > date.now-30days"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "w": 4,
+        "h": 3,
+        "x": 0,
+        "y": 0,
+        "i": "e06623f1-8c59-43cd-ae78-4df47edfe31b",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 3,
+        "x": 0,
+        "y": 3,
+        "i": "e1dc29f2-4de1-4ae7-8adf-75e9bf6dff4c",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 3,
+        "x": 4,
+        "y": 0,
+        "i": "9ee0574f-ba9d-40af-b967-f7b16e260ce7",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 3,
+        "x": 0,
+        "y": 6,
+        "i": "a5695fd3-930a-4aa3-a242-e8cae8b31fd7",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 3,
+        "x": 4,
+        "y": 3,
+        "i": "c5c83cbf-8b08-41ea-b479-5ea751bacb21",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 3,
+        "x": 4,
+        "y": 6,
+        "i": "afa6db8f-225f-41a2-b378-0a0e61ef0b99",
+        "moved": false,
+        "static": false
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }
