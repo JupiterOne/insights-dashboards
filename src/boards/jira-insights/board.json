@@ -1,11 +1,13 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "jira",
-      "title": "JIRA"
-    }
-  ],
-  "supportedUseCase": "Shows detailed information on Jira accounts, reporting on users, issues, and remediations.",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "jira",
+        "title": "JIRA"
+      }
+    ],
+    "supportedUseCase": "Shows detailed information on Jira accounts, reporting on users, issues, and remediations."
+  },
   "widgets": [
     {
       "id": "8f1c891a-1560-40c8-9273-99fbbdecaa2b",

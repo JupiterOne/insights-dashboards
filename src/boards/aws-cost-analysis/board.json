@@ -1,11 +1,13 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "aws",
-      "title": "AWS"
-    }
-  ],
-  "supportedUseCase": "Uses helpful queries for identifying resources that can result in increasing costs and attack surface within your AWS environment.",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "aws",
+        "title": "AWS"
+      }
+    ],
+    "supportedUseCase": "Uses helpful queries for identifying resources that can result in increasing costs and attack surface within your AWS environment."
+  },
   "widgets": [
     {
       "id": "be41230a-7b3f-4ca9-9d7b-2347b20c08a8",

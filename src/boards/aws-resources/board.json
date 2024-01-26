@@ -1,11 +1,13 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "aws",
-      "title": "AWS"
-    }
-  ],
-  "supportedUseCase": "This dashboard requires the J1 AWS integration with one or more AWS accounts.",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "aws",
+        "title": "AWS"
+      }
+    ],
+    "supportedUseCase": "This dashboard requires the J1 AWS integration with one or more AWS accounts."
+  },
   "widgets": [
     {
       "id": "3c820d43-e28d-425e-86d3-b293a30c62c2",

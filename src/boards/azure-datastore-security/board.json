@@ -1,11 +1,13 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "azure",
-      "title": "Azure"
-    }
-  ],
-  "supportedUseCase": "Shows Azure container resources and encryption settings as well as logging options set on containers.",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "azure",
+        "title": "Azure"
+      }
+    ],
+    "supportedUseCase": "Shows Azure container resources and encryption settings as well as logging options set on containers."
+  },
   "widgets": [
     {
       "id": "2077bd40-6374-4f0e-8ce2-cdbe325ac23d",

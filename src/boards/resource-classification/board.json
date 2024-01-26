@@ -1,11 +1,13 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "jira",
-      "title": "JIRA"
-    }
-  ],
-  "supportedUseCase": "Shows counts of documented risks from risk assessments based on their current status, and a listing of currently open risks.",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "jira",
+        "title": "JIRA"
+      }
+    ],
+    "supportedUseCase": "Shows counts of documented risks from risk assessments based on their current status, and a listing of currently open risks."
+  },
   "widgets": [
     {
       "id": "5b9f79e7-e7ab-4c3f-8e94-516e0b78fe3b",

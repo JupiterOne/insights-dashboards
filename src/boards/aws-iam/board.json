@@ -1,11 +1,13 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "aws",
-      "title": "AWS"
-    }
-  ],
-  "supportedUseCase": "Shows AWS IAM Groups, Users, Roles, and important access policy assignments.",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "aws",
+        "title": "AWS"
+      }
+    ],
+    "supportedUseCase": "Shows AWS IAM Groups, Users, Roles, and important access policy assignments."
+  },
   "widgets": [
     {
       "id": "65c89401-0046-458d-83c2-e0088cd84b52",

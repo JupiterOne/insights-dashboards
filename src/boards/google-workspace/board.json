@@ -1,11 +1,13 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "google",
-      "title": "Google Workspace"
-    }
-  ],
-  "supportedUseCase": "Stringified markdown here",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "google",
+        "title": "Google Workspace"
+      }
+    ],
+    "supportedUseCase": "Shows various counts of both admin and non-admin users, third-party OAuth tokens and non-active super-admins. Additional widgets allow for Chrome version insight as well as notification of outdated/vulnerable versions of Chrome (adjust query as-needed)."
+  },
   "widgets": [
     {
       "id": "94f3a582-3588-435f-aaa8-c73c47338f08",

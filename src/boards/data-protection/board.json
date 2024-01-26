@@ -1,31 +1,33 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "github",
-      "title": "GitHub"
-    },
-    {
-      "name": "gitlab",
-      "title": "Gitlab"
-    },
-    {
-      "name": "bitbucket",
-      "title": "Bitbucket"
-    },
-    {
-      "name": "okta",
-      "title": "Okta"
-    },
-    {
-      "name": "google",
-      "title": "Google SSO"
-    },
-    {
-      "name": "azure",
-      "title": "Azure AD"
-    }
-  ],
-  "supportedUseCase": "Stringified markdown here",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "github",
+        "title": "GitHub"
+      },
+      {
+        "name": "gitlab",
+        "title": "Gitlab"
+      },
+      {
+        "name": "bitbucket",
+        "title": "Bitbucket"
+      },
+      {
+        "name": "okta",
+        "title": "Okta"
+      },
+      {
+        "name": "google",
+        "title": "Google SSO"
+      },
+      {
+        "name": "azure",
+        "title": "Azure AD"
+      }
+    ],
+    "supportedUseCase": "Stringified markdown here"
+  },
   "widgets": [
     {
       "id": "5c49bc63-eb74-4fc3-87cf-4a453dfd80e9",

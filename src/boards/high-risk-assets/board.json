@@ -1,19 +1,21 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "aws",
-      "title": "AWS"
-    },
-    {
-      "name": "azure",
-      "title": "Azure"
-    },
-    {
-      "name": "google_cloud",
-      "title": "Google Cloud"
-    }
-  ],
-  "supportedUseCase": "Shows vulnerability findings associated with production and internet-facing systems, non-public data stores with public access, and public data stores containing sensitive data.",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "aws",
+        "title": "AWS"
+      },
+      {
+        "name": "azure",
+        "title": "Azure"
+      },
+      {
+        "name": "google_cloud",
+        "title": "Google Cloud"
+      }
+    ],
+    "supportedUseCase": "Shows vulnerability findings associated with production and internet-facing systems, non-public data stores with public access, and public data stores containing sensitive data."
+  },
   "widgets": [
     {
       "id": "9955cba1-0504-4002-b403-cdc434f9f2a8",

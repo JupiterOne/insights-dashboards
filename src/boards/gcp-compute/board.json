@@ -1,11 +1,13 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "google_cloud",
-      "title": "Google Cloud"
-    }
-  ],
-  "supportedUseCase": "Shows important configurations related to GCP Compute Projects and Instances.",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "google_cloud",
+        "title": "Google Cloud"
+      }
+    ],
+    "supportedUseCase": "Shows important configurations related to GCP Compute Projects and Instances."
+  },
   "widgets": [
     {
       "id": "185b3507-c122-4370-916a-4bb4e85ae3dd",

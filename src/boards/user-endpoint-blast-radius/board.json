@@ -1,12 +1,14 @@
 {
-  "requiredIntegrations": [
-    {
-      "name": "device",
-      "title": "Device Integration",
-      "category": "Device Management"
-    }
-  ],
-  "supportedUseCase": "This is an interactive dashboard that prompts you to enter a macAddress of a device and visualize the device owner's access, full inventory of digital identities, and the resources they have access to.",
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "device",
+        "title": "Device Integration",
+        "category": "Device Management"
+      }
+    ],
+    "supportedUseCase": "This is an interactive dashboard that prompts you to enter a macAddress of a device and visualize the device owner's access, full inventory of digital identities, and the resources they have access to."
+  },
   "widgets": [
     {
       "description": "",
