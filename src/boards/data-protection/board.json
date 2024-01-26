@@ -26,7 +26,7 @@
         "title": "Azure AD"
       }
     ],
-    "supportedUseCase": "Stringified markdown here"
+    "supportedUseCase": "Shows secure development related metrics, including repo counts by project, open pull requests by developer, pull requests with self-approved/unapproved commits, and pull requests with commits made by unknown/unvalidated developers."
   },
   "widgets": [
     {
