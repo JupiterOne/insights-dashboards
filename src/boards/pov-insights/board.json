@@ -142,9 +142,9 @@
       }
     },
     {
-      "description": "Github findings",
+      "description": "GitHub findings",
       "id": "3dacbfc3-15fc-4265-83fd-d10dd92cf410",
-      "title": "Github Findings to review",
+      "title": "GitHub Findings to review",
       "type": "table",
       "config": {
         "queries": [

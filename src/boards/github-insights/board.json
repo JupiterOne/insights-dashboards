@@ -76,7 +76,7 @@
     },
     {
       "id": "c1c0fbe2-b343-46f6-bf6e-97087b3c4987",
-      "title": "Github users that approved a merged pull request",
+      "title": "GitHub users that approved a merged pull request",
       "type": "graph",
       "config": {
         "queries": [
@@ -89,7 +89,7 @@
     },
     {
       "id": "f784c4e3-016a-4902-9fe7-835257b2271b",
-      "title": "Github users that reviewed a merged pull request",
+      "title": "GitHub users that reviewed a merged pull request",
       "type": "graph",
       "config": {
         "queries": [
@@ -102,7 +102,7 @@
     },
     {
       "id": "f63c8ebb-5dc8-4441-815a-e38fc4b791fc",
-      "title": "Github repos with issues",
+      "title": "GitHub repos with issues",
       "type": "graph",
       "config": {
         "queries": [
