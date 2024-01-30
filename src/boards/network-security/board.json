@@ -1,78 +1,95 @@
 {
-	"widgets": [
-		{
-			"id": "23787061-ae3b-48ca-b9bb-ecd0e1fa3f79",
-			"title": "Firewall Rules Matrix - External Access",
-			"type": "matrix",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "FIND Firewall AS src\n  THAT allows AS r\n  Network with public=true or _source='system-mapper' AS dst\nRETURN\n  concat(src.tag.AccountName, ' | ', src.displayName) AS x,\n  concat(dst.tag.AccountName, ' | ', dst.displayName) AS y,\n  r.egress AS egress,\n  r.ingress AS ingress,\n  r.fromPort as fromPort,\n  r.toPort as toPort,\n  r.ipProtocol AS protocol"
-					}
-				]
-			}
-		},
-		{
-			"id": "d3bb00d8-3c7a-463a-9a7f-0509a4c5e95a",
-			"title": "Firewall Rules Matrix - Internal Access",
-			"type": "matrix",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "FIND Firewall AS src\n  THAT allows AS r\n  Network with public!=true AS dst\nRETURN\n  concat(src.tag.AccountName, ' | ', src.displayName) AS x,\n  concat(dst.tag.AccountName, ' | ', dst.displayName) AS y,\n  r.egress AS egress,\n  r.ingress AS ingress,\n  r.fromPort as fromPort,\n  r.toPort as toPort,\n  r.ipProtocol AS protocol"
-					}
-				]
-			}
-		},
-		{
-			"id": "37ce7f75-ea05-4901-911e-8ac2f99666fd",
-			"title": "Firewalls / ACLs with Internet Access",
-			"type": "matrix",
-			"config": {
-				"queries": [
-					{
-						"name": "query0",
-						"query": "FIND Firewall AS src\n  THAT allows AS r\n  Internet AS dst\nRETURN\n  concat(src.tag.AccountName, ' | ', src.displayName) AS x,\n  dst.displayName AS y,\n  r.egress AS egress,\n  r.ingress AS ingress,\n  r.fromPort as fromPort,\n  r.toPort as toPort,\n  r.ipProtocol AS protocol"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 3,
-				"x": 3,
-				"y": 0,
-				"i": "23787061-ae3b-48ca-b9bb-ecd0e1fa3f79"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 3,
-				"x": 3,
-				"y": 3,
-				"i": "d3bb00d8-3c7a-463a-9a7f-0509a4c5e95a"
-			},
-			{
-				"static": false,
-				"w": 3,
-				"moved": false,
-				"h": 6,
-				"x": 0,
-				"y": 0,
-				"i": "37ce7f75-ea05-4901-911e-8ac2f99666fd"
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "aws",
+        "title": "AWS"
+      },
+      {
+        "name": "azure",
+        "title": "Azure"
+      },
+      {
+        "name": "google_cloud",
+        "title": "Google Cloud"
+      }
+    ],
+    "supportedUseCase": "This board contains several widgets:\n\n- A list of firewalls (e.g. network ACLs, security groups) allowing Internet access\n- A matrix table showing the ingress/egress access and allowed ports from/to an external network, including the internet\n- A matrix table showing the ingress/egress access and allowed ports between internal networks\n- A list of expired certificates\n- A list of DNS records not pointing to an internal resource\n- A list of domains/subdomains"
+  },
+  "widgets": [
+    {
+      "id": "23787061-ae3b-48ca-b9bb-ecd0e1fa3f79",
+      "title": "Firewall Rules Matrix - External Access",
+      "type": "matrix",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "FIND Firewall AS src\n  THAT allows AS r\n  Network with public=true or _source='system-mapper' AS dst\nRETURN\n  concat(src.tag.AccountName, ' | ', src.displayName) AS x,\n  concat(dst.tag.AccountName, ' | ', dst.displayName) AS y,\n  r.egress AS egress,\n  r.ingress AS ingress,\n  r.fromPort as fromPort,\n  r.toPort as toPort,\n  r.ipProtocol AS protocol"
+          }
+        ]
+      }
+    },
+    {
+      "id": "d3bb00d8-3c7a-463a-9a7f-0509a4c5e95a",
+      "title": "Firewall Rules Matrix - Internal Access",
+      "type": "matrix",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "FIND Firewall AS src\n  THAT allows AS r\n  Network with public!=true AS dst\nRETURN\n  concat(src.tag.AccountName, ' | ', src.displayName) AS x,\n  concat(dst.tag.AccountName, ' | ', dst.displayName) AS y,\n  r.egress AS egress,\n  r.ingress AS ingress,\n  r.fromPort as fromPort,\n  r.toPort as toPort,\n  r.ipProtocol AS protocol"
+          }
+        ]
+      }
+    },
+    {
+      "id": "37ce7f75-ea05-4901-911e-8ac2f99666fd",
+      "title": "Firewalls / ACLs with Internet Access",
+      "type": "matrix",
+      "config": {
+        "queries": [
+          {
+            "name": "query0",
+            "query": "FIND Firewall AS src\n  THAT allows AS r\n  Internet AS dst\nRETURN\n  concat(src.tag.AccountName, ' | ', src.displayName) AS x,\n  dst.displayName AS y,\n  r.egress AS egress,\n  r.ingress AS ingress,\n  r.fromPort as fromPort,\n  r.toPort as toPort,\n  r.ipProtocol AS protocol"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 9,
+        "moved": false,
+        "h": 3,
+        "x": 3,
+        "y": 0,
+        "i": "23787061-ae3b-48ca-b9bb-ecd0e1fa3f79"
+      },
+      {
+        "static": false,
+        "w": 9,
+        "moved": false,
+        "h": 3,
+        "x": 3,
+        "y": 3,
+        "i": "d3bb00d8-3c7a-463a-9a7f-0509a4c5e95a"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 6,
+        "x": 0,
+        "y": 0,
+        "i": "37ce7f75-ea05-4901-911e-8ac2f99666fd"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }

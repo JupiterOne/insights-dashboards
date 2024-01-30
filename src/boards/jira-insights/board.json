@@ -1,519 +1,528 @@
 {
-	"widgets": [
-		{
-			"id": "8f1c891a-1560-40c8-9273-99fbbdecaa2b",
-			"title": "Number of Open Issues by Priority",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' as a return a.priority as name, count(a) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "2825f091-3810-4dfc-afdf-a6fa05bb517a",
-			"title": "List of Critical Open Issues older than 30 days",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-30 days as a ORDER BY a.createdOn"
-					}
-				]
-			}
-		},
-		{
-			"id": "7d52d3da-f1bd-41ed-a5da-df5ff18ac5f4",
-			"title": "Total Count of Critical Open Issues older than 30 days",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-30 days as a return count(a) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "99259be5-a712-4d04-ba2a-7b76d2123099",
-			"title": "Total Count of Critical Open Issues between 14-30 days old",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-14 days AND createdOn > date.now-30 days \nas a return count(a) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "353abb3d-5853-49f7-83a6-4f70bd584e3d",
-			"title": "Total Count of Open Issues between 14-30 Days",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-14 days AND createdOn > date.now-30 days as a ORDER BY a.createdOn\n"
-					}
-				]
-			}
-		},
-		{
-			"id": "92f4badd-fa9c-4180-a1f6-ac678ed19c3c",
-			"title": "Total Count of Critical Open Issues between 7-14 Days old",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-7 days AND createdOn > date.now-14 days as a\nreturn count(a) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"default": {
-							"val1": 0
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "39b9fab1-b56a-416c-b1ce-ab37d2aae8f7",
-			"title": "Total Count of Critical Open Issues Younger than 1 Week",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn > date.now-7 days as a return count(a) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "aaa2c96a-7157-48c8-820b-a7615815b140",
-			"title": "Total Count of Open Issues between 7-14 Days",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-7 days AND createdOn > date.now-14 days as a ORDER BY a.createdOn\n"
-					}
-				]
-			}
-		},
-		{
-			"id": "2c779961-b98a-4e1e-8f7d-7fb232672f27",
-			"title": "Total Count of Critical Open Issues Younger than 1 Week",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn > date.now-7 days"
-					}
-				]
-			}
-		},
-		{
-			"id": "ec685073-a29c-43c3-90ad-4cce24055364",
-			"title": "",
-			"type": "markdown",
-			"config": {
-				"queries": [],
-				"settings": {
-					"markdown": {
-						"text": "# Issues that Need Attention"
-					}
-				}
-			}
-		},
-		{
-			"id": "cc36f52c-2f51-4f1a-ba35-e201a1ebddcc",
-			"title": "Stale Open Issues",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND updatedOn < date.now -14 days as a return count(a) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "e6f2ef2f-0192-4925-b97b-a2ecb45ac661",
-			"title": "Stale Open Issues",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND updatedOn < date.now -14 days "
-					}
-				]
-			}
-		},
-		{
-			"id": "fa47abf6-8c99-4a69-8ad0-16076b800311",
-			"title": "Issues Without Context",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' AND description = ('' OR 'no description available')"
-					}
-				]
-			}
-		},
-		{
-			"id": "cd0c26d1-a3c2-4994-9f6b-cdcbabaa8684",
-			"title": "Issues without a Priority",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find jira_issue with status = 'Open' and priority = undefined"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "8f1c891a-1560-40c8-9273-99fbbdecaa2b"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 2,
-				"x": 3,
-				"y": 2,
-				"i": "2825f091-3810-4dfc-afdf-a6fa05bb517a"
-			},
-			{
-				"static": false,
-				"w": 3,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "7d52d3da-f1bd-41ed-a5da-df5ff18ac5f4"
-			},
-			{
-				"static": false,
-				"w": 3,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 4,
-				"i": "99259be5-a712-4d04-ba2a-7b76d2123099"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 2,
-				"x": 3,
-				"y": 4,
-				"i": "353abb3d-5853-49f7-83a6-4f70bd584e3d"
-			},
-			{
-				"static": false,
-				"w": 3,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "92f4badd-fa9c-4180-a1f6-ac678ed19c3c"
-			},
-			{
-				"static": false,
-				"w": 3,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "39b9fab1-b56a-416c-b1ce-ab37d2aae8f7"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 2,
-				"x": 3,
-				"y": 6,
-				"i": "aaa2c96a-7157-48c8-820b-a7615815b140"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 2,
-				"x": 3,
-				"y": 8,
-				"i": "2c779961-b98a-4e1e-8f7d-7fb232672f27"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 1,
-				"x": 0,
-				"y": 10,
-				"i": "ec685073-a29c-43c3-90ad-4cce24055364"
-			},
-			{
-				"static": false,
-				"w": 3,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 11,
-				"i": "cc36f52c-2f51-4f1a-ba35-e201a1ebddcc"
-			},
-			{
-				"static": false,
-				"w": 9,
-				"moved": false,
-				"h": 2,
-				"x": 3,
-				"y": 11,
-				"i": "e6f2ef2f-0192-4925-b97b-a2ecb45ac661"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 13,
-				"i": "fa47abf6-8c99-4a69-8ad0-16076b800311"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 6,
-				"y": 13,
-				"i": "cd0c26d1-a3c2-4994-9f6b-cdcbabaa8684"
-			}
-		],
-		"xl": [],
-		"md": [
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "8f1c891a-1560-40c8-9273-99fbbdecaa2b"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "2825f091-3810-4dfc-afdf-a6fa05bb517a"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 4,
-				"i": "7d52d3da-f1bd-41ed-a5da-df5ff18ac5f4"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "99259be5-a712-4d04-ba2a-7b76d2123099"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "353abb3d-5853-49f7-83a6-4f70bd584e3d"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 10,
-				"i": "92f4badd-fa9c-4180-a1f6-ac678ed19c3c"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 12,
-				"i": "39b9fab1-b56a-416c-b1ce-ab37d2aae8f7"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 14,
-				"i": "aaa2c96a-7157-48c8-820b-a7615815b140"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 16,
-				"i": "2c779961-b98a-4e1e-8f7d-7fb232672f27"
-			},
-			{
-				"static": false,
-				"w": 1,
-				"moved": false,
-				"h": 1,
-				"x": 0,
-				"y": 18,
-				"i": "ec685073-a29c-43c3-90ad-4cce24055364"
-			},
-			{
-				"static": false,
-				"w": 1,
-				"moved": false,
-				"h": 1,
-				"x": 0,
-				"y": 19,
-				"i": "cc36f52c-2f51-4f1a-ba35-e201a1ebddcc"
-			},
-			{
-				"static": false,
-				"w": 1,
-				"moved": false,
-				"h": 1,
-				"x": 0,
-				"y": 20,
-				"i": "e6f2ef2f-0192-4925-b97b-a2ecb45ac661"
-			},
-			{
-				"static": false,
-				"w": 1,
-				"moved": false,
-				"h": 1,
-				"x": 0,
-				"y": 21,
-				"i": "fa47abf6-8c99-4a69-8ad0-16076b800311"
-			},
-			{
-				"static": false,
-				"w": 1,
-				"moved": false,
-				"h": 1,
-				"x": 0,
-				"y": 22,
-				"i": "cd0c26d1-a3c2-4994-9f6b-cdcbabaa8684"
-			},
-			{
-				"static": false,
-				"w": 1,
-				"moved": false,
-				"h": 1,
-				"x": 0,
-				"y": 23,
-				"i": "0d4f476d-7be8-4d9c-8dcb-5a8f46d1e6ed"
-			}
-		]
-	}
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "jira",
+        "title": "JIRA"
+      }
+    ],
+    "supportedUseCase": "Shows detailed information on Jira accounts, reporting on users, issues, and remediations."
+  },
+  "widgets": [
+    {
+      "id": "8f1c891a-1560-40c8-9273-99fbbdecaa2b",
+      "title": "Number of Open Issues by Priority",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' as a return a.priority as name, count(a) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2825f091-3810-4dfc-afdf-a6fa05bb517a",
+      "title": "List of Critical Open Issues older than 30 days",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-30 days as a ORDER BY a.createdOn"
+          }
+        ]
+      }
+    },
+    {
+      "id": "7d52d3da-f1bd-41ed-a5da-df5ff18ac5f4",
+      "title": "Total Count of Critical Open Issues older than 30 days",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-30 days as a return count(a) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "99259be5-a712-4d04-ba2a-7b76d2123099",
+      "title": "Total Count of Critical Open Issues between 14-30 days old",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-14 days AND createdOn > date.now-30 days \nas a return count(a) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "353abb3d-5853-49f7-83a6-4f70bd584e3d",
+      "title": "Total Count of Open Issues between 14-30 Days",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-14 days AND createdOn > date.now-30 days as a ORDER BY a.createdOn\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "92f4badd-fa9c-4180-a1f6-ac678ed19c3c",
+      "title": "Total Count of Critical Open Issues between 7-14 Days old",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-7 days AND createdOn > date.now-14 days as a\nreturn count(a) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "default": {
+              "val1": 0
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "39b9fab1-b56a-416c-b1ce-ab37d2aae8f7",
+      "title": "Total Count of Critical Open Issues Younger than 1 Week",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn > date.now-7 days as a return count(a) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "aaa2c96a-7157-48c8-820b-a7615815b140",
+      "title": "Total Count of Open Issues between 7-14 Days",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn < date.now-7 days AND createdOn > date.now-14 days as a ORDER BY a.createdOn\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2c779961-b98a-4e1e-8f7d-7fb232672f27",
+      "title": "Total Count of Critical Open Issues Younger than 1 Week",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND priority ='Highest' AND createdOn > date.now-7 days"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ec685073-a29c-43c3-90ad-4cce24055364",
+      "title": "",
+      "type": "markdown",
+      "config": {
+        "queries": [],
+        "settings": {
+          "markdown": {
+            "text": "# Issues that Need Attention"
+          }
+        }
+      }
+    },
+    {
+      "id": "cc36f52c-2f51-4f1a-ba35-e201a1ebddcc",
+      "title": "Stale Open Issues",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND updatedOn < date.now -14 days as a return count(a) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "e6f2ef2f-0192-4925-b97b-a2ecb45ac661",
+      "title": "Stale Open Issues",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND updatedOn < date.now -14 days "
+          }
+        ]
+      }
+    },
+    {
+      "id": "fa47abf6-8c99-4a69-8ad0-16076b800311",
+      "title": "Issues Without Context",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' AND description = ('' OR 'no description available')"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cd0c26d1-a3c2-4994-9f6b-cdcbabaa8684",
+      "title": "Issues without a Priority",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find jira_issue with status = 'Open' and priority = undefined"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "8f1c891a-1560-40c8-9273-99fbbdecaa2b"
+      },
+      {
+        "static": false,
+        "w": 9,
+        "moved": false,
+        "h": 2,
+        "x": 3,
+        "y": 2,
+        "i": "2825f091-3810-4dfc-afdf-a6fa05bb517a"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "7d52d3da-f1bd-41ed-a5da-df5ff18ac5f4"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 4,
+        "i": "99259be5-a712-4d04-ba2a-7b76d2123099"
+      },
+      {
+        "static": false,
+        "w": 9,
+        "moved": false,
+        "h": 2,
+        "x": 3,
+        "y": 4,
+        "i": "353abb3d-5853-49f7-83a6-4f70bd584e3d"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 6,
+        "i": "92f4badd-fa9c-4180-a1f6-ac678ed19c3c"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 8,
+        "i": "39b9fab1-b56a-416c-b1ce-ab37d2aae8f7"
+      },
+      {
+        "static": false,
+        "w": 9,
+        "moved": false,
+        "h": 2,
+        "x": 3,
+        "y": 6,
+        "i": "aaa2c96a-7157-48c8-820b-a7615815b140"
+      },
+      {
+        "static": false,
+        "w": 9,
+        "moved": false,
+        "h": 2,
+        "x": 3,
+        "y": 8,
+        "i": "2c779961-b98a-4e1e-8f7d-7fb232672f27"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 1,
+        "x": 0,
+        "y": 10,
+        "i": "ec685073-a29c-43c3-90ad-4cce24055364"
+      },
+      {
+        "static": false,
+        "w": 3,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 11,
+        "i": "cc36f52c-2f51-4f1a-ba35-e201a1ebddcc"
+      },
+      {
+        "static": false,
+        "w": 9,
+        "moved": false,
+        "h": 2,
+        "x": 3,
+        "y": 11,
+        "i": "e6f2ef2f-0192-4925-b97b-a2ecb45ac661"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 13,
+        "i": "fa47abf6-8c99-4a69-8ad0-16076b800311"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 13,
+        "i": "cd0c26d1-a3c2-4994-9f6b-cdcbabaa8684"
+      }
+    ],
+    "xl": [],
+    "md": [
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "8f1c891a-1560-40c8-9273-99fbbdecaa2b"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "2825f091-3810-4dfc-afdf-a6fa05bb517a"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 4,
+        "i": "7d52d3da-f1bd-41ed-a5da-df5ff18ac5f4"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 6,
+        "i": "99259be5-a712-4d04-ba2a-7b76d2123099"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 8,
+        "i": "353abb3d-5853-49f7-83a6-4f70bd584e3d"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 10,
+        "i": "92f4badd-fa9c-4180-a1f6-ac678ed19c3c"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 12,
+        "i": "39b9fab1-b56a-416c-b1ce-ab37d2aae8f7"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 14,
+        "i": "aaa2c96a-7157-48c8-820b-a7615815b140"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 16,
+        "i": "2c779961-b98a-4e1e-8f7d-7fb232672f27"
+      },
+      {
+        "static": false,
+        "w": 1,
+        "moved": false,
+        "h": 1,
+        "x": 0,
+        "y": 18,
+        "i": "ec685073-a29c-43c3-90ad-4cce24055364"
+      },
+      {
+        "static": false,
+        "w": 1,
+        "moved": false,
+        "h": 1,
+        "x": 0,
+        "y": 19,
+        "i": "cc36f52c-2f51-4f1a-ba35-e201a1ebddcc"
+      },
+      {
+        "static": false,
+        "w": 1,
+        "moved": false,
+        "h": 1,
+        "x": 0,
+        "y": 20,
+        "i": "e6f2ef2f-0192-4925-b97b-a2ecb45ac661"
+      },
+      {
+        "static": false,
+        "w": 1,
+        "moved": false,
+        "h": 1,
+        "x": 0,
+        "y": 21,
+        "i": "fa47abf6-8c99-4a69-8ad0-16076b800311"
+      },
+      {
+        "static": false,
+        "w": 1,
+        "moved": false,
+        "h": 1,
+        "x": 0,
+        "y": 22,
+        "i": "cd0c26d1-a3c2-4994-9f6b-cdcbabaa8684"
+      },
+      {
+        "static": false,
+        "w": 1,
+        "moved": false,
+        "h": 1,
+        "x": 0,
+        "y": 23,
+        "i": "0d4f476d-7be8-4d9c-8dcb-5a8f46d1e6ed"
+      }
+    ]
+  }
 }

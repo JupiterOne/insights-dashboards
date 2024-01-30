@@ -1,82 +1,86 @@
 {
-	"widgets": [
-		{
-			"id": "4efc35e2-2ac3-4f0f-a057-3e16601b39e5",
-			"title": "Number of Users by Account",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find User as u\nReturn\n  u.tag.AccountName as name,\n  count(u) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "7c18aac8-92b9-4efb-ab92-466c86e5645f",
-			"title": "System/Shared/External/Unmapped user accounts",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find User as u that !is Person\n  return u.tag.AccountName, u._type, u.displayName, u.username, u.email\n  order by u.tag.AccountName"
-					}
-				]
-			}
-		},
-		{
-			"id": "fa03f51a-da6e-41b1-ba94-1144b37949e0",
-			"title": "Admin Users",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find User with admin=true \nReturn User.tag.AccountName as Account, \n  User._type, User.displayName, User.email"
-					},
-					{
-						"name": "query2",
-						"query": "Find User that ASSIGNED AccessRole that ASSIGNED AccessPolicy with admin = true\nReturn AccessRole.tag.AccountName as Account, \n  User._type, User.displayName, User.email"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"static": false,
-				"w": 4,
-				"moved": false,
-				"h": 6,
-				"x": 0,
-				"y": 0,
-				"i": "4efc35e2-2ac3-4f0f-a057-3e16601b39e5"
-			},
-			{
-				"static": false,
-				"w": 8,
-				"moved": false,
-				"h": 3,
-				"x": 4,
-				"y": 3,
-				"i": "7c18aac8-92b9-4efb-ab92-466c86e5645f"
-			},
-			{
-				"static": false,
-				"w": 8,
-				"moved": false,
-				"h": 3,
-				"x": 4,
-				"y": 0,
-				"i": "fa03f51a-da6e-41b1-ba94-1144b37949e0"
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "prerequisites": {
+    "integrations": [],
+    "supportedUseCase": "Shows users across different environments/accounts, admin users, and shared/system user accounts.\n\nWithin the Admin Users widget an additional query to find users that are assigned to roles which are tied to administrative IAM access policies is included. This is in addition to the first query that is finding users who are deemed to be administrators based on the type/role attribute directly on the user."
+  },
+  "widgets": [
+    {
+      "id": "4efc35e2-2ac3-4f0f-a057-3e16601b39e5",
+      "title": "Number of Users by Account",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find User as u\nReturn\n  u.tag.AccountName as name,\n  count(u) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "7c18aac8-92b9-4efb-ab92-466c86e5645f",
+      "title": "System/Shared/External/Unmapped user accounts",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find User as u that !is Person\n  return u.tag.AccountName, u._type, u.displayName, u.username, u.email\n  order by u.tag.AccountName"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fa03f51a-da6e-41b1-ba94-1144b37949e0",
+      "title": "Admin Users",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find User with admin=true \nReturn User.tag.AccountName as Account, \n  User._type, User.displayName, User.email"
+          },
+          {
+            "name": "query2",
+            "query": "Find User that ASSIGNED AccessRole that ASSIGNED AccessPolicy with admin = true\nReturn AccessRole.tag.AccountName as Account, \n  User._type, User.displayName, User.email"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 4,
+        "moved": false,
+        "h": 6,
+        "x": 0,
+        "y": 0,
+        "i": "4efc35e2-2ac3-4f0f-a057-3e16601b39e5"
+      },
+      {
+        "static": false,
+        "w": 8,
+        "moved": false,
+        "h": 3,
+        "x": 4,
+        "y": 3,
+        "i": "7c18aac8-92b9-4efb-ab92-466c86e5645f"
+      },
+      {
+        "static": false,
+        "w": 8,
+        "moved": false,
+        "h": 3,
+        "x": 4,
+        "y": 0,
+        "i": "fa03f51a-da6e-41b1-ba94-1144b37949e0"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }

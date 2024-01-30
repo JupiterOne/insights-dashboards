@@ -1,122 +1,131 @@
 {
-	"widgets": [
-		{
-			"id": "2077bd40-6374-4f0e-8ce2-cdbe325ac23d",
-			"title": "Azure Storage Containers without SecureTransport Enabled",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find azure_storage_container that has azure_storage_account WITH enableHttpsTrafficOnly!=true as bucket\nreturn bucket.tag.AccountName as name, count(bucket) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "a1e84ab1-302c-41b2-8ed4-8e13739dbe4b",
-			"title": "Azure Storage Containers without default encryption enabled",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find azure_storage_container with encrypted != true as bucket\nreturn bucket.tag.AccountName as name, count(bucket) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "2f82e379-6b8a-4d32-9d89-2326cff82c11",
-			"title": "Azure Storage Containers without any logging enabled",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find azure_storage_container that has azure_storage_account WITH blobAnalyticsLoggingWriteEnabled!=true"
-					}
-				]
-			}
-		},
-		{
-			"id": "f3d05c46-622b-4129-9c3a-cac85a3f5c00",
-			"title": "Azure Storage Containers with SecureTransport Enabled",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find azure_storage_container that has azure_storage_account WITH enableHttpsTrafficOnly=true as bucket\nreturn bucket.tag.AccountName as name, count(bucket) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "bd4b5a50-18ff-433a-b096-4bf4dc696d59",
-			"title": "Azure Storage Containers with default encryption enabled",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find azure_storage_container with encrypted = true as bucket\nreturn bucket.tag.AccountName as name, count(bucket) as value"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 6,
-				"y": 0,
-				"i": "2077bd40-6374-4f0e-8ce2-cdbe325ac23d"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 6,
-				"y": 2,
-				"i": "a1e84ab1-302c-41b2-8ed4-8e13739dbe4b"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 4,
-				"x": 0,
-				"y": 4,
-				"i": "2f82e379-6b8a-4d32-9d89-2326cff82c11"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "f3d05c46-622b-4129-9c3a-cac85a3f5c00"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "bd4b5a50-18ff-433a-b096-4bf4dc696d59"
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "azure",
+        "title": "Azure"
+      }
+    ],
+    "supportedUseCase": "Shows Azure container resources and encryption settings as well as logging options set on containers."
+  },
+  "widgets": [
+    {
+      "id": "2077bd40-6374-4f0e-8ce2-cdbe325ac23d",
+      "title": "Azure Storage Containers without SecureTransport Enabled",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find azure_storage_container that has azure_storage_account WITH enableHttpsTrafficOnly!=true as bucket\nreturn bucket.tag.AccountName as name, count(bucket) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a1e84ab1-302c-41b2-8ed4-8e13739dbe4b",
+      "title": "Azure Storage Containers without default encryption enabled",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find azure_storage_container with encrypted != true as bucket\nreturn bucket.tag.AccountName as name, count(bucket) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2f82e379-6b8a-4d32-9d89-2326cff82c11",
+      "title": "Azure Storage Containers without any logging enabled",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find azure_storage_container that has azure_storage_account WITH blobAnalyticsLoggingWriteEnabled!=true"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f3d05c46-622b-4129-9c3a-cac85a3f5c00",
+      "title": "Azure Storage Containers with SecureTransport Enabled",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find azure_storage_container that has azure_storage_account WITH enableHttpsTrafficOnly=true as bucket\nreturn bucket.tag.AccountName as name, count(bucket) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bd4b5a50-18ff-433a-b096-4bf4dc696d59",
+      "title": "Azure Storage Containers with default encryption enabled",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find azure_storage_container with encrypted = true as bucket\nreturn bucket.tag.AccountName as name, count(bucket) as value"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 0,
+        "i": "2077bd40-6374-4f0e-8ce2-cdbe325ac23d"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 2,
+        "i": "a1e84ab1-302c-41b2-8ed4-8e13739dbe4b"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 4,
+        "x": 0,
+        "y": 4,
+        "i": "2f82e379-6b8a-4d32-9d89-2326cff82c11"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "f3d05c46-622b-4129-9c3a-cac85a3f5c00"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "bd4b5a50-18ff-433a-b096-4bf4dc696d59"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }

@@ -1,161 +1,182 @@
 {
-	"widgets": [
-		{
-			"id": "48653818-85b9-41e7-b616-08adcbad95e3",
-			"title": "Total number of Employees",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find employee as e return count(e) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "b9f9e029-d877-450e-9877-ff6036aab129",
-			"title": "Employees added last 30 days",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find employee with _createdOn >= date.now - 30days as e return count(e) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"success": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "f0c893b5-80b2-4ff3-89ae-ff73ff580eb3",
-			"title": "Employees added last 60 days",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find employee with _createdOn >= date.now - 60days as e return count(e) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"success": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "226b57f0-287c-4faf-9066-ed0337aeacf2",
-			"title": "Employees added last 90 days",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find employee with _createdOn >= date.now - 90days as e return count(e) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"success": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
-			}
-		}
-	],
-	"layouts": {
-		"xs": [],
-		"sm": [],
-		"md": [
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "48653818-85b9-41e7-b616-08adcbad95e3",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "b9f9e029-d877-450e-9877-ff6036aab129",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 4,
-				"i": "f0c893b5-80b2-4ff3-89ae-ff73ff580eb3",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "226b57f0-287c-4faf-9066-ed0337aeacf2",
-				"moved": false,
-				"static": false
-			}
-		],
-		"lg": [
-			{
-				"w": 4,
-				"h": 4,
-				"x": 0,
-				"y": 0,
-				"i": "48653818-85b9-41e7-b616-08adcbad95e3",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 2,
-				"x": 4,
-				"y": 0,
-				"i": "b9f9e029-d877-450e-9877-ff6036aab129",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 4,
-				"y": 2,
-				"i": "f0c893b5-80b2-4ff3-89ae-ff73ff580eb3",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 4,
-				"h": 2,
-				"x": 8,
-				"y": 2,
-				"i": "226b57f0-287c-4faf-9066-ed0337aeacf2",
-				"moved": false,
-				"static": false
-			}
-		],
-		"xl": []
-	}
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "okta",
+        "title": "Okta"
+      },
+      {
+        "name": "azure",
+        "title": "Azure AD"
+      },
+      {
+        "name": "jumpcloud",
+        "title": "JumpCloud"
+      },
+      {
+        "name": "google",
+        "title": "Google Workspace"
+      }
+    ],
+    "supportedUseCase": "Shows total number of employees and the number of new team members added in the last 30/60/90 days."
+  },
+  "widgets": [
+    {
+      "id": "48653818-85b9-41e7-b616-08adcbad95e3",
+      "title": "Total number of Employees",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find employee as e return count(e) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "b9f9e029-d877-450e-9877-ff6036aab129",
+      "title": "Employees added last 30 days",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find employee with _createdOn >= date.now - 30days as e return count(e) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "success": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "f0c893b5-80b2-4ff3-89ae-ff73ff580eb3",
+      "title": "Employees added last 60 days",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find employee with _createdOn >= date.now - 60days as e return count(e) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "success": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "226b57f0-287c-4faf-9066-ed0337aeacf2",
+      "title": "Employees added last 90 days",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find employee with _createdOn >= date.now - 90days as e return count(e) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "success": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            }
+          }
+        }
+      }
+    }
+  ],
+  "layouts": {
+    "xs": [],
+    "sm": [],
+    "md": [
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "48653818-85b9-41e7-b616-08adcbad95e3",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "b9f9e029-d877-450e-9877-ff6036aab129",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 4,
+        "i": "f0c893b5-80b2-4ff3-89ae-ff73ff580eb3",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 6,
+        "i": "226b57f0-287c-4faf-9066-ed0337aeacf2",
+        "moved": false,
+        "static": false
+      }
+    ],
+    "lg": [
+      {
+        "w": 4,
+        "h": 4,
+        "x": 0,
+        "y": 0,
+        "i": "48653818-85b9-41e7-b616-08adcbad95e3",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 2,
+        "x": 4,
+        "y": 0,
+        "i": "b9f9e029-d877-450e-9877-ff6036aab129",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 4,
+        "y": 2,
+        "i": "f0c893b5-80b2-4ff3-89ae-ff73ff580eb3",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 8,
+        "y": 2,
+        "i": "226b57f0-287c-4faf-9066-ed0337aeacf2",
+        "moved": false,
+        "static": false
+      }
+    ],
+    "xl": []
+  }
 }

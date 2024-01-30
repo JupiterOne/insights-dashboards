@@ -1,383 +1,392 @@
 {
-	"widgets": [
-		{
-			"id": "07305276-0f87-492d-bc4e-7828ca630125",
-			"title": "Encrypted Azure-managed unattached disks",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find azure_managed_disk with attached=false and encrypted=true as a\nreturn count(a) as value\n"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "2f2f72e6-3e4c-49a0-b3fa-af8e7a71b41d",
-			"title": "Unencrypted Azure-managed unattached disks",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find azure_managed_disk with attached=false and encrypted!=true as a return count(a) as value\n\n"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"default": {
-							"limitCondition": "equalTo"
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "355b0a6a-2942-4585-a337-500c74cb45cb",
-			"title": "Are any VHD's attached to VMs unencrypted?",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND azure_vm THAT USES azure_storage_account with encryptedBlob!=true as a return count(a) as value\n"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "51d2c563-0b33-4921-a3c1-8add4d183756",
-			"title": "Are any VMs missing the latest OS patches?",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND azure_vm THAT HAS azure_advisor_recommendation with recommendation^=(\"Apply system updates\" OR 'apply system updates')\n"
-					}
-				]
-			}
-		},
-		{
-			"id": "374d2c89-06b1-4bd7-894c-87a3efbcb532",
-			"title": "Are any Azure-managed OS / Boot disks unencrypted?",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find azure_managed_disk with osType!=undefined and attached=true and encrypted!=true as a return count(a) as value\n\n"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "2a673281-1172-4f81-badb-15d15846841a",
-			"title": "Are there Azure security group rules allowing inbound SSH access from the Internet?",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find azure_security_group that allows as rule Internet\nwhere rule.inbound=true and rule.fromPort <= 22 and rule.toPort >= 22\nreturn count(rule) as value\n"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "5de8f03c-2caa-4962-83bd-17a7accb2e2b",
-			"title": "Are there any guest users with access to Azure?",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find azure_user with userType='Guest' and trusted!=true"
-					}
-				]
-			}
-		},
-		{
-			"id": "1075ca90-a075-481c-b5a1-3bc055150ff4",
-			"title": "Security contacts with no  email setup",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find azure_security_center_contact with name=\"default\" and email!=undefined"
-					}
-				]
-			}
-		},
-		{
-			"id": "5f967092-3dec-40e9-b5ef-5a8719adc1ba",
-			"title": "Are any Azure storage accounts configured without \"Deny\" as the default network access rule?",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find azure_storage_account with networkRuleSet.defaultAction != 'Deny'"
-					}
-				]
-			}
-		},
-		{
-			"id": "2bafde31-82bc-4cd1-b6a4-8d5669dc1954",
-			"title": "What Azure resources are allow access to or from the Internet?",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Internet that allows as rule azure_security_group\n  that protects * that (has|contains|connects|uses) *\nreturn tree\n"
-					}
-				]
-			}
-		},
-		{
-			"id": "e73d03ff-8af6-45b6-ac3e-a60b1f958f5b",
-			"title": "Do any guest users have * access to the key vault?",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND azure_keyvault_service\n  (THAT HAS azure_resource_group)? \n  (THAT HAS azure_subscription)? \n  (THAT HAS azure_management_group)? \n  THAT ALLOWS azure_role_assignment WITH actions='*' \n  THAT ASSIGNED (azure_user|azure_group) WITH userType = 'Guest'\n  (THAT HAS azure_user WITH userType = 'Guest')?\nRETURN TREE"
-					}
-				]
-			}
-		},
-		{
-			"id": "17080854-2864-40c3-9710-6e9b46c9e0bf",
-			"title": "Are there any users that are granted direct access to resources?",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND * as any_resource \n  (THAT HAS azure_resource_group)? \n  (THAT HAS azure_subscription)? \n  (THAT HAS azure_management_group)?\n  THAT ALLOWS azure_role_assignment \n  THAT ASSIGNED azure_user\n  RETURN TREE\n  Limit 5"
-					}
-				]
-			}
-		},
-		{
-			"id": "4d055905-5648-422d-8279-9e685f1a78ba",
-			"title": "Which users, groups, or service principals are assigned a role that allows access to the Production key vault?",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND azure_keyvault_service \nWITH tag.Production = true\n    (THAT HAS azure_resource_group)? \n    (THAT HAS azure_subscription)? \n    (THAT HAS azure_management_group)? \n    THAT ALLOWS azure_role_assignment \n    THAT ASSIGNED \n      (azure_user|azure_user_group|azure_service_principal) as principal\nRETURN TREE"
-					}
-				]
-			}
-		},
-		{
-			"id": "4c29c9fa-f502-416e-9981-1f11e2d35f59",
-			"title": "Can any users or groups read the value of a secret in a key vault? ",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND azure_keyvault_service \n (THAT HAS azure_resource_group)? \n (THAT HAS azure_subscription)? \n (THAT HAS azure_management_group)? \n THAT ALLOWS azure_role_assignment WITH dataActions = 'Microsoft.KeyVault/vaults/secrets/getSecret/action' \n THAT ASSIGNED (azure_user|azure_user_group)\nRETURN TREE"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"static": false,
-				"w": 2,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "07305276-0f87-492d-bc4e-7828ca630125"
-			},
-			{
-				"static": false,
-				"w": 2,
-				"moved": false,
-				"h": 2,
-				"x": 2,
-				"y": 0,
-				"i": "2f2f72e6-3e4c-49a0-b3fa-af8e7a71b41d"
-			},
-			{
-				"static": false,
-				"w": 2,
-				"moved": false,
-				"h": 2,
-				"x": 4,
-				"y": 0,
-				"i": "355b0a6a-2942-4585-a337-500c74cb45cb"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 14,
-				"i": "51d2c563-0b33-4921-a3c1-8add4d183756"
-			},
-			{
-				"static": false,
-				"w": 2,
-				"moved": false,
-				"h": 2,
-				"x": 6,
-				"y": 0,
-				"i": "374d2c89-06b1-4bd7-894c-87a3efbcb532"
-			},
-			{
-				"static": false,
-				"w": 4,
-				"moved": false,
-				"h": 2,
-				"x": 8,
-				"y": 0,
-				"i": "2a673281-1172-4f81-badb-15d15846841a"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "5de8f03c-2caa-4962-83bd-17a7accb2e2b"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 12,
-				"i": "1075ca90-a075-481c-b5a1-3bc055150ff4"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 10,
-				"i": "5f967092-3dec-40e9-b5ef-5a8719adc1ba"
-			},
-			{
-				"static": false,
-				"w": 12,
-				"moved": false,
-				"h": 2,
-				"x": 0,
-				"y": 16,
-				"i": "2bafde31-82bc-4cd1-b6a4-8d5669dc1954"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 0,
-				"y": 2,
-				"i": "e73d03ff-8af6-45b6-ac3e-a60b1f958f5b"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 6,
-				"y": 5,
-				"i": "17080854-2864-40c3-9710-6e9b46c9e0bf"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 0,
-				"y": 5,
-				"i": "4d055905-5648-422d-8279-9e685f1a78ba"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 3,
-				"x": 6,
-				"y": 2,
-				"i": "4c29c9fa-f502-416e-9981-1f11e2d35f59"
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "azure",
+        "title": "Azure"
+      }
+    ],
+    "supportedUseCase": "Shows Azure resources covering encryption settings, guest access, and resource access to key vaults."
+  },
+  "widgets": [
+    {
+      "id": "07305276-0f87-492d-bc4e-7828ca630125",
+      "title": "Encrypted Azure-managed unattached disks",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find azure_managed_disk with attached=false and encrypted=true as a\nreturn count(a) as value\n"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "2f2f72e6-3e4c-49a0-b3fa-af8e7a71b41d",
+      "title": "Unencrypted Azure-managed unattached disks",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find azure_managed_disk with attached=false and encrypted!=true as a return count(a) as value\n\n"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "default": {
+              "limitCondition": "equalTo"
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "355b0a6a-2942-4585-a337-500c74cb45cb",
+      "title": "Are any VHD's attached to VMs unencrypted?",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND azure_vm THAT USES azure_storage_account with encryptedBlob!=true as a return count(a) as value\n"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "51d2c563-0b33-4921-a3c1-8add4d183756",
+      "title": "Are any VMs missing the latest OS patches?",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND azure_vm THAT HAS azure_advisor_recommendation with recommendation^=(\"Apply system updates\" OR 'apply system updates')\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "374d2c89-06b1-4bd7-894c-87a3efbcb532",
+      "title": "Are any Azure-managed OS / Boot disks unencrypted?",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find azure_managed_disk with osType!=undefined and attached=true and encrypted!=true as a return count(a) as value\n\n"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "2a673281-1172-4f81-badb-15d15846841a",
+      "title": "Are there Azure security group rules allowing inbound SSH access from the Internet?",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find azure_security_group that allows as rule Internet\nwhere rule.inbound=true and rule.fromPort <= 22 and rule.toPort >= 22\nreturn count(rule) as value\n"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "5de8f03c-2caa-4962-83bd-17a7accb2e2b",
+      "title": "Are there any guest users with access to Azure?",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find azure_user with userType='Guest' and trusted!=true"
+          }
+        ]
+      }
+    },
+    {
+      "id": "1075ca90-a075-481c-b5a1-3bc055150ff4",
+      "title": "Security contacts with no  email setup",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find azure_security_center_contact with name=\"default\" and email!=undefined"
+          }
+        ]
+      }
+    },
+    {
+      "id": "5f967092-3dec-40e9-b5ef-5a8719adc1ba",
+      "title": "Are any Azure storage accounts configured without \"Deny\" as the default network access rule?",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find azure_storage_account with networkRuleSet.defaultAction != 'Deny'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2bafde31-82bc-4cd1-b6a4-8d5669dc1954",
+      "title": "What Azure resources are allow access to or from the Internet?",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find Internet that allows as rule azure_security_group\n  that protects * that (has|contains|connects|uses) *\nreturn tree\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e73d03ff-8af6-45b6-ac3e-a60b1f958f5b",
+      "title": "Do any guest users have * access to the key vault?",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND azure_keyvault_service\n  (THAT HAS azure_resource_group)? \n  (THAT HAS azure_subscription)? \n  (THAT HAS azure_management_group)? \n  THAT ALLOWS azure_role_assignment WITH actions='*' \n  THAT ASSIGNED (azure_user|azure_group) WITH userType = 'Guest'\n  (THAT HAS azure_user WITH userType = 'Guest')?\nRETURN TREE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "17080854-2864-40c3-9710-6e9b46c9e0bf",
+      "title": "Are there any users that are granted direct access to resources?",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND * as any_resource \n  (THAT HAS azure_resource_group)? \n  (THAT HAS azure_subscription)? \n  (THAT HAS azure_management_group)?\n  THAT ALLOWS azure_role_assignment \n  THAT ASSIGNED azure_user\n  RETURN TREE\n  Limit 5"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4d055905-5648-422d-8279-9e685f1a78ba",
+      "title": "Which users, groups, or service principals are assigned a role that allows access to the Production key vault?",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND azure_keyvault_service \nWITH tag.Production = true\n    (THAT HAS azure_resource_group)? \n    (THAT HAS azure_subscription)? \n    (THAT HAS azure_management_group)? \n    THAT ALLOWS azure_role_assignment \n    THAT ASSIGNED \n      (azure_user|azure_user_group|azure_service_principal) as principal\nRETURN TREE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4c29c9fa-f502-416e-9981-1f11e2d35f59",
+      "title": "Can any users or groups read the value of a secret in a key vault? ",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND azure_keyvault_service \n (THAT HAS azure_resource_group)? \n (THAT HAS azure_subscription)? \n (THAT HAS azure_management_group)? \n THAT ALLOWS azure_role_assignment WITH dataActions = 'Microsoft.KeyVault/vaults/secrets/getSecret/action' \n THAT ASSIGNED (azure_user|azure_user_group)\nRETURN TREE"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 2,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "07305276-0f87-492d-bc4e-7828ca630125"
+      },
+      {
+        "static": false,
+        "w": 2,
+        "moved": false,
+        "h": 2,
+        "x": 2,
+        "y": 0,
+        "i": "2f2f72e6-3e4c-49a0-b3fa-af8e7a71b41d"
+      },
+      {
+        "static": false,
+        "w": 2,
+        "moved": false,
+        "h": 2,
+        "x": 4,
+        "y": 0,
+        "i": "355b0a6a-2942-4585-a337-500c74cb45cb"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 14,
+        "i": "51d2c563-0b33-4921-a3c1-8add4d183756"
+      },
+      {
+        "static": false,
+        "w": 2,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 0,
+        "i": "374d2c89-06b1-4bd7-894c-87a3efbcb532"
+      },
+      {
+        "static": false,
+        "w": 4,
+        "moved": false,
+        "h": 2,
+        "x": 8,
+        "y": 0,
+        "i": "2a673281-1172-4f81-badb-15d15846841a"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 8,
+        "i": "5de8f03c-2caa-4962-83bd-17a7accb2e2b"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 12,
+        "i": "1075ca90-a075-481c-b5a1-3bc055150ff4"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 10,
+        "i": "5f967092-3dec-40e9-b5ef-5a8719adc1ba"
+      },
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 2,
+        "x": 0,
+        "y": 16,
+        "i": "2bafde31-82bc-4cd1-b6a4-8d5669dc1954"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 2,
+        "i": "e73d03ff-8af6-45b6-ac3e-a60b1f958f5b"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 5,
+        "i": "17080854-2864-40c3-9710-6e9b46c9e0bf"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 0,
+        "y": 5,
+        "i": "4d055905-5648-422d-8279-9e685f1a78ba"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 3,
+        "x": 6,
+        "y": 2,
+        "i": "4c29c9fa-f502-416e-9981-1f11e2d35f59"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }

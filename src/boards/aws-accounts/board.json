@@ -1,283 +1,292 @@
 {
-	"widgets": [
-		{
-			"id": "267dcabe-899f-4435-b248-14337893933c",
-			"title": "Internal AWS Organization sub-accounts",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_account with _source!='system-mapper' and master!=true as a\nreturn a.accountId, a.displayName, a.description, a.email, a.mfaEnabled, a.mfaTokenSerial\norder by a.displayName"
-					}
-				]
-			}
-		},
-		{
-			"id": "8a3bc47e-01fe-478f-a2b1-eafca39d1949",
-			"title": "Sandbox AWS Accounts",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_account with _source='system-mapper' as a\nthat has aws_account\nreturn a.accountId, a.displayName, a.orgAccountName, a.email\norder by a.displayName"
-					}
-				]
-			}
-		},
-		{
-			"id": "0df734d1-48e7-418b-8af0-8e771b5c4701",
-			"title": "External Vendor AWS accounts",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_account with _source='system-mapper' as a\nthat !has aws_account\nreturn a.accountId, a.displayName, a.validated"
-					}
-				]
-			}
-		},
-		{
-			"id": "c9f83b68-530a-4c5f-a733-67b79e39cea7",
-			"title": "AWS Master Account",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_account with master=true as a\nreturn a.accountId, a.displayName, a.description, a.email, a.mfaEnabled\norder by a.displayName"
-					}
-				]
-			}
-		},
-		{
-			"id": "36117f2c-5cd7-4ed6-844e-23f9e6c3feca",
-			"title": "AWS Organization Sub-Accounts",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_account with _source!='system-mapper' and master!=true as a\nreturn count(a) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "304be4d4-e929-47bb-808f-752764aa7a21",
-			"title": "AWS Sandbox Accounts",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_account with master=true\nthat has aws_account with _source='system-mapper' as a\nreturn count(a) as value"
-					}
-				]
-			}
-		},
-		{
-			"id": "f1c5c818-9344-416f-9762-96d1a0a251c9",
-			"title": "Validated External Vendor Accounts",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_account with _source='system-mapper' and validated=true as a\nthat !has aws_account\nreturn count(a) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"warning": {
-							"limitCondition": "greaterThan",
-							"val1": "0"
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "b8b0d6eb-844d-4301-a1e1-e6f9aa93fcc3",
-			"title": "Unvalidated External Vendor Accounts",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_account with _source='system-mapper' and validated!=true as a\nthat !has aws_account\nreturn count(a) as value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": "0"
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "09cc74c4-69e5-483c-9d5c-f06626a9a879",
-			"title": "External AWS Accounts with Access to internal (company) AWS Accounts",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find aws_account that has aws_iam that has aws_iam_role as a\n  that (trusts|assigned) (Account|AccessRole|User|UserGroup) as b\nwhere\n  a.tag.AccountName!=b.tag.AccountName\nreturn tree"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [
-			{
-				"x": 0,
-				"h": 2,
-				"i": "267dcabe-899f-4435-b248-14337893933c",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "8a3bc47e-01fe-478f-a2b1-eafca39d1949",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "0df734d1-48e7-418b-8af0-8e771b5c4701",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "c9f83b68-530a-4c5f-a733-67b79e39cea7",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "36117f2c-5cd7-4ed6-844e-23f9e6c3feca",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "304be4d4-e929-47bb-808f-752764aa7a21",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "f1c5c818-9344-416f-9762-96d1a0a251c9",
-				"y": 1000000000000,
-				"w": 2
-			},
-			{
-				"x": 0,
-				"h": 2,
-				"i": "b8b0d6eb-844d-4301-a1e1-e6f9aa93fcc3",
-				"y": 1000000000000,
-				"w": 2
-			}
-		],
-		"xs": [],
-		"lg": [
-			{
-				"w": 10,
-				"h": 2,
-				"x": 2,
-				"y": 1,
-				"i": "267dcabe-899f-4435-b248-14337893933c",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 10,
-				"h": 2,
-				"x": 2,
-				"y": 3,
-				"i": "8a3bc47e-01fe-478f-a2b1-eafca39d1949",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 8,
-				"h": 2,
-				"x": 4,
-				"y": 5,
-				"i": "0df734d1-48e7-418b-8af0-8e771b5c4701",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 1,
-				"x": 0,
-				"y": 0,
-				"i": "c9f83b68-530a-4c5f-a733-67b79e39cea7",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 2,
-				"h": 2,
-				"x": 0,
-				"y": 1,
-				"i": "36117f2c-5cd7-4ed6-844e-23f9e6c3feca",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 2,
-				"h": 2,
-				"x": 0,
-				"y": 3,
-				"i": "304be4d4-e929-47bb-808f-752764aa7a21",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 2,
-				"h": 2,
-				"x": 0,
-				"y": 5,
-				"i": "f1c5c818-9344-416f-9762-96d1a0a251c9",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 2,
-				"h": 2,
-				"x": 2,
-				"y": 5,
-				"i": "b8b0d6eb-844d-4301-a1e1-e6f9aa93fcc3",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 7,
-				"i": "09cc74c4-69e5-483c-9d5c-f06626a9a879",
-				"moved": false,
-				"static": false
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "aws",
+        "title": "AWS"
+      }
+    ],
+    "supportedUseCase": "Shows AWS master accounts, sub-accounts, as well as validated/unvalidated external accounts discovered by JupiterOne via analysis of IAM policies and trusts."
+  },
+  "widgets": [
+    {
+      "id": "267dcabe-899f-4435-b248-14337893933c",
+      "title": "Internal AWS Organization sub-accounts",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_account with _source!='system-mapper' and master!=true as a\nreturn a.accountId, a.displayName, a.description, a.email, a.mfaEnabled, a.mfaTokenSerial\norder by a.displayName"
+          }
+        ]
+      }
+    },
+    {
+      "id": "8a3bc47e-01fe-478f-a2b1-eafca39d1949",
+      "title": "Sandbox AWS Accounts",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_account with _source='system-mapper' as a\nthat has aws_account\nreturn a.accountId, a.displayName, a.orgAccountName, a.email\norder by a.displayName"
+          }
+        ]
+      }
+    },
+    {
+      "id": "0df734d1-48e7-418b-8af0-8e771b5c4701",
+      "title": "External Vendor AWS accounts",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_account with _source='system-mapper' as a\nthat !has aws_account\nreturn a.accountId, a.displayName, a.validated"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c9f83b68-530a-4c5f-a733-67b79e39cea7",
+      "title": "AWS Master Account",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_account with master=true as a\nreturn a.accountId, a.displayName, a.description, a.email, a.mfaEnabled\norder by a.displayName"
+          }
+        ]
+      }
+    },
+    {
+      "id": "36117f2c-5cd7-4ed6-844e-23f9e6c3feca",
+      "title": "AWS Organization Sub-Accounts",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_account with _source!='system-mapper' and master!=true as a\nreturn count(a) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "304be4d4-e929-47bb-808f-752764aa7a21",
+      "title": "AWS Sandbox Accounts",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_account with master=true\nthat has aws_account with _source='system-mapper' as a\nreturn count(a) as value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f1c5c818-9344-416f-9762-96d1a0a251c9",
+      "title": "Validated External Vendor Accounts",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_account with _source='system-mapper' and validated=true as a\nthat !has aws_account\nreturn count(a) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "warning": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "b8b0d6eb-844d-4301-a1e1-e6f9aa93fcc3",
+      "title": "Unvalidated External Vendor Accounts",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_account with _source='system-mapper' and validated!=true as a\nthat !has aws_account\nreturn count(a) as value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": "0"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "09cc74c4-69e5-483c-9d5c-f06626a9a879",
+      "title": "External AWS Accounts with Access to internal (company) AWS Accounts",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find aws_account that has aws_iam that has aws_iam_role as a\n  that (trusts|assigned) (Account|AccessRole|User|UserGroup) as b\nwhere\n  a.tag.AccountName!=b.tag.AccountName\nreturn tree"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [
+      {
+        "x": 0,
+        "h": 2,
+        "i": "267dcabe-899f-4435-b248-14337893933c",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "8a3bc47e-01fe-478f-a2b1-eafca39d1949",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "0df734d1-48e7-418b-8af0-8e771b5c4701",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "c9f83b68-530a-4c5f-a733-67b79e39cea7",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "36117f2c-5cd7-4ed6-844e-23f9e6c3feca",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "304be4d4-e929-47bb-808f-752764aa7a21",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "f1c5c818-9344-416f-9762-96d1a0a251c9",
+        "y": 1000000000000,
+        "w": 2
+      },
+      {
+        "x": 0,
+        "h": 2,
+        "i": "b8b0d6eb-844d-4301-a1e1-e6f9aa93fcc3",
+        "y": 1000000000000,
+        "w": 2
+      }
+    ],
+    "xs": [],
+    "lg": [
+      {
+        "w": 10,
+        "h": 2,
+        "x": 2,
+        "y": 1,
+        "i": "267dcabe-899f-4435-b248-14337893933c",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 10,
+        "h": 2,
+        "x": 2,
+        "y": 3,
+        "i": "8a3bc47e-01fe-478f-a2b1-eafca39d1949",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 8,
+        "h": 2,
+        "x": 4,
+        "y": 5,
+        "i": "0df734d1-48e7-418b-8af0-8e771b5c4701",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 12,
+        "h": 1,
+        "x": 0,
+        "y": 0,
+        "i": "c9f83b68-530a-4c5f-a733-67b79e39cea7",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 2,
+        "h": 2,
+        "x": 0,
+        "y": 1,
+        "i": "36117f2c-5cd7-4ed6-844e-23f9e6c3feca",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 2,
+        "h": 2,
+        "x": 0,
+        "y": 3,
+        "i": "304be4d4-e929-47bb-808f-752764aa7a21",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 2,
+        "h": 2,
+        "x": 0,
+        "y": 5,
+        "i": "f1c5c818-9344-416f-9762-96d1a0a251c9",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 2,
+        "h": 2,
+        "x": 2,
+        "y": 5,
+        "i": "b8b0d6eb-844d-4301-a1e1-e6f9aa93fcc3",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 7,
+        "i": "09cc74c4-69e5-483c-9d5c-f06626a9a879",
+        "moved": false,
+        "static": false
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }

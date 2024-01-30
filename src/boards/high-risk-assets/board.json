@@ -1,174 +1,191 @@
 {
-	"widgets": [
-		{
-			"id": "9955cba1-0504-4002-b403-cdc434f9f2a8",
-			"title": "Production  hosts with medium or higher vulnerability findings",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find Host with tag.Production=true that has Finding with numericSeverity>=5\nreturn \n  Host._type, \n  Host.tag.AccountName as account, \n  Host.displayName as name, \n  Host.fqdn as fqdn, \n  Host.publicIpAddress as publicIp, \n  Host.privateIpAddress as privateIp\norder by Host.tag.AccountName"
-					}
-				]
-			}
-		},
-		{
-			"id": "a0f92563-6265-4ae7-8e95-d1c3381f0805",
-			"title": "Internet-facing hosts with medium or higher vulnerability findings",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find Internet that allows Firewall \n  that protects Host with tag.Production=true that has Finding with numericSeverity>=5\nreturn \n  Host._type, \n  Host.tag.AccountName as account, \n  Host.displayName as name, \n  Host.fqdn as fqdn, \n  Host.publicIpAddress as publicIp, \n  Host.privateIpAddress as privateIp\norder by Host.tag.AccountName"
-					}
-				]
-			}
-		},
-		{
-			"id": "30b80a8a-a4f6-45c8-873d-93e4db8f5476",
-			"title": "Non-public data stores with public access",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find DataStore with classification != 'public'\n  that allows AccessPolicy\n  that assigned AccessRole\n  that (assigned|trusts|uses) Host\n  that protects Firewall\n  that allows Internet\nreturn \n  DataStore._type, DataStore.name, DataStore.tag.AccountName, \n  DataStore.encrypted, DataStore.classification"
-					},
-					{
-						"name": "query2",
-						"query": "Find DataStore \n  with classification != 'public' and ignorePublicAcls != true and restrictPublicBuckets != true\nthat ALLOWS as grant Everyone\nreturn \n  DataStore._type, DataStore.name, DataStore.tag.AccountName, \n  DataStore.encrypted, DataStore.classification,\n  grant.permission"
-					}
-				]
-			}
-		},
-		{
-			"id": "73a3849a-69d6-4ea0-9291-0fd663e7518a",
-			"title": "Publicly accessible databases",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find Database with public=true \n  that protects Firewall \n  that allows as rule Internet\nreturn \n  Database._type, Database.name, Database.tag.AccountName, \n  rule.ipProtocol, rule.ingress, rule.egress, rule.fromPort, rule.toPort"
-					}
-				]
-			}
-		},
-		{
-			"id": "ae9f4ef8-f761-485f-9c72-4f86b2c6e86e",
-			"title": "Public data store containing sensitive data",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find Finding with hasSensitiveData=true and open!=false\nthat has DataStore \n  with ignorePublicAcls != true and restrictPublicBuckets != true\nthat ALLOWS as grant Everyone\nreturn\n  DataStore._type, DataStore.name, DataStore.tag.AccountName,\n  Finding._type, Finding.displayName, Finding.file, Finding.PII, Finding.PCI, Finding.secret"
-					},
-					{
-						"name": "query2",
-						"query": "Find Finding with hasSensitiveData=true and open!=false\n  that has DataStore\n  that allows AccessPolicy\n  that assigned AccessRole\n  that (assigned|trusts|uses) Host\n  that protects Firewall\n  that allows Internet\nreturn\n  DataStore._type, DataStore.name, DataStore.tag.AccountName,\n  Finding._type, Finding.displayName, Finding.file, Finding.PII, Finding.PCI, Finding.secret"
-					}
-				]
-			}
-		},
-		{
-			"id": "a55cb673-0699-4ebe-a9da-6925effd9767",
-			"title": "Vulnerable Workloads with Access to Critical Data",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Finding \nthat has (Host|Function|Container) \nthat uses DataStore with classification='critical'\nreturn TREE"
-					}
-				]
-			}
-		},
-		{
-			"id": "e00af8a4-57e2-4dcb-bed0-355d08386c6f",
-			"title": "Vulnerable Production Assets being Probed",
-			"type": "graph",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "Find Finding with category='event' and open=true \nthat has (Host|Function|Container) as i \nthat has Finding with category!='event' and numericSeverity > 5 and open=true\nreturn TREE"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "9955cba1-0504-4002-b403-cdc434f9f2a8",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 6,
-				"y": 0,
-				"i": "a0f92563-6265-4ae7-8e95-d1c3381f0805",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "30b80a8a-a4f6-45c8-873d-93e4db8f5476",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 10,
-				"i": "73a3849a-69d6-4ea0-9291-0fd663e7518a",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 8,
-				"i": "ae9f4ef8-f761-485f-9c72-4f86b2c6e86e",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 4,
-				"x": 0,
-				"y": 2,
-				"i": "a55cb673-0699-4ebe-a9da-6925effd9767",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 4,
-				"x": 6,
-				"y": 2,
-				"i": "e00af8a4-57e2-4dcb-bed0-355d08386c6f",
-				"moved": false,
-				"static": false
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "aws",
+        "title": "AWS"
+      },
+      {
+        "name": "azure",
+        "title": "Azure"
+      },
+      {
+        "name": "google_cloud",
+        "title": "Google Cloud"
+      }
+    ],
+    "supportedUseCase": "Shows vulnerability findings associated with production and internet-facing systems, non-public data stores with public access, and public data stores containing sensitive data."
+  },
+  "widgets": [
+    {
+      "id": "9955cba1-0504-4002-b403-cdc434f9f2a8",
+      "title": "Production  hosts with medium or higher vulnerability findings",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find Host with tag.Production=true that has Finding with numericSeverity>=5\nreturn \n  Host._type, \n  Host.tag.AccountName as account, \n  Host.displayName as name, \n  Host.fqdn as fqdn, \n  Host.publicIpAddress as publicIp, \n  Host.privateIpAddress as privateIp\norder by Host.tag.AccountName"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a0f92563-6265-4ae7-8e95-d1c3381f0805",
+      "title": "Internet-facing hosts with medium or higher vulnerability findings",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find Internet that allows Firewall \n  that protects Host with tag.Production=true that has Finding with numericSeverity>=5\nreturn \n  Host._type, \n  Host.tag.AccountName as account, \n  Host.displayName as name, \n  Host.fqdn as fqdn, \n  Host.publicIpAddress as publicIp, \n  Host.privateIpAddress as privateIp\norder by Host.tag.AccountName"
+          }
+        ]
+      }
+    },
+    {
+      "id": "30b80a8a-a4f6-45c8-873d-93e4db8f5476",
+      "title": "Non-public data stores with public access",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find DataStore with classification != 'public'\n  that allows AccessPolicy\n  that assigned AccessRole\n  that (assigned|trusts|uses) Host\n  that protects Firewall\n  that allows Internet\nreturn \n  DataStore._type, DataStore.name, DataStore.tag.AccountName, \n  DataStore.encrypted, DataStore.classification"
+          },
+          {
+            "name": "query2",
+            "query": "Find DataStore \n  with classification != 'public' and ignorePublicAcls != true and restrictPublicBuckets != true\nthat ALLOWS as grant Everyone\nreturn \n  DataStore._type, DataStore.name, DataStore.tag.AccountName, \n  DataStore.encrypted, DataStore.classification,\n  grant.permission"
+          }
+        ]
+      }
+    },
+    {
+      "id": "73a3849a-69d6-4ea0-9291-0fd663e7518a",
+      "title": "Publicly accessible databases",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find Database with public=true \n  that protects Firewall \n  that allows as rule Internet\nreturn \n  Database._type, Database.name, Database.tag.AccountName, \n  rule.ipProtocol, rule.ingress, rule.egress, rule.fromPort, rule.toPort"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ae9f4ef8-f761-485f-9c72-4f86b2c6e86e",
+      "title": "Public data store containing sensitive data",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find Finding with hasSensitiveData=true and open!=false\nthat has DataStore \n  with ignorePublicAcls != true and restrictPublicBuckets != true\nthat ALLOWS as grant Everyone\nreturn\n  DataStore._type, DataStore.name, DataStore.tag.AccountName,\n  Finding._type, Finding.displayName, Finding.file, Finding.PII, Finding.PCI, Finding.secret"
+          },
+          {
+            "name": "query2",
+            "query": "Find Finding with hasSensitiveData=true and open!=false\n  that has DataStore\n  that allows AccessPolicy\n  that assigned AccessRole\n  that (assigned|trusts|uses) Host\n  that protects Firewall\n  that allows Internet\nreturn\n  DataStore._type, DataStore.name, DataStore.tag.AccountName,\n  Finding._type, Finding.displayName, Finding.file, Finding.PII, Finding.PCI, Finding.secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a55cb673-0699-4ebe-a9da-6925effd9767",
+      "title": "Vulnerable Workloads with Access to Critical Data",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find Finding \nthat has (Host|Function|Container) \nthat uses DataStore with classification='critical'\nreturn TREE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e00af8a4-57e2-4dcb-bed0-355d08386c6f",
+      "title": "Vulnerable Production Assets being Probed",
+      "type": "graph",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "Find Finding with category='event' and open=true \nthat has (Host|Function|Container) as i \nthat has Finding with category!='event' and numericSeverity > 5 and open=true\nreturn TREE"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "9955cba1-0504-4002-b403-cdc434f9f2a8",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 6,
+        "y": 0,
+        "i": "a0f92563-6265-4ae7-8e95-d1c3381f0805",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 6,
+        "i": "30b80a8a-a4f6-45c8-873d-93e4db8f5476",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 10,
+        "i": "73a3849a-69d6-4ea0-9291-0fd663e7518a",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 8,
+        "i": "ae9f4ef8-f761-485f-9c72-4f86b2c6e86e",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 4,
+        "x": 0,
+        "y": 2,
+        "i": "a55cb673-0699-4ebe-a9da-6925effd9767",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 4,
+        "x": 6,
+        "y": 2,
+        "i": "e00af8a4-57e2-4dcb-bed0-355d08386c6f",
+        "moved": false,
+        "static": false
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }

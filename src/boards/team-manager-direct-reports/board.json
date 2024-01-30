@@ -1,78 +1,99 @@
 {
-	"widgets": [
-		{
-			"id": "6d557c4e-87ad-4a96-91a7-c77734f37400",
-			"title": "Manager",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Person that manages >> Person with email='{{email}}'"
-					}
-				]
-			}
-		},
-		{
-			"id": "d3323a60-9af1-4272-abc7-1446667c0164",
-			"title": "Direct Reports",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Person that manages << Person with email='{{email}}'"
-					}
-				]
-			}
-		},
-		{
-			"id": "f9ecbc29-87c7-4466-8d8f-95773b4cf47d",
-			"title": "Team Members / Peers",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find Person\n  that manages << Person\n  that manages >> Person with email='{{email}}'"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 2,
-				"x": 6,
-				"y": 0,
-				"i": "6d557c4e-87ad-4a96-91a7-c77734f37400"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 6,
-				"x": 6,
-				"y": 2,
-				"i": "d3323a60-9af1-4272-abc7-1446667c0164"
-			},
-			{
-				"static": false,
-				"w": 6,
-				"moved": false,
-				"h": 8,
-				"x": 0,
-				"y": 0,
-				"i": "f9ecbc29-87c7-4466-8d8f-95773b4cf47d"
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "okta",
+        "title": "Okta"
+      },
+      {
+        "name": "azure",
+        "title": "Azure AD"
+      },
+      {
+        "name": "jumpcloud",
+        "title": "JumpCloud"
+      },
+      {
+        "name": "google",
+        "title": "Google Workspace"
+      }
+    ],
+    "supportedUseCase": "This is an interactive dashboard that prompts you to enter an individual's email to get the person's peers/team members, manager, and direct reports."
+  },
+  "widgets": [
+    {
+      "id": "6d557c4e-87ad-4a96-91a7-c77734f37400",
+      "title": "Manager",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find Person that manages >> Person with email='{{email}}'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "d3323a60-9af1-4272-abc7-1446667c0164",
+      "title": "Direct Reports",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find Person that manages << Person with email='{{email}}'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f9ecbc29-87c7-4466-8d8f-95773b4cf47d",
+      "title": "Team Members / Peers",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find Person\n  that manages << Person\n  that manages >> Person with email='{{email}}'"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 2,
+        "x": 6,
+        "y": 0,
+        "i": "6d557c4e-87ad-4a96-91a7-c77734f37400"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 6,
+        "x": 6,
+        "y": 2,
+        "i": "d3323a60-9af1-4272-abc7-1446667c0164"
+      },
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 8,
+        "x": 0,
+        "y": 0,
+        "i": "f9ecbc29-87c7-4466-8d8f-95773b4cf47d"
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }

@@ -1,274 +1,283 @@
 {
-	"widgets": [
-		{
-			"id": "94f3a582-3588-435f-aaa8-c73c47338f08",
-			"title": "Google WorkSpace Active Users",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND google_user WITH active=true AS a \nRETURN COUNT(a) AS value\n"
-					}
-				]
-			}
-		},
-		{
-			"id": "e743571a-83c7-4817-8e6f-b36b93521b3e",
-			"title": "Non-Active Workspace Admins",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND google_user with admin=true and active=false AS a \nRETURN COUNT(a) AS value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "db7e3e65-25ab-4936-839f-fdeed1b64039",
-			"title": "Active Workspace Admins",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND google_user WITH admin=true AND active=true AS a \nRETURN COUNT(a) AS value"
-					}
-				]
-			}
-		},
-		{
-			"id": "b4a3f066-4ec5-4779-b507-cd7695f942a0",
-			"title": "Total WorkSpace Admins (Active/Non-Active)",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND google_user WITH admin=true AS a\nRETURN COUNT(a) AS value"
-					}
-				]
-			}
-		},
-		{
-			"id": "a277d8c4-fcf3-4c2b-a633-552b9e7f12a0",
-			"title": "Workspace Users in my Organization That Have Issued an OAuth Token With a Risky Scope to a 3rd Party Application",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "find google_user as user THAT ASSIGNED google_token with\n  scopes^=(\n    \"https://mail.google.com\" OR\n    \"https://www.googleapis.com/auth/gmail.\" OR\n    \"https://www.googleapis.com/auth/drive\" OR\n    \"https://www.googleapis.com/auth/ediscovery\" OR\n    \"https://www.googleapis.com/auth/admin.\"\n  )\n  return\n    user.email as Email,\n    user.name as Name,\n    google_token.name as \"Google Token\",\n    google_token.scopes as \"Google Scope\""
-					}
-				]
-			}
-		},
-		{
-			"id": "32734777-dfb2-4c5f-a888-13e8546d40c6",
-			"title": "Total Workspace Users",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FINd google_user AS a\nRETURN count(a) AS value"
-					}
-				]
-			}
-		},
-		{
-			"id": "13c35776-9463-406c-ac09-e6a9053757ac",
-			"title": "Non-Active Workspace Admins ",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND google_user with admin=true and active=false as a\nRETURN \na.displayName as \"Display Name\",\na.active as Active,\na.admin as Admin,\na.firstName as \"First Name\",\na.lastName as \"Last Name\",\na.email as Email\n"
-					}
-				]
-			}
-		},
-		{
-			"id": "12d5a9be-d3f7-4627-a357-9e8314e9a0b1",
-			"title": "Non-Active Super Admins",
-			"type": "number",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND google_user with admin=true and active=false and isAdmon=true AS a \nRETURN COUNT(a) AS value"
-					}
-				],
-				"settings": {
-					"number": {
-						"error": {
-							"limitCondition": "greaterThan",
-							"val1": 0
-						},
-						"success": {
-							"limitCondition": "equalTo",
-							"val1": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"id": "824a6a68-47b4-498c-ac7c-54e38f8dfa1d",
-			"title": "Google Workspace Users With MFA Not Enabled",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND employee \nTHAT IS google_user with mfaEnabled != true\nRETURN\n  google_user.displayName,\n  google_user.email,\n  google_user.admin,\n  google_user.mfaEnabled,\n  google_user.lastLoginOn,\n  google_user._createdOn\n"
-					}
-				]
-			}
-		},
-		{
-			"id": "af752651-ec2f-4993-87e7-bb726b8c00c3",
-			"title": "Google Chrome Users Not Using Version Number 93.0.4577.82 (Edit Version Number As-Needed For Desired Baseline)",
-			"type": "table",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND Person as person\nTHAT OWNS Device\n(THAT (MANAGES|MONITORS) HostAgent)?\nTHAT (IDENTIFIED|INSTALLED) as i Application as app\nWHERE \n  app.name ~= ('Chrome' or 'Chromium') AND\n  i.version != \"93.0.4577.82\"\nRETURN \n  person.displayName,\n  person.email,\n  i.version as chromeVersion\n"
-					}
-				]
-			}
-		},
-		{
-			"id": "28c35b84-75aa-4d8d-b8c8-90bae41469fc",
-			"title": "Google Chrome Version Tracking Number",
-			"type": "pie",
-			"config": {
-				"queries": [
-					{
-						"name": "query1",
-						"query": "FIND Person as person\nTHAT OWNS Device\n(THAT (MANAGES|MONITORS) HostAgent)?\nTHAT (IDENTIFIED|INSTALLED) as i Application as app\nWHERE \n  app.name ~= ('Chrome' or 'Chromium') \nRETURN \n  i.version as name,\n  count(i) AS value\n"
-					}
-				]
-			}
-		}
-	],
-	"layouts": {
-		"sm": [],
-		"xs": [],
-		"lg": [
-			{
-				"w": 2,
-				"h": 2,
-				"x": 3,
-				"y": 0,
-				"i": "94f3a582-3588-435f-aaa8-c73c47338f08",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 2,
-				"h": 2,
-				"x": 9,
-				"y": 0,
-				"i": "e743571a-83c7-4817-8e6f-b36b93521b3e",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 2,
-				"h": 2,
-				"x": 7,
-				"y": 0,
-				"i": "db7e3e65-25ab-4936-839f-fdeed1b64039",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 2,
-				"h": 2,
-				"x": 5,
-				"y": 0,
-				"i": "b4a3f066-4ec5-4779-b507-cd7695f942a0",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 3,
-				"x": 0,
-				"y": 4,
-				"i": "a277d8c4-fcf3-4c2b-a633-552b9e7f12a0",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 3,
-				"h": 2,
-				"x": 0,
-				"y": 0,
-				"i": "32734777-dfb2-4c5f-a888-13e8546d40c6",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 2,
-				"i": "13c35776-9463-406c-ac09-e6a9053757ac",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 1,
-				"h": 2,
-				"x": 11,
-				"y": 0,
-				"i": "12d5a9be-d3f7-4627-a357-9e8314e9a0b1",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 7,
-				"i": "824a6a68-47b4-498c-ac7c-54e38f8dfa1d",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 6,
-				"y": 9,
-				"i": "af752651-ec2f-4993-87e7-bb726b8c00c3",
-				"moved": false,
-				"static": false
-			},
-			{
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 9,
-				"i": "28c35b84-75aa-4d8d-b8c8-90bae41469fc",
-				"moved": false,
-				"static": false
-			}
-		],
-		"xl": [],
-		"md": []
-	}
+  "prerequisites": {
+    "integrations": [
+      {
+        "name": "google",
+        "title": "Google Workspace"
+      }
+    ],
+    "supportedUseCase": "Shows various counts of both admin and non-admin users, third-party OAuth tokens and non-active super-admins. Additional widgets allow for Chrome version insight as well as notification of outdated/vulnerable versions of Chrome (adjust query as-needed)."
+  },
+  "widgets": [
+    {
+      "id": "94f3a582-3588-435f-aaa8-c73c47338f08",
+      "title": "Google WorkSpace Active Users",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND google_user WITH active=true AS a \nRETURN COUNT(a) AS value\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e743571a-83c7-4817-8e6f-b36b93521b3e",
+      "title": "Non-Active Workspace Admins",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND google_user with admin=true and active=false AS a \nRETURN COUNT(a) AS value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "db7e3e65-25ab-4936-839f-fdeed1b64039",
+      "title": "Active Workspace Admins",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND google_user WITH admin=true AND active=true AS a \nRETURN COUNT(a) AS value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "b4a3f066-4ec5-4779-b507-cd7695f942a0",
+      "title": "Total WorkSpace Admins (Active/Non-Active)",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND google_user WITH admin=true AS a\nRETURN COUNT(a) AS value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a277d8c4-fcf3-4c2b-a633-552b9e7f12a0",
+      "title": "Workspace Users in my Organization That Have Issued an OAuth Token With a Risky Scope to a 3rd Party Application",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "find google_user as user THAT ASSIGNED google_token with\n  scopes^=(\n    \"https://mail.google.com\" OR\n    \"https://www.googleapis.com/auth/gmail.\" OR\n    \"https://www.googleapis.com/auth/drive\" OR\n    \"https://www.googleapis.com/auth/ediscovery\" OR\n    \"https://www.googleapis.com/auth/admin.\"\n  )\n  return\n    user.email as Email,\n    user.name as Name,\n    google_token.name as \"Google Token\",\n    google_token.scopes as \"Google Scope\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "32734777-dfb2-4c5f-a888-13e8546d40c6",
+      "title": "Total Workspace Users",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FINd google_user AS a\nRETURN count(a) AS value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "13c35776-9463-406c-ac09-e6a9053757ac",
+      "title": "Non-Active Workspace Admins ",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND google_user with admin=true and active=false as a\nRETURN \na.displayName as \"Display Name\",\na.active as Active,\na.admin as Admin,\na.firstName as \"First Name\",\na.lastName as \"Last Name\",\na.email as Email\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "12d5a9be-d3f7-4627-a357-9e8314e9a0b1",
+      "title": "Non-Active Super Admins",
+      "type": "number",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND google_user with admin=true and active=false and isAdmon=true AS a \nRETURN COUNT(a) AS value"
+          }
+        ],
+        "settings": {
+          "number": {
+            "error": {
+              "limitCondition": "greaterThan",
+              "val1": 0
+            },
+            "success": {
+              "limitCondition": "equalTo",
+              "val1": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "824a6a68-47b4-498c-ac7c-54e38f8dfa1d",
+      "title": "Google Workspace Users With MFA Not Enabled",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND employee \nTHAT IS google_user with mfaEnabled != true\nRETURN\n  google_user.displayName,\n  google_user.email,\n  google_user.admin,\n  google_user.mfaEnabled,\n  google_user.lastLoginOn,\n  google_user._createdOn\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "af752651-ec2f-4993-87e7-bb726b8c00c3",
+      "title": "Google Chrome Users Not Using Version Number 93.0.4577.82 (Edit Version Number As-Needed For Desired Baseline)",
+      "type": "table",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND Person as person\nTHAT OWNS Device\n(THAT (MANAGES|MONITORS) HostAgent)?\nTHAT (IDENTIFIED|INSTALLED) as i Application as app\nWHERE \n  app.name ~= ('Chrome' or 'Chromium') AND\n  i.version != \"93.0.4577.82\"\nRETURN \n  person.displayName,\n  person.email,\n  i.version as chromeVersion\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "28c35b84-75aa-4d8d-b8c8-90bae41469fc",
+      "title": "Google Chrome Version Tracking Number",
+      "type": "pie",
+      "config": {
+        "queries": [
+          {
+            "name": "query1",
+            "query": "FIND Person as person\nTHAT OWNS Device\n(THAT (MANAGES|MONITORS) HostAgent)?\nTHAT (IDENTIFIED|INSTALLED) as i Application as app\nWHERE \n  app.name ~= ('Chrome' or 'Chromium') \nRETURN \n  i.version as name,\n  count(i) AS value\n"
+          }
+        ]
+      }
+    }
+  ],
+  "layouts": {
+    "sm": [],
+    "xs": [],
+    "lg": [
+      {
+        "w": 2,
+        "h": 2,
+        "x": 3,
+        "y": 0,
+        "i": "94f3a582-3588-435f-aaa8-c73c47338f08",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 2,
+        "h": 2,
+        "x": 9,
+        "y": 0,
+        "i": "e743571a-83c7-4817-8e6f-b36b93521b3e",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 2,
+        "h": 2,
+        "x": 7,
+        "y": 0,
+        "i": "db7e3e65-25ab-4936-839f-fdeed1b64039",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 2,
+        "h": 2,
+        "x": 5,
+        "y": 0,
+        "i": "b4a3f066-4ec5-4779-b507-cd7695f942a0",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 12,
+        "h": 3,
+        "x": 0,
+        "y": 4,
+        "i": "a277d8c4-fcf3-4c2b-a633-552b9e7f12a0",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 3,
+        "h": 2,
+        "x": 0,
+        "y": 0,
+        "i": "32734777-dfb2-4c5f-a888-13e8546d40c6",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 2,
+        "i": "13c35776-9463-406c-ac09-e6a9053757ac",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 1,
+        "h": 2,
+        "x": 11,
+        "y": 0,
+        "i": "12d5a9be-d3f7-4627-a357-9e8314e9a0b1",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 7,
+        "i": "824a6a68-47b4-498c-ac7c-54e38f8dfa1d",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 6,
+        "y": 9,
+        "i": "af752651-ec2f-4993-87e7-bb726b8c00c3",
+        "moved": false,
+        "static": false
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 9,
+        "i": "28c35b84-75aa-4d8d-b8c8-90bae41469fc",
+        "moved": false,
+        "static": false
+      }
+    ],
+    "xl": [],
+    "md": []
+  }
 }
