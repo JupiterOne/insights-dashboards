@@ -104,10 +104,56 @@ export const BoardCategoryTitles = {
   [BoardCategory.VULNERABILITY_MANAGEMENT]: "Vulnerability Management",
 };
 
+interface Widget {
+  id: string;
+  title: string;
+  type: string;
+  config: {
+    queries: {
+      name: string;
+      query: string;
+    }[];
+    settings?: {
+      [key: string]: any;
+    };
+  };
+}
+
+interface ResponsiveGridLayoutPosition {
+  i: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  moved?: boolean;
+  static?: boolean;
+}
+
+type ResponsiveGridLayoutBreakpoint = "xs" | "sm" | "md" | "lg" | "xl";
+
+type ResponsiveGridLayouts = {
+  [key in ResponsiveGridLayoutBreakpoint]: ResponsiveGridLayoutPosition[];
+};
+
+interface ManagedBoard {
+  id: string;
+  name: string;
+  category: BoardCategory | "";
+  prerequisites?: {
+    integrations: {
+      name: string;
+      title: string;
+    }[];
+    supportedUseCase: string;
+  };
+  widgets: Widget[];
+  layouts: ResponsiveGridLayouts;
+}
+
 // Boards here will be added as "J1 Managed Boards"
 // Boards with categories will be displayed in their respective category by default
 // An undefined category will just be displayed in the 'J1 Managed Dashboards' section
-export const MANAGED_BOARDS = [
+export const MANAGED_BOARDS: ManagedBoard[] = [
   {
     id: "high-risk-assets",
     name: "High Risk Assets",
