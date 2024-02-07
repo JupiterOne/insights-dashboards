@@ -113,7 +113,7 @@ interface Widget {
       name: string;
       query: string;
     }[];
-    settings?: {
+    settings: {
       [key: string]: any;
     };
   };
@@ -352,6 +352,18 @@ export const MANAGED_BOARDS: ManagedBoard[] = [
     category: BoardCategory.FAVORITE,
     ...povInsights,
   },
-];
+].map((board) => ({
+  ...board,
+  widgets: board.widgets.map((w) => {
+    const widget = w as unknown as Widget;
+    return {
+      ...widget,
+      config: {
+        ...widget.config,
+        settings: widget.config.settings ? widget.config.settings : {},
+      },
+    };
+  }),
+}));
 
 export default InsightsDashboards;
