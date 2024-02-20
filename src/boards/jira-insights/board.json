@@ -1,9 +1,14 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "jira",
-        "title": "JIRA"
+        "integrations": [
+          {
+            "name": "jira",
+            "title": "JIRA"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "Shows detailed information on Jira accounts, reporting on users, issues, and remediations."

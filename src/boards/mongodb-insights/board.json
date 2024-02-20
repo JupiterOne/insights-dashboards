@@ -1,4 +1,18 @@
 {
+  "prerequisites": {
+    "groups": [
+      {
+        "integrations": [
+          {
+            "name": "mongodb",
+            "title": "MongoDB"
+          }
+        ],
+        "conditional": "OR"
+      }
+    ],
+    "supportedUseCase": "Review all MongoDB production users, API keys, and projects that are in production."
+  },
   "widgets": [
     {
       "noResultMessage": "No ingested API keys found",

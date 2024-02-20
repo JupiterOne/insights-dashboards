@@ -1,17 +1,22 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "aws",
-        "title": "AWS"
-      },
-      {
-        "name": "azure",
-        "title": "Azure"
-      },
-      {
-        "name": "google_cloud",
-        "title": "Google Cloud"
+        "integrations": [
+          {
+            "name": "aws",
+            "title": "AWS"
+          },
+          {
+            "name": "azure",
+            "title": "Azure"
+          },
+          {
+            "name": "google_cloud",
+            "title": "Google Cloud"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "Shows data stores in the EU, US, and elsewhere."

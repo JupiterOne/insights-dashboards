@@ -1,4 +1,78 @@
 {
+  "prerequisites": {
+    "groups": [
+      {
+        "integrations": [
+          {
+            "name": "addigy",
+            "title": "Addigy"
+          },
+          {
+            "name": "airwatch",
+            "title": "AirWatch"
+          },
+          {
+            "name": "automox",
+            "title": "Automox"
+          },
+          {
+            "name": "device42",
+            "title": "Device42"
+          },
+          { "name": "jamf", "title": "Jamf" },
+          { "name": "fleetdm", "title": "FleetDM" },
+          { "name": "kandji", "title": "Kandji" },
+          { "name": "microsoft-365", "title": "Microsoft 365" },
+          { "name": "simplemdm", "title": "SimpleMDM" },
+          { "name": "tanium", "title": "Tanium" },
+          { "name": "snipe-it", "title": "Snipe-IT" }
+        ],
+        "conditional": "AND"
+      },
+      {
+        "integrations": [
+          {
+            "name": "cbdefense",
+            "title": "Carbon Black PSC"
+          },
+          {
+            "name": "cisco_amp",
+            "title": "Cisco Secure Endpoint"
+          },
+          {
+            "name": "sentinelone",
+            "title": "SentinelOne"
+          },
+          {
+            "name": "crowdstrike",
+            "title": "CrowdStrike"
+          },
+          {
+            "name": "malwarebytes",
+            "title": "Malwarebytes"
+          },
+          {
+            "name": "defender-endpoint",
+            "title": "Microsoft Defender for Endpoint"
+          },
+          {
+            "name": "palo-alto",
+            "title": "Palo Alto Cortex XDR"
+          },
+          {
+            "name": "trend-vision-one",
+            "title": "Trend Micro Vision One"
+          },
+          {
+            "name": "sophos",
+            "title": "Sophos"
+          }
+        ],
+        "conditional": "AND"
+      }
+    ],
+    "supportedUseCase": "Shows Devices missing Host Agents, OS Type and Version Breakdowns, Encryption Status, and Devices with Problems."
+  },
   "widgets": [
     {
       "description": "Returns all hosts + devices that have not been seen in the last 72 hours",

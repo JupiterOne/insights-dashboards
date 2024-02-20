@@ -1,12 +1,25 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "jira",
-        "title": "JIRA"
+        "integrations": [
+          {
+            "name": "aws",
+            "title": "AWS"
+          },
+          {
+            "name": "azure",
+            "title": "Azure"
+          },
+          {
+            "name": "google_cloud",
+            "title": "Google Cloud"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
-    "supportedUseCase": "Shows counts of documented risks from risk assessments based on their current status, and a listing of currently open risks."
+    "supportedUseCase": "Review all your DataStore and Host classifications across your cloud infrastructure."
   },
   "widgets": [
     {

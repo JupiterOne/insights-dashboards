@@ -1,9 +1,14 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "google_cloud",
-        "title": "Google Cloud"
+        "integrations": [
+          {
+            "name": "google_cloud",
+            "title": "Google Cloud"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "Shows important configurations related to GCP Compute Projects and Instances."

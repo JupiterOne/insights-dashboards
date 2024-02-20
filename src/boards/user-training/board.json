@@ -1,9 +1,14 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "knowbe4",
-        "title": "KnowBe4"
+        "integrations": [
+          {
+            "name": "knowbe4",
+            "title": "KnowBe4"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "Shows metrics and status related to security awareness training for endusers."

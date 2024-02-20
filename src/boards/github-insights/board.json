@@ -1,9 +1,14 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "github",
-        "title": "GitHub"
+        "integrations": [
+          {
+            "name": "github",
+            "title": "GitHub"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "Shows detailed information on GitHub accounts, reporting on user access, developer activity, collaborator details, insights on pull requests, and issue summaries by repo."
