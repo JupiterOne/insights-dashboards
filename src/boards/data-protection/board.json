@@ -1,32 +1,25 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "github",
-        "title": "GitHub"
-      },
-      {
-        "name": "gitlab",
-        "title": "GitLab"
-      },
-      {
-        "name": "bitbucket",
-        "title": "Bitbucket"
-      },
-      {
-        "name": "okta",
-        "title": "Okta"
-      },
-      {
-        "name": "google",
-        "title": "Google SSO"
-      },
-      {
-        "name": "azure",
-        "title": "Azure AD"
+        "integrations": [
+          {
+            "name": "aws",
+            "title": "AWS"
+          },
+          {
+            "name": "azure",
+            "title": "Azure"
+          },
+          {
+            "name": "google_cloud",
+            "title": "Google Cloud"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
-    "supportedUseCase": "Shows secure development related metrics, including repo counts by project, open pull requests by developer, pull requests with self-approved/unapproved commits, and pull requests with commits made by unknown/unvalidated developers."
+    "supportedUseCase": "Shows DataStore distributions with key metrics on unclassified data, unencrypted data, and non-public data stores with public access."
   },
   "widgets": [
     {

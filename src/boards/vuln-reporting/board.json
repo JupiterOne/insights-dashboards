@@ -1,20 +1,73 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "cloud_infrastructure",
-        "title": "Cloud Infrastructure (AWS / Azure / GCP)",
-        "category": "Cloud Infrastructure"
+        "integrations": [
+          {
+            "name": "aws",
+            "title": "AWS"
+          },
+          {
+            "name": "azure",
+            "title": "Azure"
+          },
+          {
+            "name": "google_cloud",
+            "title": "Google Cloud"
+          }
+        ],
+        "conditional": "AND"
       },
       {
-        "name": "code_management",
-        "title": "Application Code Repos (GitHub / GitLab / Bitbucket)",
-        "category": "Code Management"
+        "integrations": [
+          {
+            "name": "qualys",
+            "title": "Qualys"
+          },
+          {
+            "name": "tenable-cloud",
+            "title": "Tenable.io"
+          },
+          {
+            "name": "rapid7-insight",
+            "title": "Rapid7 Insight"
+          }
+        ],
+        "conditional": "OR"
       },
       {
-        "name": "infrastructure_vulnerability_scanners",
-        "title": "Infrastructure Vulnerability Scanners (AWS Inspector / Qualys / Tenable / etc.)",
-        "category": "App Security"
+        "integrations": [
+          {
+            "name": "github",
+            "title": "GitHub"
+          },
+          {
+            "name": "gitlab",
+            "title": "GitLab"
+          },
+          {
+            "name": "bitbucket",
+            "title": "Bitbucket"
+          }
+        ],
+        "conditional": "OR"
+      },
+      {
+        "integrations": [
+          {
+            "name": "snyk",
+            "title": "Snyk"
+          },
+          {
+            "name": "veracode",
+            "title": "Veracode"
+          },
+          {
+            "name": "rapid7-insight",
+            "title": "Rapid7 Insight"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "This dashboard presents multiple operational and reporting metrics to help with vulnerability management. It aggregates findings and risks across both infrastructure and application development, identifies the highest risk items by context, such as findings impacting production workloads and applications deployed to production.\n\nThis dashboard also reports on vulnerability analytics and patterns -- Top 10 CVEs, Top 10 CWEs -- as well as workflow items such as Jira issues or records from other ticketing systems."

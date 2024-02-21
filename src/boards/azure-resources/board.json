@@ -1,9 +1,14 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "azure",
-        "title": "Azure"
+        "integrations": [
+          {
+            "name": "azure",
+            "title": "Azure"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "Shows Azure resources covering encryption settings, guest access, and resource access to key vaults."

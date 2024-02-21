@@ -1,9 +1,14 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "azure",
-        "title": "Azure"
+        "integrations": [
+          {
+            "name": "azure",
+            "title": "Azure"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "Shows Azure container resources and encryption settings as well as logging options set on containers."

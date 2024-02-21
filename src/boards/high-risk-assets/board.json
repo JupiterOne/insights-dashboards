@@ -1,17 +1,22 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "aws",
-        "title": "AWS"
-      },
-      {
-        "name": "azure",
-        "title": "Azure"
-      },
-      {
-        "name": "google_cloud",
-        "title": "Google Cloud"
+        "integrations": [
+          {
+            "name": "aws",
+            "title": "AWS"
+          },
+          {
+            "name": "azure",
+            "title": "Azure"
+          },
+          {
+            "name": "google_cloud",
+            "title": "Google Cloud"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "Shows vulnerability findings associated with production and internet-facing systems, non-public data stores with public access, and public data stores containing sensitive data."

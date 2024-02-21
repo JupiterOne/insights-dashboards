@@ -1,4 +1,84 @@
 {
+  "prerequisites": {
+    "groups": [
+      {
+        "integrations": [
+          {
+            "name": "aws",
+            "title": "AWS"
+          },
+          {
+            "name": "azure",
+            "title": "Azure"
+          },
+          {
+            "name": "google_cloud",
+            "title": "Google Cloud"
+          }
+        ],
+        "conditional": "AND"
+      },
+      {
+        "integrations": [
+          {
+            "name": "cbdefense",
+            "title": "Carbon Black PSC"
+          },
+          {
+            "name": "cisco_amp",
+            "title": "Cisco Secure Endpoint"
+          },
+          {
+            "name": "sentinelone",
+            "title": "SentinelOne"
+          },
+          {
+            "name": "crowdstrike",
+            "title": "CrowdStrike"
+          },
+          {
+            "name": "malwarebytes",
+            "title": "Malwarebytes"
+          },
+          {
+            "name": "defender-endpoint",
+            "title": "Microsoft Defender for Endpoint"
+          },
+          {
+            "name": "palo-alto",
+            "title": "Palo Alto Cortex XDR"
+          },
+          {
+            "name": "trend-vision-one",
+            "title": "Trend Micro Vision One"
+          },
+          {
+            "name": "sophos",
+            "title": "Sophos"
+          }
+        ],
+        "conditional": "OR"
+      },
+      {
+        "integrations": [
+          {
+            "name": "qualys",
+            "title": "Qualys"
+          },
+          {
+            "name": "tenable-cloud",
+            "title": "Tenable.io"
+          },
+          {
+            "name": "rapid7-insight",
+            "title": "Rapid7 Insight"
+          }
+        ],
+        "conditional": "OR"
+      }
+    ],
+    "supportedUseCase": "Shows Devices missing Host Agents, OS Type and Version Breakdowns, Encryption Status, and Devices with Problems."
+  },
   "widgets": [
     {
       "description": "Returns workloads including cloud compute functions that are not related to an active HostAgent or cloud scanning Service but have access to non-public DataStores (buckets/databases).",

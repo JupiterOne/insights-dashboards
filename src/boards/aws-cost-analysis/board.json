@@ -1,9 +1,14 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "aws",
-        "title": "AWS"
+        "integrations": [
+          {
+            "name": "aws",
+            "title": "AWS"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "Uses helpful queries for identifying resources that can result in increasing costs and attack surface within your AWS environment."

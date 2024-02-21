@@ -1,9 +1,14 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "aws",
-        "title": "AWS"
+        "integrations": [
+          {
+            "name": "aws",
+            "title": "AWS"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
     "supportedUseCase": "Shows AWS IAM Groups, Users, Roles, and important access policy assignments."

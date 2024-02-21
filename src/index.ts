@@ -140,9 +140,12 @@ interface ManagedBoard {
   name: string;
   category: BoardCategory | "";
   prerequisites?: {
-    integrations: {
-      name: string;
-      title: string;
+    groups?: {
+      integrations: {
+        name: string;
+        title: string;
+      }[];
+      conditional: "OR" | "AND" | string;
     }[];
     supportedUseCase: string;
   };

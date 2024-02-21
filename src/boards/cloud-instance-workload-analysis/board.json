@@ -1,20 +1,25 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "aws",
-        "title": "AWS"
-      },
-      {
-        "name": "azure",
-        "title": "Azure"
-      },
-      {
-        "name": "google_cloud",
-        "title": "Google Cloud"
+        "integrations": [
+          {
+            "name": "aws",
+            "title": "AWS"
+          },
+          {
+            "name": "azure",
+            "title": "Azure"
+          },
+          {
+            "name": "google_cloud",
+            "title": "Google Cloud"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
-    "supportedUseCase": "This is an interactive dashboard that prompts you to enter the hostname or IP address or instance ID of a cloud workload/instance.\nIt answers these key questions for any given virtual instance or workload across all three major CSPs in seconds:\nIs the workload/instance still active or online? What are its configurations?\n\n- What resources are connected to it?\n- What else are in the same blast radius?\n- How is it connected to the Internet (external attack path)?\n- Who has admin/privileged access to it?\n- What data stores does it have access to?"
+    "supportedUseCase": "* Is the workload/instance still active or online?\n* What are its configurations?\n* What resources are connected to it?\n* What else are in the same blast radius?\n* How is it connected to the Internet (external attack path)?\n* Who has admin/privileged access to it? - What data stores does it have access to?"
   },
   "widgets": [
     {

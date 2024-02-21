@@ -1,12 +1,17 @@
 {
   "prerequisites": {
-    "integrations": [
+    "groups": [
       {
-        "name": "aws",
-        "title": "AWS"
+        "integrations": [
+          {
+            "name": "aws",
+            "title": "AWS"
+          }
+        ],
+        "conditional": "OR"
       }
     ],
-    "supportedUseCase": "This dashboard requires the J1 AWS integration with one or more AWS accounts."
+    "supportedUseCase": "Shows AWS resources like EC2, ENI, EBS, RDS and Lamba functions in your environment and their related metrics across these accounts."
   },
   "widgets": [
     {
