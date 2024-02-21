@@ -55,8 +55,8 @@
       {
         "integrations": [
           {
-            "name": "synk",
-            "title": "Synk"
+            "name": "snyk",
+            "title": "Snyk"
           },
           {
             "name": "veracode",
