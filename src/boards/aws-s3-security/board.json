@@ -1,18 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "aws",
-            "title": "AWS"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-    "supportedUseCase": "Show several key configurations, metrics, and graphs related to AWS S3 security."
-  },
   "widgets": [
     {
       "id": "5f4a0105-c7f3-4cdf-a40e-2bf8c04a2493",

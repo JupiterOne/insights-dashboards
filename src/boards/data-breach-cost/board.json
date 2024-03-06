@@ -1,26 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "aws",
-            "title": "AWS"
-          },
-          {
-            "name": "azure",
-            "title": "Azure"
-          },
-          {
-            "name": "google_cloud",
-            "title": "Google Cloud"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-    "supportedUseCase": "Shows sensitive data discovery findings from publicly accessible or unencrypted data stores, and use a formula to calculate the potential cost if based on the number of sensitive data records that could be exposed."
-  },
   "widgets": [
     {
       "id": "99644fe4-ee6c-4595-96d4-e221b0469a29",

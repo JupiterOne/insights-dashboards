@@ -1,18 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "github",
-            "title": "GitHub"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-    "supportedUseCase": "Shows detailed information on GitHub accounts, reporting on user access, developer activity, collaborator details, insights on pull requests, and issue summaries by repo."
-  },
   "widgets": [
     {
       "id": "f79dc362-b563-4eac-a80a-a588aa8056bf",

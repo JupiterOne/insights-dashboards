@@ -1,13 +1,4 @@
 {
-  "prerequisites": {
-    "integrations": [
-      {
-        "name": "aws",
-        "title": "AWS"
-      }
-    ],
-    "supportedUseCase": "Shows AWS master accounts, sub-accounts, as well as validated/unvalidated external accounts discovered by JupiterOne via analysis of IAM policies and trusts."
-  },
   "widgets": [
     {
       "id": "267dcabe-899f-4435-b248-14337893933c",
