@@ -59,7 +59,7 @@ export const CODE_MANAGEMENT = {
 export const IDENTITY_AND_ACCESS = {
   id: "identity-and-access",
   title: "Identity and Access",
-  integrationsNames: ["okta", "jumpcloud", "google"],
+  integrationsNames: ["okta", "jumpcloud", "google", "azure"],
 };
 
 export const TRAINING = {

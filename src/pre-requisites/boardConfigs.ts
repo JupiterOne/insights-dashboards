@@ -339,12 +339,6 @@ export const teamManagerAndDirectReportsPreReq: Prerequisites = {
   groups: [
     {
       groupIds: ["identity-and-access"],
-      customGroups: [
-        {
-          category: "Identity and Access",
-          integrationsNames: ["azure"],
-        },
-      ],
     },
   ],
   supportedUseCase:
