@@ -120,6 +120,9 @@ export const dataBreachCostPreReq: Prerequisites = {
     {
       groupIds: ["cloud"],
     },
+    {
+      groupIds: ["vulnerability-scanner"],
+    },
   ],
   supportedUseCase:
     "Shows sensitive data discovery findings from publicly accessible or unencrypted data stores, and use a formula to calculate the potential cost if based on the number of sensitive data records that could be exposed.",
@@ -215,7 +218,7 @@ export const githubInsightsPreReq: Prerequisites = {
     "Shows detailed information on GitHub accounts, reporting on user access, developer activity, collaborator details, insights on pull requests, and issue summaries by repo.",
 };
 
-export const googleWorkshopsPreReq: Prerequisites = {
+export const googleWorkspacePreReq: Prerequisites = {
   groups: [
     {
       customGroups: [

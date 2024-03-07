@@ -31,7 +31,7 @@ export const DEVICE_MANAGEMENT = {
 export const CODE_SCANNERS = {
   id: "code-scanners",
   title: "Code Scanners",
-  integrationsNames: ["veracode", "snyk"],
+  integrationsNames: ["veracode", "snyk", "rapid7-insight"],
 };
 
 export const ENDPOINT_AGENTS = {

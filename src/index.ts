@@ -55,7 +55,7 @@ import {
   gcpIAMPreReq,
   gdprDataLocationsPreReq,
   githubInsightsPreReq,
-  googleWorkshopsPreReq,
+  googleWorkspacePreReq,
   highRiskAssetsPreReq,
   jiraInsightsPreReq,
   mongoDbInsightsPreReq,
@@ -362,7 +362,7 @@ export const MANAGED_BOARDS: ManagedBoard[] = [
     id: "google-workspace",
     name: "Google Workspace",
     category: BoardCategory.USERS_ACCESS,
-    prerequisites: { ...googleWorkshopsPreReq },
+    prerequisites: { ...googleWorkspacePreReq },
     ...googleWorkspace,
   },
   {
