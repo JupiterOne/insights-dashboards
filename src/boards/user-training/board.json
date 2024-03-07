@@ -1,18 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "knowbe4",
-            "title": "KnowBe4"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-    "supportedUseCase": "Shows metrics and status related to security awareness training for endusers."
-  },
   "widgets": [
     {
       "id": "6ad084c9-685f-4ff4-9f16-60eada53abaf",

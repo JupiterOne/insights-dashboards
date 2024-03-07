@@ -1,18 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "google_cloud",
-            "title": "Google Cloud"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-    "supportedUseCase": "Shows GCP IAM users, roles, service accounts, and important access privilege information."
-  },
   "widgets": [
     {
       "id": "b8c9affa-6742-4b6e-ab62-9a0bd833e973",

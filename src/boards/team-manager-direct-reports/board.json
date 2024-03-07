@@ -1,30 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "okta",
-            "title": "Okta"
-          },
-          {
-            "name": "azure",
-            "title": "Azure AD"
-          },
-          {
-            "name": "jumpcloud",
-            "title": "JumpCloud"
-          },
-          {
-            "name": "google",
-            "title": "Google Workspace"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-    "supportedUseCase": "This is an interactive dashboard that prompts you to enter an individual's email to get the person's peers/team members, manager, and direct reports."
-  },
   "widgets": [
     {
       "id": "6d557c4e-87ad-4a96-91a7-c77734f37400",

@@ -37,6 +37,41 @@ import vendorMgmt from "./boards/vendor-mgmt/board.json";
 import vulnReporting from "./boards/vuln-reporting/board.json";
 import povInsights from "./boards/pov-insights/board.json";
 import anomalyDetectionBeta from "./boards/device-anomaly-detection-beta/board.json";
+import { Prerequisites } from "./pre-requisites/config";
+import {
+  awsAccountsPreReq,
+  awsCostAnalysisPreReq,
+  awsIAMPreReq,
+  awsResourcesPreReq,
+  awsS3SecurityPreReq,
+  azureDataStoreSecurityPreReq,
+  azureResourcesPreReq,
+  cloudInstanceWorloadAnalysisPreReq,
+  dataBreachCostPreReq,
+  dataProtectionPreReq,
+  deviceAnomalyDetectionPreReq,
+  deviceManagementPreReq,
+  gcpComputePreReq,
+  gcpIAMPreReq,
+  gdprDataLocationsPreReq,
+  githubInsightsPreReq,
+  googleWorkspacePreReq,
+  highRiskAssetsPreReq,
+  jiraInsightsPreReq,
+  mongoDbInsightsPreReq,
+  networkAccessAndFirewallRulesPreReq,
+  oktaUserManagementPreReq,
+  resourceClassificationPreReq,
+  secureDevelopmentPreReq,
+  softwarePackageDependenciesAndLicensesPreReq,
+  teamManagerAndDirectReportsPreReq,
+  toxicCombinationsPreReq,
+  userAccessPreReq,
+  userEndpointBlastRadiusPreReq,
+  userEndpointsPreReq,
+  userTrainingPreReq,
+  vulnerabilityReportingPreReq,
+} from "./pre-requisites/boardConfigs";
 
 // All of these boards are available as templates for import when creating a new board in app
 export const InsightsDashboards = {
@@ -139,16 +174,7 @@ interface ManagedBoard {
   id: string;
   name: string;
   category: BoardCategory | "";
-  prerequisites?: {
-    groups?: {
-      integrations: {
-        name: string;
-        title: string;
-      }[];
-      conditional: "OR" | "AND" | string;
-    }[];
-    supportedUseCase: string;
-  };
+  prerequisites?: Prerequisites;
   widgets: Widget[];
   layouts: ResponsiveGridLayouts;
 }
@@ -161,191 +187,223 @@ export const MANAGED_BOARDS: ManagedBoard[] = [
     id: "high-risk-assets",
     name: "High Risk Assets",
     category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    prerequisites: { ...highRiskAssetsPreReq },
     ...highRiskAssets,
   },
   {
     id: "resource-classification",
     name: "Resource Classification",
     category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    prerequisites: { ...resourceClassificationPreReq },
     ...resourceClassification,
   },
   {
     id: "firewall",
     name: "Network Access and Firewall Rules",
     category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    prerequisites: { ...networkAccessAndFirewallRulesPreReq },
     ...firewall,
   },
   {
     id: "device-management",
     name: "Device Management",
     category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    prerequisites: { ...deviceManagementPreReq },
     ...deviceManagement,
   },
   {
     id: "toxic-combinations",
     name: "Toxic Combinations",
     category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    prerequisites: { ...toxicCombinationsPreReq },
     ...toxicCombinations,
   },
   {
     id: "aws-accounts",
     name: "AWS Accounts",
     category: BoardCategory.CLOUD_POSTURE,
+    prerequisites: { ...awsAccountsPreReq },
     ...awsAccount,
   },
   {
     id: "aws-cost-analysis",
     name: "AWS Cost Analysis",
     category: BoardCategory.CLOUD_POSTURE,
+    prerequisites: { ...awsCostAnalysisPreReq },
     ...awsCostAnalysis,
   },
   {
     id: "aws-iam",
     name: "AWS IAM",
     category: BoardCategory.CLOUD_POSTURE,
+    prerequisites: { ...awsIAMPreReq },
     ...awsIam,
   },
   {
     id: "aws-resources",
     name: "AWS Resources",
     category: BoardCategory.CLOUD_POSTURE,
+    prerequisites: { ...awsResourcesPreReq },
     ...awsResources,
   },
   {
     id: "aws-s3-security",
     name: "AWS S3 Security",
     category: BoardCategory.CLOUD_POSTURE,
+    prerequisites: { ...awsS3SecurityPreReq },
     ...awsS3Security,
   },
   {
     id: "azure-datastore-security",
     name: "Azure DataStore Security",
     category: BoardCategory.CLOUD_POSTURE,
+    prerequisites: { ...azureDataStoreSecurityPreReq },
     ...azureDataStoreSecurity,
   },
   {
     id: "azure-resources",
     name: "Azure Resources",
     category: BoardCategory.CLOUD_POSTURE,
+    prerequisites: { ...azureResourcesPreReq },
     ...azureResources,
   },
   {
     id: "device-anomaly-detection-beta",
     name: "Device Anomaly Detection (Beta)",
     category: BoardCategory.ASSETS_ATTACK_SURFACE,
+    prerequisites: { ...deviceAnomalyDetectionPreReq },
     ...anomalyDetectionBeta,
   },
   {
     id: "gcp-compute",
     name: "GCP Compute",
     category: BoardCategory.CLOUD_POSTURE,
+    prerequisites: { ...gcpComputePreReq },
     ...gcpCompute,
   },
   {
     id: "gcp-iam",
     name: "GCP IAM",
     category: BoardCategory.CLOUD_POSTURE,
+    prerequisites: { ...gcpIAMPreReq },
     ...gcpIam,
   },
   {
     id: "data-breach-cost",
     name: "Data Breach Cost",
     category: BoardCategory.DATA_PROTECTION_PRIVACY,
+    prerequisites: { ...dataBreachCostPreReq },
     ...dataBreachCost,
   },
   {
     id: "data-protection",
     name: "Data Protection",
     category: BoardCategory.DATA_PROTECTION_PRIVACY,
+    prerequisites: { ...dataProtectionPreReq },
     ...dataProtection,
   },
   {
     id: "gdpr-data-locations",
     name: "GDPR Data Locations",
     category: BoardCategory.DATA_PROTECTION_PRIVACY,
+    prerequisites: { ...gdprDataLocationsPreReq },
     ...gdprDataLocations,
   },
   {
     id: "ir-cloud-instance-workload-analysis",
     name: "Cloud Instance Workload Analysis",
     category: BoardCategory.INCIDENT_RESPONSE,
+    prerequisites: { ...cloudInstanceWorloadAnalysisPreReq },
     ...cloudInstanceWorkloadAnalysis,
   },
   {
     id: "ir-user-endpoint-blast-radius",
     name: "User Endpoint Blast Radius",
     category: BoardCategory.INCIDENT_RESPONSE,
+    prerequisites: { ...userEndpointBlastRadiusPreReq },
     ...userEndpointBlastRadius,
   },
   {
     id: "github-insights",
     name: "GitHub Insights",
     category: BoardCategory.SDLC_DEVSECOPS,
+    prerequisites: { ...githubInsightsPreReq },
     ...githubInsights,
   },
   {
     id: "jira-insights",
     name: "Jira Insights",
     category: BoardCategory.SDLC_DEVSECOPS,
+    prerequisites: { ...jiraInsightsPreReq },
     ...jiraInsights,
   },
   {
     id: "mongodb-insights",
     name: "MongoDB Insights",
     category: "",
+    prerequisites: { ...mongoDbInsightsPreReq },
     ...mongoDbInsights,
   },
   {
     id: "secure-development",
     name: "Secure Development",
     category: BoardCategory.SDLC_DEVSECOPS,
+    prerequisites: { ...secureDevelopmentPreReq },
     ...secureDevelopment,
   },
   {
     id: "software-dependencies-and-licenses",
     name: "Software Dependencies and Licenses",
     category: BoardCategory.SOFTWARE_SUPPLY_CHAIN,
+    prerequisites: { ...softwarePackageDependenciesAndLicensesPreReq },
     ...softwareDependenciesAndLicenses,
   },
   {
     id: "google-workspace",
     name: "Google Workspace",
     category: BoardCategory.USERS_ACCESS,
+    prerequisites: { ...googleWorkspacePreReq },
     ...googleWorkspace,
   },
   {
     id: "okta-user-management",
     name: "Okta User Management",
     category: BoardCategory.USERS_ACCESS,
+    prerequisites: { ...oktaUserManagementPreReq },
     ...oktaUserManagement,
   },
   {
     id: "team-manager-direct-reports",
     name: "Team / Peers, Manager and Direct Reports",
     category: BoardCategory.USERS_ACCESS,
+    prerequisites: { ...teamManagerAndDirectReportsPreReq },
     ...teamManagerDirectReports,
   },
   {
     id: "user-access",
     name: "User Access",
     category: BoardCategory.USERS_ACCESS,
+    prerequisites: { ...userAccessPreReq },
     ...userAccess,
   },
   {
     id: "user-endpoints",
     name: "User Endpoints",
     category: BoardCategory.USERS_ACCESS,
+    prerequisites: { ...userEndpointsPreReq },
     ...userEndpoints,
   },
   {
     id: "user-training",
     name: "User Training",
+    prerequisites: { ...userTrainingPreReq },
     category: BoardCategory.USERS_ACCESS,
     ...userTraining,
   },
   {
     id: "vulnerability-reporting",
     name: "Vulnerability Reporting",
+    prerequisites: { ...vulnerabilityReportingPreReq },
     category: BoardCategory.VULNERABILITY_MANAGEMENT,
     ...vulnReporting,
   },
@@ -356,5 +414,7 @@ export const MANAGED_BOARDS: ManagedBoard[] = [
     ...povInsights,
   },
 ];
+
+export * as PreReqConfig from "./pre-requisites/config";
 
 export default InsightsDashboards;

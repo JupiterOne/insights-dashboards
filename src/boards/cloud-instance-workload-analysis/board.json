@@ -1,26 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "aws",
-            "title": "AWS"
-          },
-          {
-            "name": "azure",
-            "title": "Azure"
-          },
-          {
-            "name": "google_cloud",
-            "title": "Google Cloud"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-    "supportedUseCase": "* Is the workload/instance still active or online?\n* What are its configurations?\n* What resources are connected to it?\n* What else are in the same blast radius?\n* How is it connected to the Internet (external attack path)?\n* Who has admin/privileged access to it? - What data stores does it have access to?"
-  },
   "widgets": [
     {
       "id": "4bef6b9a-ff35-43ad-ae15-de9de918ab13",

@@ -1,19 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "okta",
-            "title": "Okta"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-
-    "supportedUseCase": "Shows Okta users by current status, inactive users, and deprovisioned/inactive users with access to other accounts."
-  },
   "widgets": [
     {
       "id": "fcc10441-31b7-418e-bc52-6865caf0ad0b",

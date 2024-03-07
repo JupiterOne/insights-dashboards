@@ -1,34 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "github",
-            "title": "GitHub"
-          },
-          {
-            "name": "gitlab",
-            "title": "GitLab"
-          },
-          {
-            "name": "bitbucket",
-            "title": "Bitbucket"
-          },
-          {
-            "name": "npm",
-            "title": "NPM"
-          },
-          {
-            "name": "artifactory",
-            "title": "Artifactory"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-    "supportedUseCase": "Shows a dynamically updating report of package dependencies in the software code repos and their corresponding licenses, which is helpful to produce an open-source report for auditing.\n\nThe dashboard can be shared with an auditor/customer/partner by generating a unique shareable link."
-  },
   "widgets": [
     {
       "id": "e06623f1-8c59-43cd-ae78-4df47edfe31b",

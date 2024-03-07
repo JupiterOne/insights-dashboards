@@ -1,7 +1,4 @@
 {
-  "prerequisites": {
-    "supportedUseCase": "Shows users across different environments/accounts, admin users, and shared/system user accounts."
-  },
   "widgets": [
     {
       "id": "4efc35e2-2ac3-4f0f-a057-3e16601b39e5",

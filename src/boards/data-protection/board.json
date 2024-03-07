@@ -1,26 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "aws",
-            "title": "AWS"
-          },
-          {
-            "name": "azure",
-            "title": "Azure"
-          },
-          {
-            "name": "google_cloud",
-            "title": "Google Cloud"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-    "supportedUseCase": "Shows DataStore distributions with key metrics on unclassified data, unencrypted data, and non-public data stores with public access."
-  },
   "widgets": [
     {
       "id": "5c49bc63-eb74-4fc3-87cf-4a453dfd80e9",

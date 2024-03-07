@@ -1,18 +1,4 @@
 {
-  "prerequisites": {
-    "groups": [
-      {
-        "integrations": [
-          {
-            "name": "aws",
-            "title": "AWS"
-          }
-        ],
-        "conditional": "OR"
-      }
-    ],
-    "supportedUseCase": "Shows AWS resources like EC2, ENI, EBS, RDS and Lamba functions in your environment and their related metrics across these accounts."
-  },
   "widgets": [
     {
       "id": "3c820d43-e28d-425e-86d3-b293a30c62c2",
