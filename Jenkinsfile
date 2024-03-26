@@ -5,7 +5,7 @@ pipeline {
 
   stages {
     stage('build') {
-      agent { label 'ecs-builder-node14' }
+      agent { label 'ecs-builder-node18' }
       steps {
         initBuild()
         frozenYarnInstall()
