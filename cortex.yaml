@@ -7,7 +7,7 @@ info:
       repository: JupiterOne/insights-dashboards
   x-cortex-owners:
     - type: group
-      name: JupiterOne/prometheus
+      name: JupiterOne/Apps
   x-cortex-service-groups:
     - tier-4
   x-cortex-tag: insights-dashboards
