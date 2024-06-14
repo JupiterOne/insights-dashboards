@@ -1,1121 +1,1001 @@
 {
-	"widgets": [
-		{
-			"id": "cc1bb92b-736b-4b76-bb2a-4ffb3fb6db04",
-			"title": "Optimize underutilized/incorrectly-sized EC2 instances",
-			"description": "Many organizations pay for computing power they don't fully utilize. JupiterOne provides insights to right-size or decommission underutilized, inactive, or incorrectly-sized EC2 and RDS instances, driving significant cost savings while maintaining performance.",
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "Query 1",
-						"query": "FIND Host \nWITH _type != \"mapped_entity\" \nAND instanceType != undefined \nAND state = \"running\" AS a \nRETURN \nCOUNT(a), a._type, a.state, a.instanceClass, a.instanceType, a.active, a.dbInstanceClass"
-					}
-				],
-				"settings": {}
-			}
-		},
-		{
-			"id": "750ea929-fb31-46ef-b1d4-68c53b06e5a3",
-			"title": "DB Cluster Snapshot Usage per Account",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "FIND aws_db_cluster_snapshot with _source!=\"system-mapper\" and allocatedStorage!=undefined as b \n  return b.tag.AccountName as Account, \n    SUM(b.allocatedStorage) as TotalSizeInGB, \n    AVG(b.allocatedStorage) as AverageSizeInGB, \n    MAX(b.allocatedStorage) as LargestSnapshotInGB,\n    COUNT(b) as TotalSnapshots ORDER BY AverageSizeInGB DESC"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "92507e3e-2c99-4089-b75a-ce97ad4743d5",
-			"title": "",
-			"description": null,
-			"type": "markdown",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [],
-				"settings": {
-					"markdown": {
-						"text": "# Backup"
-					}
-				}
-			}
-		},
-		{
-			"id": "f1535f10-a7ba-4c74-8ae6-d5be8c5655ee",
-			"title": "Top 10 AWS S3 Buckets Size and Cost",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \nreturn \n    bucket.name as Name, \n    bucket.tag.AccountName as Account, \n    bucket.numberOfObjects as \"Number of Objects\", \n    bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n    bucket.bucketSizeBytes / 1000000000 * 0.023 as \"Monthly Cost\",\n    bucket.lifecycleEnabled, bucket.retentionPeriod\norder by bucket.bucketSizeBytes DESC limit 10"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "29df3495-eea3-45a2-b779-788d92c8baa4",
-			"title": "Inactive Instances (during the past 60 days)",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "find Host with active = false and stateChangedOn < date.now - 60 day as h\n    return h.displayName as Name,\n    h.accountId as AccountId,\n    h.tag.AccountName as Account,\n    h.hibernationOptionsConfigured,\n    h.instanceType as Type,\n    h.public,\n    h.stateChangedOn"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "814000f8-9ffd-4ac3-90f8-26d321e9eba6",
-			"title": "EIPS used by an Inactive EC2 Instance",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "find aws_eip \n    that uses aws_instance WITH active != true AND state = 'stopped'"
-					},
-					{
-						"id": null,
-						"name": "query2",
-						"query": "find aws_eip that !(uses|has) *"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "293fc7fd-eb34-4383-82b8-068b62ffdd61",
-			"title": "Unused or Unrelated Resources: disks, elastic IPs, NAT gateways, load balancers, orphaned snapshotsUntitled",
-			"description": "Unused resources like unattached disks, idle elastic IPs, and orphaned snapshots are common culprits of cloud waste. JupiterOne’s analysis uncovers these hidden costs, recommending clean-up actions that free up resources and reduce monthly cloud spend.",
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "Query 1",
-						"query": "FIND (Backup | Disk | aws_eip) AS a\nTHAT !RELATES TO *\nRETURN COUNT(a) as 'Count', a._type as 'AWS Resource Type'"
-					}
-				],
-				"settings": {}
-			}
-		},
-		{
-			"id": "b2e1c9b2-9da8-40d9-a068-9a6a4e0f2ed3",
-			"title": "EBS volumes attached to inactive EC2 instances",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "Find aws_ebs_volume as e \n    that USES aws_instance with active!=true \n    return \n        e.displayName as Name, \n        e.encrypted as Encrypted, \n        e.size as Size, \n        e.volumeType as Type"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "24bf65f6-e196-4e49-9e91-7d5bceb5c080",
-			"title": "High Snapshot Monthly Costs",
-			"description": "",
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "Query 1",
-						"query": "find aws_ebs_snapshot as i\nreturn i.displayName as snapshotName, i.owner as owner, i.volumeSizeas as snapshotVolumeSize, i.createdOn as createdOn, i.volumeSize * 0.05 as monthlyCostUSD\norder by monthlyCostUSD DESC"
-					}
-				],
-				"settings": {}
-			}
-		},
-		{
-			"id": "ce89d0fe-cd1d-4590-bffe-91c6f394ae4d",
-			"title": "",
-			"description": null,
-			"type": "markdown",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [],
-				"settings": {
-					"markdown": {
-						"text": "# Account and Services Evaluation"
-					}
-				}
-			}
-		},
-		{
-			"id": "883dc4ba-6e75-44e6-8c42-8979c63c2a12",
-			"title": "EC2 Usage Across Organization by Type",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "find aws_instance with instanceType!=undefined as a \n    return a.instanceType as Type, \n    count(a) as Total,\n    a.tag.AccountName as AccountName,\n    a.accountId as AccountID\n    \n"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "6ed5488a-0969-4cda-af4b-2ecb74b3963c",
-			"title": "EBS Snapshot Usage Per Account",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "FIND aws_ebs_snapshot with volumeSize!=undefined as b \n  return b.tag.AccountName as Account, \n    SUM(b.volumeSize) as TotalSize, \n    AVG(b.volumeSize) as AverageSize, \n    MAX(b.volumeSize) as LargestSnapshot,\n    COUNT(b) as TotalSnapshots ORDER BY AverageSize DESC"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "7a5c6998-df18-474c-be1c-5938a5e68943",
-			"title": "Elastic IPs not using an ENI",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "find aws_eip \n    that !uses aws_eni"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "3810193b-b6b6-428c-ab5c-48217d234ab4",
-			"title": "Disks not not in use",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "Find Disk with _class!='Backup' as d\n    that !uses (Host|Configuration)\n    return\n        d.displayName as Name,\n        d.tag.AccountName as Account,\n        d.size as SizeInGB,\n        d.sizeGB as SizeInGB,\n        d.diskSizeBytes as \"Size in Bytes\",\n        d.diskSizeGb as SizeInGB\n        order by SizeInGB DESC"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "f6a487a4-b385-421e-bfb8-03b1e651ce25",
-			"title": "All DynamoDB Tables Size and Cost",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "find aws_dynamodb_table with active=true as table \nreturn table.displayName as Name, \ntable.tag.AccountName as Account,\ntable.continuousBackupEnabled,\ntable.hasBackup,\ntable.itemCount,\ntable.tableSizeBytes / 1000000000 as SizeInGB,\ntable.tableSizeBytes / 1000000000 * 0.25 as \"Monthly Cost\"\norder by SizeInGB DESC"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "fd572af2-0df0-4d66-95e0-913cd79b973d",
-			"title": "S3 Total and Average Bucket Size by Account",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "find aws_s3_bucket with bucketSizeBytes!=undefined as b \nreturn \nb.tag.AccountName as Account, \nSUM(b.bucketSizeBytes) / 1000000000 as TotalSizeInGB, \nAVG(b.bucketSizeBytes) / 1000000000 as AverageSizeInGB ORDER BY AverageSizeInGB DESC"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "d1096b70-22fb-47d2-95d3-e1d63416d8e3",
-			"title": "Monthly Database Backup Cost",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "Find (aws_db_cluster_snapshot|aws_db_snapshot) as snapshot\nReturn\n    snapshot.displayName as Name,\n    snapshot.tag.AccountName as Account,\n    snapshot.allocatedStorage as StorageInGB,\n    sum(snapshot.allocatedStorage) * 0.02 as EstimatedCost\n    ORDER BY snapshot.allocatedStorage DESC\n"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "7d2e98b1-48cb-40bd-bef0-19e735c1fd3f",
-			"title": "",
-			"description": null,
-			"type": "markdown",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [],
-				"settings": {
-					"markdown": {
-						"text": "# DynamoDB"
-					}
-				}
-			}
-		},
-		{
-			"id": "373a6c3e-77ee-4044-ba11-af176c813fb0",
-			"title": "All S3 Buckets Ordered By Size",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "find aws_s3_bucket with bucketSizeBytes!=undefined as b \nreturn b.bucketSizeBytes / 1000000000 as SizeInGB, \nb.bucketName as \"Name\", \nb.createdOn as \"Creation Date\",  \nb.tag.AccountName as Account\nORDER BY SizeInGB DESC"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "d679fc5e-ead3-4b7d-b650-559167edbeff",
-			"title": "EBS Volume Usage per Account",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "FIND aws_ebs_volume with size!=undefined as b \n  return b.tag.AccountName as Account, \n    SUM(b.size) as TotalSize, \n    AVG(b.size) as AverageSize, \n    MAX(b.size) as LargestVolume,\n    COUNT(b) as TotalVolume ORDER BY AverageSize DESC"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "ce48c3e2-5ff9-42c6-85c3-e87ae9148762",
-			"title": "EC2 instances using more than one EIP",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "find aws_eip \n    that uses aws_instance\n    that uses aws_eip"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "384f066c-a4fe-4c26-b7cb-08f333cf9fac",
-			"title": "",
-			"description": null,
-			"type": "markdown",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [],
-				"settings": {
-					"markdown": {
-						"text": "# Elastic IPs"
-					}
-				}
-			}
-		},
-		{
-			"id": "b1caf3ba-4c6e-45aa-8def-e94f1d9e0e3c",
-			"title": "Inactive External Identities",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "Find AccessRole with lastUsedOn < date.now-15 day as Role \n    THAT TRUSTS * with _source=\"system-mapper\" as ext\n    RETURN ext.displayName as \"External Identity\", Role.tag.AccountName as Account, Role.accountId as AccountId, Role.displayName as \"Role Name\", Role._key, Role.lastUsedOn"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "c18dbb26-ecd1-4f19-ab9a-0de6980da2dc",
-			"title": "All S3 Buckets Size and Cost",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \n    return \n        bucket.name as Name, \n        bucket.tag.AccountName as Account, \n        bucket.numberOfObjects as \"Number of Objects\", \n        bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n        bucket.bucketSizeBytes / 1000000000 * 0.023 as \"Monthly Cost\",\n        bucket.lifecycleEnabled, bucket.retentionPeriod \n        ORDER BY bucket.bucketSizeBytes DESC"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "450cc2ff-8f00-4311-b508-db8084df8725",
-			"title": "",
-			"description": null,
-			"type": "markdown",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [],
-				"settings": {
-					"markdown": {
-						"text": "# S3"
-					}
-				}
-			}
-		},
-		{
-			"id": "befe345c-e392-40de-ad1b-97a38ac18503",
-			"title": "AWS Database Backup Cost per Account",
-			"description": null,
-			"type": "pie",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query0",
-						"query": "FIND (aws_db_cluster_snapshot|aws_db_snapshot) as snapshot\n  RETURN\n    snapshot.tag.AccountName as name,\n    sum(snapshot.allocatedStorage) * 0.02 as value"
-					}
-				],
-				"settings": {
-					"pie": {
-						"decimalLimit": 2,
-						"currencyFormat": "$"
-					}
-				}
-			}
-		},
-		{
-			"id": "e8f652ba-d3ac-4adb-a16e-f410af56414b",
-			"title": "",
-			"description": null,
-			"type": "markdown",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [],
-				"settings": {
-					"markdown": {
-						"text": "# Unused Resources"
-					}
-				}
-			}
-		},
-		{
-			"id": "448f356d-d79f-47a2-a6ed-6ddf93d50f90",
-			"title": "Prune Backups",
-			"description": "Redundant or outdated backups consume unnecessary storage and incur costs. JupiterOne can identify and help manage backup pruning strategies, ensuring efficient storage use and reducing expenses without compromising data recovery capabilities.",
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "Query 1",
-						"query": "FIND Backup AS a \nRETURN \nCOUNT(a), a._type, a.allocatedStorage, a.crossRegion, a.storageType"
-					}
-				],
-				"settings": {}
-			}
-		},
-		{
-			"id": "4d8ec87c-9a01-41eb-a659-bb9ad2afd283",
-			"title": "AWS Regions in Use across Accounts",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "Find UNIQUE * with _integrationType=\"aws\" and region!=undefined as a\n    RETURN a.region as AWSRegion, count(a.accountId) as NumberOfAccounts"
-					}
-				],
-				"settings": null
-			}
-		},
-		{
-			"id": "6022a63e-38c0-42a4-bb9c-6a2c2e571da2",
-			"title": "EIPs Not Currently Utilized",
-			"description": null,
-			"type": "table",
-			"questionId": null,
-			"noResultMessage": null,
-			"includeDeleted": null,
-			"config": {
-				"queries": [
-					{
-						"id": null,
-						"name": "query1",
-						"query": "Find aws_eip that !(USES|HAS) *"
-					}
-				],
-				"settings": null
-			}
-		}
-	],
-	"layouts": {
-		"xs": [],
-		"sm": [
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 0,
-				"i": "cc1bb92b-736b-4b76-bb2a-4ffb3fb6db04"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 1,
-				"i": "750ea929-fb31-46ef-b1d4-68c53b06e5a3"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 2,
-				"i": "92507e3e-2c99-4089-b75a-ce97ad4743d5"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 2,
-				"h": 2,
-				"x": 0,
-				"y": 3,
-				"i": "f1535f10-a7ba-4c74-8ae6-d5be8c5655ee"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 7,
-				"i": "29df3495-eea3-45a2-b779-788d92c8baa4"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 8,
-				"i": "814000f8-9ffd-4ac3-90f8-26d321e9eba6"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 9,
-				"i": "293fc7fd-eb34-4383-82b8-068b62ffdd61"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 10,
-				"i": "b2e1c9b2-9da8-40d9-a068-9a6a4e0f2ed3"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 11,
-				"i": "24bf65f6-e196-4e49-9e91-7d5bceb5c080"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 12,
-				"i": "ce89d0fe-cd1d-4590-bffe-91c6f394ae4d"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 13,
-				"i": "883dc4ba-6e75-44e6-8c42-8979c63c2a12"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 14,
-				"i": "6ed5488a-0969-4cda-af4b-2ecb74b3963c"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 15,
-				"i": "7a5c6998-df18-474c-be1c-5938a5e68943"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 16,
-				"i": "3810193b-b6b6-428c-ab5c-48217d234ab4"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 17,
-				"i": "f6a487a4-b385-421e-bfb8-03b1e651ce25"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 18,
-				"i": "fd572af2-0df0-4d66-95e0-913cd79b973d"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 19,
-				"i": "d1096b70-22fb-47d2-95d3-e1d63416d8e3"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 20,
-				"i": "7d2e98b1-48cb-40bd-bef0-19e735c1fd3f"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 21,
-				"i": "373a6c3e-77ee-4044-ba11-af176c813fb0"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 22,
-				"i": "d679fc5e-ead3-4b7d-b650-559167edbeff"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 23,
-				"i": "ce48c3e2-5ff9-42c6-85c3-e87ae9148762"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 24,
-				"i": "384f066c-a4fe-4c26-b7cb-08f333cf9fac"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 25,
-				"i": "b1caf3ba-4c6e-45aa-8def-e94f1d9e0e3c"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 26,
-				"i": "c18dbb26-ecd1-4f19-ab9a-0de6980da2dc"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 27,
-				"i": "450cc2ff-8f00-4311-b508-db8084df8725"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 2,
-				"h": 2,
-				"x": 0,
-				"y": 5,
-				"i": "befe345c-e392-40de-ad1b-97a38ac18503"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 28,
-				"i": "e8f652ba-d3ac-4adb-a16e-f410af56414b"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 29,
-				"i": "448f356d-d79f-47a2-a6ed-6ddf93d50f90"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 30,
-				"i": "4d8ec87c-9a01-41eb-a659-bb9ad2afd283"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 1,
-				"h": 1,
-				"x": 0,
-				"y": 31,
-				"i": "6022a63e-38c0-42a4-bb9c-6a2c2e571da2"
-			}
-		],
-		"md": [],
-		"lg": [
-			{
-				"static": null,
-				"moved": null,
-				"w": 8,
-				"h": 2,
-				"x": 4,
-				"y": 34,
-				"i": "cc1bb92b-736b-4b76-bb2a-4ffb3fb6db04"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 9,
-				"i": "750ea929-fb31-46ef-b1d4-68c53b06e5a3"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 1,
-				"x": 0,
-				"y": 8,
-				"i": "92507e3e-2c99-4089-b75a-ce97ad4743d5"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 1,
-				"i": "f1535f10-a7ba-4c74-8ae6-d5be8c5655ee"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 24,
-				"i": "29df3495-eea3-45a2-b779-788d92c8baa4"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 29,
-				"i": "814000f8-9ffd-4ac3-90f8-26d321e9eba6"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 4,
-				"h": 2,
-				"x": 0,
-				"y": 18,
-				"i": "293fc7fd-eb34-4383-82b8-068b62ffdd61"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 6,
-				"h": 2,
-				"x": 6,
-				"y": 22,
-				"i": "b2e1c9b2-9da8-40d9-a068-9a6a4e0f2ed3"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 15,
-				"i": "24bf65f6-e196-4e49-9e91-7d5bceb5c080"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 1,
-				"x": 0,
-				"y": 33,
-				"i": "ce89d0fe-cd1d-4590-bffe-91c6f394ae4d"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 6,
-				"h": 2,
-				"x": 6,
-				"y": 20,
-				"i": "883dc4ba-6e75-44e6-8c42-8979c63c2a12"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 22,
-				"i": "6ed5488a-0969-4cda-af4b-2ecb74b3963c"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 6,
-				"h": 2,
-				"x": 6,
-				"y": 31,
-				"i": "7a5c6998-df18-474c-be1c-5938a5e68943"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 20,
-				"i": "3810193b-b6b6-428c-ab5c-48217d234ab4"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 6,
-				"i": "f6a487a4-b385-421e-bfb8-03b1e651ce25"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 6,
-				"h": 2,
-				"x": 6,
-				"y": 3,
-				"i": "fd572af2-0df0-4d66-95e0-913cd79b973d"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 7,
-				"h": 2,
-				"x": 5,
-				"y": 11,
-				"i": "d1096b70-22fb-47d2-95d3-e1d63416d8e3"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 1,
-				"x": 0,
-				"y": 5,
-				"i": "7d2e98b1-48cb-40bd-bef0-19e735c1fd3f"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 3,
-				"i": "373a6c3e-77ee-4044-ba11-af176c813fb0"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 8,
-				"h": 2,
-				"x": 4,
-				"y": 18,
-				"i": "d679fc5e-ead3-4b7d-b650-559167edbeff"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 6,
-				"h": 2,
-				"x": 0,
-				"y": 31,
-				"i": "ce48c3e2-5ff9-42c6-85c3-e87ae9148762"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 1,
-				"x": 0,
-				"y": 26,
-				"i": "384f066c-a4fe-4c26-b7cb-08f333cf9fac"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 36,
-				"i": "b1caf3ba-4c6e-45aa-8def-e94f1d9e0e3c"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 6,
-				"h": 2,
-				"x": 6,
-				"y": 1,
-				"i": "c18dbb26-ecd1-4f19-ab9a-0de6980da2dc"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 1,
-				"x": 0,
-				"y": 0,
-				"i": "450cc2ff-8f00-4311-b508-db8084df8725"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 5,
-				"h": 2,
-				"x": 0,
-				"y": 11,
-				"i": "befe345c-e392-40de-ad1b-97a38ac18503"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 1,
-				"x": 0,
-				"y": 17,
-				"i": "e8f652ba-d3ac-4adb-a16e-f410af56414b"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 13,
-				"i": "448f356d-d79f-47a2-a6ed-6ddf93d50f90"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 4,
-				"h": 2,
-				"x": 0,
-				"y": 34,
-				"i": "4d8ec87c-9a01-41eb-a659-bb9ad2afd283"
-			},
-			{
-				"static": null,
-				"moved": null,
-				"w": 12,
-				"h": 2,
-				"x": 0,
-				"y": 27,
-				"i": "6022a63e-38c0-42a4-bb9c-6a2c2e571da2"
-			}
-		],
-		"xl": []
-	}
+  "widgets": [
+    {
+      "id": "cc1bb92b-736b-4b76-bb2a-4ffb3fb6db04",
+      "title": "Optimize underutilized/incorrectly-sized EC2 instances",
+      "description": "Many organizations pay for computing power they don't fully utilize. JupiterOne provides insights to right-size or decommission underutilized, inactive, or incorrectly-sized EC2 and RDS instances, driving significant cost savings while maintaining performance.",
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "Query 1",
+            "query": "FIND Host \nWITH _type != \"mapped_entity\" \nAND instanceType != undefined \nAND state = \"running\" AS a \nRETURN \nCOUNT(a), a._type, a.state, a.instanceClass, a.instanceType, a.active, a.dbInstanceClass"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "750ea929-fb31-46ef-b1d4-68c53b06e5a3",
+      "title": "DB Cluster Snapshot Usage per Account",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "FIND aws_db_cluster_snapshot with _source!=\"system-mapper\" and allocatedStorage!=undefined as b \n  return b.tag.AccountName as Account, \n    SUM(b.allocatedStorage) as TotalSizeInGB, \n    AVG(b.allocatedStorage) as AverageSizeInGB, \n    MAX(b.allocatedStorage) as LargestSnapshotInGB,\n    COUNT(b) as TotalSnapshots ORDER BY AverageSizeInGB DESC"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "92507e3e-2c99-4089-b75a-ce97ad4743d5",
+      "title": "",
+      "description": null,
+      "type": "markdown",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [],
+        "settings": {
+          "markdown": {
+            "text": "# Backup"
+          }
+        }
+      }
+    },
+    {
+      "id": "f1535f10-a7ba-4c74-8ae6-d5be8c5655ee",
+      "title": "Top 10 AWS S3 Buckets Size and Cost",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \nreturn \n    bucket.name as Name, \n    bucket.tag.AccountName as Account, \n    bucket.numberOfObjects as \"Number of Objects\", \n    bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n    bucket.bucketSizeBytes / 1000000000 * 0.023 as \"Monthly Cost\",\n    bucket.lifecycleEnabled, bucket.retentionPeriod\norder by bucket.bucketSizeBytes DESC limit 10"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "29df3495-eea3-45a2-b779-788d92c8baa4",
+      "title": "Inactive Instances (during the past 60 days)",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "find Host with active = false and stateChangedOn < date.now - 60 day as h\n    return h.displayName as Name,\n    h.accountId as AccountId,\n    h.tag.AccountName as Account,\n    h.hibernationOptionsConfigured,\n    h.instanceType as Type,\n    h.public,\n    h.stateChangedOn"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "814000f8-9ffd-4ac3-90f8-26d321e9eba6",
+      "title": "EIPS used by an Inactive EC2 Instance",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "find aws_eip \n    that uses aws_instance WITH active != true AND state = 'stopped'"
+          },
+          {
+            "id": null,
+            "name": "query2",
+            "query": "find aws_eip that !(uses|has) *"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "293fc7fd-eb34-4383-82b8-068b62ffdd61",
+      "title": "Unused or Unrelated Resources: disks, elastic IPs, NAT gateways, load balancers, orphaned snapshotsUntitled",
+      "description": "Unused resources like unattached disks, idle elastic IPs, and orphaned snapshots are common culprits of cloud waste. JupiterOne’s analysis uncovers these hidden costs, recommending clean-up actions that free up resources and reduce monthly cloud spend.",
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "Query 1",
+            "query": "FIND (Backup | Disk | aws_eip) AS a\nTHAT !RELATES TO *\nRETURN COUNT(a) as 'Count', a._type as 'AWS Resource Type'"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "b2e1c9b2-9da8-40d9-a068-9a6a4e0f2ed3",
+      "title": "EBS volumes attached to inactive EC2 instances",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "Find aws_ebs_volume as e \n    that USES aws_instance with active!=true \n    return \n        e.displayName as Name, \n        e.encrypted as Encrypted, \n        e.size as Size, \n        e.volumeType as Type"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "24bf65f6-e196-4e49-9e91-7d5bceb5c080",
+      "title": "High Snapshot Monthly Costs",
+      "description": "",
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "Query 1",
+            "query": "find aws_ebs_snapshot as i\nreturn i.displayName as snapshotName, i.owner as owner, i.volumeSizeas as snapshotVolumeSize, i.createdOn as createdOn, i.volumeSize * 0.05 as monthlyCostUSD\norder by monthlyCostUSD DESC"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "ce89d0fe-cd1d-4590-bffe-91c6f394ae4d",
+      "title": "",
+      "description": null,
+      "type": "markdown",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [],
+        "settings": {
+          "markdown": {
+            "text": "# Account and Services Evaluation"
+          }
+        }
+      }
+    },
+    {
+      "id": "883dc4ba-6e75-44e6-8c42-8979c63c2a12",
+      "title": "EC2 Usage Across Organization by Type",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "find aws_instance with instanceType!=undefined as a \n    return a.instanceType as Type, \n    count(a) as Total,\n    a.tag.AccountName as AccountName,\n    a.accountId as AccountID\n    \n"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "6ed5488a-0969-4cda-af4b-2ecb74b3963c",
+      "title": "EBS Snapshot Usage Per Account",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "FIND aws_ebs_snapshot with volumeSize!=undefined as b \n  return b.tag.AccountName as Account, \n    SUM(b.volumeSize) as TotalSize, \n    AVG(b.volumeSize) as AverageSize, \n    MAX(b.volumeSize) as LargestSnapshot,\n    COUNT(b) as TotalSnapshots ORDER BY AverageSize DESC"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "7a5c6998-df18-474c-be1c-5938a5e68943",
+      "title": "Elastic IPs not using an ENI",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "find aws_eip \n    that !uses aws_eni"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "3810193b-b6b6-428c-ab5c-48217d234ab4",
+      "title": "Disks not not in use",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "Find Disk with _class!='Backup' as d\n    that !uses (Host|Configuration)\n    return\n        d.displayName as Name,\n        d.tag.AccountName as Account,\n        d.size as SizeInGB,\n        d.sizeGB as SizeInGB,\n        d.diskSizeBytes as \"Size in Bytes\",\n        d.diskSizeGb as SizeInGB\n        order by SizeInGB DESC"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "f6a487a4-b385-421e-bfb8-03b1e651ce25",
+      "title": "All DynamoDB Tables Size and Cost",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "find aws_dynamodb_table with active=true as table \nreturn table.displayName as Name, \ntable.tag.AccountName as Account,\ntable.continuousBackupEnabled,\ntable.hasBackup,\ntable.itemCount,\ntable.tableSizeBytes / 1000000000 as SizeInGB,\ntable.tableSizeBytes / 1000000000 * 0.25 as \"Monthly Cost\"\norder by SizeInGB DESC"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "fd572af2-0df0-4d66-95e0-913cd79b973d",
+      "title": "S3 Total and Average Bucket Size by Account",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as b \nreturn \nb.tag.AccountName as Account, \nSUM(b.bucketSizeBytes) / 1000000000 as TotalSizeInGB, \nAVG(b.bucketSizeBytes) / 1000000000 as AverageSizeInGB ORDER BY AverageSizeInGB DESC"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "d1096b70-22fb-47d2-95d3-e1d63416d8e3",
+      "title": "Monthly Database Backup Cost",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "Find (aws_db_cluster_snapshot|aws_db_snapshot) as snapshot\nReturn\n    snapshot.displayName as Name,\n    snapshot.tag.AccountName as Account,\n    snapshot.allocatedStorage as StorageInGB,\n    sum(snapshot.allocatedStorage) * 0.02 as EstimatedCost\n    ORDER BY snapshot.allocatedStorage DESC\n"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "7d2e98b1-48cb-40bd-bef0-19e735c1fd3f",
+      "title": "",
+      "description": null,
+      "type": "markdown",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [],
+        "settings": {
+          "markdown": {
+            "text": "# DynamoDB"
+          }
+        }
+      }
+    },
+    {
+      "id": "373a6c3e-77ee-4044-ba11-af176c813fb0",
+      "title": "All S3 Buckets Ordered By Size",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as b \nreturn b.bucketSizeBytes / 1000000000 as SizeInGB, \nb.bucketName as \"Name\", \nb.createdOn as \"Creation Date\",  \nb.tag.AccountName as Account\nORDER BY SizeInGB DESC"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "d679fc5e-ead3-4b7d-b650-559167edbeff",
+      "title": "EBS Volume Usage per Account",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "FIND aws_ebs_volume with size!=undefined as b \n  return b.tag.AccountName as Account, \n    SUM(b.size) as TotalSize, \n    AVG(b.size) as AverageSize, \n    MAX(b.size) as LargestVolume,\n    COUNT(b) as TotalVolume ORDER BY AverageSize DESC"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "ce48c3e2-5ff9-42c6-85c3-e87ae9148762",
+      "title": "EC2 instances using more than one EIP",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "find aws_eip \n    that uses aws_instance\n    that uses aws_eip"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "384f066c-a4fe-4c26-b7cb-08f333cf9fac",
+      "title": "",
+      "description": null,
+      "type": "markdown",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [],
+        "settings": {
+          "markdown": {
+            "text": "# Elastic IPs"
+          }
+        }
+      }
+    },
+    {
+      "id": "b1caf3ba-4c6e-45aa-8def-e94f1d9e0e3c",
+      "title": "Inactive External Identities",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "Find AccessRole with lastUsedOn < date.now-15 day as Role \n    THAT TRUSTS * with _source=\"system-mapper\" as ext\n    RETURN ext.displayName as \"External Identity\", Role.tag.AccountName as Account, Role.accountId as AccountId, Role.displayName as \"Role Name\", Role._key, Role.lastUsedOn"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "c18dbb26-ecd1-4f19-ab9a-0de6980da2dc",
+      "title": "All S3 Buckets Size and Cost",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \n    return \n        bucket.name as Name, \n        bucket.tag.AccountName as Account, \n        bucket.numberOfObjects as \"Number of Objects\", \n        bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n        bucket.bucketSizeBytes / 1000000000 * 0.023 as \"Monthly Cost\",\n        bucket.lifecycleEnabled, bucket.retentionPeriod \n        ORDER BY bucket.bucketSizeBytes DESC"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "450cc2ff-8f00-4311-b508-db8084df8725",
+      "title": "",
+      "description": null,
+      "type": "markdown",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [],
+        "settings": {
+          "markdown": {
+            "text": "# S3"
+          }
+        }
+      }
+    },
+    {
+      "id": "befe345c-e392-40de-ad1b-97a38ac18503",
+      "title": "AWS Database Backup Cost per Account",
+      "description": null,
+      "type": "pie",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query0",
+            "query": "FIND (aws_db_cluster_snapshot|aws_db_snapshot) as snapshot\n  RETURN\n    snapshot.tag.AccountName as name,\n    sum(snapshot.allocatedStorage) * 0.02 as value"
+          }
+        ],
+        "settings": {
+          "pie": {
+            "decimalLimit": 2,
+            "currencyFormat": "$"
+          }
+        }
+      }
+    },
+    {
+      "id": "e8f652ba-d3ac-4adb-a16e-f410af56414b",
+      "title": "",
+      "description": null,
+      "type": "markdown",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [],
+        "settings": {
+          "markdown": {
+            "text": "# Unused Resources"
+          }
+        }
+      }
+    },
+    {
+      "id": "448f356d-d79f-47a2-a6ed-6ddf93d50f90",
+      "title": "Prune Backups",
+      "description": "Redundant or outdated backups consume unnecessary storage and incur costs. JupiterOne can identify and help manage backup pruning strategies, ensuring efficient storage use and reducing expenses without compromising data recovery capabilities.",
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "Query 1",
+            "query": "FIND Backup AS a \nRETURN \nCOUNT(a), a._type, a.allocatedStorage, a.crossRegion, a.storageType"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "4d8ec87c-9a01-41eb-a659-bb9ad2afd283",
+      "title": "AWS Regions in Use across Accounts",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "Find UNIQUE * with _integrationType=\"aws\" and region!=undefined as a\n    RETURN a.region as AWSRegion, count(a.accountId) as NumberOfAccounts"
+          }
+        ],
+        "settings": {}
+      }
+    },
+    {
+      "id": "6022a63e-38c0-42a4-bb9c-6a2c2e571da2",
+      "title": "EIPs Not Currently Utilized",
+      "description": null,
+      "type": "table",
+      "questionId": null,
+      "noResultMessage": null,
+      "includeDeleted": null,
+      "config": {
+        "queries": [
+          {
+            "id": null,
+            "name": "query1",
+            "query": "Find aws_eip that !(USES|HAS) *"
+          }
+        ],
+        "settings": {}
+      }
+    }
+  ],
+  "layouts": {
+    "xs": [],
+    "sm": [
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 0,
+        "i": "cc1bb92b-736b-4b76-bb2a-4ffb3fb6db04"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 1,
+        "i": "750ea929-fb31-46ef-b1d4-68c53b06e5a3"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 2,
+        "i": "92507e3e-2c99-4089-b75a-ce97ad4743d5"
+      },
+      {
+        "w": 2,
+        "h": 2,
+        "x": 0,
+        "y": 3,
+        "i": "f1535f10-a7ba-4c74-8ae6-d5be8c5655ee"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 7,
+        "i": "29df3495-eea3-45a2-b779-788d92c8baa4"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 8,
+        "i": "814000f8-9ffd-4ac3-90f8-26d321e9eba6"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 9,
+        "i": "293fc7fd-eb34-4383-82b8-068b62ffdd61"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 10,
+        "i": "b2e1c9b2-9da8-40d9-a068-9a6a4e0f2ed3"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 11,
+        "i": "24bf65f6-e196-4e49-9e91-7d5bceb5c080"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 12,
+        "i": "ce89d0fe-cd1d-4590-bffe-91c6f394ae4d"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 13,
+        "i": "883dc4ba-6e75-44e6-8c42-8979c63c2a12"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 14,
+        "i": "6ed5488a-0969-4cda-af4b-2ecb74b3963c"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 15,
+        "i": "7a5c6998-df18-474c-be1c-5938a5e68943"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 16,
+        "i": "3810193b-b6b6-428c-ab5c-48217d234ab4"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 17,
+        "i": "f6a487a4-b385-421e-bfb8-03b1e651ce25"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 18,
+        "i": "fd572af2-0df0-4d66-95e0-913cd79b973d"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 19,
+        "i": "d1096b70-22fb-47d2-95d3-e1d63416d8e3"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 20,
+        "i": "7d2e98b1-48cb-40bd-bef0-19e735c1fd3f"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 21,
+        "i": "373a6c3e-77ee-4044-ba11-af176c813fb0"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 22,
+        "i": "d679fc5e-ead3-4b7d-b650-559167edbeff"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 23,
+        "i": "ce48c3e2-5ff9-42c6-85c3-e87ae9148762"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 24,
+        "i": "384f066c-a4fe-4c26-b7cb-08f333cf9fac"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 25,
+        "i": "b1caf3ba-4c6e-45aa-8def-e94f1d9e0e3c"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 26,
+        "i": "c18dbb26-ecd1-4f19-ab9a-0de6980da2dc"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 27,
+        "i": "450cc2ff-8f00-4311-b508-db8084df8725"
+      },
+      {
+        "w": 2,
+        "h": 2,
+        "x": 0,
+        "y": 5,
+        "i": "befe345c-e392-40de-ad1b-97a38ac18503"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 28,
+        "i": "e8f652ba-d3ac-4adb-a16e-f410af56414b"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 29,
+        "i": "448f356d-d79f-47a2-a6ed-6ddf93d50f90"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 30,
+        "i": "4d8ec87c-9a01-41eb-a659-bb9ad2afd283"
+      },
+      {
+        "w": 1,
+        "h": 1,
+        "x": 0,
+        "y": 31,
+        "i": "6022a63e-38c0-42a4-bb9c-6a2c2e571da2"
+      }
+    ],
+    "md": [],
+    "lg": [
+      {
+        "w": 8,
+        "h": 2,
+        "x": 4,
+        "y": 34,
+        "i": "cc1bb92b-736b-4b76-bb2a-4ffb3fb6db04"
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 9,
+        "i": "750ea929-fb31-46ef-b1d4-68c53b06e5a3"
+      },
+      {
+        "w": 12,
+        "h": 1,
+        "x": 0,
+        "y": 8,
+        "i": "92507e3e-2c99-4089-b75a-ce97ad4743d5"
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 1,
+        "i": "f1535f10-a7ba-4c74-8ae6-d5be8c5655ee"
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 24,
+        "i": "29df3495-eea3-45a2-b779-788d92c8baa4"
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 29,
+        "i": "814000f8-9ffd-4ac3-90f8-26d321e9eba6"
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 0,
+        "y": 18,
+        "i": "293fc7fd-eb34-4383-82b8-068b62ffdd61"
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 6,
+        "y": 22,
+        "i": "b2e1c9b2-9da8-40d9-a068-9a6a4e0f2ed3"
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 15,
+        "i": "24bf65f6-e196-4e49-9e91-7d5bceb5c080"
+      },
+      {
+        "w": 12,
+        "h": 1,
+        "x": 0,
+        "y": 33,
+        "i": "ce89d0fe-cd1d-4590-bffe-91c6f394ae4d"
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 6,
+        "y": 20,
+        "i": "883dc4ba-6e75-44e6-8c42-8979c63c2a12"
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 22,
+        "i": "6ed5488a-0969-4cda-af4b-2ecb74b3963c"
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 6,
+        "y": 31,
+        "i": "7a5c6998-df18-474c-be1c-5938a5e68943"
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 20,
+        "i": "3810193b-b6b6-428c-ab5c-48217d234ab4"
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 6,
+        "i": "f6a487a4-b385-421e-bfb8-03b1e651ce25"
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 6,
+        "y": 3,
+        "i": "fd572af2-0df0-4d66-95e0-913cd79b973d"
+      },
+      {
+        "w": 7,
+        "h": 2,
+        "x": 5,
+        "y": 11,
+        "i": "d1096b70-22fb-47d2-95d3-e1d63416d8e3"
+      },
+      {
+        "w": 12,
+        "h": 1,
+        "x": 0,
+        "y": 5,
+        "i": "7d2e98b1-48cb-40bd-bef0-19e735c1fd3f"
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 3,
+        "i": "373a6c3e-77ee-4044-ba11-af176c813fb0"
+      },
+      {
+        "w": 8,
+        "h": 2,
+        "x": 4,
+        "y": 18,
+        "i": "d679fc5e-ead3-4b7d-b650-559167edbeff"
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 0,
+        "y": 31,
+        "i": "ce48c3e2-5ff9-42c6-85c3-e87ae9148762"
+      },
+      {
+        "w": 12,
+        "h": 1,
+        "x": 0,
+        "y": 26,
+        "i": "384f066c-a4fe-4c26-b7cb-08f333cf9fac"
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 36,
+        "i": "b1caf3ba-4c6e-45aa-8def-e94f1d9e0e3c"
+      },
+      {
+        "w": 6,
+        "h": 2,
+        "x": 6,
+        "y": 1,
+        "i": "c18dbb26-ecd1-4f19-ab9a-0de6980da2dc"
+      },
+      {
+        "w": 12,
+        "h": 1,
+        "x": 0,
+        "y": 0,
+        "i": "450cc2ff-8f00-4311-b508-db8084df8725"
+      },
+      {
+        "w": 5,
+        "h": 2,
+        "x": 0,
+        "y": 11,
+        "i": "befe345c-e392-40de-ad1b-97a38ac18503"
+      },
+      {
+        "w": 12,
+        "h": 1,
+        "x": 0,
+        "y": 17,
+        "i": "e8f652ba-d3ac-4adb-a16e-f410af56414b"
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 13,
+        "i": "448f356d-d79f-47a2-a6ed-6ddf93d50f90"
+      },
+      {
+        "w": 4,
+        "h": 2,
+        "x": 0,
+        "y": 34,
+        "i": "4d8ec87c-9a01-41eb-a659-bb9ad2afd283"
+      },
+      {
+        "w": 12,
+        "h": 2,
+        "x": 0,
+        "y": 27,
+        "i": "6022a63e-38c0-42a4-bb9c-6a2c2e571da2"
+      }
+    ],
+    "xl": []
+  }
 }
