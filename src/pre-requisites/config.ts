@@ -7,7 +7,7 @@ export const CLOUD = {
 export const VULNERABILITY_SCANNER = {
   id: "vulnerability-scanner",
   title: "Vulnerability Scanner",
-  integrationsNames: ["qualys", "rapid7-insight", "tenable-cloud"],
+  integrationsNames: ["qualys", "rapid7-insight", "tenable-cloud", "rapid7"],
 };
 
 export const DEVICE_MANAGEMENT = {
