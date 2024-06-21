@@ -14,7 +14,7 @@ pipeline {
         script {
           if (env.BRANCH_NAME == 'main') {
             // publish new package version if updated
-            publishNewNpmVersionIfAny('dist/package.json', '.dist/')
+            publishNewNpmVersionIfAny('dist/package.json', 'dist/')
           }
         }
       }
