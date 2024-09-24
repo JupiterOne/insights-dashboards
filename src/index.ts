@@ -418,3 +418,5 @@ export const MANAGED_BOARDS: ManagedBoard[] = [
 export * as PreReqConfig from "./pre-requisites/config";
 
 export default InsightsDashboards;
+
+export * from "./query-variables";
