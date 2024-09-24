@@ -16,6 +16,7 @@
     "deploy": "jupiterone-manual-deploy -t jupiterone-dev -a apply",
     "destroy": "jupiterone-manual-deploy -t jupiterone-dev -a destroy",
     "plan": "jupiterone-manual-deploy -t jupiterone-dev -a plan",
+    "test": "vitest --config ./vitest.config.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
@@ -26,7 +27,11 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-typescript2": "^0.34.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "vitest": "^2.1.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@jupiterone/query-language-parser": "^4.2.0",
+    "@jupiterone/query-language-reverser": "^4.2.0"
+  }
 }

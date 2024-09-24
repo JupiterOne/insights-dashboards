@@ -12,7 +12,8 @@
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
     "declarationDir": "dist",
-    "outDir": "dist"
+    "outDir": "dist",
+    "types": ["vitest/globals"]
   },
   "include": ["src"]
 }
