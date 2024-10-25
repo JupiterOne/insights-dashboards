@@ -371,9 +371,6 @@ export const userEndpointBlastRadiusPreReq: Prerequisites = {
     {
       groupIds: ["endpoint-agents"],
     },
-    {
-      groupIds: ["device-management"],
-    },
   ],
   supportedUseCase:
     "This is an interactive dashboard that prompts you to enter a macAddress of a device and visualize the device owner's access, full inventory of digital identities, and the resources they have access to.",
