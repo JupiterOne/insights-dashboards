@@ -8,7 +8,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find \"{{hostname or instanceId or ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  that relates to * \nreturn tree"
+            "query": "Find \"{{hostname-or-instanceId-or-ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  that relates to * \nreturn tree"
           }
         ],
         "settings": {
@@ -26,7 +26,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find \"{{hostname or instanceId or ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database') as e1\n  that relates to (AccessRole|Application|Cluster|CodeRepo|DataStore|Firewall|Gateway|Group|Key|Network|Project|User|UserGroup)\n  that relates to * as e2\nwhere e1._class=e2._class\nreturn TREE"
+            "query": "Find \"{{hostname-or-instanceId-or-ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database') as e1\n  that relates to (AccessRole|Application|Cluster|CodeRepo|DataStore|Firewall|Gateway|Group|Key|Network|Project|User|UserGroup)\n  that relates to * as e2\nwhere e1._class=e2._class\nreturn TREE"
           }
         ],
         "settings": {
@@ -44,7 +44,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find \"{{hostname or instanceId or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that (has|contains) Network)?\n  (that (has|contains) Network)?\n  that relates to (Gateway|Firewall)\n  that allows Internet\nreturn TREE"
+            "query": "Find \"{{hostname-or-instanceId-or-ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that (has|contains) Network)?\n  (that (has|contains) Network)?\n  that relates to (Gateway|Firewall)\n  that allows Internet\nreturn TREE"
           }
         ],
         "settings": {
@@ -62,7 +62,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find \"{{hostname or instanceId or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that has * with _class!=('Problem' or 'Alert'))?\n  (that has Account)?\n  (that has (Group|Organization))?\n  that allows as permissions AccessPolicy\n  (that (allows|assigned) AccessRole)?\n  that (trusts|allows|assigned) (User|UserGroup|AccessRole|Account)\nwhere permissions.admin=true or permissions.admin=undefined\nreturn TREE"
+            "query": "Find \"{{hostname-or-instanceId-or-ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that has * with _class!=('Problem' or 'Alert'))?\n  (that has Account)?\n  (that has (Group|Organization))?\n  that allows as permissions AccessPolicy\n  (that (allows|assigned) AccessRole)?\n  that (trusts|allows|assigned) (User|UserGroup|AccessRole|Account)\nwhere permissions.admin=true or permissions.admin=undefined\nreturn TREE"
           }
         ],
         "settings": {
@@ -80,7 +80,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find \"{{hostname or instanceId or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that (assigned|uses) AccessRole)?\n  (that (assigned|uses) AccessPolicy)?\n  that (allows|uses) DataStore\nreturn TREE"
+            "query": "Find \"{{hostname-or-instanceId-or-ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that (assigned|uses) AccessRole)?\n  (that (assigned|uses) AccessPolicy)?\n  that (allows|uses) DataStore\nreturn TREE"
           }
         ],
         "settings": {
@@ -98,7 +98,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find Unique \"{{hostname or instanceId or ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  that has (Finding|Problem) as f\nreturn \n  f._type as Type,\n  f.displayName as DisplayName,\n  f.description as Description,\n  f.severity as Severity,\n  f.numericSeverity as NumericSeverity,\n  f.status as Status,\n  f.createdOn as CreatedOn,\n  f.updatedOn as UpdatedOn,\n  f.webLink as WebLink"
+            "query": "Find Unique \"{{hostname-or-instanceId-or-ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  that has (Finding|Problem) as f\nreturn \n  f._type as Type,\n  f.displayName as DisplayName,\n  f.description as Description,\n  f.severity as Severity,\n  f.numericSeverity as NumericSeverity,\n  f.status as Status,\n  f.createdOn as CreatedOn,\n  f.updatedOn as UpdatedOn,\n  f.webLink as WebLink"
           }
         ]
       }
@@ -111,7 +111,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find \"{{hostname or instanceId or ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database') as e1\n  that relates to (AccessRole|Application|Cluster|CodeRepo|DataStore|Firewall|Gateway|Group|Key|Network|Project|User|UserGroup) AS r1\n  that relates to * as e2\nwhere e1._class=e2._class\nRETURN\ne2.displayName as Resource,\ne2._type as Type,\nr1.displayName as SharedResource,\nr1._type AS SharedResourceType,\ne2.tag.AccountName as AccountName,\ne2._key as ResourceKey"
+            "query": "Find \"{{hostname-or-instanceId-or-ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database') as e1\n  that relates to (AccessRole|Application|Cluster|CodeRepo|DataStore|Firewall|Gateway|Group|Key|Network|Project|User|UserGroup) AS r1\n  that relates to * as e2\nwhere e1._class=e2._class\nRETURN\ne2.displayName as Resource,\ne2._type as Type,\nr1.displayName as SharedResource,\nr1._type AS SharedResourceType,\ne2.tag.AccountName as AccountName,\ne2._key as ResourceKey"
           }
         ]
       }
@@ -124,7 +124,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find \"{{hostname or instanceId or ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database') AS e1\n  that relates to AS r1 * AS e2 \nreturn \ne2.displayName AS Resource,\ne2._type AS Type,\ne2._key as ResourceKey"
+            "query": "Find \"{{hostname-or-instanceId-or-ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database') AS e1\n  that relates to AS r1 * AS e2 \nreturn \ne2.displayName AS Resource,\ne2._type AS Type,\ne2._key as ResourceKey"
           }
         ]
       }
@@ -137,7 +137,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find \"{{hostname or instanceId or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database') AS e1\n  (that (assigned|uses) AS r1 AccessRole)? as e2\n  (that (assigned|uses) AS r2 AccessPolicy)? AS e3\n  that (allows|uses) AS r3 DataStore AS e4\nRETURN \ne4._type as Type,\ne4.displayName AS DataStore,\ne4.encrypted as EncryptionStatus,\ne4.classification as Classificaiton"
+            "query": "Find \"{{hostname-or-instanceId-or-ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database') AS e1\n  (that (assigned|uses) AS r1 AccessRole)? as e2\n  (that (assigned|uses) AS r2 AccessPolicy)? AS e3\n  that (allows|uses) AS r3 DataStore AS e4\nRETURN \ne4._type as Type,\ne4.displayName AS DataStore,\ne4.encrypted as EncryptionStatus,\ne4.classification as Classificaiton"
           }
         ]
       }
@@ -150,7 +150,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find Unique \"{{hostname or instanceId or ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  that has (Finding|Problem) as f\nreturn TREE"
+            "query": "Find Unique \"{{hostname-or-instanceId-or-ipAddress}}\" \n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  that has (Finding|Problem) as f\nreturn TREE"
           }
         ]
       }
@@ -163,7 +163,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find \"{{hostname or instanceId or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that has * with _class!=('Problem' or 'Alert'))?\n  (that has Account)?\n  (that has (Group|Organization))?\n  that allows as permissions AccessPolicy\n  (that (allows|assigned) AccessRole)?\n  that (trusts|allows|assigned) (User|UserGroup|AccessRole|Account) as e1\nwhere permissions.admin=true or permissions.admin=undefined\nreturn\ne1._type as Type,\ne1.displayName as ' ',\npermissions.admin as Admin,\npermissions.actions as Actions,\npermissions.conditions as Conditions"
+            "query": "Find \"{{hostname-or-instanceId-or-ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that has * with _class!=('Problem' or 'Alert'))?\n  (that has Account)?\n  (that has (Group|Organization))?\n  that allows as permissions AccessPolicy\n  (that (allows|assigned) AccessRole)?\n  that (trusts|allows|assigned) (User|UserGroup|AccessRole|Account) as e1\nwhere permissions.admin=true or permissions.admin=undefined\nreturn\ne1._type as Type,\ne1.displayName as ' ',\npermissions.admin as Admin,\npermissions.actions as Actions,\npermissions.conditions as Conditions"
           }
         ]
       }
@@ -176,7 +176,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "Find \"{{hostname or instanceId or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that (has|contains) Network)?\n  (that (has|contains) Network)?\n  that relates to (Gateway|Firewall) as e1\n  that allows as rule Internet\nreturn\ne1._type as Type,\ne1.displayName as ' ',\ne1.egressRules as EgressRules,\ne1.ingressRules as IngressRules"
+            "query": "Find \"{{hostname-or-instanceId-or-ipAddress}}\"\n  with _class=('Device' or 'Host' or 'Function' or 'Database')\n  (that (has|contains) Network)?\n  (that (has|contains) Network)?\n  that relates to (Gateway|Firewall) as e1\n  that allows as rule Internet\nreturn\ne1._type as Type,\ne1.displayName as ' ',\ne1.egressRules as EgressRules,\ne1.ingressRules as IngressRules"
           }
         ]
       }

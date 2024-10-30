@@ -9,7 +9,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" WITH _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \n(THAT HAS UserGroup)?\nTHAT (ASSIGNED|HAS|USES) (Account|AccessRole|AccessKey|Application|Token)\n(THAT ASSIGNED AccessPolicy)?\n(THAT ALLOWS *)?\nRETURN TREE"
+            "query": "FIND \"{{macAddress-or-hostname-or-email-or-ipAddress}}\" WITH _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \n(THAT HAS UserGroup)?\nTHAT (ASSIGNED|HAS|USES) (Account|AccessRole|AccessKey|Application|Token)\n(THAT ASSIGNED AccessPolicy)?\n(THAT ALLOWS *)?\nRETURN TREE"
           }
         ],
         "settings": {
@@ -27,7 +27,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "FIND \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application) as entity\nRETURN entity._type as accessType, count(entity) as accessCount order by accessCount DESC"
+            "query": "FIND \"{{macAddress-or-hostname-or-email-or-ipAddress}}\" with _class='Device'\n(THAT (HAS|OWNS|MANAGES) User)?\nTHAT (IS|OWNS|MANAGES) Person\nTHAT IS User \nTHAT (HAS|ASSIGNED) (Account|AccessRole|AccessKey|Application) as entity\nRETURN entity._type as accessType, count(entity) as accessCount order by accessCount DESC"
           }
         ]
       }
@@ -40,15 +40,15 @@
         "queries": [
           {
             "name": "query1",
-            "query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
+            "query": "FIND unique \"{{macAddress-or-hostname-or-email-or-ipAddress}}\" with _class='Device'\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
           },
           {
             "name": "query2",
-            "query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\nTHAT (HAS|OWNS|MANAGES) User\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
+            "query": "FIND unique \"{{macAddress-or-hostname-or-email-or-ipAddress}}\" with _class='Device'\nTHAT (HAS|OWNS|MANAGES) User\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
           },
           {
             "name": "query3",
-            "query": "FIND unique \"{{macAddress or hostname or email or ipAddress}}\" with _class='Device'\nTHAT (HAS|OWNS|MANAGES) User\nTHAT (IS|OWNS|MANAGES) Person\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
+            "query": "FIND unique \"{{macAddress-or-hostname-or-email-or-ipAddress}}\" with _class='Device'\nTHAT (HAS|OWNS|MANAGES) User\nTHAT (IS|OWNS|MANAGES) Person\nthat has (Finding|Problem) as f\nreturn \n  f._type, \n  f.displayName, \n  f.description, \n  f.severity, \n  f.numericSeverity,\n  f.status,\n  f.createdOn,\n  f.updatedOn,\n  f.webLink"
           }
         ]
       }
@@ -61,7 +61,7 @@
         "queries": [
           {
             "name": "query1",
-            "query": "FIND \"{{macAddress or hostname or email or ipAddress}}\"\n  with _class=('Device' or 'Host' or 'HostAgent' or 'User' or 'HostAgent')\n  (that RELATES TO user_endpoint)?\n  (that OWNS << Person)?\n  (that (IS|HAS) User)?\n  that HAS UserGroup\nRETURN \n  UserGroup.displayName as \"Group Name\", \n  UserGroup._type as \"Group Type\""
+            "query": "FIND \"{{macAddress-or-hostname-or-email-or-ipAddress}}\"\n  with _class=('Device' or 'Host' or 'HostAgent' or 'User' or 'HostAgent')\n  (that RELATES TO user_endpoint)?\n  (that OWNS << Person)?\n  (that (IS|HAS) User)?\n  that HAS UserGroup\nRETURN \n  UserGroup.displayName as \"Group Name\", \n  UserGroup._type as \"Group Type\""
           }
         ]
       },
