@@ -68,7 +68,7 @@
           {
             "id": null,
             "name": "query1",
-            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \nreturn \n    bucket.name as Name, \n    bucket.tag.AccountName as Account, \n    bucket.numberOfObjects as \"Number of Objects\", \n    bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n    bucket.bucketSizeBytes / 1000000000 * 0.023 as \"Monthly Cost\",\n    bucket.lifecycleEnabled, bucket.retentionPeriod\norder by bucket.bucketSizeBytes DESC limit 10"
+            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \nreturn \n    bucket.name as Name, \n    bucket.tag.AccountName as Account, \n    bucket.numberOfObjects as \"Number of Objects\", \n    bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n    bucket.bucketSizeBytes / 1000000000 * 0.023 as \"Monthly Cost\", \n    bucket.lifecycleEnabled, bucket.retentionPeriod\norder by bucket.bucketSizeBytes DESC limit 10"
           }
         ],
         "settings": {}
@@ -119,7 +119,7 @@
     },
     {
       "id": "293fc7fd-eb34-4383-82b8-068b62ffdd61",
-      "title": "Unused or Unrelated Resources: disks, elastic IPs, NAT gateways, load balancers, orphaned snapshotsUntitled",
+      "title": "Unused or Unrelated Resources: disks, elastic IPs, NAT gateways, load balancers, orphaned snapshots",
       "description": "Unused resources like unattached disks, idle elastic IPs, and orphaned snapshots are common culprits of cloud waste. JupiterOne’s analysis uncovers these hidden costs, recommending clean-up actions that free up resources and reduce monthly cloud spend.",
       "type": "table",
       "questionId": null,
@@ -130,7 +130,7 @@
           {
             "id": null,
             "name": "Query 1",
-            "query": "FIND (Backup | Disk | aws_eip) AS a\nTHAT !RELATES TO *\nRETURN COUNT(a) as 'Count', a._type as 'AWS Resource Type'"
+            "query": "FIND (Backup | Disk | aws_eip) AS a\nTHAT !RELATES TO *\n RETURN COUNT(a) as '# of Resources', a._type as 'AWS Resource Type'"
           }
         ],
         "settings": {}
@@ -280,7 +280,7 @@
           {
             "id": null,
             "name": "query1",
-            "query": "find aws_dynamodb_table with active=true as table \nreturn table.displayName as Name, \ntable.tag.AccountName as Account,\ntable.continuousBackupEnabled,\ntable.hasBackup,\ntable.itemCount,\ntable.tableSizeBytes / 1000000000 as SizeInGB,\ntable.tableSizeBytes / 1000000000 * 0.25 as \"Monthly Cost\"\norder by SizeInGB DESC"
+            "query": "find aws_dynamodb_table with active=true as table \nreturn table.displayName as Name, \ntable.tag.AccountName as Account,\ntable.continuousBackupEnabled,\ntable.hasBackup,\ntable.itemCount,\ntable.tableSizeBytes / 1000000000 as SizeInGB,\ntable.tableSizeBytes / 1000000000 * 0.25 as \"Monthly Cost\", \n order by SizeInGB DESC"
           }
         ],
         "settings": {}
@@ -447,7 +447,7 @@
           {
             "id": null,
             "name": "query1",
-            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \n    return \n        bucket.name as Name, \n        bucket.tag.AccountName as Account, \n        bucket.numberOfObjects as \"Number of Objects\", \n        bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n        bucket.bucketSizeBytes / 1000000000 * 0.023 as \"Monthly Cost\",\n        bucket.lifecycleEnabled, bucket.retentionPeriod \n        ORDER BY bucket.bucketSizeBytes DESC"
+            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \n    return \n        bucket.name as Name, \n        bucket.tag.AccountName as Account, \n        bucket.numberOfObjects as \"Number of Objects\", \n        bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n        bucket.bucketSizeBytes / 1000000000 * 0.023 as \"Monthly Cost\", \n        bucket.lifecycleEnabled, bucket.retentionPeriod \n        ORDER BY bucket.bucketSizeBytes DESC"
           }
         ],
         "settings": {}
