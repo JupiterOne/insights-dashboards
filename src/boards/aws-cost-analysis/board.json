@@ -68,7 +68,7 @@
           {
             "id": null,
             "name": "query1",
-            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \nreturn \n    bucket.name as Name, \n    bucket.tag.AccountName as Account, \n    bucket.numberOfObjects as \"Number of Objects\", \n    bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n    bucket.bucketSizeBytes / 1000000000 * 0.023 as \"Monthly Cost\", \n    bucket.lifecycleEnabled, bucket.retentionPeriod\norder by bucket.bucketSizeBytes DESC limit 10"
+            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \nreturn \n    bucket.name as Name, \n    bucket.tag.AccountName as Account, \n    bucket.numberOfObjects as \"Number of Objects\", \n    bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n    bucket.bucketSizeBytes / 1000000000 * 0.023 as \"MonthlyCost\", \n    bucket.lifecycleEnabled, bucket.retentionPeriod\norder by bucket.bucketSizeBytes DESC limit 10"
           }
         ],
         "settings": {}
@@ -280,7 +280,7 @@
           {
             "id": null,
             "name": "query1",
-            "query": "find aws_dynamodb_table with active=true as table \nreturn table.displayName as Name, \ntable.tag.AccountName as Account,\ntable.continuousBackupEnabled,\ntable.hasBackup,\ntable.itemCount,\ntable.tableSizeBytes / 1000000000 as SizeInGB,\ntable.tableSizeBytes / 1000000000 * 0.25 as \"Monthly Cost\", \n order by SizeInGB DESC"
+            "query": "find aws_dynamodb_table with active=true as table \nreturn table.displayName as Name, \ntable.tag.AccountName as Account,\ntable.continuousBackupEnabled,\ntable.hasBackup,\ntable.itemCount,\ntable.tableSizeBytes / 1000000000 as SizeInGB,\ntable.tableSizeBytes / 1000000000 * 0.25 as \"MonthlyCost\", \n order by SizeInGB DESC"
           }
         ],
         "settings": {}
@@ -447,7 +447,7 @@
           {
             "id": null,
             "name": "query1",
-            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \n    return \n        bucket.name as Name, \n        bucket.tag.AccountName as Account, \n        bucket.numberOfObjects as \"Number of Objects\", \n        bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n        bucket.bucketSizeBytes / 1000000000 * 0.023 as \"Monthly Cost\", \n        bucket.lifecycleEnabled, bucket.retentionPeriod \n        ORDER BY bucket.bucketSizeBytes DESC"
+            "query": "find aws_s3_bucket with bucketSizeBytes!=undefined as bucket \n    return \n        bucket.name as Name, \n        bucket.tag.AccountName as Account, \n        bucket.numberOfObjects as \"Number of Objects\", \n        bucket.bucketSizeBytes / 1000000000 as SizeInGB, \n        bucket.bucketSizeBytes / 1000000000 * 0.023 as \"MonthlyCost\", \n        bucket.lifecycleEnabled, bucket.retentionPeriod \n        ORDER BY bucket.bucketSizeBytes DESC"
           }
         ],
         "settings": {}
