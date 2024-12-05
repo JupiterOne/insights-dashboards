@@ -280,7 +280,7 @@
           {
             "id": null,
             "name": "query1",
-            "query": "find aws_dynamodb_table with active=true as table \nreturn table.displayName as Name, \ntable.tag.AccountName as Account,\ntable.continuousBackupEnabled,\ntable.hasBackup,\ntable.itemCount,\ntable.tableSizeBytes / 1000000000 as SizeInGB,\ntable.tableSizeBytes / 1000000000 * 0.25 as \"MonthlyCost\", \n order by SizeInGB DESC"
+            "query": "find aws_dynamodb_table with active=true as table \nreturn table.displayName as Name, \ntable.tag.AccountName as Account,\ntable.continuousBackupEnabled,\ntable.hasBackup,\ntable.itemCount,\ntable.tableSizeBytes / 1000000000 as SizeInGB,\ntable.tableSizeBytes / 1000000000 * 0.25 as \"MonthlyCost\" \n order by SizeInGB DESC"
           }
         ],
         "settings": {}
