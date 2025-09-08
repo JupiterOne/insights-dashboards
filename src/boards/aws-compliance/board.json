@@ -1,0 +1,232 @@
+{
+	"widgets": [
+		{
+			"id": "dde77778-895d-4bb9-9940-7bd0d05ea754",
+			"title": "Scan Recency Analysis",
+			"description": "Distribution of recent vs older Inspector scans for compliance monitoring",
+			"type": "bar",
+			"questionId": null,
+			"noResultMessage": "No assessments found",
+			"includeDeleted": null,
+			"config": {
+				"queries": [
+					{
+						"id": null,
+						"name": "Recent Scans",
+						"query": "FIND aws_inspector_assessment with status='COMPLETED' AS assessment WHERE assessment.completedOn > date.now-90day RETURN 'Recent (0-90 days)' AS x, count(assessment) AS y"
+					},
+					{
+						"id": null,
+						"name": "Older Scans",
+						"query": "FIND aws_inspector_assessment with status='COMPLETED' AS assessment WHERE assessment.completedOn < date.now-90day RETURN 'Older (90+ days)' AS x, count(assessment) AS y"
+					}
+				],
+				"settings": {
+					"bar": {
+						"upwardTrendIsGood": false
+					}
+				},
+				"postQueryFilters": null,
+				"disableQueryPolicyFilters": null
+			}
+		},
+		{
+			"id": "f9e04d8e-6ead-4c32-ac17-1d030dc1297a",
+			"title": "Total Instances Scanned",
+			"description": "Total count of AWS instances with Inspector assessments for compliance evidence",
+			"type": "number",
+			"questionId": null,
+			"noResultMessage": "No scanned instances found",
+			"includeDeleted": null,
+			"config": {
+				"queries": [
+					{
+						"id": "37119c42-4dd0-4e04-96f6-26d20f48fe43",
+						"name": "Query 1",
+						"query": "FIND aws_inspector_assessment with status='COMPLETED' AS assessment RETURN count(assessment) AS value"
+					}
+				],
+				"settings": {
+					"number": {
+						"upwardTrendIsGood": true,
+						"trendDataIsEnabled": true
+					}
+				},
+				"postQueryFilters": null,
+				"disableQueryPolicyFilters": null
+			}
+		},
+		{
+			"id": "7c731b08-d7e3-47ef-a8c6-044d86a58e31",
+			"title": "Inspector Scan Status Distribution",
+			"description": "Distribution of Inspector assessment statuses for compliance tracking",
+			"type": "pie",
+			"questionId": null,
+			"noResultMessage": "No Inspector assessments found",
+			"includeDeleted": null,
+			"config": {
+				"queries": [
+					{
+						"id": null,
+						"name": "Query 1",
+						"query": "FIND aws_inspector_assessment AS assessment RETURN assessment.status AS name, count(assessment) AS value"
+					}
+				],
+				"settings": {
+					"pie": {
+						"upwardTrendIsGood": true,
+						"customColors": {
+							"0": "#26A69A",
+							"1": "#3F51B5",
+							"2": "#D81B60",
+							"3": "#FF8F00"
+						}
+					}
+				},
+				"postQueryFilters": null,
+				"disableQueryPolicyFilters": null
+			}
+		},
+		{
+			"id": "d59b2f4d-fabb-480e-b2d5-787e1d69fdf1",
+			"title": "Compliance Summary",
+			"description": "Key metrics for ISO compliance evidence collection",
+			"type": "table",
+			"questionId": null,
+			"noResultMessage": "No data available",
+			"includeDeleted": null,
+			"config": {
+				"queries": [
+					{
+						"id": null,
+						"name": "Recent Activity",
+						"query": "FIND aws_inspector_assessment with status='COMPLETED' AS assessment WHERE assessment.completedOn > date.now-30day RETURN 'Scans completed in last 30 days' AS 'Metric', count(assessment) AS 'Count'"
+					}
+				],
+				"settings": null,
+				"postQueryFilters": null,
+				"disableQueryPolicyFilters": null
+			}
+		},
+		{
+			"id": "f66663b9-75fb-4c52-9c9e-7aee9bac21e1",
+			"title": "Inspector Assessment Details for Compliance Evidence",
+			"description": "Detailed table of Inspector assessments with timestamps for ISO compliance documentation",
+			"type": "table",
+			"questionId": null,
+			"noResultMessage": "No Inspector assessments found",
+			"includeDeleted": null,
+			"config": {
+				"queries": [
+					{
+						"id": null,
+						"name": "Query 1",
+						"query": "FIND aws_inspector_assessment with status='COMPLETED' AS assessment RETURN assessment.displayName AS 'Assessment Name', assessment.completedOn AS 'Last Scan Completed', assessment.startedOn AS 'Scan Started', assessment.status AS 'Status', assessment.arn AS 'ARN' ORDER BY assessment.completedOn DESC LIMIT 50"
+					}
+				],
+				"settings": null,
+				"postQueryFilters": null,
+				"disableQueryPolicyFilters": null
+			}
+		}
+	],
+	"layouts": {
+		"xs": [],
+		"sm": [
+			{
+				"static": null,
+				"moved": null,
+				"w": 2,
+				"h": 2,
+				"x": 0,
+				"y": 4,
+				"i": "dde77778-895d-4bb9-9940-7bd0d05ea754"
+			},
+			{
+				"static": null,
+				"moved": null,
+				"w": 2,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "f9e04d8e-6ead-4c32-ac17-1d030dc1297a"
+			},
+			{
+				"static": null,
+				"moved": null,
+				"w": 2,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "7c731b08-d7e3-47ef-a8c6-044d86a58e31"
+			},
+			{
+				"static": null,
+				"moved": null,
+				"w": 2,
+				"h": 1,
+				"x": 0,
+				"y": 6,
+				"i": "d59b2f4d-fabb-480e-b2d5-787e1d69fdf1"
+			},
+			{
+				"static": null,
+				"moved": null,
+				"w": 2,
+				"h": 3,
+				"x": 0,
+				"y": 7,
+				"i": "f66663b9-75fb-4c52-9c9e-7aee9bac21e1"
+			}
+		],
+		"md": [],
+		"lg": [
+			{
+				"static": null,
+				"moved": null,
+				"w": 4,
+				"h": 2,
+				"x": 8,
+				"y": 0,
+				"i": "dde77778-895d-4bb9-9940-7bd0d05ea754"
+			},
+			{
+				"static": null,
+				"moved": null,
+				"w": 4,
+				"h": 2,
+				"x": 0,
+				"y": 0,
+				"i": "f9e04d8e-6ead-4c32-ac17-1d030dc1297a"
+			},
+			{
+				"static": null,
+				"moved": null,
+				"w": 4,
+				"h": 2,
+				"x": 4,
+				"y": 0,
+				"i": "7c731b08-d7e3-47ef-a8c6-044d86a58e31"
+			},
+			{
+				"static": null,
+				"moved": null,
+				"w": 6,
+				"h": 2,
+				"x": 0,
+				"y": 2,
+				"i": "d59b2f4d-fabb-480e-b2d5-787e1d69fdf1"
+			},
+			{
+				"static": null,
+				"moved": null,
+				"w": 12,
+				"h": 3,
+				"x": 0,
+				"y": 4,
+				"i": "f66663b9-75fb-4c52-9c9e-7aee9bac21e1"
+			}
+		],
+		"xl": []
+	}
+}
