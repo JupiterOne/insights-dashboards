@@ -6,6 +6,6 @@ on:
       - main
 
 jobs:
-  npm-release:
+  release:
     uses: jupiterone/github-internal/.github/workflows/npm-release.yaml@v1
     secrets: inherit
