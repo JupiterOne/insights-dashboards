@@ -1,0 +1,9 @@
+name: NPM PR
+
+on:
+  pull_request:
+
+jobs:
+  pr:
+    uses: jupiterone/github-internal/.github/workflows/npm-pr.yaml@v1
+    secrets: inherit
