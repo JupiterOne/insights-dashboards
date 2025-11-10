@@ -5,5 +5,5 @@ on:
 
 jobs:
   pr:
-    uses: jupiterone/github-internal/.github/workflows/npm-pr.yaml@v1
+    uses: JupiterOne/github-internal/.github/workflows/npm-pr.yaml@v1
     secrets: inherit
