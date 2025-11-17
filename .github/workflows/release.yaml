@@ -7,5 +7,5 @@ on:
 
 jobs:
   release:
-    uses: JupiterOne/github-internal/.github/workflows/npm-release.yaml@v1
+    uses: jupiterone/github-internal/.github/workflows/npm-pr.yaml@v1
     secrets: inherit
