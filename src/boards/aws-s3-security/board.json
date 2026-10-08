@@ -278,28 +278,8 @@
     }
   ],
   "layouts": {
-    "sm": [
-      {
-        "static": false,
-        "w": 6,
-        "moved": false,
-        "h": 4,
-        "x": 0,
-        "y": 8,
-        "i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96"
-      }
-    ],
-    "xs": [
-      {
-        "static": false,
-        "w": 12,
-        "moved": false,
-        "h": 4,
-        "x": 0,
-        "y": 8,
-        "i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96"
-      }
-    ],
+    "sm": [],
+    "xs": [],
     "lg": [
       {
         "static": false,
@@ -482,27 +462,7 @@
         "i": "d3b2e2e0-4f7e-463a-876f-ebeae3f81602"
       }
     ],
-    "xl": [
-      {
-        "static": false,
-        "w": 6,
-        "moved": false,
-        "h": 4,
-        "x": 6,
-        "y": 8,
-        "i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96"
-      }
-    ],
-    "md": [
-      {
-        "static": false,
-        "w": 6,
-        "moved": false,
-        "h": 4,
-        "x": 6,
-        "y": 8,
-        "i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96"
-      }
-    ]
+    "xl": [],
+    "md": []
   }
 }
