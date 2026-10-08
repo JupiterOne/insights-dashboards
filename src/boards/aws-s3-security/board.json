@@ -110,12 +110,12 @@
     {
       "id": "0eebbe4b-30bf-4e6a-9470-df7e21622c96",
       "title": "Non-public S3 buckets exposed via public facing EC2 instances",
-      "type": "graph",
+      "type": "table",
       "config": {
         "queries": [
           {
             "name": "query1",
-            "query": "find Internet \n  that allows aws_security_group \n  that protects aws_instance with active=true \n  that uses aws_iam_role that assigned AccessPolicy \n  that allows (aws_s3|aws_s3_bucket) with classification!='public' \nreturn tree\n"
+            "query": "find Internet \n  that allows >> aws_security_group \n  that protects aws_instance with active=true as instance \n  that uses aws_iam_role that assigned AccessPolicy \n  that allows (aws_s3|aws_s3_bucket) with classification!='public' as bucket \nreturn \n  bucket.displayName, bucket._type, bucket.tag.AccountName, \n  count(instance) as exposedInstances\n"
           }
         ]
       }
@@ -278,8 +278,28 @@
     }
   ],
   "layouts": {
-    "sm": [],
-    "xs": [],
+    "sm": [
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 4,
+        "x": 0,
+        "y": 8,
+        "i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96"
+      }
+    ],
+    "xs": [
+      {
+        "static": false,
+        "w": 12,
+        "moved": false,
+        "h": 4,
+        "x": 0,
+        "y": 8,
+        "i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96"
+      }
+    ],
     "lg": [
       {
         "static": false,
@@ -462,7 +482,27 @@
         "i": "d3b2e2e0-4f7e-463a-876f-ebeae3f81602"
       }
     ],
-    "xl": [],
-    "md": []
+    "xl": [
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 4,
+        "x": 6,
+        "y": 8,
+        "i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96"
+      }
+    ],
+    "md": [
+      {
+        "static": false,
+        "w": 6,
+        "moved": false,
+        "h": 4,
+        "x": 6,
+        "y": 8,
+        "i": "0eebbe4b-30bf-4e6a-9470-df7e21622c96"
+      }
+    ]
   }
 }
